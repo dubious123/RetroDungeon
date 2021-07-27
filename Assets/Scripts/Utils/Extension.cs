@@ -8,5 +8,20 @@ public static class Extension
     {
         return Util.GetOrAddComponent<T>(go);
     }
-
+    public static Vector3 ConvertToCart(this Vector3 iso,int z = 0)
+    {
+        return Util.ConvertToCart(iso , z);
+    }
+    public static Vector3 ConvertToCart(this Vector2 iso, int z = 0)
+    {
+        return Util.ConvertToCart(iso, z);
+    }
+    public static Vector3 ConvertToIso(this Vector3 cart, int z = 0)
+    {
+        return Util.ConvertToIso(cart, z);
+    }
+    public static Vector3 ConvertToIso(this Vector2 cart, int z = 0)
+    {
+        return Util.ConvertToIso(cart, z);
+    }
 }
