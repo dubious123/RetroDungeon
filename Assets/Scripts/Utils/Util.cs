@@ -10,6 +10,20 @@ public class Util
         if(component == null) { component = go.AddComponent<T>(); }
         return component;
     }
+    public static Transform[] GetChildren(GameObject go)
+    {
+        int childcount = go.transform.childCount;
+        Transform[] arr = null;
+        if (childcount > 0)
+        {
+            arr = new Transform[childcount];
+            for (int i = 0; i < childcount; i++)
+            {
+                arr[i] = go.transform.GetChild(i);
+            }
+        }
+        return arr;
+    }
 
     public static Vector3 ConvertToCart(Vector3 iso, int z = 0)
     {
@@ -30,14 +44,14 @@ public class Util
     public static Vector3 ConvertToIso(Vector3 cart, int z = 0)
     {
         Vector3 iso = new Vector3();
-        iso = cart.x * Define.TileDir.RightDown + cart.y * Define.TileDir.RightUp;
+        iso = cart.x * Define._tileIsoDir.RightDown + cart.y * Define._tileIsoDir.RightUp;
         iso.z = z;
         return iso;
     }
     public static Vector3 ConvertToIso(Vector2 cart, int z = 0)
     {
         Vector3 iso = new Vector3();
-        iso = cart.x * Define.TileDir.RightDown + cart.y * Define.TileDir.RightUp;
+        iso = cart.x * Define._tileIsoDir.RightDown + cart.y * Define._tileIsoDir.RightUp;
         iso.z = z;
         return iso;
     }

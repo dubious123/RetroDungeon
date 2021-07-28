@@ -1,34 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DungeonInfo : MonoBehaviour
 {
+    Define.World _world;
+    public Dictionary<Vector3, TileInfo> Board = new Dictionary<Vector3, TileInfo>();
+    public int _iteration { get; private set; }
+    #region SpriteSets
+    public Sprite[] Ground;
+    #endregion
+
+
     int _rowSize, _columnSize;
-    [SerializeField]
-    public ZTile[,] Board;
-    public ZTile _baseTileInfo;
-    GameObject _dungeon;
-    public GameObject _baseTile;
-    public void Init(int RowSize,int ColumnSize, Define.World world, GameObject Dungeon)
+    public void Init(Define.World world)
     {
-        _dungeon = Dungeon;
-        _rowSize = RowSize;
-        _columnSize = ColumnSize;
-        Board = new ZTile[_rowSize, ColumnSize];
-        SetDefaultTile(world);
-        for (int i = 0; i < _rowSize; i++)
-        {
-            for (int j = 0; j < _columnSize; j++)
-            {
-                _baseTile = Managers.Resource.Instantiate("Tiles/BaseTile",_dungeon.transform);
-                Board[i, j] = _baseTile.GetOrAddComponent<ZTile>();
-                Board[i, j].SetPos(new Vector2(i,j));
-            }
-        }
+        _world = world;
+        SetDefaultSprite();
     }
-    void SetDefaultTile(Define.World world)
+    void SetDefaultSprite()
     {
-        _baseTileInfo = new ZTile(world);
+        switch (_world)
+        {
+            case Define.World.Unknown:
+                break;
+            case Define.World.AbandonedMineShaft:
+                Ground = SpriteData.AbandonedMineShaft.Ground;
+                //Todo
+                _iteration = Random.Range(1, 10);
+                break;
+            default:
+                break;
+        }
     }
 }

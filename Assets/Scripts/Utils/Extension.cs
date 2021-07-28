@@ -8,6 +8,10 @@ public static class Extension
     {
         return Util.GetOrAddComponent<T>(go);
     }
+    public static Transform[] GetChildren(this GameObject go)
+    {
+        return Util.GetChildren(go);
+    }
     public static Vector3 ConvertToCart(this Vector3 iso,int z = 0)
     {
         return Util.ConvertToCart(iso , z);

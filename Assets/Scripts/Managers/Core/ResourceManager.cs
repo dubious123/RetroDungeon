@@ -44,6 +44,17 @@ public class ResourceManager
         go.name = original.name;
         return go;
     }
+    public Sprite GetSprite(string path)
+    {
+        //To Do
+        Sprite sprite = Load<Sprite>($"Sprites/{path}");
+        if (sprite == null)
+        {
+            Debug.Log($"Failed to load sprite : {path}");
+            return null;
+        }
+        return sprite;
+    }
     public void Destroy(GameObject go)
     {
         if (go == null) { return; }
