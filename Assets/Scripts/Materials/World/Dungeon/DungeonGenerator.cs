@@ -9,11 +9,14 @@ using UnityEngine;
 /// </summary>
 public class DungeonGenerator
 {
+    Brush brush = new Brush();
+    
     Define.World _world;
     DungeonInfo _dungeonInfo;
     Transform[] TileLayers;
-    Vector3 TileCartPos = Vector3.zero;
+    Vector3 _tileCartPos = Vector3.zero;
     TileInfo _tileInfo;
+    int _currentLevel = 0;
     public DungeonGenerator(Define.World world)
     {
         Init(world);
@@ -38,13 +41,14 @@ public class DungeonGenerator
 
 
         TileLayers = dungeon.GetChildren();
+        
         ProcedureGenerator();
         return dungeon;
     }
     public TileInfo SetTileInfo()
     {
         //Todo
-        TileInfo tileInfo = new TileInfo(_world,TileCartPos);
+        TileInfo tileInfo = new TileInfo(_world,_tileCartPos, ref _currentLevel);
         tileInfo.sprites[0] = _dungeonInfo.Ground[0];
         return tileInfo;
     }
@@ -52,36 +56,38 @@ public class DungeonGenerator
     {
         for (int i = 0; i < Define.TileLayerNum; i++)
         {
-            GameObject tileLayer = Managers.Resource.Instantiate("Tiles/BaseTile", TileLayers[i]);
-            tileLayer.GetOrAddComponent<SpriteRenderer>().sprite = tileInfo.sprites[i];
-            tileLayer.transform.position = tileInfo.Position;
+            GameObject BaseTile = Managers.Resource.Instantiate("Tiles/BaseTile", TileLayers[i]);
+            BaseTile.GetOrAddComponent<SpriteRenderer>().sprite = tileInfo.sprites[i];
+            BaseTile.transform.position = tileInfo.Position;
         }
     }
     void RandomWalk(Vector3 startCartPosition, int DungeonSize)
     {
-        TileCartPos = startCartPosition;
+        _tileCartPos = startCartPosition;
         for (int i = 0; i < DungeonSize; i++)
         {
-            TileCartPos += Define.TileCart4Dir[Random.Range(0, Define.TileIso4Dir.Length)];
-            if (_dungeonInfo.Board.ContainsKey(TileCartPos))
+            _tileCartPos += Define.TileCart4Dir[Random.Range(0, Define.TileIso4Dir.Length)];
+            if (_dungeonInfo.Board.ContainsKey(_tileCartPos))
             {
                 i--;
                 continue;
             }
             _tileInfo = SetTileInfo();
             CreateTile(_tileInfo);
-            _dungeonInfo.Board.Add(TileCartPos, _tileInfo);
+            _dungeonInfo.Board.Add(_tileCartPos, _tileInfo);
         }
     }
     void ProcedureGenerator()
     {
-        TileCartPos = new Vector3(0, 0, 0);
+        _tileCartPos = new Vector3(0, 0, 0);
         for (int i = 0; i < _dungeonInfo._iteration; i++)
         {
-            RandomWalk(TileCartPos, 1000);
+            RandomWalk(_tileCartPos, 2000);
             KeyValuePair<Vector3, TileInfo> RandomPair =
             _dungeonInfo.Board.ElementAt(Random.Range(0, _dungeonInfo.Board.Count - 1));
-            TileCartPos = RandomPair.Key;
+            _tileCartPos = RandomPair.Key;
+            _currentLevel = RandomPair.Value.Level;
+
         }
     }
 }

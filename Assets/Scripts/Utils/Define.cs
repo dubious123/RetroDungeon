@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Define
 {
-    public const int TileLayerNum = 5;
+    public const int TileLayerNum = 7;
     public static Vector3[] TileIso4Dir =
     {
         _tileIsoDir.Left,
