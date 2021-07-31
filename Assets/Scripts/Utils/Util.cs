@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Util
 {
@@ -54,5 +55,12 @@ public class Util
         iso = cart.x * Define._tileIsoDir.RightDown + cart.y * Define._tileIsoDir.RightUp;
         iso.z = z;
         return iso;
+    }
+    public static void SetTile(Tilemap[] tilemaps,Vector3Int tileCartPos,TileInfo tileInfo)
+    {
+        for (int i = 0; i < tilemaps.Length; i++)
+        {
+            tilemaps[i].SetTile(tileCartPos,  tileInfo.RuleTiles[i]);
+        }
     }
 }

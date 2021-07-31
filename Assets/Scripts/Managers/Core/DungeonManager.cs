@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class DungeonManager
 {
-    GameObject _dungeon;
+    GameObject Dungeon;
     DungeonGenerator _dungeonGenerator;
     public void Init()
     {
@@ -14,7 +14,8 @@ public class DungeonManager
     public GameObject CreateNewDungeon(Define.World world)
     {
          _dungeonGenerator = new DungeonGenerator(world);
-        return _dungeonGenerator.GenerateDungeon();
+        Dungeon = _dungeonGenerator.GenerateDungeon();
+        return Dungeon;
     }
 
 

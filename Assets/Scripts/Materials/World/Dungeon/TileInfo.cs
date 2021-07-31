@@ -4,43 +4,51 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 public class TileInfo
 {
-    Vector3 _position;
-    int _level = 0;
     Define.World _worldtype = Define.World.Unknown;
-    /// <summary>
-    /// 4: AbovePlayerWall
-    /// 3:DynamicWall
-    /// 2:Pit
-    /// 1:FloorOverlay
-    /// 0:Floor
-    /// </summary>
-    public Sprite[] sprites = new Sprite[Define.TileLayerNum];
+    Vector3Int _position;
+    Define.TileType _tileType;
+    IsometricRuleTile[] _tiles;
+    int _level = 0;
 
-    public Vector3 Position { get { return _position; } }
+
+    public Define.TileType tileType { get { return _tileType; } set { _tileType = value; SetTileType(); } }
+    public IsometricRuleTile[] RuleTiles { get { return _tiles; } }
+
+    Vector3Int Position { get { return _position; } }
     public int Level { get { return _level; } }
 
-    public TileInfo(Define.World world, Vector2 cart,ref int preLevel)
+
+    public TileInfo(Define.World world, Define.TileType tileType = Define.TileType.Default)
     {
-        Init(world, cart,ref preLevel);
+        Init(world, tileType);
     }
-    public void Init(Define.World world, Vector2 cart, ref int preLevel)
+    public void Init(Define.World world,Define.TileType tileType)
     {
         _worldtype = world;
-        SetPos(cart);
-        //about 70% -> maintain current level
-        int randInt = Random.Range(0,100);
-        if( randInt <15 && preLevel > 0) { _level = --preLevel; }
-        else if (randInt < 30 && preLevel < 4){ _level = ++preLevel; }
-        else { _level = preLevel; }
+        _tileType = tileType;
+        _tiles = new IsometricRuleTile[Define.TileLayerNum];
+        SetTileType();
 
     }
-    void SetPos(Vector2 cart)
+    void SetTileType()
     {
-        Vector3 iso = cart.ConvertToIso();
-        _position.x = iso.x;
-        _position.y = iso.y + 0.5f * _level;
-        _position.z = _level;
+        switch (_tileType)
+        {
+            //Todo
+            case Define.TileType.Default:
+                _tiles[0] = Managers.Resource.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
+                break;
+            case Define.TileType.Entrance:
+                _tiles[0] = Managers.Resource.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
+                _tiles[1] = Managers.Resource.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Entrance");
+                _level++;
+                break;
+            case Define.TileType.Exit:
+                _tiles[0] = Managers.Resource.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Exit");
+                break;
+            default:
+                break;
+        }
     }
-
-
 }
+

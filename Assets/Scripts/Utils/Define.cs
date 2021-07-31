@@ -12,7 +12,7 @@ public class Define
         _tileIsoDir.Right,
         _tileIsoDir.Down,
     };
-    public static Vector3[] TileCart4Dir =
+    public static Vector3Int[] TileCart4Dir =
 {
         _tileCartDir.Left,
         _tileCartDir.Up,
@@ -46,17 +46,23 @@ public class Define
         //public static Vector3 RightUp = new Vector3(0.5f, 0.25f, 0);
         //public static Vector3 RightDown = new Vector3(0.5f, -0.25f, 0);
         //public static Vector3 LeftDown = new Vector3(-0.5f, -0.25f, 0);
-        public static Vector3 Left = new Vector3(-1.0f, 0, 0);
-        public static Vector3 Up = new Vector3(0, 1.0f, 0);
-        public static Vector3 Right = new Vector3(1.0f, 0, 0);
-        public static Vector3 Down = new Vector3(0, -1.0f, 0);
+        public static Vector3Int Left = new Vector3Int(-1, 0, 0);
+        public static Vector3Int Up = new Vector3Int(0, 1, 0);
+        public static Vector3Int Right = new Vector3Int(1, 0, 0);
+        public static Vector3Int Down = new Vector3Int(0, -1, 0);
     }
-    public enum DugeonSize
+    public enum TileType
     {
-        RowMax = 50,
-        RowMin = 20,
-        ColumnMax = 50,
-        ColumnMin = 20,
+        Default,
+        Entrance,
+        Exit
+    }
+    public enum WorldObject
+    {
+        Player,
+        Monster,
+        Boss,
+        
     }
     public enum TilemapLayer
     {
@@ -69,7 +75,19 @@ public class Define
     public enum TerrainType
     {
         Default,
+        Scattered,
+        Centered,
         Cliff,
+        num
+    }
+    public enum RoomSize
+    {
+        Default,
+        Tiny,
+        Small,
+        Big,
+        Huge,
+        num
     }
     public enum World
     {

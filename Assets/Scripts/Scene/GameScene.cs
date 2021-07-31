@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameScene : BaseScene
 {
-
     public override void Init()
     {
         base.Init();
         base._sceneType = Define.SceneType.Game;
-        GameObject Dungeon = Managers.Dungion.CreateNewDungeon(Managers.Game._currentWorld);
+        
+        GameObject dungeon = Managers.Dungion.CreateNewDungeon(Managers.Game._currentWorld);
+
+        GameObject player = Managers.Game.Spawn(Define.WorldObject.Player, "Player/Player",dungeon);
     }
     public override void Clear()
     {

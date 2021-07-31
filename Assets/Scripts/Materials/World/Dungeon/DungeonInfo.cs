@@ -6,32 +6,85 @@ using UnityEngine.Tilemaps;
 public class DungeonInfo : MonoBehaviour
 {
     Define.World _world;
-    public Dictionary<Vector3, TileInfo> Board = new Dictionary<Vector3, TileInfo>();
-    public int _iteration { get; private set; }
-    #region SpriteSets
-    public Sprite[] Ground;
-    #endregion
+    Define.RoomSize _size;
+    Define.MapType _mapType;
+    Define.TerrainType _terrain;
 
+    [SerializeField]
+    int _roomSize;
+    [SerializeField]
+    int _iteration;
+    [SerializeField]
+    int _tileCount;
 
-    int _rowSize, _columnSize;
-    public void Init(Define.World world)
+    public int Iteration { get { return _iteration; } }
+    public int RoomSize { get { return _roomSize; } }
+    public int TileCount { get { return _tileCount; } }
+    Dictionary<Vector3Int, TileInfo> _board;
+    public Dictionary<Vector3Int, TileInfo> Board { get { return _board; } }
+
+    public void Init(Define.World world, Define.RoomSize size = Define.RoomSize.Default, 
+        Define.MapType mapType = Define.MapType.Default, 
+        Define.TerrainType terrain = Define.TerrainType.Default)
     {
         _world = world;
-        SetDefaultSprite();
-    }
-    void SetDefaultSprite()
-    {
+        _size = size == Define.RoomSize.Default ? size : (Define.RoomSize)Random.Range(0, (int)Define.RoomSize.num);
+        _mapType = mapType;
+        _terrain = terrain == Define.TerrainType.Default ? terrain : (Define.TerrainType)Random.Range(0, (int)Define.TerrainType.num);
+        _board = new Dictionary<Vector3Int, TileInfo>();
+
         switch (_world)
         {
             case Define.World.Unknown:
                 break;
             case Define.World.AbandonedMineShaft:
-                Ground = SpriteData.AbandonedMineShaft.Ground;
-                //Todo
-                _iteration = Random.Range(1, 10);
-                break;
-            default:
                 break;
         }
+        switch (size)
+        {
+            case Define.RoomSize.Default:
+                _roomSize = 500;
+                _iteration = 5;
+                break;
+            case Define.RoomSize.Tiny:
+                _roomSize = 200;
+                _iteration = 5;
+                break;
+            case Define.RoomSize.Small:
+                _roomSize = 350;
+                _iteration = 5;
+                break;
+            case Define.RoomSize.Big:
+                _roomSize = 650;
+                _iteration = 5;
+                break;
+            case Define.RoomSize.Huge:
+                _roomSize = 800;
+                _iteration = 5;
+                break;
+        }
+        switch (_mapType)
+        {
+
+        }
+        switch (_terrain)
+        {
+            case Define.TerrainType.Default:
+                break;
+            case Define.TerrainType.Scattered:
+                _iteration *= 3;
+                _roomSize /= 3;
+                break;
+            case Define.TerrainType.Centered:
+                _iteration /= 3;
+                _roomSize *= 3;
+                break;
+            case Define.TerrainType.Cliff:
+                _iteration *= 3;
+                _roomSize /= 3;
+                break;
+        }
+
+        _tileCount = _iteration * _roomSize;
     }
 }

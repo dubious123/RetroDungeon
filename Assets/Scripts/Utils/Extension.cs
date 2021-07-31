@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public static class Extension
 {
@@ -27,5 +28,9 @@ public static class Extension
     public static Vector3 ConvertToIso(this Vector2 cart, int z = 0)
     {
         return Util.ConvertToIso(cart, z);
+    }
+    public static void SetTile(this Tilemap[] tilemaps, Vector3Int tileCartPos, TileInfo tileInfo)
+    {
+        Util.SetTile(tilemaps, tileCartPos, tileInfo);
     }
 }
