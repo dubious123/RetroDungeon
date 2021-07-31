@@ -9,7 +9,7 @@ public class GameScene : BaseScene
         base.Init();
         base._sceneType = Define.SceneType.Game;
         
-        GameObject dungeon = Managers.Dungion.CreateNewDungeon(Managers.Game._currentWorld);
+        GameObject dungeon = Managers.Dungeon.CreateNewDungeon(Managers.Game.CurrentWorld);
 
         GameObject player = Managers.Game.Spawn(Define.WorldObject.Player, "Player/Player",dungeon);
     }

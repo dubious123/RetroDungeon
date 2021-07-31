@@ -5,6 +5,10 @@ using UnityEngine.Tilemaps;
 
 public class DungeonInfo : MonoBehaviour
 {
+    GameObject _dungeon;
+    Transform[] _GridLayers;
+    Tilemap[] _tilemaps;
+
     Define.World _world;
     Define.RoomSize _size;
     Define.MapType _mapType;
@@ -17,6 +21,8 @@ public class DungeonInfo : MonoBehaviour
     [SerializeField]
     int _tileCount;
 
+    public Transform[] GridLayers { get { return _GridLayers; } }
+    public Tilemap[] tilemaps { get { return _tilemaps; } }
     public int Iteration { get { return _iteration; } }
     public int RoomSize { get { return _roomSize; } }
     public int TileCount { get { return _tileCount; } }
@@ -27,11 +33,24 @@ public class DungeonInfo : MonoBehaviour
         Define.MapType mapType = Define.MapType.Default, 
         Define.TerrainType terrain = Define.TerrainType.Default)
     {
+        _dungeon = gameObject;
         _world = world;
         _size = size == Define.RoomSize.Default ? size : (Define.RoomSize)Random.Range(0, (int)Define.RoomSize.num);
         _mapType = mapType;
         _terrain = terrain == Define.TerrainType.Default ? terrain : (Define.TerrainType)Random.Range(0, (int)Define.TerrainType.num);
         _board = new Dictionary<Vector3Int, TileInfo>();
+
+        _GridLayers = _dungeon.GetChildren();
+
+        _tilemaps = new Tilemap[Define.TileLayerNum];
+
+        for (int i = 0; i < Define.TileLayerNum; i++)
+        {
+            //???????????????????????
+            _tilemaps[i] = _GridLayers[i].gameObject.GetOrAddComponent<Tilemap>();
+            _GridLayers[i].gameObject.GetOrAddComponent<TilemapCollider2D>();
+        }
+
 
         switch (_world)
         {
@@ -87,4 +106,6 @@ public class DungeonInfo : MonoBehaviour
 
         _tileCount = _iteration * _roomSize;
     }
+
+
 }

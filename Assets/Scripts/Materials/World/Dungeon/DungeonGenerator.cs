@@ -11,12 +11,11 @@ using UnityEngine.Tilemaps;
 public class DungeonGenerator
 {
     Define.World _world;
-    GameObject dungeon;
+    GameObject _dungeon;
     DungeonInfo _dungeonInfo;
-    Transform[] TileLayers;
-    Tilemap[] Tilemaps;
+    Tilemap[] _tilemaps;
     Vector3Int _tileCartPos = Vector3Int.zero;
-    TileInfo tile;
+    TileInfo _tile;
     public DungeonGenerator(Define.World world)
     {
         Init(world);
@@ -24,25 +23,16 @@ public class DungeonGenerator
     void Init(Define.World world)
     {
         _world = world;
-        dungeon = Managers.Resource.Instantiate("Dungeon");
-        if (dungeon == null)
+        _dungeon = Managers.Resource.Instantiate("Dungeon");
+        if (_dungeon == null)
         {
             Debug.Log($"Failed to create Dungeon");
             return ;
         }
-        _dungeonInfo = dungeon.GetOrAddComponent<DungeonInfo>();
+        _dungeonInfo = _dungeon.GetOrAddComponent<DungeonInfo>();
         _dungeonInfo.Init(_world);
-        TileLayers = dungeon.GetChildren();
 
-        Tilemaps = new Tilemap[Define.TileLayerNum];
-
-        for (int i = 0; i < Define.TileLayerNum; i++)
-        {
-            //???????????????????????
-            Tilemaps[i] = TileLayers[i].gameObject.GetOrAddComponent<Tilemap>();
-            TileLayers[i].gameObject.GetOrAddComponent<TilemapCollider2D>();
-        }
-
+        _tilemaps = _dungeonInfo.tilemaps;
 
     }
 
@@ -51,7 +41,7 @@ public class DungeonGenerator
     public GameObject GenerateDungeon()
     {
         ProcedureGenerator();
-        return dungeon;
+        return _dungeon;
     }
     void RandomWalk(Vector3Int startCartPosition, int walkLength)
     {
@@ -65,9 +55,9 @@ public class DungeonGenerator
                 i--;
                 continue;
             }
-            tile = new TileInfo(_world);
-            _dungeonInfo.Board.Add(_tileCartPos, tile);
-            Tilemaps.SetTile(_tileCartPos, tile);
+            _tile = new TileInfo(_world);
+            _dungeonInfo.Board.Add(_tileCartPos, _tile);
+            _tilemaps.SetTile(_tileCartPos, _tile);
             
         }
     }
@@ -75,9 +65,9 @@ public class DungeonGenerator
     {
         #region Set StartPosition (0,0,0)
         _tileCartPos = new Vector3Int(0, 0, 0);
-        tile = new TileInfo(_world, Define.TileType.Entrance);
-        _dungeonInfo.Board.Add(_tileCartPos, tile);
-        Tilemaps.SetTile(_tileCartPos, tile);
+        _tile = new TileInfo(_world, Define.TileType.Entrance);
+        _dungeonInfo.Board.Add(_tileCartPos, _tile);
+        _tilemaps.SetTile(_tileCartPos, _tile);
         #endregion
         for (int i = 0; i < _dungeonInfo.Iteration; i++)
         {
@@ -89,9 +79,9 @@ public class DungeonGenerator
         {
             _tileCartPos = _dungeonInfo.Board.ElementAt(Random.Range(0, _dungeonInfo.Board.Count - 1)).Key;
         }
-        tile = _dungeonInfo.Board[_tileCartPos];
-        tile.tileType = Define.TileType.Exit;
-        Tilemaps.SetTile(_tileCartPos, tile);
+        _tile = _dungeonInfo.Board[_tileCartPos];
+        _tile.tileType = Define.TileType.Exit;
+        _tilemaps.SetTile(_tileCartPos, _tile);
         #endregion
     }
 }

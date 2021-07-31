@@ -14,21 +14,21 @@ public class Managers : MonoBehaviour
 
 
     DungeonManager _dungeon = new DungeonManager();
+    InputManager _input = new InputManager();
     PoolManager _pool = new PoolManager();
     ResourceManager _resource = new ResourceManager();
 
-    public static DungeonManager Dungion { get { return Instance._dungeon; } }
+    public static DungeonManager Dungeon { get { return Instance._dungeon; } }
+    public static InputManager Input { get { return Instance._input; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
-
-    void Start()
+    private void Start()
     {
-        
+        Init();
     }
-
     void Update()
     {
-        
+        _input.OnUpdate();
     }
     static void Init()
     {
@@ -46,6 +46,7 @@ public class Managers : MonoBehaviour
             _instance._pool.Init();
 
             _instance._game.Init();
+            _instance._input.Init();
         }
     }
     public static void Clear()

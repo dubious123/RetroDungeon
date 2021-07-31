@@ -5,17 +5,26 @@ using UnityEngine.Tilemaps;
 
 public class DungeonManager
 {
-    GameObject Dungeon;
+    Dictionary<int, GameObject> _dungeons ;
+    public int _level;
+    public Dictionary<int,GameObject> Dungeons { get { return _dungeons; } }
+    public int Level { get { return _level; } } 
+
+    public GameObject CurrentDungeon;
+
     DungeonGenerator _dungeonGenerator;
     public void Init()
     {
-
+        _level = 1;
+        _dungeons = new Dictionary<int, GameObject>();
     }
     public GameObject CreateNewDungeon(Define.World world)
     {
          _dungeonGenerator = new DungeonGenerator(world);
-        Dungeon = _dungeonGenerator.GenerateDungeon();
-        return Dungeon;
+        CurrentDungeon = _dungeonGenerator.GenerateDungeon();
+        Dungeons.Add(_level, CurrentDungeon);
+        _level++;
+        return CurrentDungeon;
     }
 
 
