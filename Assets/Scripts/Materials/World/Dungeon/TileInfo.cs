@@ -36,15 +36,18 @@ public class TileInfo
         {
             //Todo
             case Define.TileType.Default:
-                _tiles[0] = Managers.Resource.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
+                _tiles[0] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Floor");
+                _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
                 break;
             case Define.TileType.Entrance:
-                _tiles[0] = Managers.Resource.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
-                _tiles[1] = Managers.Resource.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Entrance");
+                _tiles[0] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Floor");
+                _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
+                _tiles[2] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Entrance");
                 _level++;
                 break;
             case Define.TileType.Exit:
-                _tiles[0] = Managers.Resource.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Exit");
+                _tiles[0] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Floor");
+                _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Exit");
                 break;
             default:
                 break;

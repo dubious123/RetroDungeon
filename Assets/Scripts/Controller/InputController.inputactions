@@ -2,7 +2,7 @@
     "name": "Mouse",
     "maps": [
         {
-            "name": "Mouse",
+            "name": "GamePlay",
             "id": "2e93325e-c8c7-446c-a8e4-6c84c4a93f84",
             "actions": [
                 {
@@ -29,7 +29,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Mouse+KeyBoard",
                     "action": "MouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -40,13 +40,57 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Mouse+KeyBoard",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "e1555b8b-da67-44df-8a1a-f98d3a8b1cba",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "e8b6a4c8-2c0e-4084-8582-5be9556df1b2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c8a5fa58-f111-451d-b6a5-e9cf15ded2a5",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Mouse+KeyBoard",
+            "bindingGroup": "Mouse+KeyBoard",
+            "devices": [
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

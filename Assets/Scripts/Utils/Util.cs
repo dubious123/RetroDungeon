@@ -56,11 +56,11 @@ public class Util
         iso.z = z;
         return iso;
     }
-    public static void SetTile(Tilemap[] tilemaps,Vector3Int tileCartPos,TileInfo tileInfo)
+    public static void SetTile(Tilemap[] tilemaps,Vector3Int gridPosition,TileInfo tileInfo)
     {
         for (int i = 0; i < tilemaps.Length; i++)
         {
-            tilemaps[i].SetTile(tileCartPos,  tileInfo.RuleTiles[i]);
+            tilemaps[i].SetTile(gridPosition,  tileInfo.RuleTiles[i]);
         }
     }
 }

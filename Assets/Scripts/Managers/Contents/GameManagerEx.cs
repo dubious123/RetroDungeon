@@ -10,13 +10,13 @@ public class GameManagerEx
     PlayerData _playerData;
     Transform[] _GridLayers;
     Tilemap[] _tilemaps;
-    Tilemap _ground;
+    Tilemap _floor;
 
     public Define.World CurrentWorld { get { return _currentWorld; } }
     public PlayerData Player { get { return _playerData; } }
     public PlayerData PlayerData { get { return _playerData; } }
     public Transform[] Tilemaps { get { return _GridLayers; } }
-    public Tilemap Ground { get { return _ground; } }
+    public Tilemap Floor { get { return _floor; } }
 
     public void Init()
     {
@@ -29,8 +29,8 @@ public class GameManagerEx
         DungeonInfo dungeonInfo = dungeon.GetComponent<DungeonInfo>();
         _GridLayers = dungeonInfo.GridLayers;
         _tilemaps = dungeonInfo.tilemaps;
-        _ground = _tilemaps[0];
-        GameObject go = Managers.Resource.Instantiate(path, _GridLayers[0]);
+        _floor = _tilemaps[0];
+        GameObject go = Managers.ResourceMgr.Instantiate(path, _GridLayers[0]);
         switch (type)
         {
             case Define.WorldObject.Player:

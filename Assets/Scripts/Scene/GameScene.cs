@@ -9,9 +9,9 @@ public class GameScene : BaseScene
         base.Init();
         base._sceneType = Define.SceneType.Game;
         
-        GameObject dungeon = Managers.Dungeon.CreateNewDungeon(Managers.Game.CurrentWorld);
+        GameObject dungeon = Managers.DungeonMgr.CreateNewDungeon(Managers.GameMgr.CurrentWorld);
 
-        GameObject player = Managers.Game.Spawn(Define.WorldObject.Player, "Player/Player",dungeon);
+        GameObject player = Managers.GameMgr.Spawn(Define.WorldObject.Player, "Player/Player",dungeon);
     }
     public override void Clear()
     {

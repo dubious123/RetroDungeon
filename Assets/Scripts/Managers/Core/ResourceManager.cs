@@ -21,7 +21,7 @@ public class ResourceManager
             {
                 name = name.Substring(index + 1);
             }
-            GameObject go = Managers.Pool.GetOriginal(name);
+            GameObject go = Managers.PoolMgr.GetOriginal(name);
             if (go != null) { return go as T; }
         }
         return Resources.Load<T>(path);
@@ -61,7 +61,7 @@ public class ResourceManager
         Poolable poolable = go.GetComponent<Poolable>();
         if(poolable != null)
         {
-            Managers.Pool.Push(poolable);
+            Managers.PoolMgr.Push(poolable);
             return;
         }
         Object.Destroy(go);

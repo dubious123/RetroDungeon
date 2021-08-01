@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Controller/Mouse.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Controller/InputController.inputactions'
 
 using System;
 using System.Collections;
@@ -12,10 +12,10 @@ public class @MouseInput : IInputActionCollection, IDisposable
     public @MouseInput()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""Mouse"",
+    ""name"": ""InputController"",
     ""maps"": [
         {
-            ""name"": ""Mouse"",
+            ""name"": ""GamePlay"",
             ""id"": ""2e93325e-c8c7-446c-a8e4-6c84c4a93f84"",
             ""actions"": [
                 {
@@ -42,7 +42,7 @@ public class @MouseInput : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse+KeyBoard"",
                     ""action"": ""MouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -53,20 +53,67 @@ public class @MouseInput : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mouse+KeyBoard"",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""e1555b8b-da67-44df-8a1a-f98d3a8b1cba"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8b6a4c8-2c0e-4084-8582-5be9556df1b2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c8a5fa58-f111-451d-b6a5-e9cf15ded2a5"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Mouse+KeyBoard"",
+            ""bindingGroup"": ""Mouse+KeyBoard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
-        // Mouse
-        m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
-        m_Mouse_MouseClick = m_Mouse.FindAction("MouseClick", throwIfNotFound: true);
-        m_Mouse_MousePosition = m_Mouse.FindAction("MousePosition", throwIfNotFound: true);
+        // GamePlay
+        m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
+        m_GamePlay_MouseClick = m_GamePlay.FindAction("MouseClick", throwIfNotFound: true);
+        m_GamePlay_MousePosition = m_GamePlay.FindAction("MousePosition", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -113,34 +160,34 @@ public class @MouseInput : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Mouse
-    private readonly InputActionMap m_Mouse;
-    private IMouseActions m_MouseActionsCallbackInterface;
-    private readonly InputAction m_Mouse_MouseClick;
-    private readonly InputAction m_Mouse_MousePosition;
-    public struct MouseActions
+    // GamePlay
+    private readonly InputActionMap m_GamePlay;
+    private IGamePlayActions m_GamePlayActionsCallbackInterface;
+    private readonly InputAction m_GamePlay_MouseClick;
+    private readonly InputAction m_GamePlay_MousePosition;
+    public struct GamePlayActions
     {
         private @MouseInput m_Wrapper;
-        public MouseActions(@MouseInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MouseClick => m_Wrapper.m_Mouse_MouseClick;
-        public InputAction @MousePosition => m_Wrapper.m_Mouse_MousePosition;
-        public InputActionMap Get() { return m_Wrapper.m_Mouse; }
+        public GamePlayActions(@MouseInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MouseClick => m_Wrapper.m_GamePlay_MouseClick;
+        public InputAction @MousePosition => m_Wrapper.m_GamePlay_MousePosition;
+        public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MouseActions set) { return set.Get(); }
-        public void SetCallbacks(IMouseActions instance)
+        public static implicit operator InputActionMap(GamePlayActions set) { return set.Get(); }
+        public void SetCallbacks(IGamePlayActions instance)
         {
-            if (m_Wrapper.m_MouseActionsCallbackInterface != null)
+            if (m_Wrapper.m_GamePlayActionsCallbackInterface != null)
             {
-                @MouseClick.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
-                @MouseClick.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
-                @MouseClick.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
-                @MousePosition.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
-                @MousePosition.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
-                @MousePosition.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
+                @MouseClick.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMouseClick;
+                @MouseClick.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMouseClick;
+                @MouseClick.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMouseClick;
+                @MousePosition.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
             }
-            m_Wrapper.m_MouseActionsCallbackInterface = instance;
+            m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @MouseClick.started += instance.OnMouseClick;
@@ -152,10 +199,56 @@ public class @MouseInput : IInputActionCollection, IDisposable
             }
         }
     }
-    public MouseActions @Mouse => new MouseActions(this);
-    public interface IMouseActions
+    public GamePlayActions @GamePlay => new GamePlayActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_Newaction;
+    public struct UIActions
+    {
+        private @MouseInput m_Wrapper;
+        public UIActions(@MouseInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_UI_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
+    private int m_MouseKeyBoardSchemeIndex = -1;
+    public InputControlScheme MouseKeyBoardScheme
+    {
+        get
+        {
+            if (m_MouseKeyBoardSchemeIndex == -1) m_MouseKeyBoardSchemeIndex = asset.FindControlSchemeIndex("Mouse+KeyBoard");
+            return asset.controlSchemes[m_MouseKeyBoardSchemeIndex];
+        }
+    }
+    public interface IGamePlayActions
     {
         void OnMouseClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

@@ -48,7 +48,6 @@ public class DungeonInfo : MonoBehaviour
         {
             //???????????????????????
             _tilemaps[i] = _GridLayers[i].gameObject.GetOrAddComponent<Tilemap>();
-            _GridLayers[i].gameObject.GetOrAddComponent<TilemapCollider2D>();
         }
 
 

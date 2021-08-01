@@ -8,27 +8,28 @@ public class Managers : MonoBehaviour
     public static Managers Instance { get { Init(); return _instance; } }
 
     #region Contents
-    GameManagerEx _game = new GameManagerEx();
-    public static GameManagerEx Game { get { return Instance._game; } }
+    GameManagerEx _gameMgr = new GameManagerEx();
+    public static GameManagerEx GameMgr { get { return Instance._gameMgr; } }
     #endregion
 
 
-    DungeonManager _dungeon = new DungeonManager();
-    InputManager _input = new InputManager();
-    PoolManager _pool = new PoolManager();
-    ResourceManager _resource = new ResourceManager();
+    DungeonManager _dungeonMgr = new DungeonManager();
+    InputManager _inputMgr = new InputManager();
+    PoolManager _poolMgr = new PoolManager();
+    ResourceManager _resourceMgr = new ResourceManager();
+    TurnManager _turnMgr = new TurnManager();
 
-    public static DungeonManager Dungeon { get { return Instance._dungeon; } }
-    public static InputManager Input { get { return Instance._input; } }
-    public static PoolManager Pool { get { return Instance._pool; } }
-    public static ResourceManager Resource { get { return Instance._resource; } }
+    public static DungeonManager DungeonMgr { get { return Instance._dungeonMgr; } }
+    public static InputManager InputMgr { get { return Instance._inputMgr; } }
+    public static PoolManager PoolMgr { get { return Instance._poolMgr; } }
+    public static ResourceManager ResourceMgr { get { return Instance._resourceMgr; } }
+    public static TurnManager TurnMgr { get { return Instance._turnMgr; } }
     private void Start()
     {
         Init();
     }
     void Update()
     {
-        _input.OnUpdate();
     }
     static void Init()
     {
@@ -42,15 +43,16 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(go);
             _instance = go.GetComponent<Managers>();
-            _instance._dungeon.Init();
-            _instance._pool.Init();
+            _instance._dungeonMgr.Init();
+            _instance._poolMgr.Init();
 
-            _instance._game.Init();
-            _instance._input.Init();
+            _instance._gameMgr.Init();
+            _instance._inputMgr.Init();
+            _instance._turnMgr.Init();
         }
     }
     public static void Clear()
     {
-        Pool.Clear();
+        PoolMgr.Clear();
     }
 }
