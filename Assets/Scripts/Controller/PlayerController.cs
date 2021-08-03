@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
         #region Player Moving Algorithm
 
         gameObject.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(_clickedCellPos.Value);
-        
+        _currentPlayerCellPos = _clickedCellPos.Value;
         #endregion
         Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Idle);
     }
@@ -107,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
         public int GetHashCode(PathInfo obj)
         {
-            return obj.Cost;
+            return -obj.Cost;
         }
     }
     private void UpdateReachableTileInfo()
@@ -115,7 +116,7 @@ public class PlayerController : MonoBehaviour
         int currentAp = Managers.GameMgr.Player_Data.CurrentAp;
         SimplePriorityQueue<PathInfo, int> nextTiles = new SimplePriorityQueue<PathInfo, int>(new PathInfoEquality());
         Dictionary<Vector3Int, PathInfo> reachableTileDict = new Dictionary<Vector3Int, PathInfo>();
-        PathInfo currentInfo = new PathInfo(Vector3Int.zero, Vector3Int.zero, 0);
+        PathInfo currentInfo = new PathInfo(_currentPlayerCellPos, _currentPlayerCellPos, 0);
         PathInfo nextInfo;
         Vector3Int currentCoor;
         Vector3Int nextCoor;
@@ -133,11 +134,12 @@ public class PlayerController : MonoBehaviour
                 if (reachableTileDict.ContainsKey(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && currentAp < totalMoveCost)
+                if (_board.ContainsKey(nextCoor) && currentAp > totalMoveCost)
                 {
                     nextInfo = new PathInfo(nextCoor, currentCoor, totalMoveCost);
                     if (nextTiles.TryGetPriority(nextInfo,out int priority))
                     {
+                        throw new Exception();
                         //nextInfo is in the Queue
                         if (totalMoveCost < priority) 
                         {
