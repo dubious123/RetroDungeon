@@ -6,15 +6,14 @@ using UnityEngine.Tilemaps;
 public class PlayerData
 {
     Vector3Int _currentCellCoor;
-    Vector3Int _currentCartCoor;
     Tilemap _floor;
     float _moveSpeed;
-    int _ap;
+    int _maxAp;
+    int _currentAp;
     public Vector3Int CurrentCellCoor { get { return _currentCellCoor; } }
-    public Vector3Int CurrentCartCoor { get { return _currentCartCoor; } }
     public float Movespeed { get { return _moveSpeed; } }
-    public int Ap { get { return _ap; } }
-
+    public int MaxAp { get { return _maxAp; } }
+    public int CurrentAp { get { return _maxAp; } }
     public PlayerData(GameObject player,Transform parent)
     {
         Init(player,parent);
@@ -22,10 +21,8 @@ public class PlayerData
     void Init(GameObject player, Transform parent)
     {
         _floor = parent.GetComponent<Tilemap>();
-        _currentCartCoor = Vector3Int.zero;
-        _currentCellCoor = _floor.WorldToCell(_currentCartCoor);
-        player.transform.position = _floor.GetCellCenterWorld(_currentCellCoor);
-        _ap = 5;
+        _currentCellCoor = _floor.WorldToCell(Vector3Int.zero);
+        _maxAp = 5;
         _moveSpeed = 1.0f;
     }
 }

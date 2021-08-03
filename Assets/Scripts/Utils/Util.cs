@@ -1,3 +1,4 @@
+using Priority_Queue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,25 +43,25 @@ public class Util
         cart.y = (2.0f * iso.y - iso.x) * 0.5f;
         return cart;
     }
-    public static Vector3 ConvertToIso(Vector3 cart, int z = 0)
-    {
-        Vector3 iso = new Vector3();
-        iso = cart.x * Define._tileIsoDir.RightDown + cart.y * Define._tileIsoDir.RightUp;
-        iso.z = z;
-        return iso;
-    }
-    public static Vector3 ConvertToIso(Vector2 cart, int z = 0)
-    {
-        Vector3 iso = new Vector3();
-        iso = cart.x * Define._tileIsoDir.RightDown + cart.y * Define._tileIsoDir.RightUp;
-        iso.z = z;
-        return iso;
-    }
-    public static void SetTile(Tilemap[] tilemaps,Vector3Int gridPosition,TileInfo tileInfo)
+    //public static Vector3 ConvertToIso(Vector3 cart, int z = 0)
+    //{
+    //    Vector3 iso = new Vector3();
+    //    iso = cart.x * Define._tileIsoDir.RightDown + cart.y * Define._tileIsoDir.RightUp;
+    //    iso.z = z;
+    //    return iso;
+    //}
+    //public static Vector3 ConvertToIso(Vector2 cart, int z = 0)
+    //{
+    //    Vector3 iso = new Vector3();
+    //    iso = cart.x * Define._tileIsoDir.RightDown + cart.y * Define._tileIsoDir.RightUp;
+    //    iso.z = z;
+    //    return iso;
+    //}
+    public static void SetTile(Tilemap[] tilemaps, Vector3Int gridPosition, TileInfo tileInfo)
     {
         for (int i = 0; i < tilemaps.Length; i++)
         {
-            tilemaps[i].SetTile(gridPosition,  tileInfo.RuleTiles[i]);
+            tilemaps[i].SetTile(gridPosition, tileInfo.RuleTiles[i]);
         }
     }
 }

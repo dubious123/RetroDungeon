@@ -24,8 +24,10 @@ public class InputManager
     public Vector3Int? GetClickedCellPosition(Vector2 screenMousePos)
     {
         _map = Managers.GameMgr.Floor;
+        //Todo, need new func
         _mouseWorldPosition = _mainCamera.ScreenToWorldPoint(screenMousePos);
         _mouseWorldPosition.z = 0;  
+
         _clickedGridCellPosition = Managers.DungeonMgr.CurrentDungeon.GetComponent<Grid>().WorldToCell(_mouseWorldPosition);
         if (_map.HasTile(_clickedGridCellPosition))
         {
@@ -35,4 +37,5 @@ public class InputManager
         }
         return null;
     }
+    
 }

@@ -26,6 +26,8 @@ public class DungeonInfo : MonoBehaviour
     public int Iteration { get { return _iteration; } }
     public int RoomSize { get { return _roomSize; } }
     public int TileCount { get { return _tileCount; } }
+
+
     Dictionary<Vector3Int, TileInfo> _board;
     public Dictionary<Vector3Int, TileInfo> Board { get { return _board; } }
 

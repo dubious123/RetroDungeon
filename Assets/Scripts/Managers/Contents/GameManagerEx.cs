@@ -13,8 +13,8 @@ public class GameManagerEx
     Tilemap _floor;
 
     public Define.World CurrentWorld { get { return _currentWorld; } }
-    public PlayerData Player { get { return _playerData; } }
-    public PlayerData PlayerData { get { return _playerData; } }
+    public GameObject Player { get { return _player; } }
+    public PlayerData Player_Data { get { return _playerData; } }
     public Transform[] Tilemaps { get { return _GridLayers; } }
     public Tilemap Floor { get { return _floor; } }
 
@@ -23,6 +23,10 @@ public class GameManagerEx
         _currentWorld = Define.World.AbandonedMineShaft;
     }
 
+    public void StartGame()
+    {
+        Managers.TurnMgr.UpdateTurn(Define.Turn.Player);
+    }
     public GameObject Spawn(Define.WorldObject type, string path, GameObject dungeon)
     {
         //Todo
@@ -35,7 +39,7 @@ public class GameManagerEx
         {
             case Define.WorldObject.Player:
                 _player = go;
-                _playerData = new PlayerData(_player, _GridLayers[0]);
+                _playerData = new PlayerData(go, _GridLayers[0]);
                 break;
             case Define.WorldObject.Monster:
                 break;

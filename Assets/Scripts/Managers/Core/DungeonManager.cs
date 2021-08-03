@@ -6,25 +6,33 @@ using UnityEngine.Tilemaps;
 public class DungeonManager
 {
     Dictionary<int, GameObject> _dungeons ;
-    public int _level;
+    public int _currentLevel;
     public Dictionary<int,GameObject> Dungeons { get { return _dungeons; } }
-    public int Level { get { return _level; } } 
+    public int Level { get { return _currentLevel; } } 
 
     public GameObject CurrentDungeon;
 
     DungeonGenerator _dungeonGenerator;
     public void Init()
     {
-        _level = 1;
+        _currentLevel = 0;
         _dungeons = new Dictionary<int, GameObject>();
     }
     public GameObject CreateNewDungeon(Define.World world)
     {
          _dungeonGenerator = new DungeonGenerator(world);
         CurrentDungeon = _dungeonGenerator.GenerateDungeon();
-        Dungeons.Add(_level, CurrentDungeon);
-        _level++;
+        _currentLevel++;
+        Dungeons.Add(_currentLevel, CurrentDungeon);
         return CurrentDungeon;
+    }
+    public Dictionary<Vector3Int,TileInfo> GetTileInfoDict(int level = 0)
+    {
+        if(level == 0) { level = _currentLevel; }
+        Managers.DungeonMgr.Dungeons.TryGetValue(level, out GameObject dungeon);
+        return dungeon.GetComponent<DungeonInfo>().Board;
+        
+
     }
 
 

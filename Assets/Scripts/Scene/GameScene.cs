@@ -12,6 +12,8 @@ public class GameScene : BaseScene
         GameObject dungeon = Managers.DungeonMgr.CreateNewDungeon(Managers.GameMgr.CurrentWorld);
 
         GameObject player = Managers.GameMgr.Spawn(Define.WorldObject.Player, "Player/Player",dungeon);
+
+        Managers.GameMgr.StartGame();
     }
     public override void Clear()
     {

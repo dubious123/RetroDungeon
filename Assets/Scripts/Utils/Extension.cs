@@ -1,3 +1,5 @@
+using Priority_Queue;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,16 +23,22 @@ public static class Extension
     {
         return Util.ConvertToCart(iso, z);
     }
-    public static Vector3 ConvertToIso(this Vector3 cart, int z = 0)
-    {
-        return Util.ConvertToIso(cart, z);
-    }
-    public static Vector3 ConvertToIso(this Vector2 cart, int z = 0)
-    {
-        return Util.ConvertToIso(cart, z);
-    }
+    //public static Vector3 ConvertToIso(this Vector3 cart, int z = 0)
+    //{
+    //    return Util.ConvertToIso(cart, z);
+    //}
+    //public static Vector3 ConvertToIso(this Vector2 cart, int z = 0)
+    //{
+    //    return Util.ConvertToIso(cart, z);
+    //}
     public static void SetTile(this Tilemap[] tilemaps, Vector3Int tileCartPos, TileInfo tileInfo)
     {
         Util.SetTile(tilemaps, tileCartPos, tileInfo);
     }
+    #region Priority Queue Extensions
+    public static void Enqueue<TItem,TPriority>(this SimplePriorityQueue<TItem,TPriority> simplePriorityQueue, TItem item) where TItem : Interface.ICustomPriorityQueueNode<TPriority>
+    {
+        simplePriorityQueue.Enqueue(item, item.GetPriority());
+    }
+    #endregion
 }

@@ -14,7 +14,7 @@ public class DungeonGenerator
     GameObject _dungeon;
     DungeonInfo _dungeonInfo;
     Tilemap[] _tilemaps;
-    Vector3Int _gridPosition = Vector3Int.zero;
+    Vector3Int _cellPosition = Vector3Int.zero;
     TileInfo _tile;
     public DungeonGenerator(Define.World world)
     {
@@ -43,45 +43,45 @@ public class DungeonGenerator
         ProcedureGenerator();
         return _dungeon;
     }
-    void RandomWalk(Vector3Int startCartPosition, int walkLength)
+    void RandomWalk(Vector3Int startCellPosition, int walkLength)
     {
-        _gridPosition = startCartPosition;
+        _cellPosition = startCellPosition;
         for (int i = 0; i < walkLength; i++)
         {
-            _gridPosition += Define.TileCart4Dir[Random.Range(0, Define.TileIso4Dir.Length)];
+            _cellPosition += Define.TileCoor4Dir[Random.Range(0, Define.TileIso4Dir.Length)];
             
-            if (_dungeonInfo.Board.ContainsKey(_gridPosition))
+            if (_dungeonInfo.Board.ContainsKey(_cellPosition))
             {
                 i--;
                 continue;
             }
             _tile = new TileInfo(_world);
-            _dungeonInfo.Board.Add(_gridPosition, _tile);
-            _tilemaps.SetTile(_gridPosition, _tile);
+            _dungeonInfo.Board.Add(_cellPosition, _tile);
+            _tilemaps.SetTile(_cellPosition, _tile);
             
         }
     }
     void ProcedureGenerator()
     {
         #region Set StartPosition (0,0,0)
-        _gridPosition = new Vector3Int(0, 0, 0);
+        _cellPosition = new Vector3Int(0, 0, 0);
         _tile = new TileInfo(_world, Define.TileType.Entrance);
-        _dungeonInfo.Board.Add(_gridPosition, _tile);
-        _tilemaps.SetTile(_gridPosition, _tile);
+        _dungeonInfo.Board.Add(_cellPosition, _tile);
+        _tilemaps.SetTile(_cellPosition, _tile);
         #endregion
         for (int i = 0; i < _dungeonInfo.Iteration; i++)
         {
-            RandomWalk(_gridPosition, _dungeonInfo.RoomSize);
-            _gridPosition = _dungeonInfo.Board.ElementAt(Random.Range(0, _dungeonInfo.Board.Count - 1)).Key;
+            RandomWalk(_cellPosition, _dungeonInfo.RoomSize);
+            _cellPosition = _dungeonInfo.Board.ElementAt(Random.Range(0, _dungeonInfo.Board.Count - 1)).Key;
         }
         #region Set Exit
-        while (_gridPosition == Vector3Int.zero)
+        while (_cellPosition == Vector3Int.zero)
         {
-            _gridPosition = _dungeonInfo.Board.ElementAt(Random.Range(0, _dungeonInfo.Board.Count - 1)).Key;
+            _cellPosition = _dungeonInfo.Board.ElementAt(Random.Range(0, _dungeonInfo.Board.Count - 1)).Key;
         }
-        _tile = _dungeonInfo.Board[_gridPosition];
+        _tile = _dungeonInfo.Board[_cellPosition];
         _tile.tileType = Define.TileType.Exit;
-        _tilemaps.SetTile(_gridPosition, _tile);
+        _tilemaps.SetTile(_cellPosition, _tile);
         #endregion
     }
 }

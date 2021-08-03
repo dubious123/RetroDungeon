@@ -1,5 +1,5 @@
 {
-    "name": "Mouse",
+    "name": "InputController",
     "maps": [
         {
             "name": "GamePlay",
@@ -42,33 +42,6 @@
                     "processors": "",
                     "groups": "Mouse+KeyBoard",
                     "action": "MousePosition",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "UI",
-            "id": "e1555b8b-da67-44df-8a1a-f98d3a8b1cba",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "e8b6a4c8-2c0e-4084-8582-5be9556df1b2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "c8a5fa58-f111-451d-b6a5-e9cf15ded2a5",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

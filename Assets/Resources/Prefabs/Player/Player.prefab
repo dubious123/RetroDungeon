@@ -198,14 +198,22 @@ MonoBehaviour:
     m_ActionId: aed84300-f12c-457e-a754-cecae2f792b1
     m_ActionName: Mouse/MouseClick[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -9018803866219973047}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: UpdateMouseScreenPosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 456d8563-311e-4e91-b022-e628adeccfbb
     m_ActionName: Mouse/MousePosition[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e8b6a4c8-2c0e-4084-8582-5be9556df1b2
-    m_ActionName: New action map/New action
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Mouse+KeyBoard
   m_DefaultActionMap: GamePlay
   m_SplitScreenIndex: -1

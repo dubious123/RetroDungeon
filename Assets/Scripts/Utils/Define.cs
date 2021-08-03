@@ -5,6 +5,10 @@ using UnityEngine;
 public class Define
 {
     public const int TileLayerNum = 7;
+    public static int[] TileMoveCost =
+    {
+        1,1,1,1,3,3,3,3
+    };
     public static Vector3[] TileIso4Dir =
     {
         _tileIsoDir.Left,
@@ -12,12 +16,12 @@ public class Define
         _tileIsoDir.Right,
         _tileIsoDir.Down,
     };
-    public static Vector3Int[] TileCart4Dir =
+    public static Vector3Int[] TileCoor4Dir =
 {
-        _tileCartDir.Left,
-        _tileCartDir.Up,
-        _tileCartDir.Right,
-        _tileCartDir.Down,
+        _tileCoorDir.YPlus,
+        _tileCoorDir.XPlus,
+        _tileCoorDir.XMinus,
+        _tileCoorDir.YMinus,
     };
     public static Vector3[] TileIso8Dir =
 {
@@ -29,7 +33,18 @@ public class Define
         _tileIsoDir.Down,
         _tileIsoDir.LeftDown,
     };
-    public static class _tileIsoDir
+    public static Vector3Int[] TileCoor8Dir =
+    {
+        _tileCoorDir.YPlus,
+        _tileCoorDir.XPlus,
+        _tileCoorDir.XMinus,
+        _tileCoorDir.YMinus,
+        _tileCoorDir.Up,
+        _tileCoorDir.Right,
+        _tileCoorDir.Down,
+        _tileCoorDir.Left,
+    };
+    static class _tileIsoDir
     {
         public static Vector3 LeftUp = new Vector3(-0.5f, 0.25f, 0);
         public static Vector3 RightUp = new Vector3(0.5f, 0.25f, 0);
@@ -40,16 +55,20 @@ public class Define
         public static Vector3 Right = new Vector3(1.0f, 0, 0);
         public static Vector3 Down = new Vector3(0, -0.5f, 0);
     }
-    public static class _tileCartDir
+    static class _tileCoorDir
     {
         //public static Vector3 LeftUp = new Vector3(-0.5f, 0.25f, 0);
         //public static Vector3 RightUp = new Vector3(0.5f, 0.25f, 0);
         //public static Vector3 RightDown = new Vector3(0.5f, -0.25f, 0);
         //public static Vector3 LeftDown = new Vector3(-0.5f, -0.25f, 0);
-        public static Vector3Int Left = new Vector3Int(0, 1, 0);
-        public static Vector3Int Up = new Vector3Int(1, 0, 0);
-        public static Vector3Int Right = new Vector3Int(-1, 0, 0);
-        public static Vector3Int Down = new Vector3Int(0, -1, 0);
+        public static Vector3Int YPlus = new Vector3Int(0, 1, 0);
+        public static Vector3Int XPlus = new Vector3Int(1, 0, 0);
+        public static Vector3Int XMinus = new Vector3Int(-1, 0, 0);
+        public static Vector3Int YMinus = new Vector3Int(0, -1, 0);
+        public static Vector3Int Up = new Vector3Int(1, 1, 0);
+        public static Vector3Int Right = new Vector3Int(1, -1, 0);
+        public static Vector3Int Down = new Vector3Int(-1, -1, 0);
+        public static Vector3Int Left = new Vector3Int(-1, 1, 0);
     }
     public enum PlayerState
     {
