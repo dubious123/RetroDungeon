@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
         _playerInput.DeactivateInput();
         Managers.TurnMgr.SetPlayerController(this);
         transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(Vector3Int.zero);
+
+        _clickedCellPos = Vector3Int.zero;
     }
     private void Awake()
     {
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
         {
             _board = Managers.DungeonMgr.GetTileInfoDict();
         }
+        _currentPlayerCellPos = _clickedCellPos.Value;
         UpdateReachableTileInfo();
         _playerInput.actions.Enable();
     }
@@ -78,7 +81,7 @@ public class PlayerController : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    class PathInfo : Interface.ICustomPriorityQueueNode<int>
+    class PathInfo :Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
         Vector3Int _parent;
@@ -102,20 +105,25 @@ public class PlayerController : MonoBehaviour
     {
         public bool Equals(PathInfo x, PathInfo y)
         {
+            if (x == null || y == null)
+            {
+                return false;
+            }
             return x.Coor == y.Coor;
         }
 
         public int GetHashCode(PathInfo obj)
         {
-            return obj.Cost;
+            return obj.Coor.GetHashCode();
         }
     }
     private void UpdateReachableTileInfo()
     {
         int currentAp = Managers.GameMgr.Player_Data.CurrentAp;
         SimplePriorityQueue<PathInfo, int> nextTiles = new SimplePriorityQueue<PathInfo, int>(new PathInfoEquality());
+
         Dictionary<Vector3Int, PathInfo> reachableTileDict = new Dictionary<Vector3Int, PathInfo>();
-        PathInfo currentInfo = new PathInfo(Vector3Int.zero, Vector3Int.zero, 0);
+        PathInfo currentInfo = new PathInfo(_currentPlayerCellPos, _currentPlayerCellPos, 0);
         PathInfo nextInfo;
         Vector3Int currentCoor;
         Vector3Int nextCoor;
@@ -133,9 +141,10 @@ public class PlayerController : MonoBehaviour
                 if (reachableTileDict.ContainsKey(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && currentAp < totalMoveCost)
+                if (_board.ContainsKey(nextCoor) && currentAp > totalMoveCost)
                 {
                     nextInfo = new PathInfo(nextCoor, currentCoor, totalMoveCost);
+                    bool test = nextTiles.Contains(nextInfo);
                     if (nextTiles.TryGetPriority(nextInfo,out int priority))
                     {
                         //nextInfo is in the Queue
@@ -148,8 +157,14 @@ public class PlayerController : MonoBehaviour
                     }
                     //nextInfo is not in the Queue, therefore Enqueue nextInfo
                     nextTiles.Enqueue(nextInfo);
+                    
                 }
             }
+        }
+
+        foreach(KeyValuePair<Vector3Int,PathInfo> pair in reachableTileDict)
+        {
+            Managers.GameMgr.Floor.SetColor(pair.Key, Color.blue);
         }
     }
 
