@@ -18,12 +18,14 @@ public class Managers : MonoBehaviour
     PoolManager _poolMgr = new PoolManager();
     ResourceManager _resourceMgr = new ResourceManager();
     TurnManager _turnMgr = new TurnManager();
+    UI_Manager _ui_Mgr = new UI_Manager();
 
     public static DungeonManager DungeonMgr { get { return Instance._dungeonMgr; } }
     public static InputManager InputMgr { get { return Instance._inputMgr; } }
     public static PoolManager PoolMgr { get { return Instance._poolMgr; } }
     public static ResourceManager ResourceMgr { get { return Instance._resourceMgr; } }
     public static TurnManager TurnMgr { get { return Instance._turnMgr; } }
+    public static UI_Manager UI_Mgr { get { return Instance._ui_Mgr; } }
     private void Start()
     {
         Init();

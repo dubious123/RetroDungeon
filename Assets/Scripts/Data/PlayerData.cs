@@ -23,6 +23,6 @@ public class PlayerData
         _floor = parent.GetComponent<Tilemap>();
         _currentCellCoor = _floor.WorldToCell(Vector3Int.zero);
         _maxAp = 5;
-        _moveSpeed = 1.0f;
+        _moveSpeed = 0.5f;
     }
 }

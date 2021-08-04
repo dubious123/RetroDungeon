@@ -11,29 +11,28 @@ public class InputManager
     Tilemap _map;
     Vector2 _mouseScreenPosition;
     Vector3 _mouseWorldPosition;
-    Vector3Int _clickedGridCellPosition;
+    Vector3Int _CurrentMouseCellPosition;
     Vector3 destination;
 
     public Vector2 MouseScreenPosition { get { return _mouseScreenPosition; } }
     public Vector3 MouseWorldPosition { get { return _mouseWorldPosition; } }
-    public Vector3Int ClickedGridCellPosition { get { return _clickedGridCellPosition; } }
+    public Vector3Int ClickedGridCellPosition { get { return _CurrentMouseCellPosition; } }
     public void Init()
     {
         _mainCamera = Camera.main;
     }
-    public Vector3Int? GetClickedCellPosition(Vector2 screenMousePos)
+    public Vector3Int? UpdateMouseCellPos(Vector2 screenMousePos)
     {
         _map = Managers.GameMgr.Floor;
+        
         //Todo, need new func
         _mouseWorldPosition = _mainCamera.ScreenToWorldPoint(screenMousePos);
         _mouseWorldPosition.z = 0;  
 
-        _clickedGridCellPosition = Managers.DungeonMgr.CurrentDungeon.GetComponent<Grid>().WorldToCell(_mouseWorldPosition);
-        if (_map.HasTile(_clickedGridCellPosition))
+        _CurrentMouseCellPosition = Managers.DungeonMgr.CurrentDungeon.GetComponent<Grid>().WorldToCell(_mouseWorldPosition);
+        if (_map.HasTile(_CurrentMouseCellPosition))
         {
-            Debug.Log("Yes");
-            Debug.Log(_clickedGridCellPosition);
-            return _clickedGridCellPosition;
+            return _CurrentMouseCellPosition;
         }
         return null;
     }
