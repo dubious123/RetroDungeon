@@ -11,7 +11,10 @@ public class PlayerController : MonoBehaviour
 {
     PlayerInput _playerInput;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
     Define.PlayerState _state;
 >>>>>>> parent of f02edd4 (08.06.2021)
     static Dictionary<Vector3Int, TileInfo> _board;
@@ -22,6 +25,9 @@ public class PlayerController : MonoBehaviour
 <<<<<<< HEAD
 =======
     Vector3Int _destination;
+<<<<<<< HEAD
+>>>>>>> parent of f02edd4 (08.06.2021)
+=======
 >>>>>>> parent of f02edd4 (08.06.2021)
 
     
@@ -55,8 +61,12 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             _clickedCellPos = Managers.InputMgr.GetClickedCellPosition(_mouseScreenPos);
             if (_clickedCellPos.HasValue == false) { return; }
+=======
+            if (_currentMouseCellPos.HasValue == false && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) { return; }
+>>>>>>> parent of f02edd4 (08.06.2021)
 =======
             if (_currentMouseCellPos.HasValue == false && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) { return; }
 >>>>>>> parent of f02edd4 (08.06.2021)
@@ -66,6 +76,10 @@ public class PlayerController : MonoBehaviour
     public void HandleIdle()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        //_state = Define.PlayerState.Idle;
+>>>>>>> parent of f02edd4 (08.06.2021)
 =======
         //_state = Define.PlayerState.Idle;
 >>>>>>> parent of f02edd4 (08.06.2021)
@@ -77,7 +91,10 @@ public class PlayerController : MonoBehaviour
         _currentPlayerCellPos = _currentMouseCellPos.Value;
         UpdateReachableTileInfo();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
         UpdatePath();
         SetReachableTiles();
 >>>>>>> parent of f02edd4 (08.06.2021)
@@ -86,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleMoving()
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
         _playerInput.actions.Disable();
         
@@ -96,6 +114,8 @@ public class PlayerController : MonoBehaviour
         #endregion
         Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Idle);
 =======
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
         
         _state = Define.PlayerState.Moving;
         _playerInput.actions.Disable();
@@ -112,6 +132,9 @@ public class PlayerController : MonoBehaviour
         }
         Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Moving);
         yield break;
+<<<<<<< HEAD
+>>>>>>> parent of f02edd4 (08.06.2021)
+=======
 >>>>>>> parent of f02edd4 (08.06.2021)
     }
 
@@ -268,6 +291,9 @@ public class PlayerController : MonoBehaviour
         }
         yield break;
     }
+<<<<<<< HEAD
+>>>>>>> parent of f02edd4 (08.06.2021)
+=======
 >>>>>>> parent of f02edd4 (08.06.2021)
 
    
