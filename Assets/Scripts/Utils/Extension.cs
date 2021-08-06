@@ -36,7 +36,7 @@ public static class Extension
         Util.SetTile(tilemaps, tileCartPos, tileInfo);
     }
     #region Priority Queue Extensions
-    public static void Enqueue<TItem,TPriority>(this SimplePriorityQueue<TItem,TPriority> simplePriorityQueue, TItem item) where TItem : Interface.ICustomPriorityQueueNode<TPriority>
+    public static void Enqueue<TItem, TPriority>(this SimplePriorityQueue<TItem, TPriority> simplePriorityQueue, TItem item) where TItem : Interface.ICustomPriorityQueueNode<TPriority>
     {
         simplePriorityQueue.Enqueue(item, item.GetPriority());
     }

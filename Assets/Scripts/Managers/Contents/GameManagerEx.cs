@@ -25,6 +25,7 @@ public class GameManagerEx
 
     public void StartGame()
     {
+        Managers.CameraMgr.InitGameCamera(_player);
         Managers.TurnMgr.UpdateTurn(Define.Turn.Player);
     }
     public GameObject Spawn(Define.WorldObject type, string path, GameObject dungeon)

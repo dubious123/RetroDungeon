@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MEC;
 
 public class TurnManager
 {
@@ -47,6 +48,7 @@ public class TurnManager
                 _playerController.HandleIdle();
                 break;
             case Define.PlayerState.Moving:
+                _playerController.HandleMoving().RunCoroutine();
                 _playerController.HandleMoving();
                 break;
             case Define.PlayerState.Skill:
