@@ -10,11 +10,19 @@ using Priority_Queue;
 public class PlayerController : MonoBehaviour
 {
     PlayerInput _playerInput;
+<<<<<<< HEAD
+=======
+    Define.PlayerState _state;
+>>>>>>> parent of f02edd4 (08.06.2021)
     static Dictionary<Vector3Int, TileInfo> _board;
     InputAction.CallbackContext _clickContext;
     Vector2 _mouseScreenPos;
     Vector3Int? _clickedCellPos;
     Vector3Int _currentPlayerCellPos;
+<<<<<<< HEAD
+=======
+    Vector3Int _destination;
+>>>>>>> parent of f02edd4 (08.06.2021)
 
     
     void Init()
@@ -23,10 +31,20 @@ public class PlayerController : MonoBehaviour
         _playerInput.DeactivateInput();
         Managers.TurnMgr.SetPlayerController(this);
         transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(Vector3Int.zero);
+<<<<<<< HEAD
+=======
+
+        _path = new Stack<Vector3Int>();
+        _currentMouseCellPos = Vector3Int.zero;
+        
+>>>>>>> parent of f02edd4 (08.06.2021)
     }
     private void Awake()
     {
         Init();
+    }
+    public void FixedUpdate()
+    {
     }
     public void UpdateMouseScreenPosition(InputAction.CallbackContext context)
     {
@@ -36,24 +54,39 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
+<<<<<<< HEAD
             _clickedCellPos = Managers.InputMgr.GetClickedCellPosition(_mouseScreenPos);
             if (_clickedCellPos.HasValue == false) { return; }
+=======
+            if (_currentMouseCellPos.HasValue == false && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) { return; }
+>>>>>>> parent of f02edd4 (08.06.2021)
             Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Moving);
         }
     }
     public void HandleIdle()
     {
+<<<<<<< HEAD
+=======
+        //_state = Define.PlayerState.Idle;
+>>>>>>> parent of f02edd4 (08.06.2021)
         //Todo 
         if(_board == null)
         {
             _board = Managers.DungeonMgr.GetTileInfoDict();
         }
+        _currentPlayerCellPos = _currentMouseCellPos.Value;
         UpdateReachableTileInfo();
+<<<<<<< HEAD
+=======
+        UpdatePath();
+        SetReachableTiles();
+>>>>>>> parent of f02edd4 (08.06.2021)
         _playerInput.actions.Enable();
     }
 
     public void HandleMoving()
     {
+<<<<<<< HEAD
         _playerInput.actions.Disable();
         
         #region Player Moving Algorithm
@@ -62,6 +95,24 @@ public class PlayerController : MonoBehaviour
         _currentPlayerCellPos = _clickedCellPos.Value;
         #endregion
         Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Idle);
+=======
+        
+        _state = Define.PlayerState.Moving;
+        _playerInput.actions.Disable();
+        ResetReachableTiles();
+        #region Player Moving Algorithm
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(MovePlayerAlongPath()));
+        //gameObject.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(_currentMouseCellPos.Value);
+
+        
+        #endregion
+        if ((transform.position - Managers.GameMgr.Floor.GetCellCenterWorld(_destination)).magnitude<0.01f)
+        {
+            Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Idle);
+        }
+        Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Moving);
+        yield break;
+>>>>>>> parent of f02edd4 (08.06.2021)
     }
 
     public void HandleDie()
@@ -154,6 +205,70 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+<<<<<<< HEAD
+=======
+    private void UpdatePath()
+    {
+        if(_destination == _currentMouseCellPos) { return; }
+        if (_reachableTileDict.TryGetValue(_currentMouseCellPos.Value,out PathInfo currentInfo) == false)
+        {
+            return;
+        }
+        UpdateDestination();
+        ResetPath();
+        while (currentInfo.Coor != currentInfo.Parent)
+        {
+            _path.Push(currentInfo.Coor);
+            _reachableTileDict.TryGetValue(currentInfo.Parent, out currentInfo);
+        }
+    }
+
+    private void UpdateDestination()
+    {
+        _destination = _currentMouseCellPos.Value;
+    }
+    private void ResetPath()
+    {
+        _path.Clear();
+    }
+    private void SetReachableTiles()
+    {
+        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableTileDict)
+        {
+            Managers.UI_Mgr.PaintReachableTile(pair.Key);
+        }
+    }
+    private void ResetReachableTiles()
+    {
+        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableTileDict)
+        {
+            Managers.UI_Mgr.ResetReachableTile(pair.Key);
+        }
+    }
+    private IEnumerator<float> MovePlayerAlongPath()
+    {
+        Vector3Int next;
+        while (_path.Count > 0)
+        {
+            next = _path.Pop();
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(MovePlayerOnce(next)));
+            _currentPlayerCellPos = next;
+        }
+        yield break;
+    }
+    private IEnumerator<float> MovePlayerOnce(Vector3Int next)
+    {
+        Vector3 startingPos = transform.position;
+        Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
+        float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
+        while ((transform.position - nextDest).magnitude > 0.01f)
+        {
+            transform.Translate(Vector3.Lerp(startingPos, nextDest, moveSpeed * Time.deltaTime));
+            yield return 0f;
+        }
+        yield break;
+    }
+>>>>>>> parent of f02edd4 (08.06.2021)
 
    
    

@@ -20,14 +20,6 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "CameraMovement",
-                    "type": "Value",
-                    "id": "3c4a203f-1e64-4f61-a892-ccd2b7e74e14",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -50,50 +42,6 @@
                     "processors": "",
                     "groups": "Mouse+KeyBoard",
                     "action": "MousePosition",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6a101539-b6ec-4387-8135-7a6915b1642e",
-                    "path": "<Keyboard>/a",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "Mouse+KeyBoard",
-                    "action": "CameraMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ddd5f2c1-8df2-4332-8c02-0f7d64798dae",
-                    "path": "<Keyboard>/w",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "Mouse+KeyBoard",
-                    "action": "CameraMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4184d0b9-ab0f-4543-b21e-e426817eb47f",
-                    "path": "<Keyboard>/d",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "Mouse+KeyBoard",
-                    "action": "CameraMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e2c5f471-a0e9-4195-b26a-f838557076b4",
-                    "path": "<Keyboard>/s",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "Mouse+KeyBoard",
-                    "action": "CameraMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

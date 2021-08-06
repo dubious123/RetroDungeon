@@ -33,14 +33,6 @@ public class @MouseInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""CameraMovement"",
-                    ""type"": ""Value"",
-                    ""id"": ""3c4a203f-1e64-4f61-a892-ccd2b7e74e14"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -63,50 +55,6 @@ public class @MouseInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Mouse+KeyBoard"",
                     ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6a101539-b6ec-4387-8135-7a6915b1642e"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": ""Mouse+KeyBoard"",
-                    ""action"": ""CameraMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ddd5f2c1-8df2-4332-8c02-0f7d64798dae"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": ""Mouse+KeyBoard"",
-                    ""action"": ""CameraMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4184d0b9-ab0f-4543-b21e-e426817eb47f"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": ""Mouse+KeyBoard"",
-                    ""action"": ""CameraMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e2c5f471-a0e9-4195-b26a-f838557076b4"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": ""Mouse+KeyBoard"",
-                    ""action"": ""CameraMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -136,7 +84,6 @@ public class @MouseInput : IInputActionCollection, IDisposable
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
         m_GamePlay_MouseClick = m_GamePlay.FindAction("MouseClick", throwIfNotFound: true);
         m_GamePlay_MousePosition = m_GamePlay.FindAction("MousePosition", throwIfNotFound: true);
-        m_GamePlay_CameraMovement = m_GamePlay.FindAction("CameraMovement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -188,14 +135,12 @@ public class @MouseInput : IInputActionCollection, IDisposable
     private IGamePlayActions m_GamePlayActionsCallbackInterface;
     private readonly InputAction m_GamePlay_MouseClick;
     private readonly InputAction m_GamePlay_MousePosition;
-    private readonly InputAction m_GamePlay_CameraMovement;
     public struct GamePlayActions
     {
         private @MouseInput m_Wrapper;
         public GamePlayActions(@MouseInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MouseClick => m_Wrapper.m_GamePlay_MouseClick;
         public InputAction @MousePosition => m_Wrapper.m_GamePlay_MousePosition;
-        public InputAction @CameraMovement => m_Wrapper.m_GamePlay_CameraMovement;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,9 +156,6 @@ public class @MouseInput : IInputActionCollection, IDisposable
                 @MousePosition.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
-                @CameraMovement.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraMovement;
-                @CameraMovement.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraMovement;
-                @CameraMovement.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraMovement;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -224,9 +166,6 @@ public class @MouseInput : IInputActionCollection, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
-                @CameraMovement.started += instance.OnCameraMovement;
-                @CameraMovement.performed += instance.OnCameraMovement;
-                @CameraMovement.canceled += instance.OnCameraMovement;
             }
         }
     }
@@ -244,6 +183,5 @@ public class @MouseInput : IInputActionCollection, IDisposable
     {
         void OnMouseClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
-        void OnCameraMovement(InputAction.CallbackContext context);
     }
 }
