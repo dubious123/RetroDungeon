@@ -5,7 +5,6 @@ using UnityEngine;
 public class Define
 {
     public const int TileLayerNum = 7;
-    public const int PlayerAnimatorNum = 4;
     public static int[] TileMoveCost =
     {
         1,1,1,1,3,3,3,3
@@ -70,22 +69,6 @@ public class Define
         public static Vector3Int Right = new Vector3Int(1, -1, 0);
         public static Vector3Int Down = new Vector3Int(-1, -1, 0);
         public static Vector3Int Left = new Vector3Int(-1, 1, 0);
-    }
-    public enum WeaponType
-    {
-        None,
-        Sword,
-        Rifle,
-        Bow,
-        Sycthe,
-        Hammer,
-    }
-    public enum CharDir
-    {
-        Up,
-        Right,
-        Down,
-        Left
     }
     public enum PlayerState
     {

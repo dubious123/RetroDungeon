@@ -1,87 +1,141 @@
 using System;
-//using System.Collections;
+using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using Priority_Queue;
-using MEC;
 public class PlayerController : MonoBehaviour
 {
     PlayerInput _playerInput;
-    AnimationController _animController;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
     Define.PlayerState _state;
+>>>>>>> parent of f02edd4 (08.06.2021)
     static Dictionary<Vector3Int, TileInfo> _board;
-    Dictionary<Vector3Int, PathInfo> _reachableTileDict;
     InputAction.CallbackContext _clickContext;
-    Stack<Vector3Int> _path;
-    Vector3Int? _currentMouseCellPos;
+    Vector2 _mouseScreenPos;
+    Vector3Int? _clickedCellPos;
     Vector3Int _currentPlayerCellPos;
+<<<<<<< HEAD
+=======
     Vector3Int _destination;
+<<<<<<< HEAD
+>>>>>>> parent of f02edd4 (08.06.2021)
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
+
     
     void Init()
     {      
         _playerInput = gameObject.GetComponent<PlayerInput>();
         _playerInput.DeactivateInput();
-        _animController = gameObject.GetComponent<AnimationController>();
         Managers.TurnMgr.SetPlayerController(this);
         transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(Vector3Int.zero);
+<<<<<<< HEAD
+=======
 
         _path = new Stack<Vector3Int>();
         _currentMouseCellPos = Vector3Int.zero;
-
         
+>>>>>>> parent of f02edd4 (08.06.2021)
     }
     private void Awake()
     {
         Init();
     }
+    public void FixedUpdate()
+    {
+    }
     public void UpdateMouseScreenPosition(InputAction.CallbackContext context)
     {
-        _currentMouseCellPos = Managers.InputMgr.UpdateMouseCellPos(context.ReadValue<Vector2>());
-        if (_currentMouseCellPos.HasValue)
-        {
-            UpdatePath();
-        }
+        _mouseScreenPos = context.ReadValue<Vector2>();
     }
     public void OnClicked(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            if (_currentMouseCellPos.HasValue && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) 
-            {
-                Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Moving);
-            }
+<<<<<<< HEAD
+<<<<<<< HEAD
+            _clickedCellPos = Managers.InputMgr.GetClickedCellPosition(_mouseScreenPos);
+            if (_clickedCellPos.HasValue == false) { return; }
+=======
+            if (_currentMouseCellPos.HasValue == false && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) { return; }
+>>>>>>> parent of f02edd4 (08.06.2021)
+=======
+            if (_currentMouseCellPos.HasValue == false && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) { return; }
+>>>>>>> parent of f02edd4 (08.06.2021)
+            Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Moving);
         }
     }
     public void HandleIdle()
     {
-        _animController.PlayAnimation("idle");
-        _state = Define.PlayerState.Idle;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        //_state = Define.PlayerState.Idle;
+>>>>>>> parent of f02edd4 (08.06.2021)
+=======
+        //_state = Define.PlayerState.Idle;
+>>>>>>> parent of f02edd4 (08.06.2021)
         //Todo 
         if(_board == null)
         {
             _board = Managers.DungeonMgr.GetTileInfoDict();
         }
+        _currentPlayerCellPos = _currentMouseCellPos.Value;
         UpdateReachableTileInfo();
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
+        UpdatePath();
         SetReachableTiles();
+>>>>>>> parent of f02edd4 (08.06.2021)
         _playerInput.actions.Enable();
     }
 
-    public IEnumerator<float> HandleMoving()
+    public void HandleMoving()
     {
-        if(_state == Define.PlayerState.Idle)
-        {
-            _state = Define.PlayerState.Moving;
-            _playerInput.actions.Disable();
-            ResetReachableTiles();
-        }
+<<<<<<< HEAD
+<<<<<<< HEAD
+        _playerInput.actions.Disable();
+        
         #region Player Moving Algorithm
-        yield return Timing.WaitUntilDone(_MovePlayerAlongPath().RunCoroutine());
-        Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Idle);
-        yield break;
+
+        gameObject.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(_clickedCellPos.Value);
+        _currentPlayerCellPos = _clickedCellPos.Value;
         #endregion
+        Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Idle);
+=======
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
+        
+        _state = Define.PlayerState.Moving;
+        _playerInput.actions.Disable();
+        ResetReachableTiles();
+        #region Player Moving Algorithm
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(MovePlayerAlongPath()));
+        //gameObject.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(_currentMouseCellPos.Value);
+
+        
+        #endregion
+        if ((transform.position - Managers.GameMgr.Floor.GetCellCenterWorld(_destination)).magnitude<0.01f)
+        {
+            Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Idle);
+        }
+        Managers.TurnMgr.UpdatePlayerState(Define.PlayerState.Moving);
+        yield break;
+<<<<<<< HEAD
+>>>>>>> parent of f02edd4 (08.06.2021)
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
     }
 
     public void HandleDie()
@@ -99,7 +153,7 @@ public class PlayerController : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    class PathInfo :Interface.ICustomPriorityQueueNode<int>
+    class PathInfo : Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
         Vector3Int _parent;
@@ -116,7 +170,6 @@ public class PlayerController : MonoBehaviour
         }
         public int GetPriority()
         {
-
             return _cost;
         }
     }
@@ -124,24 +177,19 @@ public class PlayerController : MonoBehaviour
     {
         public bool Equals(PathInfo x, PathInfo y)
         {
-            if (x == null || y == null)
-            {
-                return false;
-            }
             return x.Coor == y.Coor;
         }
 
         public int GetHashCode(PathInfo obj)
         {
-            return obj.Coor.GetHashCode();
+            return -obj.Cost;
         }
     }
     private void UpdateReachableTileInfo()
     {
         int currentAp = Managers.GameMgr.Player_Data.CurrentAp;
         SimplePriorityQueue<PathInfo, int> nextTiles = new SimplePriorityQueue<PathInfo, int>(new PathInfoEquality());
-
-        _reachableTileDict = new Dictionary<Vector3Int, PathInfo>();
+        Dictionary<Vector3Int, PathInfo> reachableTileDict = new Dictionary<Vector3Int, PathInfo>();
         PathInfo currentInfo = new PathInfo(_currentPlayerCellPos, _currentPlayerCellPos, 0);
         PathInfo nextInfo;
         Vector3Int currentCoor;
@@ -153,35 +201,35 @@ public class PlayerController : MonoBehaviour
         {
             currentInfo = nextTiles.Dequeue();
             currentCoor = currentInfo.Coor;
-            _reachableTileDict.Add(currentInfo.Coor, currentInfo);
+            reachableTileDict.Add(currentInfo.Coor, currentInfo);
             for (int i = 0; i < Define.TileCoor8Dir.Length; i++)
             {
                 nextCoor = currentCoor + Define.TileCoor8Dir[i];
-                if (_reachableTileDict.ContainsKey(nextCoor)) { continue; }
+                if (reachableTileDict.ContainsKey(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
+                if (_board.ContainsKey(nextCoor) && currentAp > totalMoveCost)
                 {
                     nextInfo = new PathInfo(nextCoor, currentCoor, totalMoveCost);
-                    bool test = nextTiles.Contains(nextInfo);
                     if (nextTiles.TryGetPriority(nextInfo,out int priority))
                     {
+                        throw new Exception();
                         //nextInfo is in the Queue
                         if (totalMoveCost < priority) 
                         {
                             //found better path
-                            nextTiles.Remove(nextInfo);
-                            nextTiles.Enqueue(nextInfo);
+                            nextTiles.UpdatePriority(nextInfo, totalMoveCost);
                         }
                         continue;
                     }
                     //nextInfo is not in the Queue, therefore Enqueue nextInfo
                     nextTiles.Enqueue(nextInfo);
-                    
                 }
             }
         }
     }
+<<<<<<< HEAD
+=======
     private void UpdatePath()
     {
         if(_destination == _currentMouseCellPos) { return; }
@@ -220,70 +268,35 @@ public class PlayerController : MonoBehaviour
             Managers.UI_Mgr.ResetReachableTile(pair.Key);
         }
     }
-    private IEnumerator<float> _MovePlayerAlongPath()
+    private IEnumerator<float> MovePlayerAlongPath()
     {
         Vector3Int next;
         while (_path.Count > 0)
         {
             next = _path.Pop();
-            UpdatePlayerLookDir(next);
-            _animController.PlayAnimation("walk");
-
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(_MovePlayerOnce(next)));
-            UpdateMoveResult(next);
-            yield return Timing.WaitForSeconds(0.15f);
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(MovePlayerOnce(next)));
+            _currentPlayerCellPos = next;
         }
         yield break;
     }
-    private IEnumerator<float> _MovePlayerOnce(Vector3Int next)
+    private IEnumerator<float> MovePlayerOnce(Vector3Int next)
     {
-
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
-        Vector3 dir = nextDest - startingPos;
         float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
-        while ((transform.position - nextDest).magnitude > 0.1f)
+        while ((transform.position - nextDest).magnitude > 0.01f)
         {
-            transform.Translate(dir.normalized * Mathf.Clamp(moveSpeed * Time.deltaTime, 0, dir.magnitude));
+            transform.Translate(Vector3.Lerp(startingPos, nextDest, moveSpeed * Time.deltaTime));
             yield return 0f;
         }
         yield break;
     }
-    public void UpdatePlayerLookDir(Vector3Int next)
-    {
-        Vector3Int dir = next - _currentPlayerCellPos;
-        if (dir == Define.TileCoor8Dir[4])
-        {
-            Managers.GameMgr.Player_Data.LookDir = Define.CharDir.Up;
+<<<<<<< HEAD
+>>>>>>> parent of f02edd4 (08.06.2021)
+=======
+>>>>>>> parent of f02edd4 (08.06.2021)
 
-        }
-        else if (dir == Define.TileCoor8Dir[6])
-        {
-            Managers.GameMgr.Player_Data.LookDir = Define.CharDir.Down;
-        }
-        else if (dir.y >= 0 && dir.x <= 0)
-        {
-            Managers.GameMgr.Player_Data.LookDir = Define.CharDir.Left;
-        }
-        else
-        {
-            Managers.GameMgr.Player_Data.LookDir = Define.CharDir.Right;
-        }
-    }
-    public void UpdateMoveResult(Vector3Int next)
-    {
-        _currentPlayerCellPos = next;
-        // calculate current Ap
-        // if something happened -> Kill Coroutine
-        if (SomethingHappened())
-        {
-            Timing.KillCoroutines();
-        }
-
-    }
-    public bool SomethingHappened()
-    {
-        return false;
-    }
-
+   
+   
+    
 }

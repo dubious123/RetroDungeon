@@ -48,8 +48,7 @@ public class TurnManager
                 _playerController.HandleIdle();
                 break;
             case Define.PlayerState.Moving:
-                _playerController.HandleMoving().RunCoroutine();
-                _playerController.HandleMoving();
+                Timing.RunCoroutine(_playerController.HandleMoving());
                 break;
             case Define.PlayerState.Skill:
                 _playerController.HandleSkill();

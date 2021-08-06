@@ -50,9 +50,6 @@ TagManager:
   - name: Wall
     uniqueID: 4212621687
     locked: 0
-  - name: Shadow
-    uniqueID: 1635393471
-    locked: 0
   - name: Player
     uniqueID: 2680269089
     locked: 0
