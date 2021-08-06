@@ -12,7 +12,7 @@ public class Managers : MonoBehaviour
     public static GameManagerEx GameMgr { get { return Instance._gameMgr; } }
     #endregion
 
-
+    CameraManager _cameraMgr = new CameraManager();
     DungeonManager _dungeonMgr = new DungeonManager();
     InputManager _inputMgr = new InputManager();
     PoolManager _poolMgr = new PoolManager();
@@ -20,6 +20,8 @@ public class Managers : MonoBehaviour
     TurnManager _turnMgr = new TurnManager();
     UI_Manager _ui_Mgr = new UI_Manager();
 
+ 
+    public static CameraManager CameraMgr { get { return Instance._cameraMgr; } }
     public static DungeonManager DungeonMgr { get { return Instance._dungeonMgr; } }
     public static InputManager InputMgr { get { return Instance._inputMgr; } }
     public static PoolManager PoolMgr { get { return Instance._poolMgr; } }
@@ -45,9 +47,9 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(go);
             _instance = go.GetComponent<Managers>();
+            _instance._cameraMgr.Init();
             _instance._dungeonMgr.Init();
             _instance._poolMgr.Init();
-
             _instance._gameMgr.Init();
             _instance._inputMgr.Init();
             _instance._turnMgr.Init();
