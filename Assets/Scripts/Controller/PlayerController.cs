@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour
         float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
         while ((transform.position - nextDest).magnitude > 0.1f)
         {
-            transform.Translate(dir.normalized * Mathf.Clamp(moveSpeed * Time.deltaTime, 0, dir.magnitude));
+            transform.Translate(dir.normalized * Mathf.Clamp(moveSpeed * Timing.DeltaTime, 0, dir.magnitude));
             yield return 0f;
         }
         yield break;
