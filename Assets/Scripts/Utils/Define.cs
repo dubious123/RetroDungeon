@@ -87,7 +87,7 @@ public class Define
         Down,
         Left
     }
-    public enum PlayerState
+    public enum UnitState
     {
         Idle,
         Moving,

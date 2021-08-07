@@ -7,13 +7,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using Priority_Queue;
 using MEC;
-using UnityEngine.UI;
-
-public class PlayerController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     PlayerInput _playerInput;
     AnimationController _animController;
-    Button _endTernBtn;
     Define.UnitState _state;
     static Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableTileDict;
@@ -22,18 +19,17 @@ public class PlayerController : MonoBehaviour
     Vector3Int? _currentMouseCellPos;
     Vector3Int _currentPlayerCellPos;
     Vector3Int _destination;
+
     void Init()
-    {      
-        _playerInput = gameObject.GetComponent<PlayerInput>();
-        _playerInput.DeactivateInput();
+    {
         _animController = gameObject.GetComponent<AnimationController>();
-        Managers.TurnMgr.SetPlayerController(this);
+
         transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(Vector3Int.zero);
 
         _path = new Stack<Vector3Int>();
         _currentMouseCellPos = Vector3Int.zero;
-        _endTernBtn = GameObject.Find("EndTurnButton").GetComponent<Button>();
-        _endTernBtn.onClick.AddListener(EndTurn);
+
+
     }
     private void Awake()
     {
@@ -51,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            if (_currentMouseCellPos.HasValue && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) 
+            if (_currentMouseCellPos.HasValue && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value))
             {
                 Managers.TurnMgr.UpdatePlayerState(Define.UnitState.Moving);
             }
@@ -62,23 +58,23 @@ public class PlayerController : MonoBehaviour
         _animController.PlayAnimation("idle");
         _state = Define.UnitState.Idle;
         //Todo 
-        if(_board == null)
+        if (_board == null)
         {
             _board = Managers.DungeonMgr.GetTileInfoDict();
         }
         UpdateReachableTileInfo();
         SetReachableTiles();
         _playerInput.actions.Enable();
-        _endTernBtn.enabled = true;
     }
 
     public IEnumerator<float> HandleMoving()
     {
-        _endTernBtn.enabled = false;
-        _state = Define.UnitState.Moving;
-        _playerInput.actions.Disable();
-        ResetReachableTiles();
-        
+        if (_state == Define.UnitState.Idle)
+        {
+            _state = Define.UnitState.Moving;
+            _playerInput.actions.Disable();
+            ResetReachableTiles();
+        }
         #region Player Moving Algorithm
         yield return Timing.WaitUntilDone(_MovePlayerAlongPath().RunCoroutine());
         Managers.TurnMgr.UpdatePlayerState(Define.UnitState.Idle);
@@ -101,14 +97,7 @@ public class PlayerController : MonoBehaviour
         throw new NotImplementedException();
     }
 
-
-    public void EndTurn()
-    {
-        Managers.GameMgr.Player_Data.UpdateAp(Managers.GameMgr.Player_Data.RecoverAp);
-        ResetReachableTiles();
-        Managers.TurnMgr.UpdateTurn(Define.Turn.Enemy);
-    }
-    class PathInfo :Interface.ICustomPriorityQueueNode<int>
+    class PathInfo : Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
         Vector3Int _parent;
@@ -125,6 +114,7 @@ public class PlayerController : MonoBehaviour
         }
         public int GetPriority()
         {
+
             return _cost;
         }
     }
@@ -138,6 +128,7 @@ public class PlayerController : MonoBehaviour
             }
             return x.Coor == y.Coor;
         }
+
         public int GetHashCode(PathInfo obj)
         {
             return obj.Coor.GetHashCode();
@@ -154,7 +145,7 @@ public class PlayerController : MonoBehaviour
         Vector3Int currentCoor;
         Vector3Int nextCoor;
 
-        
+
         nextTiles.Enqueue(currentInfo);
         while (nextTiles.Count > 0)
         {
@@ -171,10 +162,10 @@ public class PlayerController : MonoBehaviour
                 {
                     nextInfo = new PathInfo(nextCoor, currentCoor, totalMoveCost);
                     bool test = nextTiles.Contains(nextInfo);
-                    if (nextTiles.TryGetPriority(nextInfo,out int priority))
+                    if (nextTiles.TryGetPriority(nextInfo, out int priority))
                     {
                         //nextInfo is in the Queue
-                        if (totalMoveCost < priority) 
+                        if (totalMoveCost < priority)
                         {
                             //found better path
                             nextTiles.Remove(nextInfo);
@@ -184,15 +175,15 @@ public class PlayerController : MonoBehaviour
                     }
                     //nextInfo is not in the Queue, therefore Enqueue nextInfo
                     nextTiles.Enqueue(nextInfo);
-                    
+
                 }
             }
         }
     }
     private void UpdatePath()
     {
-        if(_destination == _currentMouseCellPos) { return; }
-        if (_reachableTileDict.TryGetValue(_currentMouseCellPos.Value,out PathInfo currentInfo) == false)
+        if (_destination == _currentMouseCellPos) { return; }
+        if (_reachableTileDict.TryGetValue(_currentMouseCellPos.Value, out PathInfo currentInfo) == false)
         {
             return;
         }
@@ -279,10 +270,8 @@ public class PlayerController : MonoBehaviour
     }
     public void UpdateMoveResult(Vector3Int next)
     {
-        // calculate current Ap
-        UpdateMoveAp(next);
         _currentPlayerCellPos = next;
-
+        // calculate current Ap
         // if something happened -> Kill Coroutine
         if (SomethingHappened())
         {
@@ -290,18 +279,8 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    public void UpdateMoveAp(Vector3Int next)
-    {
-        _reachableTileDict.TryGetValue(_currentPlayerCellPos, out PathInfo nowInfo);
-        _reachableTileDict.TryGetValue(next, out PathInfo nextInfo);
-        int cost = nextInfo.Cost - nowInfo.Cost;
-        Managers.GameMgr.Player_Data.UpdateAp(-cost);
-    }
     public bool SomethingHappened()
     {
         return false;
     }
-
-
-
 }

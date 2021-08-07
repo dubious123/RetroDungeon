@@ -8,6 +8,7 @@ public class GameManagerEx
     Define.World _currentWorld;
     GameObject _player;
     PlayerData _playerData;
+    Dictionary<Vector3Int, GameObject> _enemeyDic;
     Transform[] _GridLayers;
     Tilemap[] _tilemaps;
     Tilemap _floor;
@@ -15,6 +16,7 @@ public class GameManagerEx
     public Define.World CurrentWorld { get { return _currentWorld; } }
     public GameObject Player { get { return _player; } }
     public PlayerData Player_Data { get { return _playerData; } }
+    public Dictionary<Vector3Int, GameObject> EnemyDic { get { return _enemeyDic; } }
     public Transform[] Tilemaps { get { return _GridLayers; } }
     public Tilemap Floor { get { return _floor; } }
 
@@ -40,7 +42,7 @@ public class GameManagerEx
         {
             case Define.WorldObject.Player:
                 _player = go;
-                _playerData = new PlayerData(go, _GridLayers[0]);
+                _playerData = go.AddComponent<PlayerData>();
                 break;
             case Define.WorldObject.Monster:
                 break;
@@ -51,6 +53,7 @@ public class GameManagerEx
         }
         return go;
     }
+    
 
 
 }

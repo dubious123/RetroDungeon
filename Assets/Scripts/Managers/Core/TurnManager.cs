@@ -7,19 +7,19 @@ public class TurnManager
 {
     PlayerController _playerController;
     Define.Turn _currentTurn;
-    Define.PlayerState _currentPlayerState;
+    Define.UnitState _currentPlayerState;
     public Define.Turn CurrentTurn { get { return _currentTurn; } }
-    public Define.PlayerState CurrentPlayerState { get { return _currentPlayerState; } }
+    public Define.UnitState CurrentPlayerState { get { return _currentPlayerState; } }
     public void Init()
     {
         _currentTurn = Define.Turn.Player;
-        _currentPlayerState = Define.PlayerState.Idle;
+        _currentPlayerState = Define.UnitState.Idle;
     }
     public void SetPlayerController(PlayerController playerController)
     {
         _playerController = playerController;
     }
-    public void UpdatePlayerState(Define.PlayerState nextState)
+    public void UpdatePlayerState(Define.UnitState nextState)
     {
         _currentPlayerState = nextState;
         UpdateTurn(_currentTurn);
@@ -44,20 +44,19 @@ public class TurnManager
     {
         switch (_currentPlayerState)
         {
-            case Define.PlayerState.Idle:
+            case Define.UnitState.Idle:
                 _playerController.HandleIdle();
                 break;
-            case Define.PlayerState.Moving:
+            case Define.UnitState.Moving:
                 _playerController.HandleMoving().RunCoroutine();
-                _playerController.HandleMoving();
                 break;
-            case Define.PlayerState.Skill:
+            case Define.UnitState.Skill:
                 _playerController.HandleSkill();
                 break;
-            case Define.PlayerState.UseItem:
+            case Define.UnitState.UseItem:
                 _playerController.HandleUseItem();
                 break;
-            case Define.PlayerState.Die:
+            case Define.UnitState.Die:
                 _playerController.HandleDie();
                 break;
             default:
@@ -67,7 +66,9 @@ public class TurnManager
     }
     void HandleEnemyTurn()
     {
-
+        Debug.Log("EnemyTurn");
+        Debug.Log("EnemyTurn End");
+        UpdateTurn(Define.Turn.Player);
     }
     public void SetTurn()
     {
