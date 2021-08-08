@@ -11,7 +11,7 @@ public class GameScene : BaseScene
         
         GameObject dungeon = Managers.DungeonMgr.CreateNewDungeon(Managers.GameMgr.CurrentWorld);
 
-        GameObject player = Managers.GameMgr.Spawn(Define.WorldObject.Player, "Player/Player",dungeon);
+        GameObject player = Managers.GameMgr.CreatePlayer(dungeon);
 
         Managers.GameMgr.StartGame();
     }

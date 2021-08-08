@@ -21,12 +21,15 @@ public class DungeonInfo : MonoBehaviour
     [SerializeField]
     int _tileCount;
 
+    int _enemyCount;
+    
+
     public Transform[] GridLayers { get { return _GridLayers; } }
     public Tilemap[] tilemaps { get { return _tilemaps; } }
     public int Iteration { get { return _iteration; } }
     public int RoomSize { get { return _roomSize; } }
     public int TileCount { get { return _tileCount; } }
-
+    public int EnemyCount { get { return _enemyCount; } }
 
     Dictionary<Vector3Int, TileInfo> _board;
     public Dictionary<Vector3Int, TileInfo> Board { get { return _board; } }
@@ -106,6 +109,7 @@ public class DungeonInfo : MonoBehaviour
         }
 
         _tileCount = _iteration * _roomSize;
+        _enemyCount = _roomSize / _iteration;
     }
 
 

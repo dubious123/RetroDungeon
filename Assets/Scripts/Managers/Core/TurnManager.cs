@@ -5,11 +5,17 @@ using MEC;
 
 public class TurnManager
 {
+    #region Player
     PlayerController _playerController;
     Define.Turn _currentTurn;
     Define.UnitState _currentPlayerState;
     public Define.Turn CurrentTurn { get { return _currentTurn; } }
     public Define.UnitState CurrentPlayerState { get { return _currentPlayerState; } }
+    #endregion
+
+    #region Enemy
+
+    #endregion
     public void Init()
     {
         _currentTurn = Define.Turn.Player;
@@ -70,23 +76,6 @@ public class TurnManager
         Debug.Log("EnemyTurn End");
         UpdateTurn(Define.Turn.Player);
     }
-    public void SetTurn()
-    {
-        if (_currentTurn == Define.Turn.Player)
-        {
-            if (Managers.GameMgr.Player_Data.MaxAp > 0)
-            {
 
-            }
-            else
-            {
-                _currentTurn = Define.Turn.Enemy;
-            }
-        }
-        else if (_currentTurn == Define.Turn.Enemy)
-        {
-
-        }
-    }
 
 }

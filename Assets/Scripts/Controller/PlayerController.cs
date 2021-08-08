@@ -14,10 +14,10 @@ public class PlayerController : MonoBehaviour
     PlayerInput _playerInput;
     AnimationController _animController;
     Button _endTernBtn;
-    Define.UnitState _state;
+    //Define.UnitState _state;
     static Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableTileDict;
-    InputAction.CallbackContext _clickContext;
+    //InputAction.CallbackContext _clickContext;
     Stack<Vector3Int> _path;
     Vector3Int? _currentMouseCellPos;
     Vector3Int _currentPlayerCellPos;
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     public void HandleIdle()
     {
         _animController.PlayAnimation("idle");
-        _state = Define.UnitState.Idle;
+        //_state = Define.UnitState.Idle;
         //Todo 
         if(_board == null)
         {
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator<float> HandleMoving()
     {
         _endTernBtn.enabled = false;
-        _state = Define.UnitState.Moving;
+        //_state = Define.UnitState.Moving;
         _playerInput.actions.Disable();
         ResetReachableTiles();
         
@@ -102,12 +102,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void EndTurn()
-    {
-        Managers.GameMgr.Player_Data.UpdateAp(Managers.GameMgr.Player_Data.RecoverAp);
-        ResetReachableTiles();
-        Managers.TurnMgr.UpdateTurn(Define.Turn.Enemy);
-    }
+
     class PathInfo :Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
@@ -301,7 +296,12 @@ public class PlayerController : MonoBehaviour
     {
         return false;
     }
-
+    public void EndTurn()
+    {
+        Managers.GameMgr.Player_Data.UpdateAp(Managers.GameMgr.Player_Data.RecoverAp);
+        ResetReachableTiles();
+        Managers.TurnMgr.UpdateTurn(Define.Turn.Enemy);
+    }
 
 
 }
