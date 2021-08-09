@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
 
 public class InputManager
 {
@@ -20,6 +21,12 @@ public class InputManager
     public void Init()
     {
         _mainCamera = Camera.main;
+    }
+    public void SetCameraInputSystem(GameObject player)
+    {
+        PlayerInput input = player.GetComponent<PlayerInput>();
+        input.currentActionMap.FindAction("Camera2DMovement").performed += Managers.CameraMgr.GameCam.UpdateManualPosition;
+        input.currentActionMap.FindAction("Camera2DMovement").canceled += Managers.CameraMgr.GameCam.UpdateManualPosition;
     }
     public Vector3Int? UpdateMouseCellPos(Vector2 screenMousePos)
     {

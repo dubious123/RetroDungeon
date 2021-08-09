@@ -208,7 +208,7 @@ public class EnemyController : MonoBehaviour
     {
         foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableTileDict)
         {
-            Managers.UI_Mgr.PaintReachableTile(pair.Key);
+            Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
         }
     }
     private void ResetReachableTiles()

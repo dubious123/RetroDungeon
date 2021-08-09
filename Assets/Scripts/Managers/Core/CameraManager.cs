@@ -5,17 +5,19 @@ using UnityEngine;
 public class CameraManager
 {
     CameraController _gameCam;
-    CameraController GameCam { get { return _gameCam; } }
+    public CameraController GameCam { get { return _gameCam; } }
     public void Init()
     {
         _gameCam = Camera.main.GetComponent<CameraController>();
     }
-    public void InitGameCamera(GameObject target)
+    public void InitGameCamera(GameObject player)
     {
-        SetGameCameraTarget(target);
+        Managers.InputMgr.SetCameraInputSystem(player);
+        SetGameCameraTarget(player);
     }
     public void SetGameCameraTarget(GameObject target)
     {
         _gameCam.Target = target;
     }
+    
 }

@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     Button _endTernBtn;
     //Define.UnitState _state;
     static Dictionary<Vector3Int, TileInfo> _board;
-    Dictionary<Vector3Int, PathInfo> _reachableTileDict;
+    Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;
+    HashSet<Vector3Int> _reachableOccupiedCoorSet;
     //InputAction.CallbackContext _clickContext;
     Stack<Vector3Int> _path;
     Vector3Int? _currentMouseCellPos;
@@ -49,8 +50,9 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            if (_currentMouseCellPos.HasValue && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) 
+            if (_currentMouseCellPos.HasValue && _reachableEmptyTileDict.ContainsKey(_currentMouseCellPos.Value)) 
             {
+                //Todo
                 if(_board[_currentMouseCellPos.Value].Occupied != Define.OccupiedType.Empty)
                 {
                     //Todo
@@ -81,7 +83,6 @@ public class PlayerController : MonoBehaviour
         //_state = Define.UnitState.Moving;
         _playerInput.actions.Disable();
         ResetReachableTiles();
-        
         #region Player Moving Algorithm
         yield return Timing.WaitUntilDone(_MovePlayerAlongPath().RunCoroutine());
         Managers.TurnMgr.UpdatePlayerState(Define.UnitState.Idle);
@@ -146,33 +147,38 @@ public class PlayerController : MonoBehaviour
         int currentAp = Managers.GameMgr.Player_Data.CurrentAp;
         SimplePriorityQueue<PathInfo, int> nextTiles = new SimplePriorityQueue<PathInfo, int>(new PathInfoEquality());
 
-        _reachableTileDict = new Dictionary<Vector3Int, PathInfo>();
+        _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
+        _reachableOccupiedCoorSet = new HashSet<Vector3Int>();
         PathInfo currentInfo = new PathInfo(_currentPlayerCellPos, _currentPlayerCellPos, 0);
         PathInfo nextInfo;
         Vector3Int currentCoor;
         Vector3Int nextCoor;
 
-        
         nextTiles.Enqueue(currentInfo);
         while (nextTiles.Count > 0)
         {
             currentInfo = nextTiles.Dequeue();
             currentCoor = currentInfo.Coor;
-            _reachableTileDict.Add(currentInfo.Coor, currentInfo);
+            _reachableEmptyTileDict.Add(currentInfo.Coor, currentInfo);
             for (int i = 0; i < Define.TileCoor8Dir.Length; i++)
             {
                 nextCoor = currentCoor + Define.TileCoor8Dir[i];
-                if (_reachableTileDict.ContainsKey(nextCoor)) { continue; }
+                if (_reachableEmptyTileDict.ContainsKey(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost && _board[nextCoor].Occupied == Define.OccupiedType.Empty)
+                if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
                 {
+                    if (_board[nextCoor].Occupied != Define.OccupiedType.Empty) 
+                    { 
+                        _reachableOccupiedCoorSet.Add(nextCoor);
+                        continue;
+                    }
                     nextInfo = new PathInfo(nextCoor, currentCoor, totalMoveCost);
                     bool test = nextTiles.Contains(nextInfo);
-                    if (nextTiles.TryGetPriority(nextInfo,out int priority))
+                    if (nextTiles.TryGetPriority(nextInfo, out int priority))
                     {
                         //nextInfo is in the Queue
-                        if (totalMoveCost < priority) 
+                        if (totalMoveCost < priority)
                         {
                             //found better path
                             nextTiles.Remove(nextInfo);
@@ -182,7 +188,6 @@ public class PlayerController : MonoBehaviour
                     }
                     //nextInfo is not in the Queue, therefore Enqueue nextInfo
                     nextTiles.Enqueue(nextInfo);
-                    
                 }
             }
         }
@@ -191,7 +196,7 @@ public class PlayerController : MonoBehaviour
     private void UpdatePath()
     {
         if(_destination == _currentMouseCellPos) { return; }
-        if (_reachableTileDict.TryGetValue(_currentMouseCellPos.Value,out PathInfo currentInfo) == false)
+        if (_reachableEmptyTileDict.TryGetValue(_currentMouseCellPos.Value,out PathInfo currentInfo) == false)
         {
             return;
         }
@@ -200,7 +205,7 @@ public class PlayerController : MonoBehaviour
         while (currentInfo.Coor != currentInfo.Parent)
         {
             _path.Push(currentInfo.Coor);
-            _reachableTileDict.TryGetValue(currentInfo.Parent, out currentInfo);
+            _reachableEmptyTileDict.TryGetValue(currentInfo.Parent, out currentInfo);
         }
     }
 
@@ -214,14 +219,18 @@ public class PlayerController : MonoBehaviour
     }
     private void SetReachableTiles()
     {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableTileDict)
+        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
         {
-            Managers.UI_Mgr.PaintReachableTile(pair.Key);
+            Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
+        }
+        foreach(Vector3Int coor in _reachableOccupiedCoorSet)
+        {
+            Managers.UI_Mgr.PaintReachableOccupiedTile(coor);
         }
     }
     private void ResetReachableTiles()
     {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableTileDict)
+        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
         {
             Managers.UI_Mgr.ResetReachableTile(pair.Key);
         }
@@ -293,8 +302,8 @@ public class PlayerController : MonoBehaviour
     }
     public void UpdateMoveAp(Vector3Int next)
     {
-        _reachableTileDict.TryGetValue(_currentPlayerCellPos, out PathInfo nowInfo);
-        _reachableTileDict.TryGetValue(next, out PathInfo nextInfo);
+        _reachableEmptyTileDict.TryGetValue(_currentPlayerCellPos, out PathInfo nowInfo);
+        _reachableEmptyTileDict.TryGetValue(next, out PathInfo nextInfo);
         int cost = nextInfo.Cost - nowInfo.Cost;
         Managers.GameMgr.Player_Data.UpdateAp(-cost);
     }

@@ -151,6 +151,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3c4a203f-1e64-4f61-a892-ccd2b7e74e14
     m_ActionName: GamePlay/CameraMovement[/Keyboard/a,/Keyboard/w,/Keyboard/d,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2d8fe319-8cb4-40df-b041-e55218098856
+    m_ActionName: GamePlay/CameraHeightMovement[/Mouse/scroll/x,/Mouse/scroll/y]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Mouse+KeyBoard
   m_DefaultActionMap: GamePlay

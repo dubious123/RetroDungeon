@@ -71,6 +71,11 @@ public class Define
         public static Vector3Int Down = new Vector3Int(-1, -1, 0);
         public static Vector3Int Left = new Vector3Int(-1, 1, 0);
     }
+    public enum CameraState
+    {
+        Auto,
+        Manual
+    }
     public enum OccupiedType
     {
         Empty,

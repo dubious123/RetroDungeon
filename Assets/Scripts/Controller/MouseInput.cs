@@ -35,9 +35,17 @@ public class @MouseInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""CameraMovement"",
-                    ""type"": ""Value"",
+                    ""name"": ""Camera2DMovement"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""3c4a203f-1e64-4f61-a892-ccd2b7e74e14"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
+                },
+                {
+                    ""name"": ""CameraHeightMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""2d8fe319-8cb4-40df-b041-e55218098856"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -67,48 +75,92 @@ public class @MouseInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""6a101539-b6ec-4387-8135-7a6915b1642e"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": ""Hold"",
+                    ""name"": ""Scroll"",
+                    ""id"": ""e85a3790-ea80-43ee-ac8e-2f1e214f98fb"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mouse+KeyBoard"",
-                    ""action"": ""CameraMovement"",
-                    ""isComposite"": false,
+                    ""groups"": """",
+                    ""action"": ""CameraHeightMovement"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""ddd5f2c1-8df2-4332-8c02-0f7d64798dae"",
+                    ""name"": ""negative"",
+                    ""id"": ""36f274e5-b2d0-4bd7-988b-ee853d047b5f"",
+                    ""path"": ""<Mouse>/scroll/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse+KeyBoard"",
+                    ""action"": ""CameraHeightMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""149dd9cb-0b70-49da-a161-a7fc8b3c1b48"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse+KeyBoard"",
+                    ""action"": ""CameraHeightMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""e2771c1f-2068-412d-8365-b83d19a5b981"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera2DMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""7cdbca18-2188-45f4-9faf-898627bfb56f"",
                     ""path"": ""<Keyboard>/w"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse+KeyBoard"",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""Camera2DMovement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""4184d0b9-ab0f-4543-b21e-e426817eb47f"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": ""Mouse+KeyBoard"",
-                    ""action"": ""CameraMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e2c5f471-a0e9-4195-b26a-f838557076b4"",
+                    ""name"": ""down"",
+                    ""id"": ""b1650cb2-ff4d-448d-97a0-669b68bb8799"",
                     ""path"": ""<Keyboard>/s"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse+KeyBoard"",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""Camera2DMovement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""2c746c7c-e05b-45a2-8b56-384ef0eec125"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse+KeyBoard"",
+                    ""action"": ""Camera2DMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""a86b1ad9-2299-48de-ac28-b0bfc6e0fb59"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse+KeyBoard"",
+                    ""action"": ""Camera2DMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -136,7 +188,8 @@ public class @MouseInput : IInputActionCollection, IDisposable
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
         m_GamePlay_MouseClick = m_GamePlay.FindAction("MouseClick", throwIfNotFound: true);
         m_GamePlay_MousePosition = m_GamePlay.FindAction("MousePosition", throwIfNotFound: true);
-        m_GamePlay_CameraMovement = m_GamePlay.FindAction("CameraMovement", throwIfNotFound: true);
+        m_GamePlay_Camera2DMovement = m_GamePlay.FindAction("Camera2DMovement", throwIfNotFound: true);
+        m_GamePlay_CameraHeightMovement = m_GamePlay.FindAction("CameraHeightMovement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -188,14 +241,16 @@ public class @MouseInput : IInputActionCollection, IDisposable
     private IGamePlayActions m_GamePlayActionsCallbackInterface;
     private readonly InputAction m_GamePlay_MouseClick;
     private readonly InputAction m_GamePlay_MousePosition;
-    private readonly InputAction m_GamePlay_CameraMovement;
+    private readonly InputAction m_GamePlay_Camera2DMovement;
+    private readonly InputAction m_GamePlay_CameraHeightMovement;
     public struct GamePlayActions
     {
         private @MouseInput m_Wrapper;
         public GamePlayActions(@MouseInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MouseClick => m_Wrapper.m_GamePlay_MouseClick;
         public InputAction @MousePosition => m_Wrapper.m_GamePlay_MousePosition;
-        public InputAction @CameraMovement => m_Wrapper.m_GamePlay_CameraMovement;
+        public InputAction @Camera2DMovement => m_Wrapper.m_GamePlay_Camera2DMovement;
+        public InputAction @CameraHeightMovement => m_Wrapper.m_GamePlay_CameraHeightMovement;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,9 +266,12 @@ public class @MouseInput : IInputActionCollection, IDisposable
                 @MousePosition.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMousePosition;
-                @CameraMovement.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraMovement;
-                @CameraMovement.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraMovement;
-                @CameraMovement.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraMovement;
+                @Camera2DMovement.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCamera2DMovement;
+                @Camera2DMovement.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCamera2DMovement;
+                @Camera2DMovement.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCamera2DMovement;
+                @CameraHeightMovement.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraHeightMovement;
+                @CameraHeightMovement.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraHeightMovement;
+                @CameraHeightMovement.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCameraHeightMovement;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -224,9 +282,12 @@ public class @MouseInput : IInputActionCollection, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
-                @CameraMovement.started += instance.OnCameraMovement;
-                @CameraMovement.performed += instance.OnCameraMovement;
-                @CameraMovement.canceled += instance.OnCameraMovement;
+                @Camera2DMovement.started += instance.OnCamera2DMovement;
+                @Camera2DMovement.performed += instance.OnCamera2DMovement;
+                @Camera2DMovement.canceled += instance.OnCamera2DMovement;
+                @CameraHeightMovement.started += instance.OnCameraHeightMovement;
+                @CameraHeightMovement.performed += instance.OnCameraHeightMovement;
+                @CameraHeightMovement.canceled += instance.OnCameraHeightMovement;
             }
         }
     }
@@ -244,6 +305,7 @@ public class @MouseInput : IInputActionCollection, IDisposable
     {
         void OnMouseClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
-        void OnCameraMovement(InputAction.CallbackContext context);
+        void OnCamera2DMovement(InputAction.CallbackContext context);
+        void OnCameraHeightMovement(InputAction.CallbackContext context);
     }
 }
