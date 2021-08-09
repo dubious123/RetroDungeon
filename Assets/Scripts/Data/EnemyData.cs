@@ -13,13 +13,13 @@ public class EnemyData : UnitData, Interface.ICustomPriorityQueueNode<int>
         base.Init();
         _lookDir = (Define.CharDir)Random.Range(0, 4);
     }
-    public void SetDataFromLibrary(EnemyLibrary.UnitDex.BaseUnitStat enemyStat)
+    public void SetDataFromLibrary(EnemyLibrary.UnitDex.BaseUnitStat unitDex)
     {
-        _speed = enemyStat.Speed;
-        _moveSpeed = enemyStat.MoveSpeed;
-        _maxAp = enemyStat.MaxAp;
-        _recoverAp = enemyStat.RecoverAp;
-        _weapon = enemyStat.Weapon;
+        _speed = unitDex.Speed;
+        _moveSpeed = unitDex.MoveSpeed;
+        _maxAp = unitDex.MaxAp;
+        _recoverAp = unitDex.RecoverAp;
+        _weapon = unitDex.Weapon;
     }
     public int GetPriority()
     {

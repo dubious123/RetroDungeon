@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour
         _playerInput.DeactivateInput();
         _animController = gameObject.GetComponent<AnimationController>();
         Managers.TurnMgr.SetPlayerController(this);
-        transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(Vector3Int.zero);
-
         _path = new Stack<Vector3Int>();
         _currentMouseCellPos = Vector3Int.zero;
         _endTernBtn = GameObject.Find("EndTurnButton").GetComponent<Button>();
@@ -53,6 +51,11 @@ public class PlayerController : MonoBehaviour
         {
             if (_currentMouseCellPos.HasValue && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value)) 
             {
+                if(_board[_currentMouseCellPos.Value].Occupied != Define.OccupiedType.Empty)
+                {
+                    //Todo
+                    return;
+                }
                 Managers.TurnMgr.UpdatePlayerState(Define.UnitState.Moving);
             }
         }
@@ -102,7 +105,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    #region Reachable Tile Caculation Algorithm
     class PathInfo :Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
@@ -162,7 +165,7 @@ public class PlayerController : MonoBehaviour
                 if (_reachableTileDict.ContainsKey(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
+                if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost && _board[nextCoor].Occupied == Define.OccupiedType.Empty)
                 {
                     nextInfo = new PathInfo(nextCoor, currentCoor, totalMoveCost);
                     bool test = nextTiles.Contains(nextInfo);
@@ -184,6 +187,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    #endregion
     private void UpdatePath()
     {
         if(_destination == _currentMouseCellPos) { return; }
@@ -275,6 +279,8 @@ public class PlayerController : MonoBehaviour
     public void UpdateMoveResult(Vector3Int next)
     {
         // calculate current Ap
+        _board[_currentPlayerCellPos].Occupied = Define.OccupiedType.Empty;
+        _board[next].Occupied = Define.OccupiedType.Player;
         UpdateMoveAp(next);
         _currentPlayerCellPos = next;
 

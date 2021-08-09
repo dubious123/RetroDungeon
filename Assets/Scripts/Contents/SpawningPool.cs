@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 
 public class SpawningPool : MonoBehaviour
 {
+    GameObject _dungeon;
     Dictionary<Vector3Int, EnemyData> EnemyDic;
     private class EnemyPriorityComparer : IComparer<int>
     {
@@ -21,23 +22,35 @@ public class SpawningPool : MonoBehaviour
     Tilemap _floor;
     private void Awake()
     {
+        _dungeon = transform.gameObject;
         EnemyDic = new Dictionary<Vector3Int, EnemyData>();
         EnemyQueue = new SimplePriorityQueue<EnemyData, int>();
     }
-    public void SpawnEnemy(GameObject dungeon)
+    public void SpawnEnemy()
     {
-        
-        DungeonInfo dungeonInfo = dungeon.GetComponent<DungeonInfo>();
+        GameObject newEnemy;
+        KeyValuePair<Vector3Int, TileInfo> pair;
+        DungeonInfo dungeonInfo = _dungeon.GetComponent<DungeonInfo>();
         _board = dungeonInfo.Board;
         _floor = dungeonInfo.tilemaps[0];
         Stack<Vector3Int> randomCoorStack = new Stack<Vector3Int>();
         for (int i = 0; i < dungeonInfo.EnemyCount; i++)
         {
-            EnemyData newEnemyData = Managers.ResourceMgr.Instantiate("Unit/Enemy",_floor.transform).GetComponent<EnemyData>();
-            //Todo : Randomize generator
-            //newEnemyData.SetDataFromLibrary(Managers.GameMgr.EnemyDex.)
-            EnemyDic.Add(_board.ElementAt(Random.Range(0, _board.Count - 1)).Key, null);
-
+            newEnemy = Managers.ResourceMgr.Instantiate("Unit/Enemy", _floor.transform);
+            EnemyData newEnemyData = newEnemy.GetComponent<EnemyData>();
+            newEnemyData.SetDataFromLibrary(EnemyLibrary._abandonedMinshaftDex.GetUnit("Unit_Miner"));
+            while(true)
+            {
+                pair = _board.ElementAt(Random.Range(0, _board.Count - 1));
+                if(pair.Value.Occupied == Define.OccupiedType.Empty) 
+                { 
+                    pair.Value.Occupied = Define.OccupiedType.Enemy;
+                    break; 
+                }
+            }
+            EnemyDic.Add(pair.Key, newEnemyData);
+            newEnemy.transform.position = _floor.GetCellCenterWorld(pair.Key);
+            EnemyQueue.Enqueue(newEnemyData);
         }
     }
 }

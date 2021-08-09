@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class EnemyLibrary
+public static class EnemyLibrary
 {
     public static AbandonedMineShaftDex _abandonedMinshaftDex;
-    public EnemyLibrary()
+    static EnemyLibrary()
     {
         _abandonedMinshaftDex = new AbandonedMineShaftDex();
     }
-    public UnitDex GetEnemyDex(Define.World world)
+    static UnitDex GetEnemyDex(Define.World world)
     {
         switch (world)
         {
@@ -23,41 +23,39 @@ public class EnemyLibrary
                 return null;
         }
     }
-    public class UnitDex
+    public abstract class UnitDex
     {
         public class BaseUnitStat
         {
             public int Speed { get; protected set; } = 5;
             public float MoveSpeed { get; protected set; } = 3.5f;
-
+            
             public int MaxAp { get; protected set; } = 4;
             public int RecoverAp { get; protected set; } = 3;
             public int CurrentAp { get; protected set; } = 3;
 
             public Define.WeaponType Weapon { get; protected set; } = Define.WeaponType.None;
-
         }
 
-        public virtual void GetUnit(string unitName)
-        {
-        }
+        public abstract BaseUnitStat GetUnit(string unitName);
     }
     public class AbandonedMineShaftDex : UnitDex
     {
-        Miner Unit_Miner;
+        public Miner Unit_Miner;
         public AbandonedMineShaftDex()
         {
             Unit_Miner = new Miner();
         }
         public class Miner : BaseUnitStat
         {
+            public Miner()
+            {
+            }
         }
-        //public override UnitDex GetUnit(string unitName, System.Object obj)
-        //{
-        //    Type type = obj.GetType();
-        //    type.GetProperty(unitName).;
-        //    return Unit_Info.GetValue(unit);
-        //}
+        public override BaseUnitStat GetUnit(string unitName)
+        {
+            return (BaseUnitStat)this.GetType().GetField(unitName).GetValue((object)_abandonedMinshaftDex);
+        }
 
     }
 }

@@ -11,6 +11,8 @@ public class TileInfo
     int _level = 0;
     int _leaveCost;
 
+    Define.OccupiedType _occupied;
+
     public Define.TileType tileType { get { return _tileType; } set { _tileType = value; SetTileType(); } }
     public IsometricRuleTile[] RuleTiles { get { return _tiles; } }
 
@@ -18,6 +20,7 @@ public class TileInfo
     public int Level { get { return _level; } }
     public int LeaveCost { get { return _leaveCost; } }
 
+    public Define.OccupiedType Occupied { get { return _occupied; } set { _occupied = value; } }
     public TileInfo(Define.World world, Define.TileType tileType = Define.TileType.Default)
     {
         Init(world, tileType);
@@ -27,6 +30,7 @@ public class TileInfo
         _worldtype = world;
         _tileType = tileType;
         _tiles = new IsometricRuleTile[Define.TileLayerNum];
+        _occupied = Define.OccupiedType.Empty;
         SetTileType();
 
     }

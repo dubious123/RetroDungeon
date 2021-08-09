@@ -6,7 +6,6 @@ using UnityEngine.Tilemaps;
 public class GameManagerEx
 {
     Define.World _currentWorld;
-    EnemyLibrary _enemyDex;
     GameObject _player;
     PlayerData _playerData;
     Dictionary<GameObject, Dictionary<Vector3Int, EnemyData>> _worldEnemeyDic;
@@ -15,7 +14,6 @@ public class GameManagerEx
     Tilemap _floor;
 
     public Define.World CurrentWorld { get { return _currentWorld; } }
-    public EnemyLibrary EnemyDex { get { return _enemyDex; } }
     public GameObject Player { get { return _player; } }
     public PlayerData Player_Data { get { return _playerData; } }
     //public Dictionary<GameObject, Dictionary<Vector3Int, EnemyData>> WorldEnemyDic { get { return _worldEnemeyDic; } }
@@ -26,15 +24,13 @@ public class GameManagerEx
     {
         _currentWorld = Define.World.AbandonedMineShaft;
         _worldEnemeyDic = new Dictionary<GameObject, Dictionary<Vector3Int, EnemyData>>();
-        _enemyDex = new EnemyLibrary();
     }
 
     public void StartGame()
     {
 
         Managers.CameraMgr.InitGameCamera(_player);
-
-
+        Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>().SpawnEnemy();
         Managers.TurnMgr.UpdateTurn(Define.Turn.Player);
     }
     /// <summary>
@@ -51,9 +47,10 @@ public class GameManagerEx
         _floor = _tilemaps[0];
         _player = Managers.ResourceMgr.Instantiate("Player/Player", _GridLayers[0]);
         _playerData = _player.GetOrAddComponent<PlayerData>();
+        _player.transform.position = _floor.GetCellCenterWorld(Vector3Int.zero);
+        dungeonInfo.Board[Vector3Int.zero].Occupied = Define.OccupiedType.Player;
         return _player;
     }
-
     public Dictionary<Vector3Int, EnemyData> GetEnemyDic(GameObject currentDungeon)
     {
         return _worldEnemeyDic[currentDungeon];
