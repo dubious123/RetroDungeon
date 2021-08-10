@@ -11,24 +11,23 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerInput _playerInput;
+
     AnimationController _animController;
     Button _endTernBtn;
     //Define.UnitState _state;
     static Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;
-    HashSet<Vector3Int> _reachableOccupiedCoorSet;
-    //InputAction.CallbackContext _clickContext;
+    HashSet<Vector3Int> _reachableOccupiedCoorSet; 
+
     Stack<Vector3Int> _path;
     Vector3Int? _currentMouseCellPos;
     Vector3Int _currentPlayerCellPos;
     Vector3Int _destination;
     void Init()
-    {      
-        _playerInput = gameObject.GetComponent<PlayerInput>();
-        _playerInput.DeactivateInput();
+    {
+
         _animController = gameObject.GetComponent<AnimationController>();
-        Managers.TurnMgr.SetPlayerController(this);
+        Managers.TurnMgr.GetPlayerController(this);
         _path = new Stack<Vector3Int>();
         _currentMouseCellPos = Vector3Int.zero;
         _endTernBtn = GameObject.Find("EndTurnButton").GetComponent<Button>();
@@ -73,7 +72,8 @@ public class PlayerController : MonoBehaviour
         }
         UpdateReachableTileInfo();
         SetReachableTiles();
-        _playerInput.actions.Enable();
+        Managers.InputMgr.GameInputController.ActivatePlayerInput();
+
         _endTernBtn.enabled = true;
     }
 
@@ -81,7 +81,8 @@ public class PlayerController : MonoBehaviour
     {
         _endTernBtn.enabled = false;
         //_state = Define.UnitState.Moving;
-        _playerInput.actions.Disable();
+        Managers.InputMgr.GameInputController.DeactivatePlayerInput();
+
         ResetReachableTiles();
         #region Player Moving Algorithm
         yield return Timing.WaitUntilDone(_MovePlayerAlongPath().RunCoroutine());

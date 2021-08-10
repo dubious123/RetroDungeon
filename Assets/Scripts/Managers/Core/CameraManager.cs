@@ -12,7 +12,6 @@ public class CameraManager
     }
     public void InitGameCamera(GameObject player)
     {
-        Managers.InputMgr.SetCameraInputSystem(player);
         SetGameCameraTarget(player);
     }
     public void SetGameCameraTarget(GameObject target)

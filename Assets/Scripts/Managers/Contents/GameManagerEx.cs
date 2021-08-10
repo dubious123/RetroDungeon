@@ -28,9 +28,9 @@ public class GameManagerEx
 
     public void StartGame()
     {
-
-        Managers.CameraMgr.InitGameCamera(_player);
         Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>().SpawnEnemy();
+        Managers.InputMgr.InitControllers(_player);
+        Managers.TurnMgr.UpdateDataFromCurrentSpawningPool();
         Managers.TurnMgr.UpdateTurn(Define.Turn.Player);
     }
     /// <summary>

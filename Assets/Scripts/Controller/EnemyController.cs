@@ -9,50 +9,29 @@ using Priority_Queue;
 using MEC;
 public class EnemyController : MonoBehaviour
 {
-    PlayerInput _playerInput;
     AnimationController _animController;
+    EnemyData _enemyData;
     Define.UnitState _state;
     static Dictionary<Vector3Int, TileInfo> _board;
-    Dictionary<Vector3Int, PathInfo> _reachableTileDict;
-    InputAction.CallbackContext _clickContext;
+    Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;
+    HashSet<Vector3Int> _reachableOccupiedCoorSet;
+    Dictionary<Vector3Int, PathInfo> _reachableTargetPathDict;
     Stack<Vector3Int> _path;
-    Vector3Int? _currentMouseCellPos;
-    Vector3Int _currentPlayerCellPos;
+    Vector3Int _currentUnitCellPos;
     Vector3Int _destination;
 
+    public Dictionary<Vector3Int, PathInfo> ReachableTargetPathDict { get { return _reachableTargetPathDict; } }
     void Init()
     {
         _animController = gameObject.GetComponent<AnimationController>();
-
-        transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(Vector3Int.zero);
-
         _path = new Stack<Vector3Int>();
-        _currentMouseCellPos = Vector3Int.zero;
-
-
+        _enemyData = transform.GetComponent<EnemyData>();
     }
     private void Awake()
     {
         Init();
     }
-    public void UpdateMouseScreenPosition(InputAction.CallbackContext context)
-    {
-        _currentMouseCellPos = Managers.InputMgr.UpdateMouseCellPos(context.ReadValue<Vector2>());
-        if (_currentMouseCellPos.HasValue)
-        {
-            UpdatePath();
-        }
-    }
-    public void OnClicked(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (_currentMouseCellPos.HasValue && _reachableTileDict.ContainsKey(_currentMouseCellPos.Value))
-            {
-                Managers.TurnMgr.UpdatePlayerState(Define.UnitState.Moving);
-            }
-        }
-    }
+
     public void HandleIdle()
     {
         _animController.PlayAnimation("idle");
@@ -64,18 +43,21 @@ public class EnemyController : MonoBehaviour
         }
         UpdateReachableTileInfo();
         SetReachableTiles();
-        _playerInput.actions.Enable();
+        DoNextAction(_enemyData.CaculateNextAction());
     }
-
+    public void DoNextAction(EnemyData.NextActionData nextAction)
+    {
+        
+        Managers.TurnMgr.HandleEnemyTurn();
+    }
     public IEnumerator<float> HandleMoving()
     {
         if (_state == Define.UnitState.Idle)
         {
             _state = Define.UnitState.Moving;
-            _playerInput.actions.Disable();
             ResetReachableTiles();
         }
-        #region Player Moving Algorithm
+        #region Enemy Moving Algorithm
         yield return Timing.WaitUntilDone(_MovePlayerAlongPath().RunCoroutine());
         Managers.TurnMgr.UpdatePlayerState(Define.UnitState.Idle);
         yield break;
@@ -97,7 +79,7 @@ public class EnemyController : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    class PathInfo : Interface.ICustomPriorityQueueNode<int>
+    public class PathInfo : Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
         Vector3Int _parent;
@@ -139,8 +121,8 @@ public class EnemyController : MonoBehaviour
         int currentAp = Managers.GameMgr.Player_Data.CurrentAp;
         SimplePriorityQueue<PathInfo, int> nextTiles = new SimplePriorityQueue<PathInfo, int>(new PathInfoEquality());
 
-        _reachableTileDict = new Dictionary<Vector3Int, PathInfo>();
-        PathInfo currentInfo = new PathInfo(_currentPlayerCellPos, _currentPlayerCellPos, 0);
+        _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
+        PathInfo currentInfo = new PathInfo(_currentUnitCellPos, _currentUnitCellPos, 0);
         PathInfo nextInfo;
         Vector3Int currentCoor;
         Vector3Int nextCoor;
@@ -151,11 +133,11 @@ public class EnemyController : MonoBehaviour
         {
             currentInfo = nextTiles.Dequeue();
             currentCoor = currentInfo.Coor;
-            _reachableTileDict.Add(currentInfo.Coor, currentInfo);
+            _reachableEmptyTileDict.Add(currentInfo.Coor, currentInfo);
             for (int i = 0; i < Define.TileCoor8Dir.Length; i++)
             {
                 nextCoor = currentCoor + Define.TileCoor8Dir[i];
-                if (_reachableTileDict.ContainsKey(nextCoor)) { continue; }
+                if (_reachableEmptyTileDict.ContainsKey(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
                 if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
@@ -182,23 +164,18 @@ public class EnemyController : MonoBehaviour
     }
     private void UpdatePath()
     {
-        if (_destination == _currentMouseCellPos) { return; }
-        if (_reachableTileDict.TryGetValue(_currentMouseCellPos.Value, out PathInfo currentInfo) == false)
-        {
-            return;
-        }
+        PathInfo currentInfo = null;
         UpdateDestination();
         ResetPath();
         while (currentInfo.Coor != currentInfo.Parent)
         {
             _path.Push(currentInfo.Coor);
-            _reachableTileDict.TryGetValue(currentInfo.Parent, out currentInfo);
+            _reachableEmptyTileDict.TryGetValue(currentInfo.Parent, out currentInfo);
         }
     }
 
     private void UpdateDestination()
     {
-        _destination = _currentMouseCellPos.Value;
     }
     private void ResetPath()
     {
@@ -206,14 +183,14 @@ public class EnemyController : MonoBehaviour
     }
     private void SetReachableTiles()
     {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableTileDict)
+        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
         {
             Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
         }
     }
     private void ResetReachableTiles()
     {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableTileDict)
+        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
         {
             Managers.UI_Mgr.ResetReachableTile(pair.Key);
         }
@@ -249,7 +226,7 @@ public class EnemyController : MonoBehaviour
     }
     public void UpdatePlayerLookDir(Vector3Int next)
     {
-        Vector3Int dir = next - _currentPlayerCellPos;
+        Vector3Int dir = next - _currentUnitCellPos;
         if (dir == Define.TileCoor8Dir[4])
         {
             Managers.GameMgr.Player_Data.LookDir = Define.CharDir.Up;
@@ -270,7 +247,7 @@ public class EnemyController : MonoBehaviour
     }
     public void UpdateMoveResult(Vector3Int next)
     {
-        _currentPlayerCellPos = next;
+        _currentUnitCellPos = next;
         // calculate current Ap
         // if something happened -> Kill Coroutine
         if (SomethingHappened())

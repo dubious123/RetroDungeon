@@ -571,7 +571,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cdc38a47f4a764ba7b407c3008bd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 1
+  duration: 0
+  startTime: 0
+  time: 0
+  _state: 0
   _dir: {x: 0, y: 0}
   _delta: {x: 0, y: 0, z: -20}
 --- !u!4 &3000677050237067004

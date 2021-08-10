@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 public class SpawningPool : MonoBehaviour
 {
     GameObject _dungeon;
-    Dictionary<Vector3Int, EnemyData> EnemyDic;
+    public Dictionary<Vector3Int, EnemyData> EnemyDic;
     private class EnemyPriorityComparer : IComparer<int>
     {
         public int Compare(int xSpeed, int ySpeed)
@@ -17,7 +17,7 @@ public class SpawningPool : MonoBehaviour
             return -Compare(xSpeed, ySpeed);
         }
     }
-    SimplePriorityQueue<EnemyData, int> EnemyQueue;
+    public SimplePriorityQueue<EnemyData, int> EnemyQueue;
     Dictionary<Vector3Int, TileInfo> _board;
     Tilemap _floor;
     private void Awake()

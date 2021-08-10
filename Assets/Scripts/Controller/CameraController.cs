@@ -7,6 +7,17 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    Camera camera;
+    [SerializeField]
+    float _cameraSize;
+    float _cameraDeltaSize;
+    float _maxCameraSize;
+    float _minCameraSize;
+    [SerializeField]
+    double _holdDuration;
+    double _maxHoldDuration;
+    double _waitDuration;
+    double _maxWaitDuration;
     [SerializeField]
     Define.CameraState _state;
     GameObject _player;
@@ -17,28 +28,80 @@ public class CameraController : MonoBehaviour
     float _moveSpeedManual2D;
     [SerializeField]
     Vector3 _delta = new Vector3(0, 0, -20);
+    float DeltaSize;
     [SerializeField]
     public GameObject Target { set { _target = value; } }
     public Define.CameraState State { get { return _state; } set { _state = value; } }
     private void Start()
     {
+        camera = gameObject.GetComponent<Camera>();
         _state = Define.CameraState.Auto;
-        _moveSpeedManual2D = 4.0f;
+        _moveSpeedManual2D = 6.0f;
+        _maxHoldDuration = 0.5;
+        _maxWaitDuration = 2;
+
+        _maxCameraSize = 10.0f;
+        _minCameraSize = 1.0f;
+        _cameraSize = 5.0f;
+        _cameraDeltaSize = 0f;
+        
     }
     void LateUpdate()
     {
         if (_state == Define.CameraState.Auto)
         {
-            UpdateTarget();
-            UpdatePosition();
+            _holdDuration = 0;
+            _waitDuration += Timing.DeltaTime;
+            if(_waitDuration > _maxWaitDuration)
+            {
+                UpdateTarget();
+                UpdatePosition();
+            }
         }
         else if(_state == Define.CameraState.Manual)
         {
-            MoveCameraManual2D();
+            _waitDuration = 0;
+            _holdDuration += Timing.DeltaTime;
+            if (_holdDuration > _maxHoldDuration)
+            {
+                MoveCameraManual2D();
+            }
         }
+        UpdateSize();
     }
     #region Scroll Camera Movement
-
+    public void UpdateCameraSize(InputAction.CallbackContext context)
+    {
+        float value = context.ReadValue<Vector2>().y;
+        if (value < 0)
+        {
+            _cameraDeltaSize = 1f;
+        }
+        else if (value > 0)
+        {
+            _cameraDeltaSize = -1f;
+        }
+        else
+        {
+            _cameraDeltaSize = 0f;
+        }
+    }
+    public void UpdateSize()
+    {
+        _cameraSize += _cameraDeltaSize;
+        if (_cameraSize < _minCameraSize)
+        {
+            _cameraSize = _minCameraSize;
+        }
+        else if(_cameraSize > _maxCameraSize)
+        {
+            _cameraSize = _maxCameraSize;
+        }
+        else
+        {
+            camera.orthographicSize = _cameraSize;
+        }
+    }
     #endregion
     #region Auto Target Movement
     private void UpdateTarget()

@@ -23,17 +23,17 @@
                 },
                 {
                     "name": "Camera2DMovement",
-                    "type": "PassThrough",
-                    "id": "3c4a203f-1e64-4f61-a892-ccd2b7e74e14",
+                    "type": "Value",
+                    "id": "d0fa2965-f9de-40b5-8261-913c6c45dddc",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 },
                 {
-                    "name": "CameraHeightMovement",
+                    "name": "CameraScrollMovement",
                     "type": "Value",
                     "id": "2d8fe319-8cb4-40df-b041-e55218098856",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -62,43 +62,21 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Scroll",
-                    "id": "e85a3790-ea80-43ee-ac8e-2f1e214f98fb",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "bac882d8-ef21-4c20-904c-8453c37ae1c7",
+                    "path": "Mouse/Scroll",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "CameraHeightMovement",
-                    "isComposite": true,
+                    "groups": "Mouse+KeyBoard",
+                    "action": "CameraScrollMovement",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "36f274e5-b2d0-4bd7-988b-ee853d047b5f",
-                    "path": "<Mouse>/scroll/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+KeyBoard",
-                    "action": "CameraHeightMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "149dd9cb-0b70-49da-a161-a7fc8b3c1b48",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+KeyBoard",
-                    "action": "CameraHeightMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "WASD",
-                    "id": "e2771c1f-2068-412d-8365-b83d19a5b981",
+                    "id": "84b4e9e0-e59c-4aaa-97fa-02377e59ea75",
                     "path": "2DVector",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Camera2DMovement",
@@ -107,7 +85,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "7cdbca18-2188-45f4-9faf-898627bfb56f",
+                    "id": "177a0ac8-09f6-4b79-919b-48f89e3b2128",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -117,19 +95,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "down",
-                    "id": "b1650cb2-ff4d-448d-97a0-669b68bb8799",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+KeyBoard",
-                    "action": "Camera2DMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
-                    "id": "2c746c7c-e05b-45a2-8b56-384ef0eec125",
+                    "id": "955f1d59-4032-46dc-8309-1cebbeab9944",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -139,8 +106,19 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "down",
+                    "id": "cf4a9833-35a9-4d61-a19d-459ef52c83a7",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse+KeyBoard",
+                    "action": "Camera2DMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "right",
-                    "id": "a86b1ad9-2299-48de-ac28-b0bfc6e0fb59",
+                    "id": "37176626-4aea-462e-ae8c-5158d297b1ff",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
