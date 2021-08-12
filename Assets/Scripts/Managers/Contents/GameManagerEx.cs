@@ -1,3 +1,4 @@
+using Priority_Queue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class GameManagerEx
     Define.World _currentWorld;
     GameObject _player;
     PlayerData _playerData;
-    Dictionary<GameObject, Dictionary<Vector3Int, EnemyData>> _worldEnemeyDic;
+    Dictionary<GameObject, Dictionary<Vector3Int, UnitData>> _worldUnitDic;
     Transform[] _GridLayers;
     Tilemap[] _tilemaps;
     Tilemap _floor;
@@ -16,14 +17,14 @@ public class GameManagerEx
     public Define.World CurrentWorld { get { return _currentWorld; } }
     public GameObject Player { get { return _player; } }
     public PlayerData Player_Data { get { return _playerData; } }
-    //public Dictionary<GameObject, Dictionary<Vector3Int, EnemyData>> WorldEnemyDic { get { return _worldEnemeyDic; } }
+    public Dictionary<GameObject, Dictionary<Vector3Int, UnitData>> WorldUnitDic { get { return _worldUnitDic; } }
     public Transform[] Tilemaps { get { return _GridLayers; } }
     public Tilemap Floor { get { return _floor; } }
 
     public void Init()
     {
         _currentWorld = Define.World.AbandonedMineShaft;
-        _worldEnemeyDic = new Dictionary<GameObject, Dictionary<Vector3Int, EnemyData>>();
+        _worldUnitDic = new Dictionary<GameObject, Dictionary<Vector3Int, UnitData>>();
     }
 
     public void StartGame()
@@ -49,11 +50,12 @@ public class GameManagerEx
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _player.transform.position = _floor.GetCellCenterWorld(Vector3Int.zero);
         dungeonInfo.Board[Vector3Int.zero].Occupied = Define.OccupiedType.Player;
+        _worldUnitDic[dungeon].Add(Vector3Int.zero, Player_Data);
         return _player;
     }
-    public Dictionary<Vector3Int, EnemyData> GetEnemyDic(GameObject currentDungeon)
+    public Dictionary<Vector3Int, UnitData> GetEnemyDic(GameObject currentDungeon)
     {
-        return _worldEnemeyDic[currentDungeon];
+        return _worldUnitDic[currentDungeon];
     }
 
 

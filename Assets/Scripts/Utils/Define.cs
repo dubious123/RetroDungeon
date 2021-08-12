@@ -71,6 +71,23 @@ public class Define
         public static Vector3Int Down = new Vector3Int(-1, -1, 0);
         public static Vector3Int Left = new Vector3Int(-1, 1, 0);
     }
+    public enum UnitPurpose
+    {
+        Sleep,
+        Roam,
+        Attack,
+        Help,
+        RunAway,
+
+    }
+    public enum UnitMentalState
+    {
+        Mad,
+        Hostile,
+        Neutral,
+        Friendly,
+        Reliable
+    }
     public enum CameraState
     {
         Auto,

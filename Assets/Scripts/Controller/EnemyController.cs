@@ -78,7 +78,7 @@ public class EnemyController : MonoBehaviour
     {
         throw new NotImplementedException();
     }
-
+    #region UnitMove
     public class PathInfo : Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
@@ -96,7 +96,6 @@ public class EnemyController : MonoBehaviour
         }
         public int GetPriority()
         {
-
             return _cost;
         }
     }
@@ -110,7 +109,6 @@ public class EnemyController : MonoBehaviour
             }
             return x.Coor == y.Coor;
         }
-
         public int GetHashCode(PathInfo obj)
         {
             return obj.Coor.GetHashCode();
@@ -122,11 +120,11 @@ public class EnemyController : MonoBehaviour
         SimplePriorityQueue<PathInfo, int> nextTiles = new SimplePriorityQueue<PathInfo, int>(new PathInfoEquality());
 
         _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
-        PathInfo currentInfo = new PathInfo(_currentUnitCellPos, _currentUnitCellPos, 0);
+        _reachableOccupiedCoorSet = new HashSet<Vector3Int>();
+        PathInfo currentInfo = new PathInfo(0, 0, 0);
         PathInfo nextInfo;
         Vector3Int currentCoor;
         Vector3Int nextCoor;
-
 
         nextTiles.Enqueue(currentInfo);
         while (nextTiles.Count > 0)
@@ -142,6 +140,11 @@ public class EnemyController : MonoBehaviour
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
                 if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
                 {
+                    if (_board[nextCoor].Occupied != Define.OccupiedType.Empty)
+                    {
+                        _reachableOccupiedCoorSet.Add(nextCoor);
+                        continue;
+                    }
                     nextInfo = new PathInfo(nextCoor, currentCoor, totalMoveCost);
                     bool test = nextTiles.Contains(nextInfo);
                     if (nextTiles.TryGetPriority(nextInfo, out int priority))
@@ -157,11 +160,11 @@ public class EnemyController : MonoBehaviour
                     }
                     //nextInfo is not in the Queue, therefore Enqueue nextInfo
                     nextTiles.Enqueue(nextInfo);
-
                 }
             }
         }
     }
+#endregion
     private void UpdatePath()
     {
         PathInfo currentInfo = null;

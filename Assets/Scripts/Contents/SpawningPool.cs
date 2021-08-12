@@ -23,11 +23,14 @@ public class SpawningPool : MonoBehaviour
     private void Awake()
     {
         _dungeon = transform.gameObject;
-        EnemyDic = new Dictionary<Vector3Int, EnemyData>();
         EnemyQueue = new SimplePriorityQueue<EnemyData, int>();
     }
     public void SpawnEnemy()
     {
+        //if (Managers.GameMgr.WorldUnitDic.TryGetValue(_dungeon, out EnemyDic) == false)
+        //{
+        //    EnemyDic = new Dictionary<Vector3Int, EnemyData>();
+        //}
         GameObject newEnemy;
         KeyValuePair<Vector3Int, TileInfo> pair;
         DungeonInfo dungeonInfo = _dungeon.GetComponent<DungeonInfo>();

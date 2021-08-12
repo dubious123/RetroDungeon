@@ -27,13 +27,16 @@ public static class EnemyLibrary
     {
         public class BaseUnitStat
         {
+            public string name;
             public int Speed { get; protected set; } = 5;
             public float MoveSpeed { get; protected set; } = 3.5f;
             
             public int MaxAp { get; protected set; } = 4;
             public int RecoverAp { get; protected set; } = 3;
             public int CurrentAp { get; protected set; } = 3;
+            public int EyeSight { get; protected set; } = 10;
 
+            public Define.UnitMentalState Mental { get; protected set; } = Define.UnitMentalState.Hostile;
             public Define.WeaponType Weapon { get; protected set; } = Define.WeaponType.None;
         }
 
@@ -50,6 +53,7 @@ public static class EnemyLibrary
         {
             public Miner()
             {
+                base.name = "Miner";
             }
         }
         public override BaseUnitStat GetUnit(string unitName)
