@@ -16,10 +16,9 @@ public class TurnManager
 
     #region Enemy
     SpawningPool _currentPool;
-    Dictionary<Vector3Int, EnemyData> _enemyDic;
-    SimplePriorityQueue<EnemyData, int> _enemyQueue;
-    EnemyData _currentEnemyData;
-    EnemyController _currentEnemyController;
+    SimplePriorityQueue<UnitData, int> _unitQueue;
+    UnitData _currentUnitData;
+    UnitController _currentUnitController;
     #endregion
     public void Init()
     {
@@ -34,21 +33,20 @@ public class TurnManager
     public void UpdateDataFromCurrentSpawningPool()
     {
         _currentPool = Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>();
-        _enemyDic = _currentPool.EnemyDic;
-        _enemyQueue = _currentPool.EnemyQueue;
+        _unitQueue = _currentPool.EnemyQueue;
     }
     public void UpdatePlayerState(Define.UnitState nextState)
     {
         _currentPlayerState = nextState;
         UpdateTurn(_currentTurn);
     }
-    public void UpdateEnemyState()
+    public void UpdateUnit()
     {
-        if(_enemyQueue.Count == 0) { UpdateTurn(Define.Turn.Player); }
+        if(_unitQueue.Count == 0) { UpdateTurn(Define.Turn.Player); }
         else 
         {
-            _currentEnemyData = _enemyQueue.Dequeue();
-            _currentEnemyController = _currentEnemyData.GetComponent<EnemyController>();
+            _currentUnitData = _unitQueue.Dequeue();
+            _currentUnitController = _currentUnitData.GetComponent<UnitController>();
             UpdateTurn(Define.Turn.Enemy); 
         }
     }
@@ -61,7 +59,7 @@ public class TurnManager
                 HandlePlayerTurn();
                 break;
             case Define.Turn.Enemy:
-                HandleEnemyTurn();
+                HandleUnitTurn();
                 break;
             default:
                 break;
@@ -81,9 +79,6 @@ public class TurnManager
             case Define.UnitState.Skill:
                 _playerController.HandleSkill();
                 break;
-            case Define.UnitState.UseItem:
-                _playerController.HandleUseItem();
-                break;
             case Define.UnitState.Die:
                 _playerController.HandleDie();
                 break;
@@ -92,30 +87,26 @@ public class TurnManager
                 break;
         }
     }
-    public void HandleEnemyTurn()
+    public void HandleUnitTurn()
     {
-        Debug.Log("EnemyTurn");
-        switch (_currentEnemyData.CurrentState)
+        UpdateUnit();
+        switch (_currentUnitData.CurrentState)
         {
             case Define.UnitState.Idle:
-                _currentEnemyController.HandleIdle();
+                _currentUnitController.HandleIdle();
                 break;
             case Define.UnitState.Moving:
-                _currentEnemyController.HandleMoving().RunCoroutine();
+                _currentUnitController.HandleMoving().RunCoroutine();
                 break;
             case Define.UnitState.Skill:
-                _currentEnemyController.HandleSkill();
-                break;
-            case Define.UnitState.UseItem:
-                _currentEnemyController.HandleUseItem();
+                _currentUnitController.HandleSkill();
                 break;
             case Define.UnitState.Die:
-                _currentEnemyController.HandleDie();
+                _currentUnitController.HandleDie();
                 break;
             default:
                 break;
         }
-        Debug.Log("EnemyTurn End");
     }
 
 

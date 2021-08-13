@@ -9,29 +9,30 @@ using UnityEngine.Tilemaps;
 public class SpawningPool : MonoBehaviour
 {
     GameObject _dungeon;
-    public Dictionary<Vector3Int, EnemyData> EnemyDic;
-    private class EnemyPriorityComparer : IComparer<int>
+    //public Dictionary<Vector3Int, GameObject> UnitDic;
+    private class UnitPriorityComparer : IComparer<int>
     {
         public int Compare(int xSpeed, int ySpeed)
         {
-            return -Compare(xSpeed, ySpeed);
+            if(xSpeed > ySpeed) { return ySpeed; }
+            else { return xSpeed; }
         }
     }
-    public SimplePriorityQueue<EnemyData, int> EnemyQueue;
+    public SimplePriorityQueue<UnitData, int> EnemyQueue;
     Dictionary<Vector3Int, TileInfo> _board;
     Tilemap _floor;
     private void Awake()
     {
         _dungeon = transform.gameObject;
-        EnemyQueue = new SimplePriorityQueue<EnemyData, int>();
+        EnemyQueue = new SimplePriorityQueue<UnitData, int>(new UnitPriorityComparer());
     }
-    public void SpawnEnemy()
+    public void SpawnUnits()
     {
-        //if (Managers.GameMgr.WorldUnitDic.TryGetValue(_dungeon, out EnemyDic) == false)
+        //if (Managers.GameMgr.WorldUnitDic.TryGetValue(_dungeon, out UnitDic) == false)
         //{
-        //    EnemyDic = new Dictionary<Vector3Int, EnemyData>();
+        //    UnitDic = new Dictionary<Vector3Int, GameObject>();
         //}
-        GameObject newEnemy;
+        GameObject newUnit;
         KeyValuePair<Vector3Int, TileInfo> pair;
         DungeonInfo dungeonInfo = _dungeon.GetComponent<DungeonInfo>();
         _board = dungeonInfo.Board;
@@ -39,21 +40,22 @@ public class SpawningPool : MonoBehaviour
         Stack<Vector3Int> randomCoorStack = new Stack<Vector3Int>();
         for (int i = 0; i < dungeonInfo.EnemyCount; i++)
         {
-            newEnemy = Managers.ResourceMgr.Instantiate("Unit/Enemy", _floor.transform);
-            EnemyData newEnemyData = newEnemy.GetComponent<EnemyData>();
-            newEnemyData.SetDataFromLibrary(EnemyLibrary._abandonedMinshaftDex.GetUnit("Unit_Miner"));
+            //Todo
+            newUnit = Managers.ResourceMgr.Instantiate("Unit/BaseUnit", _floor.transform);
+            UnitData newUnitData = newUnit.GetComponent<UnitData>();
+            newUnitData.SetDataFromLibrary(UnitLibrary._abandonedMinshaftDex.GetUnit("Unit_Miner"));
             while(true)
             {
                 pair = _board.ElementAt(Random.Range(0, _board.Count - 1));
-                if(pair.Value.Occupied == Define.OccupiedType.Empty) 
-                { 
-                    pair.Value.Occupied = Define.OccupiedType.Enemy;
+                if(!pair.Value.Occupied) 
+                {
+                    pair.Value.SetUnit(newUnit);
                     break; 
                 }
             }
-            EnemyDic.Add(pair.Key, newEnemyData);
-            newEnemy.transform.position = _floor.GetCellCenterWorld(pair.Key);
-            EnemyQueue.Enqueue(newEnemyData);
+            //UnitDic.Add(pair.Key, newUnit);
+            newUnit.transform.position = _floor.GetCellCenterWorld(pair.Key);
+            EnemyQueue.Enqueue(newUnitData);
         }
     }
 }

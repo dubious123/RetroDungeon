@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public static class EnemyLibrary
+public static class UnitLibrary
 {
+    //Todo
     public static AbandonedMineShaftDex _abandonedMinshaftDex;
-    static EnemyLibrary()
+    static UnitLibrary()
     {
         _abandonedMinshaftDex = new AbandonedMineShaftDex();
     }
-    static UnitDex GetEnemyDex(Define.World world)
+    static UnitDex GetUnitDex(Define.World world)
     {
         switch (world)
         {
@@ -44,7 +45,7 @@ public static class EnemyLibrary
     }
     public class AbandonedMineShaftDex : UnitDex
     {
-        public Miner Unit_Miner;
+        public static Miner Unit_Miner;
         public AbandonedMineShaftDex()
         {
             Unit_Miner = new Miner();
@@ -58,7 +59,7 @@ public static class EnemyLibrary
         }
         public override BaseUnitStat GetUnit(string unitName)
         {
-            return (BaseUnitStat)this.GetType().GetField(unitName).GetValue((object)_abandonedMinshaftDex);
+            return (BaseUnitStat)typeof(AbandonedMineShaftDex).GetField(unitName).GetValue(_abandonedMinshaftDex);
         }
 
     }

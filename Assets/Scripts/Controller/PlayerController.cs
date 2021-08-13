@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-
+    //Todo playerData
     AnimationController _animController;
     Button _endTernBtn;
     //Define.UnitState _state;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             if (_currentMouseCellPos.HasValue && _reachableEmptyTileDict.ContainsKey(_currentMouseCellPos.Value)) 
             {
                 //Todo
-                if(_board[_currentMouseCellPos.Value].Occupied != Define.OccupiedType.Empty)
+                if(_board[_currentMouseCellPos.Value].Occupied)
                 {
                     //Todo
                     return;
@@ -95,12 +95,6 @@ public class PlayerController : MonoBehaviour
     {
         throw new NotImplementedException();
     }
-
-    public void HandleUseItem()
-    {
-        throw new NotImplementedException();
-    }
-
     public void HandleSkill()
     {
         throw new NotImplementedException();
@@ -169,13 +163,12 @@ public class PlayerController : MonoBehaviour
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
                 if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
                 {
-                    if (_board[nextCoor].Occupied != Define.OccupiedType.Empty) 
+                    if (_board[nextCoor].Occupied) 
                     { 
                         _reachableOccupiedCoorSet.Add(nextCoor);
                         continue;
                     }
                     nextInfo = new PathInfo(nextCoor, currentCoor, totalMoveCost);
-                    bool test = nextTiles.Contains(nextInfo);
                     if (nextTiles.TryGetPriority(nextInfo, out int priority))
                     {
                         //nextInfo is in the Queue
@@ -289,8 +282,8 @@ public class PlayerController : MonoBehaviour
     public void UpdateMoveResult(Vector3Int next)
     {
         // calculate current Ap
-        _board[_currentPlayerCellPos].Occupied = Define.OccupiedType.Empty;
-        _board[next].Occupied = Define.OccupiedType.Player;
+        _board[_currentPlayerCellPos].RemoveUnit();
+        _board[next].SetUnit(gameObject);
         UpdateMoveAp(next);
         _currentPlayerCellPos = next;
 

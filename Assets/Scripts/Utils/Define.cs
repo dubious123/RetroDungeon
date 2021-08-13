@@ -71,11 +71,17 @@ public class Define
         public static Vector3Int Down = new Vector3Int(-1, -1, 0);
         public static Vector3Int Left = new Vector3Int(-1, 1, 0);
     }
-    public enum UnitPurpose
+    //Todo
+    public enum StatusEffects
     {
         Sleep,
+    }
+    public enum UnitPurpose
+    {
+        PassTurn,
         Roam,
         Attack,
+        Approach,
         Help,
         RunAway,
 
@@ -93,11 +99,15 @@ public class Define
         Auto,
         Manual
     }
-    public enum OccupiedType
+    public enum WorldObjectType
     {
-        Empty,
+        None,
+    }
+    public enum Unit
+    {
+        None,
+        Default,
         Player,
-        Enemy
     }
     public enum WeaponType
     {
@@ -120,7 +130,6 @@ public class Define
         Idle,
         Moving,
         Skill,
-        UseItem,
         Die,
     }
     public enum Turn
