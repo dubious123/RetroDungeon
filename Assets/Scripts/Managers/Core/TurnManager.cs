@@ -6,24 +6,33 @@ using Priority_Queue;
 
 public class TurnManager
 {
+    Define.Turn _currentTurn;
+    public Define.Turn CurrentTurn { get { return _currentTurn; } }
+
     #region Player
     PlayerController _playerController;
-    Define.Turn _currentTurn;
-    Define.UnitState _currentPlayerState;
-    public Define.Turn CurrentTurn { get { return _currentTurn; } }
-    public Define.UnitState CurrentPlayerState { get { return _currentPlayerState; } }
     #endregion
 
-    #region Enemy
+    #region Unit
     SpawningPool _currentPool;
-    SimplePriorityQueue<UnitData, int> _unitQueue;
+    List<UnitData> _unitList;
     UnitData _currentUnitData;
     UnitController _currentUnitController;
+    private class UnitPriorityComparer : IComparer<int>
+    {
+        public int Compare(int xSpeed, int ySpeed)
+        {
+            if (xSpeed > ySpeed) { return ySpeed; }
+            else { return xSpeed; }
+        }
+    }
+    SimplePriorityQueue<UnitData, int> _unitQueue;
     #endregion
     public void Init()
     {
         _currentTurn = Define.Turn.Player;
-        _currentPlayerState = Define.UnitState.Idle;
+        _unitQueue = new SimplePriorityQueue<UnitData, int>(new UnitPriorityComparer());
+
     }
 
     public void GetPlayerController(PlayerController playerController)
@@ -33,42 +42,13 @@ public class TurnManager
     public void UpdateDataFromCurrentSpawningPool()
     {
         _currentPool = Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>();
-        _unitQueue = _currentPool.EnemyQueue;
+        _unitList = _currentPool.UnitList;
     }
-    public void UpdatePlayerState(Define.UnitState nextState)
+    public void HandlePlayerTurn(Define.UnitState nextState = Define.UnitState.Idle)
     {
-        _currentPlayerState = nextState;
-        UpdateTurn(_currentTurn);
-    }
-    public void UpdateUnit()
-    {
-        if(_unitQueue.Count == 0) { UpdateTurn(Define.Turn.Player); }
-        else 
-        {
-            _currentUnitData = _unitQueue.Dequeue();
-            _currentUnitController = _currentUnitData.GetComponent<UnitController>();
-            UpdateTurn(Define.Turn.Enemy); 
-        }
-    }
-    public void UpdateTurn(Define.Turn nextTurn)
-    {
-        _currentTurn = nextTurn;
-        switch (nextTurn)
-        {
-            case Define.Turn.Player:
-                HandlePlayerTurn();
-                break;
-            case Define.Turn.Enemy:
-                HandleUnitTurn();
-                break;
-            default:
-                break;
-        }
-    }
-
-    void HandlePlayerTurn()
-    {
-        switch (_currentPlayerState)
+        if(_currentTurn == Define.Turn.Enemy) { _currentTurn = Define.Turn.Player; }
+        Managers.CameraMgr.GameCam.Target = _playerController.gameObject;
+        switch (nextState)
         {
             case Define.UnitState.Idle:
                 _playerController.HandleIdle();
@@ -89,25 +69,19 @@ public class TurnManager
     }
     public void HandleUnitTurn()
     {
-        UpdateUnit();
-        switch (_currentUnitData.CurrentState)
+        if(_currentTurn == Define.Turn.Player) { _currentTurn = Define.Turn.Enemy; ResetUnitQueue(); }
+        if(!_unitQueue.TryDequeue(out _currentUnitData)) { HandlePlayerTurn(); return; }
+        Managers.CameraMgr.GameCam.Target = _currentUnitData.gameObject;
+        _currentUnitController = _currentUnitData.GetComponent<UnitController>();
+        _currentUnitController.PerformUnitTurn();
+    }
+    private void ResetUnitQueue()
+    {
+        _unitQueue.Clear();
+        foreach(UnitData unitData in _unitList)
         {
-            case Define.UnitState.Idle:
-                _currentUnitController.HandleIdle();
-                break;
-            case Define.UnitState.Moving:
-                _currentUnitController.HandleMoving().RunCoroutine();
-                break;
-            case Define.UnitState.Skill:
-                _currentUnitController.HandleSkill();
-                break;
-            case Define.UnitState.Die:
-                _currentUnitController.HandleDie();
-                break;
-            default:
-                break;
+            _unitQueue.Enqueue(unitData);
         }
     }
-
 
 }

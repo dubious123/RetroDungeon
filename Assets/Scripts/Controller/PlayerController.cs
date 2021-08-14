@@ -12,20 +12,18 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     //Todo playerData
+    PlayerData _playerData;
     AnimationController _animController;
     Button _endTernBtn;
-    //Define.UnitState _state;
     static Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;
-    HashSet<Vector3Int> _reachableOccupiedCoorSet; 
-
+    HashSet<Vector3Int> _reachableOccupiedCoorSet;
     Stack<Vector3Int> _path;
     Vector3Int? _currentMouseCellPos;
-    Vector3Int _currentPlayerCellPos;
     Vector3Int _destination;
     void Init()
     {
-
+        _playerData = GetComponent<PlayerData>();
         _animController = gameObject.GetComponent<AnimationController>();
         Managers.TurnMgr.GetPlayerController(this);
         _path = new Stack<Vector3Int>();
@@ -36,6 +34,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Init();
+    }
+    private void UpdatePlayerState(Define.UnitState nextState)
+    {
+        Managers.TurnMgr.HandlePlayerTurn(nextState);
     }
     public void UpdateMouseScreenPosition(InputAction.CallbackContext context)
     {
@@ -57,7 +59,8 @@ public class PlayerController : MonoBehaviour
                     //Todo
                     return;
                 }
-                Managers.TurnMgr.UpdatePlayerState(Define.UnitState.Moving);
+                
+                UpdatePlayerState(Define.UnitState.Moving);
             }
         }
     }
@@ -73,7 +76,6 @@ public class PlayerController : MonoBehaviour
         UpdateReachableTileInfo();
         SetReachableTiles();
         Managers.InputMgr.GameInputController.ActivatePlayerInput();
-
         _endTernBtn.enabled = true;
     }
 
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour
         ResetReachableTiles();
         #region Player Moving Algorithm
         yield return Timing.WaitUntilDone(_MovePlayerAlongPath().RunCoroutine());
-        Managers.TurnMgr.UpdatePlayerState(Define.UnitState.Idle);
+        UpdatePlayerState(Define.UnitState.Idle);
         yield break;
         #endregion
     }
@@ -144,7 +146,7 @@ public class PlayerController : MonoBehaviour
 
         _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
         _reachableOccupiedCoorSet = new HashSet<Vector3Int>();
-        PathInfo currentInfo = new PathInfo(_currentPlayerCellPos, _currentPlayerCellPos, 0);
+        PathInfo currentInfo = new PathInfo(_playerData.CurrentCellCoor, _playerData.CurrentCellCoor, 0);
         PathInfo nextInfo;
         Vector3Int currentCoor;
         Vector3Int nextCoor;
@@ -260,7 +262,7 @@ public class PlayerController : MonoBehaviour
     }
     public void UpdatePlayerLookDir(Vector3Int next)
     {
-        Vector3Int dir = next - _currentPlayerCellPos;
+        Vector3Int dir = next - _playerData.CurrentCellCoor;
         if (dir == Define.TileCoor8Dir[4])
         {
             Managers.GameMgr.Player_Data.LookDir = Define.CharDir.Up;
@@ -282,10 +284,10 @@ public class PlayerController : MonoBehaviour
     public void UpdateMoveResult(Vector3Int next)
     {
         // calculate current Ap
-        _board[_currentPlayerCellPos].RemoveUnit();
+        _board[_playerData.CurrentCellCoor].RemoveUnit();
         _board[next].SetUnit(gameObject);
         UpdateMoveAp(next);
-        _currentPlayerCellPos = next;
+        _playerData.CurrentCellCoor = next;
 
         // if something happened -> Kill Coroutine
         if (SomethingHappened())
@@ -296,7 +298,7 @@ public class PlayerController : MonoBehaviour
     }
     public void UpdateMoveAp(Vector3Int next)
     {
-        _reachableEmptyTileDict.TryGetValue(_currentPlayerCellPos, out PathInfo nowInfo);
+        _reachableEmptyTileDict.TryGetValue(_playerData.CurrentCellCoor, out PathInfo nowInfo);
         _reachableEmptyTileDict.TryGetValue(next, out PathInfo nextInfo);
         int cost = nextInfo.Cost - nowInfo.Cost;
         Managers.GameMgr.Player_Data.UpdateAp(-cost);
@@ -309,7 +311,9 @@ public class PlayerController : MonoBehaviour
     {
         Managers.GameMgr.Player_Data.UpdateAp(Managers.GameMgr.Player_Data.RecoverAp);
         ResetReachableTiles();
-        Managers.TurnMgr.UpdateTurn(Define.Turn.Enemy);
+        _endTernBtn.enabled = false;
+        Managers.TurnMgr.HandleUnitTurn();
+
     }
 
 

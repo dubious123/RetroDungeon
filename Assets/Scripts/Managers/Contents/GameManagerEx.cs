@@ -32,7 +32,7 @@ public class GameManagerEx
         Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>().SpawnUnits();
         Managers.InputMgr.InitControllers(_player);
         Managers.TurnMgr.UpdateDataFromCurrentSpawningPool();
-        Managers.TurnMgr.UpdateTurn(Define.Turn.Player);
+        Managers.TurnMgr.HandlePlayerTurn();
     }
     /// <summary>
     /// First Thing GameManager Actually do

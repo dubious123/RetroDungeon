@@ -20,12 +20,14 @@ public class SkillLibrary
     {
         public abstract List<string> Tags { get; protected set; }
         public abstract int Cost { get; protected set; }
+        public abstract int Range { get; protected set; }
     }
     public class Blunt : BaseSkill
     {
         public override List<string> Tags { get; protected set; } = new List<string>(
             new string[] { "Attack","Melee" });
         public override int Cost { get; protected set; } = 1;
+        public override int Range { get; protected set; } = 1;
     }
 
 }

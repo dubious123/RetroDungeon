@@ -27,7 +27,7 @@ public class BaseUnitData : MonoBehaviour
     protected List<string> _skillList;
 
 
-    public Vector3Int CurrentCellCoor { get { return _currentCellCoor; } }
+    public Vector3Int CurrentCellCoor { get { return _currentCellCoor; } set { _currentCellCoor = value; } }
     public Define.CharDir LookDir { get { return _lookDir; } set { _lookDir = value; } }
 
     public Define.Unit UnitType { get { return _unitType; } set { _unitType = value; } }

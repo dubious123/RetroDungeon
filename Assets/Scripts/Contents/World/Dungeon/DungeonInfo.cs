@@ -109,7 +109,7 @@ public class DungeonInfo : MonoBehaviour
         }
 
         _tileCount = _iteration * _roomSize;
-        _enemyCount = _roomSize / _iteration;
+        _enemyCount = _roomSize / (_iteration*10);
     }
 
 

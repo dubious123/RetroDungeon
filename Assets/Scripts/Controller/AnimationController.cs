@@ -17,6 +17,7 @@ public class AnimationController : MonoBehaviour
     Animator _weaponAnim;
     Animator _weaponFlashAnim;
 
+
     Define.WeaponType _weaponType;
     bool _hasWeapon;
     string _dir;
@@ -47,7 +48,8 @@ public class AnimationController : MonoBehaviour
     }
     private void UpdateDir()
     {
-        switch (Managers.GameMgr.Player_Data.LookDir)
+        
+        switch (GetComponent<BaseUnitData>().LookDir)
         {
             case Define.CharDir.Up:
                 _dir = "up";

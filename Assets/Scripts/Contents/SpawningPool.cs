@@ -9,22 +9,13 @@ using UnityEngine.Tilemaps;
 public class SpawningPool : MonoBehaviour
 {
     GameObject _dungeon;
-    //public Dictionary<Vector3Int, GameObject> UnitDic;
-    private class UnitPriorityComparer : IComparer<int>
-    {
-        public int Compare(int xSpeed, int ySpeed)
-        {
-            if(xSpeed > ySpeed) { return ySpeed; }
-            else { return xSpeed; }
-        }
-    }
-    public SimplePriorityQueue<UnitData, int> EnemyQueue;
+    public List<UnitData> UnitList;
     Dictionary<Vector3Int, TileInfo> _board;
     Tilemap _floor;
     private void Awake()
     {
         _dungeon = transform.gameObject;
-        EnemyQueue = new SimplePriorityQueue<UnitData, int>(new UnitPriorityComparer());
+        UnitList = new List<UnitData>();
     }
     public void SpawnUnits()
     {
@@ -54,8 +45,9 @@ public class SpawningPool : MonoBehaviour
                 }
             }
             //UnitDic.Add(pair.Key, newUnit);
+            newUnitData.CurrentCellCoor = pair.Key;
             newUnit.transform.position = _floor.GetCellCenterWorld(pair.Key);
-            EnemyQueue.Enqueue(newUnitData);
+            UnitList.Add(newUnitData);
         }
     }
 }

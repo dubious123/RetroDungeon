@@ -36,9 +36,14 @@ public static class UnitLibrary
             public int RecoverAp { get; protected set; } = 3;
             public int CurrentAp { get; protected set; } = 3;
             public int EyeSight { get; protected set; } = 10;
+            
 
             public Define.UnitMentalState Mental { get; protected set; } = Define.UnitMentalState.Hostile;
             public Define.WeaponType Weapon { get; protected set; } = Define.WeaponType.None;
+
+            public List<string> EnemyList { get; protected set; } = new List<string>(new string[] { "Player" });
+            public List<string> AllienceList { get; protected set; } = new List<string>();
+            public List<string> SkillList { get; protected set; } = new List<string>();
         }
 
         public abstract BaseUnitStat GetUnit(string unitName);

@@ -9,6 +9,7 @@ public class PlayerData : BaseUnitData
     public override void Init()
     {
         base.Init();
+        _unitName = "Player";
         _unitType = Define.Unit.Player;
         _currentCellCoor = _floor.WorldToCell(Vector3Int.zero);
         _weapon = Define.WeaponType.None;
