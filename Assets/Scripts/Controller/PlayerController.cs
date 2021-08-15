@@ -230,6 +230,10 @@ public class PlayerController : MonoBehaviour
         {
             Managers.UI_Mgr.ResetReachableTile(pair.Key);
         }
+        foreach(Vector3Int coor in _reachableOccupiedCoorSet)
+        {
+            Managers.UI_Mgr.ResetReachableOccupiedTile(coor);
+        }
     }
     private IEnumerator<float> _MovePlayerAlongPath()
     {
@@ -312,8 +316,7 @@ public class PlayerController : MonoBehaviour
         Managers.GameMgr.Player_Data.UpdateAp(Managers.GameMgr.Player_Data.RecoverAp);
         ResetReachableTiles();
         _endTernBtn.enabled = false;
-        Managers.TurnMgr.HandleUnitTurn();
-
+        Managers.TurnMgr._HandleUnitTurn();
     }
 
 

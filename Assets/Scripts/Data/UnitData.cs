@@ -65,26 +65,41 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     HashSet<Vector3Int> _reachableOccupiedCoorSet;
     Stack<Vector3Int> _path;
     Vector3Int _destination;
+    Vector3Int _memorizedDestination;
     NextActionData _nextActionData;
     UnitController _unitController;
     GameObject _target;
+
     public class NextActionData
     {
         //public Define.UnitState NextState { get; set; }
-        public Define.UnitPurpose UnitPurpose { get; set; }
+
+
+        public Define.UnitPurpose UnitPurpose { get; private set; }
+        public bool IsNewPurpose { get; set; }
         public List<GameObject> BlackList { get; set; } = new List<GameObject>();
         public GameObject BlackTarget { get; set; }
         public List<GameObject> WhiteList { get; set; } = new List<GameObject>();
         public GameObject WhiteTarget { get; set; }
         public Dictionary<Vector3Int, GameObject> InSightUnitDict { get; set; } = new Dictionary<Vector3Int, GameObject>();
-        public SkillLibrary.BaseSkill nextSkill;
+        public SkillLibrary.BaseSkill NextSkill { get; set; }
+        public void UpdatePurpose(Define.UnitPurpose newPurpose)
+        {
+            if (UnitPurpose == newPurpose && UnitPurpose != Define.UnitPurpose.PassTurn) { IsNewPurpose = false; } 
+            else { IsNewPurpose = true; UnitPurpose = newPurpose; }
+        }
     }
 
  
     void InitNextAction()
     {
         //Todo
-        _nextActionData = new NextActionData();
+        _reachableEmptyTileDict.Clear();
+        _reachableOccupiedCoorSet.Clear();
+        _path.Clear();
+        _nextActionData.InSightUnitDict.Clear();
+        _nextActionData.BlackList.Clear();
+        _nextActionData.WhiteList.Clear();
     }
     public NextActionData UpdateNextAction()
     {
@@ -105,323 +120,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         HandleUnitPurpose();
         return _nextActionData;
     }
-
-    private void UpdateUnitMentalState()
-    {
-        //Todo
-        _mental = Define.UnitMentalState.Hostile;
-    }
-    private void CheckUnitsInSight()
-    {
-        Vector3Int nextCoor;
-        TileInfo nextTileInfo;
-        for (int y = -_eyeSight; y <= _eyeSight; y++)
-        {
-            for (int x = y - _eyeSight; x <= _eyeSight - y; x++)
-            {
-                nextCoor = _currentCellCoor + new Vector3Int(x, y, 0);
-                if (_board.TryGetValue(nextCoor,out nextTileInfo) && nextTileInfo.Unit != null)
-                {
-                    if(x==0 && y == 0) { continue; }
-                    _nextActionData.InSightUnitDict.Add(nextCoor, nextTileInfo.Unit);
-                }
-            }
-        }
-    }
-    private void CalculateUnitPurpose()
-    {
-        switch (_mental)
-        {
-            case Define.UnitMentalState.Mad:
-                HandleMad();
-                break;
-            case Define.UnitMentalState.Hostile:
-                HandleHostile();
-                break;
-            case Define.UnitMentalState.Neutral:
-                HandleNeutral();
-                break;
-            case Define.UnitMentalState.Friendly:
-                HandleFriendly();
-                break;
-            case Define.UnitMentalState.Reliable:
-                HandleReliable();
-                break;
-            default:
-                break;
-        }
-    }
-    #region HandleUnitPurpos
-    private void HandleUnitPurpose()
-    {
-        if(_currentAp <= 0) { _nextActionData.UnitPurpose = Define.UnitPurpose.PassTurn; }
-        switch (_nextActionData.UnitPurpose)
-        {
-            case Define.UnitPurpose.PassTurn:
-                HandlePass();
-                break;
-            case Define.UnitPurpose.Roam:
-                HandleRoam();
-                break;
-            case Define.UnitPurpose.Attack:
-                HandleAttack();
-                break;
-            case Define.UnitPurpose.Approach:
-                HandleApproach();
-                break;
-            case Define.UnitPurpose.Help:
-                HandleHelp();
-                break;
-            case Define.UnitPurpose.RunAway:
-                HandleRunAway();
-                break;
-            default:
-                break;
-        }
-    }
-
-    #region HandlePass
-    private void HandlePass()
-    {
-        //Todo
-        if(_currentState == Define.UnitState.Moving) { _currentState = Define.UnitState.Idle; }
-        EndTurn();
-    }
-    private void EndTurn()
-    {
-        UpdateAp(_recoverAp);
-        Managers.TurnMgr.HandleUnitTurn();
-    }
-    #endregion
-    #region HandleRoam
-    private void HandleRoam()
-    {
-        _currentState = Define.UnitState.Moving;
-        UpdateRoamDestination();
-        UpdateRoamPath();
-    }
-    private void UpdateRoamDestination()
-    {
-        //Roam -> RandomCellPos from ReachableDic;
-        PathInfo pathInfo;
-        do
-        {
-            pathInfo = _reachableEmptyTileDict.ElementAt(Random.Range(0, _reachableEmptyTileDict.Count)).Value;
-        } while (pathInfo.Coor == pathInfo.Parent);
-        #region Test
-        if (_board[pathInfo.Coor].Occupied) { Debug.LogError("Roam Destination already Occupied"); }
-        #endregion
-        _destination = pathInfo.Coor;
-
-    }
-    #endregion 
-    private void HandleAttack()
-    {
-        _target = _nextActionData.BlackTarget;
-        _currentState = Define.UnitState.Skill;
-    }
-    #region HandleApproach
-    private void HandleApproach()
-    {
-        _target = _nextActionData.BlackTarget == null ? _nextActionData.WhiteTarget : _nextActionData.BlackTarget;
-        UpdateApproachDestination();
-        UpdateApproachPath();
-        _currentState = Define.UnitState.Moving;
-    }
-    private void UpdateApproachDestination()
-    {
-        _destination = _target.GetComponent<BaseUnitData>().CurrentCellCoor;
-        if (_reachableOccupiedCoorSet.Contains(_destination)) { GetClosestReachableCoorFromDestination(); }
-        //Todo
-        else { GetClosestReachableCoorToDestination(); }
-    }
-    #endregion
-    private void HandleHelp()
-    {
-        _target = _nextActionData.WhiteTarget;
-        _currentState = Define.UnitState.Skill;
-    }
-    #region HandleRunAway
-    private void HandleRunAway()
-    {
-        //Todo
-        //if there are no where to go, turn to mad 
-        UpdateRunAwayDestination();
-        UpdateRunAwayPath();
-        _currentState = Define.UnitState.Moving;
-    }
-
-
-    private void UpdateRunAwayDestination()
-    {
-        //Todo
-    }
-    #endregion
-    private void GetClosestReachableCoorFromDestination()
-    {
-        float closest = float.MaxValue;
-        float now;
-        Vector3Int closestDir = Vector3Int.zero;
-        foreach (Vector3Int dir in Define.TileCoor8Dir)
-        {
-            now = (_currentCellCoor - _destination - dir).magnitude;
-            if(closest > now)
-            {
-                closest = now;
-                closestDir = dir;
-            }
-        }
-        #region Test
-        if(closestDir == Vector3Int.zero) { Debug.LogError("new destination is the same"); }
-        #endregion
-        _destination += closestDir;
-    }
-    private void GetClosestReachableCoorToDestination()
-    {
-        float closest = float.MaxValue;
-        float now;
-        Vector3Int closestDestination = _currentCellCoor;
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-        {
-            now = (pair.Key - _destination).magnitude;
-            if (closest > now)
-            {
-                closest = now;
-                closestDestination = pair.Key;
-            }
-        }
-        if(closestDestination == _currentCellCoor) { Debug.Log("new destination is the same"); }
-        _destination = closestDestination;
-    }
-    public Vector3Int? GetNextCoor()
-    {
-        if(_path.Count == 0) { return null; }
-        return _path.Pop();
-    }
-    public void UpdateMoveResult(Vector3Int next)
-    {
-        _board[_currentCellCoor].RemoveUnit();
-        _board[next].SetUnit(gameObject);
-        UpdateMoveAp(next);
-        _currentCellCoor = next;
-        //Todo extra
-    }
-    public void UpdateMoveAp(Vector3Int next)
-    {
-        _reachableEmptyTileDict.TryGetValue(_currentCellCoor, out PathInfo nowInfo);
-        _reachableEmptyTileDict.TryGetValue(next, out PathInfo nextInfo);
-        int cost = nextInfo.Cost - nowInfo.Cost;
-        UpdateAp(-cost);
-    }
-    #endregion
-
-
-
-    private void HandleMad()
-    {
-        throw new System.NotImplementedException();
-    }
-
-
-
-    #region HandleHostile
-    private void HandleHostile()
-    {
-        UpdateTargetsInSight();
-        if (_nextActionData.BlackList.Count > 0)
-        {
-            foreach (GameObject BlackTarget in _nextActionData.BlackList)
-            {
-                if (IsTarGetInAttackRange(BlackTarget))
-                {
-                    _nextActionData.BlackTarget = BlackTarget;
-                    _nextActionData.UnitPurpose = Define.UnitPurpose.Attack;
-                    return;
-                }
-            }
-            _nextActionData.BlackTarget = _nextActionData.BlackList[Random.Range(0, _nextActionData.BlackList.Count)];
-            _nextActionData.UnitPurpose = Define.UnitPurpose.Approach;
-            return;
-        }
-        foreach (GameObject WhiteTarget in _nextActionData.WhiteList)
-        {
-            if (IsTargetInHelpRange( WhiteTarget))
-            {
-                _nextActionData.WhiteTarget = WhiteTarget;
-                _nextActionData.UnitPurpose = Define.UnitPurpose.Help;
-                return;
-            }
-            _nextActionData.WhiteTarget = _nextActionData.WhiteList[Random.Range(0, _nextActionData.BlackList.Count)];
-            _nextActionData.UnitPurpose = Define.UnitPurpose.Approach;
-            return;
-        }
-        //Todo
-        if (Random.Range(0, 2) == 0) { _nextActionData.UnitPurpose = Define.UnitPurpose.PassTurn; return; }
-        _nextActionData.UnitPurpose = Define.UnitPurpose.Roam;
-    }
-
-    private void UpdateTargetsInSight()
-    {
-        string nextName;
-        foreach(KeyValuePair<Vector3Int,GameObject> pair in _nextActionData.InSightUnitDict)
-        {
-            nextName = pair.Value.GetComponent<BaseUnitData>().UnitName;
-            if (_enemyList.Contains(nextName)) { _nextActionData.BlackList.Add(pair.Value); }
-            else if (_allienceList.Contains(nextName)) { _nextActionData.WhiteList.Add(pair.Value); }
-        }
-    }
-
-    private bool IsTarGetInAttackRange(GameObject blackTarget)
-    {
-        Vector3Int cellPos = blackTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
-        SkillLibrary.BaseSkill nextSkill;
-        int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
-        foreach(string skill in _skillList)
-        {
-            //Todo
-            nextSkill = SkillLibrary.GetSkill(skill);
-            if(nextSkill.Cost > _currentAp) { continue; }
-            if (nextSkill.Range < distance) { continue; }
-            _nextActionData.nextSkill = nextSkill;
-            return true;
-        }
-        return false;
-    }
-
-    private bool IsTargetInHelpRange(GameObject whiteTarget)
-    {
-        //Todo
-        Vector3Int cellPos = whiteTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
-        SkillLibrary.BaseSkill nextSkill;
-        int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
-        foreach (string skill in _skillList)
-        {
-            //Todo
-            nextSkill = SkillLibrary.GetSkill(skill);
-            if (nextSkill.Cost > _currentAp) { continue; }
-            if(nextSkill.Range < distance) { continue; }
-            _nextActionData.nextSkill = nextSkill;
-            return true;
-        }
-        return false;
-    }
-
-    #endregion
-
-    private void HandleNeutral()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void HandleFriendly()
-    {
-        throw new System.NotImplementedException();
-    }
-    private void HandleReliable()
-    {
-        throw new System.NotImplementedException();
-    }
-
     #region Reachable Tile Caculation Algorithm
     public class PathInfo : Interface.ICustomPriorityQueueNode<int>
     {
@@ -522,6 +220,322 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         }
     }
     #endregion
+    private void UpdateUnitMentalState()
+    {
+        //Todo
+        _mental = Define.UnitMentalState.Hostile;
+    }
+    private void CheckUnitsInSight()
+    {
+        Vector3Int nextCoor;
+        TileInfo nextTileInfo;
+        for (int y = -_eyeSight; y <= _eyeSight; y++)
+        {
+            for (int x = y - _eyeSight; x <= _eyeSight - y; x++)
+            {
+                nextCoor = _currentCellCoor + new Vector3Int(x, y, 0);
+                if (_board.TryGetValue(nextCoor,out nextTileInfo) && nextTileInfo.Unit != null)
+                {
+                    if(x==0 && y == 0) { continue; }
+                    _nextActionData.InSightUnitDict.Add(nextCoor, nextTileInfo.Unit);
+                }
+            }
+        }
+    }
+    private void CalculateUnitPurpose()
+    {
+        switch (_mental)
+        {
+            case Define.UnitMentalState.Mad:
+                HandleMad();
+                break;
+            case Define.UnitMentalState.Hostile:
+                HandleHostile();
+                break;
+            case Define.UnitMentalState.Neutral:
+                HandleNeutral();
+                break;
+            case Define.UnitMentalState.Friendly:
+                HandleFriendly();
+                break;
+            case Define.UnitMentalState.Reliable:
+                HandleReliable();
+                break;
+            default:
+                break;
+        }
+    }
+    #region HandleUnitPurpos
+    private void HandleUnitPurpose()
+    {
+        if(_currentAp <= 0) { _nextActionData.UpdatePurpose(Define.UnitPurpose.PassTurn); }
+        switch (_nextActionData.UnitPurpose)
+        {
+            case Define.UnitPurpose.PassTurn:
+                HandlePass();
+                break;
+            case Define.UnitPurpose.Roam:
+                HandleRoam();
+                break;
+            case Define.UnitPurpose.Attack:
+                HandleAttack();
+                break;
+            case Define.UnitPurpose.Approach:
+                HandleApproach();
+                break;
+            case Define.UnitPurpose.Help:
+                HandleHelp();
+                break;
+            case Define.UnitPurpose.RunAway:
+                HandleRunAway();
+                break;
+            default:
+                break;
+        }
+    }
+
+    #region HandlePass
+    private void HandlePass()
+    {
+        //Todo
+        if(_currentState == Define.UnitState.Moving) { _currentState = Define.UnitState.Idle; }
+    }
+    #endregion
+    #region HandleRoam
+    private void HandleRoam()
+    {
+        if (_nextActionData.IsNewPurpose)
+        {
+            _currentState = Define.UnitState.Moving;
+            UpdateRoamDestination();
+        }
+        UpdateRoamPath();
+    }
+    private void UpdateRoamDestination()
+    {
+        //Roam -> RandomCellPos from ReachableDic;
+        PathInfo pathInfo;
+        do
+        {
+            pathInfo = _reachableEmptyTileDict.ElementAt(Random.Range(0, _reachableEmptyTileDict.Count)).Value;
+        } while (pathInfo.Coor == pathInfo.Parent);
+        #region Test
+        if (_board[pathInfo.Coor].Occupied) { Debug.LogError("Roam Destination already Occupied"); }
+        #endregion
+        _destination = pathInfo.Coor;
+    }
+    #endregion 
+    private void HandleAttack()
+    {
+        _target = _nextActionData.BlackTarget;
+        _currentState = Define.UnitState.Skill;
+    }
+    #region HandleApproach
+    private void HandleApproach()
+    {
+        if (_nextActionData.IsNewPurpose)
+        {
+            _currentState = Define.UnitState.Moving;
+            _target = _nextActionData.BlackTarget == null ? _nextActionData.WhiteTarget : _nextActionData.BlackTarget;
+        }
+        UpdateApproachDestination();
+        UpdateApproachPath();
+    }
+    private void UpdateApproachDestination()
+    {
+        _destination = _target.GetComponent<BaseUnitData>().CurrentCellCoor;
+        if (_reachableOccupiedCoorSet.Contains(_destination)) { GetClosestReachableCoorFromDestination(); }
+        //Todo
+        else { GetClosestReachableCoorToDestination(); }
+    }
+    #endregion
+    private void HandleHelp()
+    {
+        _target = _nextActionData.WhiteTarget;
+        _currentState = Define.UnitState.Skill;
+    }
+    #region HandleRunAway
+    private void HandleRunAway()
+    {
+        //Todo
+        //if there are no where to go, turn to mad 
+        UpdateRunAwayDestination();
+        UpdateRunAwayPath();
+        _currentState = Define.UnitState.Moving;
+    }
+
+
+    private void UpdateRunAwayDestination()
+    {
+        //Todo
+    }
+    #endregion
+    private void GetClosestReachableCoorFromDestination()
+    {
+        float closest = float.MaxValue;
+        float now;
+        Vector3Int closestDir = Vector3Int.zero;
+        foreach (Vector3Int dir in Define.TileCoor8Dir)
+        {
+            now = (_currentCellCoor - _destination - dir).magnitude;
+            if(closest > now)
+            {
+                closest = now;
+                closestDir = dir;
+            }
+        }
+        #region Test
+        if(closestDir == Vector3Int.zero) { Debug.LogError("new destination is the same"); }
+        #endregion
+        _destination += closestDir;
+    }
+    private void GetClosestReachableCoorToDestination()
+    {
+        float closest = float.MaxValue;
+        float now;
+        Vector3Int closestDestination = _currentCellCoor;
+        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
+        {
+            now = (pair.Key - _destination).magnitude;
+            if (closest > now)
+            {
+                closest = now;
+                closestDestination = pair.Key;
+            }
+        }
+        if(closestDestination == _currentCellCoor) { Debug.Log("new destination is the same"); }
+        _destination = closestDestination;
+    }
+    public Vector3Int? GetNextCoor()
+    {
+        if(_path.Count == 0) { return null; }
+        return _path.Pop();
+    }
+    public void UpdateMoveResult(Vector3Int next)
+    {
+        _board[_currentCellCoor].RemoveUnit();
+        _board[next].SetUnit(gameObject);
+        UpdateMoveAp(next);
+        _currentCellCoor = next;
+        //Todo extra
+    }
+    private void UpdateMoveAp(Vector3Int next)
+    {
+        _reachableEmptyTileDict.TryGetValue(_currentCellCoor, out PathInfo nowInfo);
+        _reachableEmptyTileDict.TryGetValue(next, out PathInfo nextInfo);
+        int cost = nextInfo.Cost - nowInfo.Cost;
+        UpdateAp(-cost);
+    }
+    #endregion
+
+
+
+    private void HandleMad()
+    {
+        throw new System.NotImplementedException();
+    }
+
+
+
+    #region HandleHostile
+    private void HandleHostile()
+    {
+        UpdateTargetsInSight();
+        if (_nextActionData.BlackList.Count > 0)
+        {
+            foreach (GameObject BlackTarget in _nextActionData.BlackList)
+            {
+                if (IsTarGetInAttackRange(BlackTarget))
+                {
+                    _nextActionData.BlackTarget = BlackTarget;
+                    _nextActionData.UpdatePurpose(Define.UnitPurpose.Attack);
+                    return;
+                }
+            }
+            _nextActionData.BlackTarget = _nextActionData.BlackList[Random.Range(0, _nextActionData.BlackList.Count)];
+            _nextActionData.UpdatePurpose(Define.UnitPurpose.Approach);
+            return;
+        }
+        foreach (GameObject WhiteTarget in _nextActionData.WhiteList)
+        {
+            if (IsTargetInHelpRange( WhiteTarget))
+            {
+                _nextActionData.WhiteTarget = WhiteTarget;
+                _nextActionData.UpdatePurpose(Define.UnitPurpose.Help);
+                return;
+            }
+            _nextActionData.WhiteTarget = _nextActionData.WhiteList[Random.Range(0, _nextActionData.BlackList.Count)];
+            _nextActionData.UpdatePurpose(Define.UnitPurpose.Approach);
+            return;
+        }
+        //Todo
+        if (Random.Range(0, 2) == 0) { _nextActionData.UpdatePurpose(Define.UnitPurpose.PassTurn); return; }
+        _nextActionData.UpdatePurpose(Define.UnitPurpose.Roam);
+    }
+
+    private void UpdateTargetsInSight()
+    {
+        string nextName;
+        foreach(KeyValuePair<Vector3Int,GameObject> pair in _nextActionData.InSightUnitDict)
+        {
+            nextName = pair.Value.GetComponent<BaseUnitData>().UnitName;
+            if (_enemyList.Contains(nextName)) { _nextActionData.BlackList.Add(pair.Value); }
+            else if (_allienceList.Contains(nextName)) { _nextActionData.WhiteList.Add(pair.Value); }
+        }
+    }
+
+    private bool IsTarGetInAttackRange(GameObject blackTarget)
+    {
+        Vector3Int cellPos = blackTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
+        SkillLibrary.BaseSkill nextSkill;
+        int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
+        foreach(string skill in _skillList)
+        {
+            //Todo
+            nextSkill = SkillLibrary.GetSkill(skill);
+            if(nextSkill.Cost > _currentAp) { continue; }
+            if (nextSkill.Range < distance) { continue; }
+            _nextActionData.NextSkill = nextSkill;
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsTargetInHelpRange(GameObject whiteTarget)
+    {
+        //Todo
+        Vector3Int cellPos = whiteTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
+        SkillLibrary.BaseSkill nextSkill;
+        int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
+        foreach (string skill in _skillList)
+        {
+            //Todo
+            nextSkill = SkillLibrary.GetSkill(skill);
+            if (nextSkill.Cost > _currentAp) { continue; }
+            if(nextSkill.Range < distance) { continue; }
+            _nextActionData.NextSkill = nextSkill;
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
+
+    private void HandleNeutral()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void HandleFriendly()
+    {
+        throw new System.NotImplementedException();
+    }
+    private void HandleReliable()
+    {
+        throw new System.NotImplementedException();
+    }
+
+
     #region Update Path Algorithm
     private void UpdatePath()
     {
@@ -535,7 +549,12 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
                 _path.Push(currentInfo.Coor);
                 _reachableEmptyTileDict.TryGetValue(currentInfo.Parent, out currentInfo);
             }
-            return;
+        }
+        if(_path.Count == 0) 
+        { 
+            _nextActionData.UpdatePurpose(Define.UnitPurpose.PassTurn); 
+            _currentState = Define.UnitState.Idle;
+            HandlePass();
         }
     }
     private void UpdateRoamPath()

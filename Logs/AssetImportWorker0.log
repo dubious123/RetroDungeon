@@ -1,0 +1,1532 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.14f1 (d0d1bb862f9d) revision 13685179'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Education; OS build 19043.1165; Version 2009; 64bit' Language: 'ko' Physical Memory: 7916 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/한종훈/Desktop/UintyProjects/RetroDungeon
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+9182
+Successfully changed project path to: C:/Users/한종훈/Desktop/UintyProjects/RetroDungeon
+C:/Users/한종훈/Desktop/UintyProjects/RetroDungeon
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 54.68 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.14f1 (d0d1bb862f9d)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.14f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/한종훈/Desktop/UintyProjects/RetroDungeon/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) Iris(R) Xe Graphics (ID=0x9a49)
+    Vendor:   
+    VRAM:     3958 MB
+    Driver:   27.20.100.8853
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.14f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.14f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56520
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002414 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 43.28 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.042 seconds
+Domain Reload Profiling:
+	ReloadAssembly (3042ms)
+		BeginReloadAssembly (39ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (356ms)
+			LoadAssemblies (37ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (107ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (29ms)
+			SetupLoadedEditorAssemblies (154ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (43ms)
+				BeforeProcessingInitializeOnLoad (16ms)
+				ProcessInitializeOnLoadAttributes (67ms)
+				ProcessInitializeOnLoadMethodAttributes (23ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.008501 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 46.05 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+DisplayProgressbar: Restoring NuGet Packages
+Mono: successfully reloaded assembly
+- Completed reload, in  1.222 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1223ms)
+		BeginReloadAssembly (103ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (16ms)
+		EndReloadAssembly (1067ms)
+			LoadAssemblies (109ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (225ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (44ms)
+			SetupLoadedEditorAssemblies (593ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (3ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (46ms)
+				BeforeProcessingInitializeOnLoad (70ms)
+				ProcessInitializeOnLoadAttributes (460ms)
+				ProcessInitializeOnLoadMethodAttributes (10ms)
+				AfterProcessingInitializeOnLoad (4ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.49 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2440 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 108.5 MB.
+System memory in use after: 108.7 MB.
+
+Unloading 34 unused Assets to reduce memory usage. Loaded Objects now: 2880.
+Total: 2.371600 ms (FindLiveObjects: 0.144600 ms CreateObjectMapping: 0.048800 ms MarkObjects: 2.112400 ms  DeleteObjects: 0.064700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Half_Left.png
+  artifactKey: Guid(035627be236d26a42b8f93b667b738fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Half_Left.png using Guid(035627be236d26a42b8f93b667b738fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8e1d8ddd88515d40e2b227298d5627f') in 0.123305 seconds 
+  Import took 0.127147 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000257 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_End_02.png
+  artifactKey: Guid(154cf741d9069c549b326d280d5a3573) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_End_02.png using Guid(154cf741d9069c549b326d280d5a3573) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f9f1e1190200b3bc3194ef36e59435f7') in 0.019728 seconds 
+  Import took 0.023476 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000245 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1_Half_Left.png
+  artifactKey: Guid(8f01afd01a7f7ac41b84ae188f4717c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1_Half_Left.png using Guid(8f01afd01a7f7ac41b84ae188f4717c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a3b40027d0a2afab195de4c4839763f5') in 0.020230 seconds 
+  Import took 0.024569 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000329 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1_Half_Up.png
+  artifactKey: Guid(1a217a93f94c4c54282adfa5270635f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1_Half_Up.png using Guid(1a217a93f94c4c54282adfa5270635f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5f3dafcf29b234abb170c2f681d3abc') in 0.019514 seconds 
+  Import took 0.024434 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000945 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_vanish.png
+  artifactKey: Guid(37db6fd26ee44919bffee8a330bd9f5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_vanish.png using Guid(37db6fd26ee44919bffee8a330bd9f5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1baa7ace4d09418da06e2d45a493493') in 0.111181 seconds 
+  Import took 0.115943 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000350 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01_05.png
+  artifactKey: Guid(d24b97af131668849bcfba3ee1accc16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01_05.png using Guid(d24b97af131668849bcfba3ee1accc16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '631b86c15e670610fbe6e5b657fa0127') in 0.019806 seconds 
+  Import took 0.023414 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000192 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02.png
+  artifactKey: Guid(45b40bd7a0770fe4a988708dd77e61e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02.png using Guid(45b40bd7a0770fe4a988708dd77e61e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c643d3db042a772d89e95b6797b6e955') in 0.031082 seconds 
+  Import took 0.035630 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000289 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Brick_02.png
+  artifactKey: Guid(30cc86803a5ed6c42a8f299a8fa84ed8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Brick_02.png using Guid(30cc86803a5ed6c42a8f299a8fa84ed8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'feda124bd22e0fe188072eaea521ea6b') in 0.022397 seconds 
+  Import took 0.026310 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000173 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_02_01.png
+  artifactKey: Guid(5beeaad761521af4a93280f706454502) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_02_01.png using Guid(5beeaad761521af4a93280f706454502) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ae5d47847060c0f0eb3b808c7076879') in 0.022740 seconds 
+  Import took 0.026852 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000284 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_M.png
+  artifactKey: Guid(0ec424f5f3c87b245b5ea69dd9e40c26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_M.png using Guid(0ec424f5f3c87b245b5ea69dd9e40c26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a79863a4ef5683d8b474da33ce6015fd') in 0.017071 seconds 
+  Import took 0.020463 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000303 seconds.
+  path: Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_01_ToStone_01.png
+  artifactKey: Guid(351d188ac5383de43a0c2fe2129e7789) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_01_ToStone_01.png using Guid(351d188ac5383de43a0c2fe2129e7789) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '333641f67d9e76da78ef3f89b29c3fc4') in 0.022259 seconds 
+  Import took 0.026759 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000322 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bomb_carry.png
+  artifactKey: Guid(a3ebf609d64354b47bd06cdd94098ebc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bomb_carry.png using Guid(a3ebf609d64354b47bd06cdd94098ebc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a9c889e5d2fee5fbb670d5b4df9f441') in 0.189998 seconds 
+  Import took 0.194843 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000215 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_carry.png
+  artifactKey: Guid(4474d2218d1233d4d9d99a809b49554b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_carry.png using Guid(4474d2218d1233d4d9d99a809b49554b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de8bbbf48b850d291e32712f1c7b3fe2') in 0.246682 seconds 
+  Import took 0.249967 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000170 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_E1_SE.png
+  artifactKey: Guid(da462ec7bf7054b40887892a61052799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_E1_SE.png using Guid(da462ec7bf7054b40887892a61052799) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0353144b14b122c542600cb4dfb2ad68') in 0.014694 seconds 
+  Import took 0.018231 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000286 seconds.
+  path: Assets/Samples/2D Tilemap Extras/1.8.0-preview/Pipe Rule Tile/Sprites/Pipes.png
+  artifactKey: Guid(1ebc1aff258f04220b2ce4e1240442fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/2D Tilemap Extras/1.8.0-preview/Pipe Rule Tile/Sprites/Pipes.png using Guid(1ebc1aff258f04220b2ce4e1240442fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5550041cbb7d4d60c6cd6db3be21da2e') in 0.041807 seconds 
+  Import took 0.045448 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000186 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_slide.png
+  artifactKey: Guid(38259642eea83c740b18225fcc6afcb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_slide.png using Guid(38259642eea83c740b18225fcc6afcb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5025137bd9c1f9888c862a14771ff5e2') in 0.149887 seconds 
+  Import took 0.154325 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000316 seconds.
+  path: Assets/Resources/Sprites/Water/Animation_01/Sprites/ISO_Tile_Water_01_Anim_01_F2.png
+  artifactKey: Guid(1a603cedd3c448f4881a89937992fcbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Water/Animation_01/Sprites/ISO_Tile_Water_01_Anim_01_F2.png using Guid(1a603cedd3c448f4881a89937992fcbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0cdf93e57b541669759e681d608a6f9e') in 0.039130 seconds 
+  Import took 0.043824 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000215 seconds.
+  path: Assets/Resources/Sprites/Low/ISO_LowTile_Dirt_01.png
+  artifactKey: Guid(9d6298f2cc3f78643a2c2a7645effaf0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Low/ISO_LowTile_Dirt_01.png using Guid(9d6298f2cc3f78643a2c2a7645effaf0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed8077590aeb4e453abf893b5fcbedbc') in 0.038988 seconds 
+  Import took 0.044295 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000250 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_wood_barrier.png
+  artifactKey: Guid(c94c2e2b9bf12ca4680516aeed0708df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_wood_barrier.png using Guid(c94c2e2b9bf12ca4680516aeed0708df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7ebf0df7de5615538af56b3a67fe218') in 0.121817 seconds 
+  Import took 0.127231 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000193 seconds.
+  path: Assets/Resources/Sprites/Skin/ISO_Tile_Flesh_01_Var01.png
+  artifactKey: Guid(f482e96cafc9ed849aa5b14b59d95b4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Skin/ISO_Tile_Flesh_01_Var01.png using Guid(f482e96cafc9ed849aa5b14b59d95b4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f27510d14ad0f69e29e60f2e1d8fbc21') in 0.032949 seconds 
+  Import took 0.038414 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000161 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt+Stone_1.png
+  artifactKey: Guid(d9af52592302b074e8bf09901dea350b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt+Stone_1.png using Guid(d9af52592302b074e8bf09901dea350b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7ebe62dfd62eb3111cf97634cc9e325') in 0.025098 seconds 
+  Import took 0.032639 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000172 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02_H_02.png
+  artifactKey: Guid(9b09cd0c7aeec79409fcaa63a355d957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02_H_02.png using Guid(9b09cd0c7aeec79409fcaa63a355d957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d2f71401bea6838abf0d74c83d3e513') in 0.031950 seconds 
+  Import took 0.039297 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000246 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03_H_01.png
+  artifactKey: Guid(f1773a959527d0840a123bde24932a80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03_H_01.png using Guid(f1773a959527d0840a123bde24932a80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e840cdcfb891af64947c53774fffb11') in 0.032164 seconds 
+  Import took 0.038114 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_01.png
+  artifactKey: Guid(ccf8086ce1391004caf2d8fe9eb53de3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_01.png using Guid(ccf8086ce1391004caf2d8fe9eb53de3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbfc0b764b6624041ce360bb69104352') in 0.023908 seconds 
+  Import took 0.031645 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000223 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bomb_explosion.png
+  artifactKey: Guid(9f30f35184729d64e9778f3a861945dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bomb_explosion.png using Guid(9f30f35184729d64e9778f3a861945dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11c9db09da95e7eafb8055270db90ee9') in 0.051169 seconds 
+  Import took 0.055107 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000153 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_sword.png
+  artifactKey: Guid(15eb07192dee43dcb169478da3b487d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_sword.png using Guid(15eb07192dee43dcb169478da3b487d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c795a1d18f655dd1eded5a0c97014669') in 0.175339 seconds 
+  Import took 0.179571 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Simple/Sprites/ISO_Tile_Water_Shore_2S_02.png
+  artifactKey: Guid(e37a01976df8ed344b14148af1dec545) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Simple/Sprites/ISO_Tile_Water_Shore_2S_02.png using Guid(e37a01976df8ed344b14148af1dec545) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d747bb7355c6c2d01ab3e8d9cb63fb2') in 0.015850 seconds 
+  Import took 0.020261 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_arrow_basic.png
+  artifactKey: Guid(32fc46fa3f0e8b349b777fc008066ece) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_arrow_basic.png using Guid(32fc46fa3f0e8b349b777fc008066ece) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bebd887a56ad8adfca22077d2e2b3de') in 0.022512 seconds 
+  Import took 0.027044 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000424 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S_01.png
+  artifactKey: Guid(045f7a2b97b9adb4e9022da24aa1ff7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S_01.png using Guid(045f7a2b97b9adb4e9022da24aa1ff7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85bb6744435568895d7629fffe3f90d8') in 0.025573 seconds 
+  Import took 0.031017 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000179 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_throw.png
+  artifactKey: Guid(bb842fe46e994e6b903ffa8af9ae0f36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_throw.png using Guid(bb842fe46e994e6b903ffa8af9ae0f36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '141625e99c2632bd590bf6bf42aa4d10') in 0.186177 seconds 
+  Import took 0.190026 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_01_ToSnow_02.png
+  artifactKey: Guid(2047b67e95877e24b9ad5dd4a2b51c8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_01_ToSnow_02.png using Guid(2047b67e95877e24b9ad5dd4a2b51c8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05089aae6219974e3a037ccdd34aecec') in 0.020625 seconds 
+  Import took 0.023987 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000180 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Path_Cross.png
+  artifactKey: Guid(b2376978cfdd7a14a8ab5fc7a6862e57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Path_Cross.png using Guid(b2376978cfdd7a14a8ab5fc7a6862e57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87ff87a5ce2ec61f9ac0745ff0f24520') in 0.020337 seconds 
+  Import took 0.024334 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000184 seconds.
+  path: Assets/Resources/Sprites/ISO_Tile_Template_01.png
+  artifactKey: Guid(3f8ea39f9b01d3b4c8b98ebcb81088c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/ISO_Tile_Template_01.png using Guid(3f8ea39f9b01d3b4c8b98ebcb81088c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c094e2e41cca1509d0412474575e5f5') in 0.017294 seconds 
+  Import took 0.020725 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000195 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/StonePieces_2_Half_Left.png
+  artifactKey: Guid(bd85ee690fdf3a941bcc60c15d5af640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/StonePieces_2_Half_Left.png using Guid(bd85ee690fdf3a941bcc60c15d5af640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e95400fb28d0e98e6f7a8e1879e85c9b') in 0.018651 seconds 
+  Import took 0.022033 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000185 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01.png
+  artifactKey: Guid(2f54e04c282e9974fa282c5f24c0b640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01.png using Guid(2f54e04c282e9974fa282c5f24c0b640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f2216f7803b62bbb6b6c9d947903ab1') in 0.019495 seconds 
+  Import took 0.022981 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000217 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bullets.png
+  artifactKey: Guid(30edb9d12883df642bcb8b4f9bb0c3da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bullets.png using Guid(30edb9d12883df642bcb8b4f9bb0c3da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ccdaaaae3daba4af3b4756f4496d4d6b') in 0.025080 seconds 
+  Import took 0.028742 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000159 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_Straight_02.png
+  artifactKey: Guid(4bee87d22d490ae468271651b579a909) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_Straight_02.png using Guid(4bee87d22d490ae468271651b579a909) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aeccd5f6131268e071c6a1814a2dfb09') in 0.015154 seconds 
+  Import took 0.018564 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000218 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_Fence01 4.png
+  artifactKey: Guid(475985155edd81d4ea9821e7b5635d14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_Fence01 4.png using Guid(475985155edd81d4ea9821e7b5635d14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3bffe7116248cef8dc39de9552eb80e0') in 0.014013 seconds 
+  Import took 0.017946 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000210 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_04.png
+  artifactKey: Guid(a543832c93423e34ea1187e15a6cd62d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_04.png using Guid(a543832c93423e34ea1187e15a6cd62d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f3fddf796c46dc2fb4d4aa94d80635d') in 0.022849 seconds 
+  Import took 0.027864 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000221 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1-SW.png
+  artifactKey: Guid(27805b57bfb6b5245b7a91e1c04d14ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1-SW.png using Guid(27805b57bfb6b5245b7a91e1c04d14ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b10eb002dfecda2948170ca2fa0ed01') in 0.016779 seconds 
+  Import took 0.020657 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000247 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S2-NE-SW.png
+  artifactKey: Guid(8fef00f50bddd0e4f9b68f01c98e3586) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S2-NE-SW.png using Guid(8fef00f50bddd0e4f9b68f01c98e3586) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd594b4eee7df032a782b44ad19684f3') in 0.014925 seconds 
+  Import took 0.018415 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000159 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_desert.png
+  artifactKey: Guid(0ece8860f6ff7b949bcc603e99fefe92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_desert.png using Guid(0ece8860f6ff7b949bcc603e99fefe92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79870ef83b0fd62be777a0b03afe0e6f') in 0.263283 seconds 
+  Import took 0.266899 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000419 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_Straight_01.png
+  artifactKey: Guid(4a0616b303beb3c458acd3efd863e3ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_Straight_01.png using Guid(4a0616b303beb3c458acd3efd863e3ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e213c5b4f14213ffebab6bc1177dbf1') in 0.016685 seconds 
+  Import took 0.020067 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000182 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S1C_03.png
+  artifactKey: Guid(99a44408b88dccb4da230c8cb4a61a86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S1C_03.png using Guid(99a44408b88dccb4da230c8cb4a61a86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04306dfe61320741d7b19dc44011af5d') in 0.014346 seconds 
+  Import took 0.018214 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000348 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S_02.png
+  artifactKey: Guid(d93383f5ef3fd06468fa38120b548860) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S_02.png using Guid(d93383f5ef3fd06468fa38120b548860) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84aeb8d9b3cab87ba148d9cd45b944a4') in 0.013725 seconds 
+  Import took 0.017824 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000214 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/weapon_sycthe.png
+  artifactKey: Guid(859caa1337f1497c857b71771e7c5295) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/weapon_sycthe.png using Guid(859caa1337f1497c857b71771e7c5295) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39f1ac3394e74124aebb12227f1e6daa') in 0.131551 seconds 
+  Import took 0.135814 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000525 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_hit2.png
+  artifactKey: Guid(aaa807840a4943e79b5aa0802ee18d99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_hit2.png using Guid(aaa807840a4943e79b5aa0802ee18d99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf62c737531e9e853e37b2ea4a442a3e') in 0.115282 seconds 
+  Import took 0.118912 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000208 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_hold.png
+  artifactKey: Guid(bdcf20ae532f4ef88d3b429b880553e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_hold.png using Guid(bdcf20ae532f4ef88d3b429b880553e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e15e780e33e66d8c3fded091f7a0b687') in 0.218513 seconds 
+  Import took 0.221721 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000474 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_duck.png
+  artifactKey: Guid(b9998a0d16f84a57a88683adbfce9aea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_duck.png using Guid(b9998a0d16f84a57a88683adbfce9aea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2b650b154910d9fe086b92c787e01fb') in 0.180308 seconds 
+  Import took 0.183776 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000324 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Half_Right.png
+  artifactKey: Guid(b47697c0cf8ed3c40a4f63ca107b8966) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Half_Right.png using Guid(b47697c0cf8ed3c40a4f63ca107b8966) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ef137f5dd18380ef6de8a93cb68b8ee') in 0.020842 seconds 
+  Import took 0.024691 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000233 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03_V_01.png
+  artifactKey: Guid(b70c6eb7dea2dc34cbdea09d655ac249) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03_V_01.png using Guid(b70c6eb7dea2dc34cbdea09d655ac249) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58853cff224f1ccc79ed97a46468082a') in 0.020819 seconds 
+  Import took 0.024487 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000185 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt_3.png
+  artifactKey: Guid(f7714158b21047b4fa8eefc16a516e1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt_3.png using Guid(f7714158b21047b4fa8eefc16a516e1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7bf4f83c3ce2602b677e806b31c80261') in 0.014758 seconds 
+  Import took 0.018977 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000176 seconds.
+  path: Assets/Resources/Sprites/Stone/ISO_Tile_Stone_03.png
+  artifactKey: Guid(7b90af6ca594e3244b9ef0bd0f20603a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Stone/ISO_Tile_Stone_03.png using Guid(7b90af6ca594e3244b9ef0bd0f20603a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e49fc6f484da6566b607c90c63aa3eb') in 0.020923 seconds 
+  Import took 0.024289 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000190 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_S2_NE-SW.png
+  artifactKey: Guid(4bdd73343d4a5944e8fe3f40b3eafe81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_S2_NE-SW.png using Guid(4bdd73343d4a5944e8fe3f40b3eafe81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7fce61d213d08c1aeaaa974659c7c953') in 0.016121 seconds 
+  Import took 0.019957 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000254 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_End_03.png
+  artifactKey: Guid(5f31dcef41c3a1f4c926e4148766fc19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_End_03.png using Guid(5f31dcef41c3a1f4c926e4148766fc19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60900697a16a2291f4b0d144fa5006d3') in 0.015659 seconds 
+  Import took 0.019801 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000259 seconds.
+  path: Assets/Resources/Sprites/Low/ISO_LowTile_DirtToStoneTransition_01.png
+  artifactKey: Guid(fb0e7cfd4c205ee4f8ccc1588e5dfb02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Low/ISO_LowTile_DirtToStoneTransition_01.png using Guid(fb0e7cfd4c205ee4f8ccc1588e5dfb02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e223905281f213fcfb957deb56033d81') in 0.020299 seconds 
+  Import took 0.023913 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000165 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Brick_01.png
+  artifactKey: Guid(6dacdbed3a6b7514399df3d1f7af634a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Brick_01.png using Guid(6dacdbed3a6b7514399df3d1f7af634a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b515711bc7ecab5d736c5c376c182f39') in 0.021781 seconds 
+  Import took 0.025681 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000257 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1_Half_Right.png
+  artifactKey: Guid(8b0d7f3f5f81f4245862dce6b96afd3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1_Half_Right.png using Guid(8b0d7f3f5f81f4245862dce6b96afd3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1137f14cc48bfbf5385e6f4e714deaff') in 0.020824 seconds 
+  Import took 0.025611 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000205 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_idle.png
+  artifactKey: Guid(9c447c54c8e0416e9446cadb88c48fd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_idle.png using Guid(9c447c54c8e0416e9446cadb88c48fd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3dd7c5818216bd25836c8930321f4c0e') in 0.174142 seconds 
+  Import took 0.177739 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000253 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_hammer.png
+  artifactKey: Guid(89d0d2c995a54eb2a3cb02091a983efd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_hammer.png using Guid(89d0d2c995a54eb2a3cb02091a983efd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68cd43fbd8760f1eeb256ff730a9d0a8') in 0.317563 seconds 
+  Import took 0.321405 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000190 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S1C_01.png
+  artifactKey: Guid(855224f8adc381349afce48def47264a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S1C_01.png using Guid(855224f8adc381349afce48def47264a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41cb2c2204ec2b06dca0d6eed9da1ee8') in 0.015392 seconds 
+  Import took 0.019138 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000286 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_02.png
+  artifactKey: Guid(09f4570a1be6e0e4389c5889e221a90b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_02.png using Guid(09f4570a1be6e0e4389c5889e221a90b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49727a47fd5252c59be93f7fe28c7b2e') in 0.025307 seconds 
+  Import took 0.031377 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000308 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S1C_04.png
+  artifactKey: Guid(ab092c2a0b247a24f847b8fe9234e6cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S1C_04.png using Guid(ab092c2a0b247a24f847b8fe9234e6cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7101b484789b2003c3d8a6fb1f7ad9f') in 0.021639 seconds 
+  Import took 0.026612 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000221 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt+Stone_2.png
+  artifactKey: Guid(f759b27944ff6df4da6740b59db43a23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt+Stone_2.png using Guid(f759b27944ff6df4da6740b59db43a23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4850221751d9230dd36bc997a9f31200') in 0.023148 seconds 
+  Import took 0.027893 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000227 seconds.
+  path: Assets/Resources/Sprites/Lava/ISO_Tile_Tar_02.png
+  artifactKey: Guid(abc937b30098f21469fe95acf5672037) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Lava/ISO_Tile_Tar_02.png using Guid(abc937b30098f21469fe95acf5672037) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'da8f8ab544a6a86923cff373672242ca') in 0.033058 seconds 
+  Import took 0.038043 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000246 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_M1.png
+  artifactKey: Guid(92183ffa846379749a67155799808a97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_M1.png using Guid(92183ffa846379749a67155799808a97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '467ce5cb1d8d4af439e73158248b68fb') in 0.021474 seconds 
+  Import took 0.027254 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000283 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch__H_02.png
+  artifactKey: Guid(39c46cd7b33b3d44b9ef3a19d7741763) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch__H_02.png using Guid(39c46cd7b33b3d44b9ef3a19d7741763) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85c6af70dd70327f825b8b1ae04cc128') in 0.034552 seconds 
+  Import took 0.040452 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000244 seconds.
+  path: Assets/Resources/Sprites/Water/ISO_Tile_Water_01.png
+  artifactKey: Guid(5c504652684caa84c9d5b0bf8347ec39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Water/ISO_Tile_Water_01.png using Guid(5c504652684caa84c9d5b0bf8347ec39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a867e45134333c0e588e5023e8bbc89f') in 0.026627 seconds 
+  Import took 0.031923 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/weapon_bow.png
+  artifactKey: Guid(6cd198aefcb544d6aa5f8f37be4f872a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/weapon_bow.png using Guid(6cd198aefcb544d6aa5f8f37be4f872a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '704974308c39560460ea79e025fff804') in 0.081252 seconds 
+  Import took 0.085251 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/Resources/Sprites/Low/ISO_LowTile_DirtToStoneTransition_02.png
+  artifactKey: Guid(128cb0d643b04e149bd6022e421521a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Low/ISO_LowTile_DirtToStoneTransition_02.png using Guid(128cb0d643b04e149bd6022e421521a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7dee9eaa01634c940c5d432712e82485') in 0.019784 seconds 
+  Import took 0.023085 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000211 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Shore_Straight_RD.png
+  artifactKey: Guid(4252029de9db04d4199f6e3defe30553) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Shore_Straight_RD.png using Guid(4252029de9db04d4199f6e3defe30553) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e831495f1a484db3b59803d38686e95') in 0.022409 seconds 
+  Import took 0.025567 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000242 seconds.
+  path: Assets/Resources/Sprites/Stone/ISO_Tile_Stone_02.png
+  artifactKey: Guid(c53bca9d498f79c4a8e58b1dd0c9f1a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Stone/ISO_Tile_Stone_02.png using Guid(c53bca9d498f79c4a8e58b1dd0c9f1a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd23ce0a5ec9de3b0b3027c6a69135ec3') in 0.021596 seconds 
+  Import took 0.025116 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000177 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_E1_SW.png
+  artifactKey: Guid(16af0cd3128e45a44999bfbf90910bf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_E1_SW.png using Guid(16af0cd3128e45a44999bfbf90910bf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ac4069570c1f9369965e2d51597ecb6') in 0.015567 seconds 
+  Import took 0.019831 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01_Half_H_01.png
+  artifactKey: Guid(6ba61ff10f4e4704090da619160cff57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01_Half_H_01.png using Guid(6ba61ff10f4e4704090da619160cff57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '408605b6bfcce3b3fac7bd239bea813d') in 0.022770 seconds 
+  Import took 0.026499 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000221 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1_Half_Down.png
+  artifactKey: Guid(f43a99bff7dc4ec41a50de837d4c024e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1_Half_Down.png using Guid(f43a99bff7dc4ec41a50de837d4c024e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa5b82b07654f568e57a98fcefe57336') in 0.020879 seconds 
+  Import took 0.024767 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000255 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_Single.png
+  artifactKey: Guid(4fa1d04c987d2824ab1a53a2abad9069) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_Single.png using Guid(4fa1d04c987d2824ab1a53a2abad9069) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2644d604e21c7f7880f7c93c7e49d7f') in 0.018317 seconds 
+  Import took 0.021705 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000166 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Shore_Straight_RU.png
+  artifactKey: Guid(38428ec49eccef2408e918cd1e061ec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Shore_Straight_RU.png using Guid(38428ec49eccef2408e918cd1e061ec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4709fa59ece136e1dd0e2498657590ce') in 0.021773 seconds 
+  Import took 0.025512 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000321 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01_04.png
+  artifactKey: Guid(f235e569219587c41a45ec42c5bc2899) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01_04.png using Guid(f235e569219587c41a45ec42c5bc2899) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41619d80c9c928b702e61f4b008e32fe') in 0.023660 seconds 
+  Import took 0.028598 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000193 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03_V_02.png
+  artifactKey: Guid(cc426c28c0496f74e9950b929c98b022) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03_V_02.png using Guid(cc426c28c0496f74e9950b929c98b022) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '225e07972f6d10486324dbfd1ae6fdde') in 0.020620 seconds 
+  Import took 0.024501 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000208 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03.png
+  artifactKey: Guid(83f7c01fabea4a44e8482d2bf7ac7843) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03.png using Guid(83f7c01fabea4a44e8482d2bf7ac7843) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd1402ba7ffe6491089c2ad15211e3eb7') in 0.020369 seconds 
+  Import took 0.024622 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000253 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02_Half_H_01.png
+  artifactKey: Guid(05c645c8f4cf019489890b173b980328) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02_Half_H_01.png using Guid(05c645c8f4cf019489890b173b980328) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f250d351a005d0b2ba7dea7dbc99940') in 0.029348 seconds 
+  Import took 0.034639 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000254 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_C3-SW.png
+  artifactKey: Guid(be4f21c595dd4de4e843517f95ad90c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_C3-SW.png using Guid(be4f21c595dd4de4e843517f95ad90c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '755bd887b8e68f1fbed4af1ced751798') in 0.021656 seconds 
+  Import took 0.028307 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000273 seconds.
+  path: Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_01_ToSnow_01.png
+  artifactKey: Guid(9ff3665d6c157c5428234650deac5faf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_01_ToSnow_01.png using Guid(9ff3665d6c157c5428234650deac5faf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2ffe9ffc37df130f0121f1a52332bd5') in 0.031243 seconds 
+  Import took 0.036538 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000206 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_sycthe.png
+  artifactKey: Guid(2cd92e9f32354f3c924b9ba0617cfbd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_sycthe.png using Guid(2cd92e9f32354f3c924b9ba0617cfbd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be47d1d251a1c30aced4b9fa24d984b0') in 0.233483 seconds 
+  Import took 0.238400 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000316 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Glow_1.png
+  artifactKey: Guid(3f499aaa21b08134da3ab42f708b1096) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Glow_1.png using Guid(3f499aaa21b08134da3ab42f708b1096) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91228ff72ccc9c1df2a879774289abfe') in 0.020594 seconds 
+  Import took 0.023927 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000219 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1L_SE.png
+  artifactKey: Guid(88ddd5d20781c7f4eb3e40b20b1ae64d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1L_SE.png using Guid(88ddd5d20781c7f4eb3e40b20b1ae64d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'da2cda0b0f08eb54a91a4fd5f4560d7e') in 0.017080 seconds 
+  Import took 0.021494 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000223 seconds.
+  path: Assets/Resources/Sprites/Wood/ISO_Tile_Tree_Birch_01.png
+  artifactKey: Guid(f564c2b738fc8644f8556addb932f232) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Wood/ISO_Tile_Tree_Birch_01.png using Guid(f564c2b738fc8644f8556addb932f232) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9fa97d2f60088f38de623499cbd95e3') in 0.022023 seconds 
+  Import took 0.025694 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000181 seconds.
+  path: Assets/Samples/2D Tilemap Extras/1.8.0-preview/Dungeon Rule Tile/Sprites/Dungeon.png
+  artifactKey: Guid(4e794009527fa49a7a0e11880aaa3a50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/2D Tilemap Extras/1.8.0-preview/Dungeon Rule Tile/Sprites/Dungeon.png using Guid(4e794009527fa49a7a0e11880aaa3a50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80891e307ebc23bb44dc15710e8e9d82') in 0.083180 seconds 
+  Import took 0.087128 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000156 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Stairs_Simple/Sprites/ISO_Prop_Stair_Stone_02.png
+  artifactKey: Guid(0f1b8ab85a24b90408802bb9d5240da0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Stairs_Simple/Sprites/ISO_Prop_Stair_Stone_02.png using Guid(0f1b8ab85a24b90408802bb9d5240da0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ebfdcf315872622e3f6c8a57323f7bba') in 0.015164 seconds 
+  Import took 0.019114 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000202 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Glow_2.png
+  artifactKey: Guid(6a6a2883c7724d346a0e6ca43a2fa85f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Glow_2.png using Guid(6a6a2883c7724d346a0e6ca43a2fa85f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e1139c3aea3528e7cf300ff3bde6b88') in 0.018831 seconds 
+  Import took 0.022292 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000172 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02_H_01.png
+  artifactKey: Guid(f1c54e49b8e6a294d90bfd7e637f460c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02_H_01.png using Guid(f1c54e49b8e6a294d90bfd7e637f460c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ca65eb212d5852492a5f2d44f941389') in 0.018088 seconds 
+  Import took 0.021481 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000191 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03_H_02.png
+  artifactKey: Guid(03714e6aaa131ca4f83cdccfdf4222f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_03_H_02.png using Guid(03714e6aaa131ca4f83cdccfdf4222f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aca5b85c135a57e024258f8aece20ef9') in 0.018963 seconds 
+  Import took 0.022815 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000196 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_hit1.png
+  artifactKey: Guid(42a0d4a0cdde425a930dc5ae1c3f64ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_hit1.png using Guid(42a0d4a0cdde425a930dc5ae1c3f64ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '991fc6b00d59381c64ca277a7a5e7a19') in 0.110147 seconds 
+  Import took 0.114261 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02.png
+  artifactKey: Guid(ac2dc907e36233c47977e698270dd634) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02.png using Guid(ac2dc907e36233c47977e698270dd634) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ebe0767b5477d2c02daccc152f56269') in 0.019434 seconds 
+  Import took 0.022552 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000195 seconds.
+  path: Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_02_ToStone_02.png
+  artifactKey: Guid(b3362a07a7667a64d8a17c12c19ff704) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_02_ToStone_02.png using Guid(b3362a07a7667a64d8a17c12c19ff704) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe3045487497674e4b5b4359a8333f89') in 0.023196 seconds 
+  Import took 0.026692 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Half_Down.png
+  artifactKey: Guid(a688abb56e93536499f3a98b98ccaccd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Half_Down.png using Guid(a688abb56e93536499f3a98b98ccaccd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '63d06196ea10f8bd42e93213ff8e1787') in 0.020001 seconds 
+  Import took 0.023316 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000156 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1.png
+  artifactKey: Guid(2da757ea350b445468b2a2c1faf017a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Patch_1.png using Guid(2da757ea350b445468b2a2c1faf017a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '524cd3f7ca997ce4369ab5048959777b') in 0.018802 seconds 
+  Import took 0.023219 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000271 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt_1.png
+  artifactKey: Guid(8a08fd71de1f35241abe1cc81047ca5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt_1.png using Guid(8a08fd71de1f35241abe1cc81047ca5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e2619c87e4d3abf4c0d570d72a0aeea') in 0.021182 seconds 
+  Import took 0.025079 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000228 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Simple/Sprites/ISO_Tile_Water_Shore_2S_01.png
+  artifactKey: Guid(cde0540a3ed58c840af2820dfcab3a1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Simple/Sprites/ISO_Tile_Water_Shore_2S_01.png using Guid(cde0540a3ed58c840af2820dfcab3a1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e27d64e2c17c05215aead49a40da57c8') in 0.015526 seconds 
+  Import took 0.018909 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000159 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Stairs_Simple/Sprites/ISO_Prop_Stair_Stone_01.png
+  artifactKey: Guid(d4072cf930358cc4c90ec4812e18e05d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Stairs_Simple/Sprites/ISO_Prop_Stair_Stone_01.png using Guid(d4072cf930358cc4c90ec4812e18e05d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '619c85128c9a4b6bb0a1dd16639bc2b2') in 0.016797 seconds 
+  Import took 0.020961 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000220 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt_2.png
+  artifactKey: Guid(121f663a7aa81764d8af319f94b5cc82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Ground/Dirt_2.png using Guid(121f663a7aa81764d8af319f94b5cc82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c4340dcd958b2f74629d931514ed627') in 0.017337 seconds 
+  Import took 0.021265 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000173 seconds.
+  path: Assets/Resources/Sprites/Snow/ISO_Tile_Snow_02_ToStone_02.png
+  artifactKey: Guid(92988273c73cf3a498dc94a1b2c8c71d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Snow/ISO_Tile_Snow_02_ToStone_02.png using Guid(92988273c73cf3a498dc94a1b2c8c71d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '480c740118e6d56170c460fff63b58e5') in 0.024062 seconds 
+  Import took 0.028004 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000204 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bomb_ground.png
+  artifactKey: Guid(9c6314050d870a4409074e27c5e79132) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bomb_ground.png using Guid(9c6314050d870a4409074e27c5e79132) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0443e7df206c457162eaef6b3f21005') in 0.074440 seconds 
+  Import took 0.077726 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000394 seconds.
+  path: Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_02.png
+  artifactKey: Guid(73c381840b9e96945986aa9fac9dcaf5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_02.png using Guid(73c381840b9e96945986aa9fac9dcaf5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54f10d87e0f848373698a8ce55aa37ad') in 0.023912 seconds 
+  Import took 0.028906 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000299 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_06.png
+  artifactKey: Guid(fc99fb133bd9919439c6758ade9f2d82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_06.png using Guid(fc99fb133bd9919439c6758ade9f2d82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '687d8fab4917a87ac4621dab42cc2bfc') in 0.019051 seconds 
+  Import took 0.023345 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000289 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Half_Up.png
+  artifactKey: Guid(8048fbb216e441f4badd663055225077) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass_Half_Up.png using Guid(8048fbb216e441f4badd663055225077) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc14673eb4a46e305f2252996bcbac58') in 0.020991 seconds 
+  Import took 0.025975 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000269 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01_02.png
+  artifactKey: Guid(0b063a986bd70f041a1bf0e0e65b935a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01_02.png using Guid(0b063a986bd70f041a1bf0e0e65b935a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a69ed24166006aa55ad503aa6f64f06') in 0.021407 seconds 
+  Import took 0.025501 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000197 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S_03.png
+  artifactKey: Guid(7d8577a3dc3cfe349b8e925cebc95e7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S_03.png using Guid(7d8577a3dc3cfe349b8e925cebc95e7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '194b89b92b294cb462b03c01131ae4f1') in 0.014539 seconds 
+  Import took 0.018519 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000162 seconds.
+  path: Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_02_ToStone_01.png
+  artifactKey: Guid(8ba6494715c915547b322c0c281b7b78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_02_ToStone_01.png using Guid(8ba6494715c915547b322c0c281b7b78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c44e53f199b3c6f0c98768915f87b49') in 0.020672 seconds 
+  Import took 0.024459 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000224 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_S2_NW-SE.png
+  artifactKey: Guid(82189ea1cee134c4fa306c7f086f15a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Roof_Hay_Simple/Sprites/ISO_Roof_Hay_01_T_S2_NW-SE.png using Guid(82189ea1cee134c4fa306c7f086f15a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca78fdb43dbe9536038a79a4578b5227') in 0.015611 seconds 
+  Import took 0.020135 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000239 seconds.
+  path: Assets/Resources/Sprites/Lava/ISO_Tile_Lava_01.png
+  artifactKey: Guid(4ae23acbbd0567947a6051d8f4ef6629) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Lava/ISO_Tile_Lava_01.png using Guid(4ae23acbbd0567947a6051d8f4ef6629) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd73f54ccaf4fdf6433d5d42a74a4780b') in 0.021458 seconds 
+  Import took 0.024750 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000323 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02_Half_V_02.png
+  artifactKey: Guid(eb1f5fa0cc7f2924cad75355d3f6085b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02_Half_V_02.png using Guid(eb1f5fa0cc7f2924cad75355d3f6085b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a40f26f4eac4029f2ceb0be94a4f299') in 0.025492 seconds 
+  Import took 0.029467 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000222 seconds.
+  path: Assets/Resources/Sprites/Stone/ISO_Tile_Stone_01.png
+  artifactKey: Guid(8101f733e050ce14d9a68d86770b02ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Stone/ISO_Tile_Stone_01.png using Guid(8101f733e050ce14d9a68d86770b02ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bca4119f09e285ce733d2425a8e67133') in 0.024536 seconds 
+  Import took 0.028238 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000162 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Half_V_02.png
+  artifactKey: Guid(4089537d0a713ce40990e19b27bc22c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Half_V_02.png using Guid(4089537d0a713ce40990e19b27bc22c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52fa78f17bdf4d492b0b664950efcc61') in 0.021506 seconds 
+  Import took 0.025039 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000174 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01_Half_V_02.png
+  artifactKey: Guid(c1a3bf26a4570784493b03906f787627) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01_Half_V_02.png using Guid(c1a3bf26a4570784493b03906f787627) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b92fc643fca2eadaf50866c8ee172a7') in 0.020516 seconds 
+  Import took 0.023970 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000189 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Ground/Water.png
+  artifactKey: Guid(8bc93e55e6e717f4cb1611e7d899e0d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Ground/Water.png using Guid(8bc93e55e6e717f4cb1611e7d899e0d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a448f59cb4cb2ddd77596433ee86ba01') in 0.019782 seconds 
+  Import took 0.024572 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000253 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_End_04.png
+  artifactKey: Guid(5698fcbf22e5dd24989b4cb3e2a8c16a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Path/Sprites/ISO_Tile_Dirt_01_GrassPath_End_04.png using Guid(5698fcbf22e5dd24989b4cb3e2a8c16a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2895f05cfba68845c324abbd9b90e860') in 0.015800 seconds 
+  Import took 0.019451 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000182 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Simple/Sprites/ISO_Tile_Water_Shore_1S_04.png
+  artifactKey: Guid(f072c1210e6774f42a7b26d61194fd79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Simple/Sprites/ISO_Tile_Water_Shore_1S_04.png using Guid(f072c1210e6774f42a7b26d61194fd79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26b0c3dfed74d27b1b8e7f9cfb65febd') in 0.014975 seconds 
+  Import took 0.018782 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000197 seconds.
+  path: Assets/Resources/Sprites/Lava/ISO_Tile_Tar_01.png
+  artifactKey: Guid(15161deb77df09646b88368bbf01568e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Lava/ISO_Tile_Tar_01.png using Guid(15161deb77df09646b88368bbf01568e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa7dc898bda9bafbfebd44a049a515ee') in 0.020025 seconds 
+  Import took 0.024060 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000211 seconds.
+  path: Assets/Resources/Sprites/Snow/ISO_Tile_Snow_02_ToStone_01.png
+  artifactKey: Guid(ee37e4313b2352548944e3335a14212f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Snow/ISO_Tile_Snow_02_ToStone_01.png using Guid(ee37e4313b2352548944e3335a14212f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '827cb8fc59a742be1f107aa488bf2830') in 0.021423 seconds 
+  Import took 0.025025 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000169 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02_V_01.png
+  artifactKey: Guid(60191b1b55063b0489e2cd2ac8378ea7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02_V_01.png using Guid(60191b1b55063b0489e2cd2ac8378ea7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8798417e1150afeb8032d2d7f3f5a45') in 0.020342 seconds 
+  Import took 0.024158 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000188 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_01.png
+  artifactKey: Guid(a12c85220205a2c49a382440bfc32f41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_01.png using Guid(a12c85220205a2c49a382440bfc32f41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6078a06e754cc05ea8d580b392c5ab1d') in 0.020430 seconds 
+  Import took 0.025043 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000261 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_walk.png
+  artifactKey: Guid(3d2f599474fd4b2994881f42880ea8c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_walk.png using Guid(3d2f599474fd4b2994881f42880ea8c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '302f31ec3debd44ca08632a8cad2ce0b') in 0.164677 seconds 
+  Import took 0.168406 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000186 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Path_Cross3_01.png
+  artifactKey: Guid(5e295916f357d2d4da712dcacbb39b24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Path_Cross3_01.png using Guid(5e295916f357d2d4da712dcacbb39b24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20d4f70c0d2b90d595bbca037462c447') in 0.019533 seconds 
+  Import took 0.023120 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000216 seconds.
+  path: Assets/Resources/Sprites/Low/ISO_LowTile_Riverbed_01.png
+  artifactKey: Guid(c116e528227f1f841aaada1a74ab4013) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Low/ISO_LowTile_Riverbed_01.png using Guid(c116e528227f1f841aaada1a74ab4013) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1ff612ef92e1fc73b474a8a073ddb28') in 0.025459 seconds 
+  Import took 0.028852 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000261 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/StonePieces_2_Half_Right.png
+  artifactKey: Guid(b1a9f5f0cac09ed468b88048a6411c43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/StonePieces_2_Half_Right.png using Guid(b1a9f5f0cac09ed468b88048a6411c43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffc96453c033bcfd4ea5c78d6f412ba9') in 0.020624 seconds 
+  Import took 0.024733 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000186 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Brick_03.png
+  artifactKey: Guid(c497a200b5b458a44b0c5a5451fc52fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Brick_03.png using Guid(c497a200b5b458a44b0c5a5451fc52fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69a9162bbb9708cb0de8f3eaadb3989c') in 0.021130 seconds 
+  Import took 0.024723 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000174 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01_03.png
+  artifactKey: Guid(a2272796b6753cf4a856601971d9dd5a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01_03.png using Guid(a2272796b6753cf4a856601971d9dd5a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26d20d74071088a7d79e224b218e693f') in 0.019795 seconds 
+  Import took 0.023533 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000184 seconds.
+  path: Assets/Resources/Sprites/Water/ISO_Overlay_Water_02.png
+  artifactKey: Guid(e7f43ecab1dd89d498a3db6b6bdf2788) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Water/ISO_Overlay_Water_02.png using Guid(e7f43ecab1dd89d498a3db6b6bdf2788) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a13c1d3acbde3bdf798d7d4d0fc24bf7') in 0.019971 seconds 
+  Import took 0.024072 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000176 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_SandStone_01.png
+  artifactKey: Guid(48bdf5dbe052507438163310dfb7020f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_SandStone_01.png using Guid(48bdf5dbe052507438163310dfb7020f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d24bf458ab082331088698ab1f6b59c') in 0.022131 seconds 
+  Import took 0.025614 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000170 seconds.
+  path: Assets/Resources/Sprites/Snow/ISO_Tile_Snow_01_ToStone_02.png
+  artifactKey: Guid(6772d1026061fd244a988489ce84f01f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Snow/ISO_Tile_Snow_01_ToStone_02.png using Guid(6772d1026061fd244a988489ce84f01f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43e9cec5af4bdb7a2b1ec957900866d4') in 0.020573 seconds 
+  Import took 0.024304 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000229 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S1C_02.png
+  artifactKey: Guid(0945bdb1447a27c4e99f7fcdf9a11672) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2S1C_02.png using Guid(0945bdb1447a27c4e99f7fcdf9a11672) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86de9b692afb3fe035045360228702ed') in 0.015398 seconds 
+  Import took 0.019028 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000345 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_player_shadow.png
+  artifactKey: Guid(2defedf49c8d4511b29c6bc028880008) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_player_shadow.png using Guid(2defedf49c8d4511b29c6bc028880008) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a84b2e51aad8a1e4390794ad49db2b35') in 0.015137 seconds 
+  Import took 0.019630 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000242 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_1S_04.png
+  artifactKey: Guid(b9e52e01fbcff37449018d165461e1d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_1S_04.png using Guid(b9e52e01fbcff37449018d165461e1d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b0d177a0186109651036b89cd374a16') in 0.013981 seconds 
+  Import took 0.017901 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000166 seconds.
+  path: Assets/Resources/Sprites/Snow/ISO_Tile_Ice_01-06.png
+  artifactKey: Guid(8daa3a7a02ab7c14b9493be2b88cb29d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Snow/ISO_Tile_Ice_01-06.png using Guid(8daa3a7a02ab7c14b9493be2b88cb29d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2132cd942030bd813163aae34d35e1d2') in 0.020445 seconds 
+  Import took 0.024727 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000164 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/StonePieces_2_Half_Up.png
+  artifactKey: Guid(dbb19f42927833141b59a95ea8a6d272) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/StonePieces_2_Half_Up.png using Guid(dbb19f42927833141b59a95ea8a6d272) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59a70b8ff7b37c847162653e8ddc4079') in 0.020143 seconds 
+  Import took 0.023595 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000163 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Simple/Sprites/ISO_Tile_Water_01.png
+  artifactKey: Guid(9ec9745b7c0d583438238366d740427c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Simple/Sprites/ISO_Tile_Water_01.png using Guid(9ec9745b7c0d583438238366d740427c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3783c0064b38e424fbf1ae95e18a1d37') in 0.015139 seconds 
+  Import took 0.019010 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000193 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_05.png
+  artifactKey: Guid(b81ce33cb686bec48b68543d62717e07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_05.png using Guid(b81ce33cb686bec48b68543d62717e07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '02d0ec03bcde24685640fa83dfb29106') in 0.017201 seconds 
+  Import took 0.020841 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bomb_hold.png
+  artifactKey: Guid(09c6bf1cbce9be746b148f6019fd6750) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_bomb_hold.png using Guid(09c6bf1cbce9be746b148f6019fd6750) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '51de7933af1a0ab39c452bf4a2b8d7ea') in 0.195605 seconds 
+  Import took 0.199420 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000169 seconds.
+  path: Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_01_ToStone_02.png
+  artifactKey: Guid(cdd25e8ee4271f047b3ecb7bdcd1df9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Dirt/ISO_Tile_Dirt_01_ToStone_02.png using Guid(cdd25e8ee4271f047b3ecb7bdcd1df9b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16cd9cfc19a11bf29ad9a7750aaf6252') in 0.022707 seconds 
+  Import took 0.026257 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000185 seconds.
+  path: Assets/Resources/Sprites/Water/Animation_01/Sprites/ISO_Tile_Water_01_Anim_01_F1.png
+  artifactKey: Guid(f1b0a5ef178498142a6a4ed17ee4142c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Water/Animation_01/Sprites/ISO_Tile_Water_01_Anim_01_F1.png using Guid(f1b0a5ef178498142a6a4ed17ee4142c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f77a0336a9bb0b3083d104023e2f934f') in 0.020779 seconds 
+  Import took 0.025515 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000303 seconds.
+  path: Assets/Resources/Sprites/Wood/ISO_Tile_Tree_01.png
+  artifactKey: Guid(499dedb64d81e5a43a0a75bb85d060c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Wood/ISO_Tile_Tree_01.png using Guid(499dedb64d81e5a43a0a75bb85d060c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d7a0526e21f238861fe75afc5a841cf') in 0.021198 seconds 
+  Import took 0.024514 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000275 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_jump.png
+  artifactKey: Guid(263bbf868f1c40ef9da04b8d96ce8d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_jump.png using Guid(263bbf868f1c40ef9da04b8d96ce8d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20a938e8e6d6a8c2b6e97f55409a26cb') in 0.201894 seconds 
+  Import took 0.205455 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000293 seconds.
+  path: Assets/Resources/Sprites/Skin/ISO_Tile_Flesh_01.png
+  artifactKey: Guid(5efb0fb6aed8b05498f04e750ada970f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Skin/ISO_Tile_Flesh_01.png using Guid(5efb0fb6aed8b05498f04e750ada970f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e48da1f1f39e17c6e6d72e27382f54b6') in 0.022249 seconds 
+  Import took 0.026027 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000191 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Half_H_02.png
+  artifactKey: Guid(55466e1209e73754d83ee65e4904d72b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Half_H_02.png using Guid(55466e1209e73754d83ee65e4904d72b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9dab6b71ee3b599c8e1f5c3a3493423f') in 0.023578 seconds 
+  Import took 0.029455 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000462 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch__H_01.png
+  artifactKey: Guid(5c809256ff0eb254a99ffbe029ba5513) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch__H_01.png using Guid(5c809256ff0eb254a99ffbe029ba5513) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f0269261cf8464ac46535e0211f76d3d') in 0.023629 seconds 
+  Import took 0.029271 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000189 seconds.
+  path: Assets/Samples/2D Tilemap Extras/1.8.0-preview/Waterfall Animated Tile/Sprites/Waterfall.png
+  artifactKey: Guid(ea3d66a7edd9d46d38e40be89ae8d3cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/2D Tilemap Extras/1.8.0-preview/Waterfall Animated Tile/Sprites/Waterfall.png using Guid(ea3d66a7edd9d46d38e40be89ae8d3cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f68ac7cd3c61ddba17d5d2f04dba3c9') in 0.047033 seconds 
+  Import took 0.052577 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000209 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1-NW.png
+  artifactKey: Guid(177a01e62a553d24f813e4063fb9f089) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1-NW.png using Guid(177a01e62a553d24f813e4063fb9f089) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '181b030e24882e41f17ff59b015e6f9d') in 0.016971 seconds 
+  Import took 0.021246 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/weapon_sword.png
+  artifactKey: Guid(a1925e7d73214f63a8ddcce6bea40954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/weapon_sword.png using Guid(a1925e7d73214f63a8ddcce6bea40954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7396d55e9fdfe73421c3d3267ec2af60') in 0.119689 seconds 
+  Import took 0.123706 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000286 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_muzzleflash.png
+  artifactKey: Guid(9cfbb362323bfad4eb88e48d04d8a2a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/world_muzzleflash.png using Guid(9cfbb362323bfad4eb88e48d04d8a2a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ce578c0cf881b6bbdd2a9bdba1847da') in 0.021355 seconds 
+  Import took 0.024978 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000267 seconds.
+  path: Assets/Resources/Sprites/Snow/ISO_Tile_Snow_02.png
+  artifactKey: Guid(bc88e5be61642e44885c2d7d8048513f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Snow/ISO_Tile_Snow_02.png using Guid(bc88e5be61642e44885c2d7d8048513f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b56439cfce3b1071ac757c2de4af3f7') in 0.021755 seconds 
+  Import took 0.026253 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000169 seconds.
+  path: Assets/Resources/Sprites/Water/ISO_Overlay_Water_01.png
+  artifactKey: Guid(041f8867dfaeb6b4e80d6accfd1f9b78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Water/ISO_Overlay_Water_01.png using Guid(041f8867dfaeb6b4e80d6accfd1f9b78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03750903f63035bb830be6ba27fc7e8f') in 0.019987 seconds 
+  Import took 0.024578 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000329 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02_Half_H_02.png
+  artifactKey: Guid(6baa8c28728a4ed40a4d94760a52b417) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02_Half_H_02.png using Guid(6baa8c28728a4ed40a4d94760a52b417) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '401fcd2389a991fe09f12ebe0c50d36c') in 0.020253 seconds 
+  Import took 0.023586 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass.png
+  artifactKey: Guid(061b6ae1997c2564ab5c9917372bcda6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/AbandonedMineShaft/Overlay/Grass.png using Guid(061b6ae1997c2564ab5c9917372bcda6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '300b71cd475c63988cc0cdf621e4f723') in 0.022330 seconds 
+  Import took 0.025851 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000239 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1-NE.png
+  artifactKey: Guid(b267f7fa9ad26774585ca4e72b932487) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1-NE.png using Guid(b267f7fa9ad26774585ca4e72b932487) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a9ac88921f89f77b05deda7efba3a85') in 0.019343 seconds 
+  Import took 0.024918 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000299 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Half_V_01.png
+  artifactKey: Guid(9caaffbb44d47cf4d81e42ffb704389e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Half_V_01.png using Guid(9caaffbb44d47cf4d81e42ffb704389e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21f7863b005feac27de72747dede7635') in 0.021903 seconds 
+  Import took 0.026389 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000197 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Shore_Straight_LU.png
+  artifactKey: Guid(202bdd2d9a2b4b64a871f63421fb7fcb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Shore_Straight_LU.png using Guid(202bdd2d9a2b4b64a871f63421fb7fcb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ae1dd1fd41a4d4558d647e550209fd0') in 0.025786 seconds 
+  Import took 0.030951 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000293 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_run.png
+  artifactKey: Guid(acb8cab598694f619dd44693cb68fb4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_run.png using Guid(acb8cab598694f619dd44693cb68fb4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26c6a1741fb2699a1d9817b803923262') in 0.154543 seconds 
+  Import took 0.159050 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000222 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_01.png
+  artifactKey: Guid(514f128270f718a42aadddbf91c44ba6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_01.png using Guid(514f128270f718a42aadddbf91c44ba6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a69034e3b38907b45e15f5c1e964b96') in 0.013523 seconds 
+  Import took 0.017053 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1L_NW.png
+  artifactKey: Guid(a49f91126ddeeaa47a06a897edc47448) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1L_NW.png using Guid(a49f91126ddeeaa47a06a897edc47448) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0868df969896f65847d861188ed59d1a') in 0.015004 seconds 
+  Import took 0.019584 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000230 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/weapon_hammer.png
+  artifactKey: Guid(626be61ea46848f48841509c5271e64f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/weapon_hammer.png using Guid(626be61ea46848f48841509c5271e64f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58ce5a7b4c6511881262f59e3166984f') in 0.207655 seconds 
+  Import took 0.211459 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000441 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01.png
+  artifactKey: Guid(ff1328e61be82ba4cb0d533e0bc16578) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Stone_01.png using Guid(ff1328e61be82ba4cb0d533e0bc16578) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d7fdc686234e57825878fa7dd415ecc') in 0.019805 seconds 
+  Import took 0.023345 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000198 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1L-NE.png
+  artifactKey: Guid(6d009edcba48ff2428f2fe699c46a7b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1L-NE.png using Guid(6d009edcba48ff2428f2fe699c46a7b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4469cf28c9e5ce61a16ec2db95198113') in 0.015221 seconds 
+  Import took 0.018725 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000171 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch__V_01.png
+  artifactKey: Guid(68c3b30b9bbac7a4fbfb8162c72e25f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch__V_01.png using Guid(68c3b30b9bbac7a4fbfb8162c72e25f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb1508231c0c1a7fcbe1fe25ff193e2c') in 0.018547 seconds 
+  Import took 0.022439 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000189 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02_V_02.png
+  artifactKey: Guid(28e3a2eda563a9843bda5129e0f2e2ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_Grass_Patch_02_V_02.png using Guid(28e3a2eda563a9843bda5129e0f2e2ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07cace5e7319bb526f11e2785df04547') in 0.021722 seconds 
+  Import took 0.026785 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000227 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02_Half_V_01.png
+  artifactKey: Guid(74b09da65e1639b4a9185bf4fb91cd50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_02_Half_V_01.png using Guid(74b09da65e1639b4a9185bf4fb91cd50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8002849ef5c35b465587dbf94ae0a11d') in 0.022272 seconds 
+  Import took 0.027327 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000249 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_C4.png
+  artifactKey: Guid(be1ddbd6a55241149ba96866bc8a99b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_C4.png using Guid(be1ddbd6a55241149ba96866bc8a99b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8323e08296e4b8a4dccaaa5bd4a093f') in 0.017770 seconds 
+  Import took 0.021695 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000237 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S2-SE-NW.png
+  artifactKey: Guid(9b801b952c0db914f9aeceb8f53f29d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S2-SE-NW.png using Guid(9b801b952c0db914f9aeceb8f53f29d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b779ec987e2e2cf9cc1225582099e00a') in 0.019276 seconds 
+  Import took 0.024878 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000318 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01_Half_V_01.png
+  artifactKey: Guid(3efb15a68f7b8884a93bdc854ef65112) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01_Half_V_01.png using Guid(3efb15a68f7b8884a93bdc854ef65112) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '660694fa3dcb3bc4bafce7a2f98014a3') in 0.032073 seconds 
+  Import took 0.038921 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000311 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Snow_01.png
+  artifactKey: Guid(a1b0a68c44519324d9fec5baa1bce9fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Snow_01.png using Guid(a1b0a68c44519324d9fec5baa1bce9fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '673f92e9ddd10bafb246fa9c62b87efc') in 0.031647 seconds 
+  Import took 0.037875 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000237 seconds.
+  path: Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01_Half_H_02.png
+  artifactKey: Guid(ea4cfaaedf6568847997ff2633225864) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Overlay/ISO_Overlay_StonePieces_01_Half_H_02.png using Guid(ea4cfaaedf6568847997ff2633225864) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '641fe78320f65bcf705794d72e2ef3b7') in 0.030133 seconds 
+  Import took 0.035937 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000262 seconds.
+  path: Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_crawl.png
+  artifactKey: Guid(43eb704c8d3f4f02b188c5988c58b4fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/COPY SPRIGHT/2D Character - Astronaut/Sprites/character_crawl.png using Guid(43eb704c8d3f4f02b188c5988c58b4fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd54698611f34898e3b0648b290edfd31') in 0.191100 seconds 
+  Import took 0.195442 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000257 seconds.
+  path: Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Brick_04.png
+  artifactKey: Guid(b4646e1022a113e45a25e58262f2fa93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/Brick/ISO_Tile_Brick_Brick_04.png using Guid(b4646e1022a113e45a25e58262f2fa93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1118511b538a6b11891571b018b0a853') in 0.020284 seconds 
+  Import took 0.023659 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000196 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1L-SW.png
+  artifactKey: Guid(58674859ce78fa0468a29f4246da796d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/Fence/Sprites/ISO_Fence_01_S1L-SW.png using Guid(58674859ce78fa0468a29f4246da796d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f9ccaf169a5586df69544175ce39e78') in 0.015352 seconds 
+  Import took 0.020783 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000216 seconds.
+  path: Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_03.png
+  artifactKey: Guid(5dfb01527a3851a4fb5001a86afaca9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GoldenSkullStudios/2D/2D_Iso_Tile_Pack_Starter/Autotiles/WaterBlock_Shores_Complex/Sprites/ISO_Tile_Water_Shore_2C_03.png using Guid(5dfb01527a3851a4fb5001a86afaca9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9272bc722fdc92d2a26d80bf9446504e') in 0.016144 seconds 
+  Import took 0.020398 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

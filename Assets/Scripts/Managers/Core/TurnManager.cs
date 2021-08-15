@@ -67,13 +67,14 @@ public class TurnManager
                 break;
         }
     }
-    public void HandleUnitTurn()
+    public void _HandleUnitTurn()
     {
         if(_currentTurn == Define.Turn.Player) { _currentTurn = Define.Turn.Enemy; ResetUnitQueue(); }
         if(!_unitQueue.TryDequeue(out _currentUnitData)) { HandlePlayerTurn(); return; }
         Managers.CameraMgr.GameCam.Target = _currentUnitData.gameObject;
+        Timing.WaitForSeconds(0.5f);
         _currentUnitController = _currentUnitData.GetComponent<UnitController>();
-        _currentUnitController.PerformUnitTurn();
+        _currentUnitController._PerformUnitTurn().RunCoroutine();
     }
     private void ResetUnitQueue()
     {

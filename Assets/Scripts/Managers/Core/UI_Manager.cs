@@ -18,9 +18,12 @@ public class UI_Manager
     {
         Managers.GameMgr.Floor.SetColor(tilePos, Color.white);
     }
-
-    internal void PaintReachableOccupiedTile(Vector3Int tilePos)
+    public void PaintReachableOccupiedTile(Vector3Int tilePos)
     {
-        Managers.GameMgr.Floor.SetColor(tilePos,Color.black);
+        Managers.GameMgr.Floor.SetColor(tilePos,Color.red);
+    }
+    public void ResetReachableOccupiedTile(Vector3Int tilePos)
+    {
+        Managers.GameMgr.Floor.SetColor(tilePos, Color.white);
     }
 }

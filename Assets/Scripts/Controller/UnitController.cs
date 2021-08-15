@@ -33,31 +33,37 @@ public class UnitController : MonoBehaviour
     {
         Init();
     }
-    public void PerformUnitTurn()
+    public IEnumerator<float> _PerformUnitTurn()
     {
-        _nextAction = _unitData.UpdateNextAction();
-        PerformAction();
+        Debug.Log("unit turn start");   
+        do
+        {
+            _nextAction = _unitData.UpdateNextAction();
+            yield return Timing.WaitUntilDone(_PerformAction().RunCoroutine());
+        } while (_nextAction.UnitPurpose != Define.UnitPurpose.PassTurn);
+        Debug.Log("unit turn end");
+        EndTurn();
+        yield break;
     }
 
-    public void PerformAction()
+    public IEnumerator<float> _PerformAction()
     {
         switch (_unitData.CurrentState)
         {
             case Define.UnitState.Idle:
+                Debug.Log("Idle");
                 HandleIdle();
-                return;
+                yield break;
             case Define.UnitState.Moving:
-                _HandleMoving().RunCoroutine();
-                return;
+                Debug.Log("Moving");
+                yield return Timing.WaitUntilDone(_HandleMoving().RunCoroutine());
+                yield break;
             case Define.UnitState.Skill:
                 HandleSkill();
-                return;
+                yield break;
             case Define.UnitState.Die:
                 HandleDie();
-                return;
-            default:
-                return;
-
+                yield break;
         }
     }
 
@@ -78,7 +84,6 @@ public class UnitController : MonoBehaviour
         else { Debug.LogError("nextCoor is null"); }
         yield return Timing.WaitForSeconds(0.5f);
         #endregion
-        PerformUnitTurn();
         yield break;
     }
 
@@ -127,5 +132,9 @@ public class UnitController : MonoBehaviour
             _unitData.LookDir = Define.CharDir.Right;
         }
     }
-
+    private void EndTurn()
+    {
+        _unitData.UpdateAp(_unitData.RecoverAp);
+        Managers.TurnMgr._HandleUnitTurn();
+    }
 }
