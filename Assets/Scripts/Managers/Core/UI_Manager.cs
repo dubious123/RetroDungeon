@@ -26,4 +26,8 @@ public class UI_Manager
     {
         Managers.GameMgr.Floor.SetColor(tilePos, Color.white);
     }
+    public void InitPlayerStatusBar(PlayerData playerData)
+    {
+        GameObject.Find("Status").GetComponent<PlayerStatus>().Init(playerData);
+    }
 }

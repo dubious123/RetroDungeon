@@ -31,6 +31,7 @@ public class GameManagerEx
     {
         Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>().SpawnUnits();
         Managers.InputMgr.InitControllers(_player);
+        Managers.UI_Mgr.InitPlayerStatusBar(_playerData);
         Managers.TurnMgr.UpdateDataFromCurrentSpawningPool();
         Managers.TurnMgr.HandlePlayerTurn();
     }

@@ -14,6 +14,16 @@ public class BaseUnitData : MonoBehaviour
     protected Define.UnitMentalState _mental;
     protected int _maxHp;
     protected int _hp;
+    protected int _maxDef;
+    protected int _def;
+    protected int _maxMp;
+    protected int _mp;
+    protected int _maxMs;
+    protected int _ms;
+    protected int _maxShock;
+    protected int _shock;
+    protected int _maxStress;
+    protected int _stress;
     protected float _moveSpeed;
     protected int _maxAp;
     protected int _recoverAp;
@@ -35,8 +45,21 @@ public class BaseUnitData : MonoBehaviour
 
 
     public Define.UnitMentalState Mental { get { return _mental; } set { _mental = value; } }
-    public int MaxHp { get { return _maxHp; } }
-    public int Hp { get { return _hp; } }
+
+    public int MaxHp { get { return _maxHp; } set { _maxHp = value; } }
+    public int Hp { get { return _hp; } set { _hp = value; } }
+    public int MaxDef { get { return _maxDef; } set { _maxDef = value; } }
+    public int Def { get { return _def; } set { _def = value; } }
+    public int MaxMp { get { return _maxMp; } set { _maxMp = value; } }
+    public int Mp { get { return _mp; } set { _mp = value; } }
+    public int MaxMS { get { return _maxMs; } set { _maxMs = value; } }
+    public int MS { get { return _ms; } set { _ms = value; } }
+    public int MaxShock { get { return _maxShock; } set { _maxShock = value; } }
+    public int Shock { get { return _shock; } set { _shock = value; } }
+    public int MaxStress { get { return _maxStress; } set { _maxStress = value; } }
+    public int Stress { get { return _stress; } set { _stress = value; } }
+
+
     public float Movespeed { get { return _moveSpeed; } }
     public int MaxAp { get { return _maxAp; } }
     public int RecoverAp { get { return _recoverAp; } }
