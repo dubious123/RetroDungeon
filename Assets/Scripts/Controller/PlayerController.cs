@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     Stack<Vector3Int> _path;
     Vector3Int? _currentMouseCellPos;
     Vector3Int _destination;
+
+    public Vector3Int? CurrentMouseCellPos { set { _currentMouseCellPos = value; } }
+    public Dictionary<Vector3Int, PathInfo> ReachableEmptyTileDict { get { return _reachableEmptyTileDict; } }
     void Init()
     {
         _playerData = GetComponent<PlayerData>();
@@ -35,35 +38,35 @@ public class PlayerController : MonoBehaviour
     {
         Init();
     }
-    private void UpdatePlayerState(Define.UnitState nextState)
+    public void UpdatePlayerState(Define.UnitState nextState)
     {
         Managers.TurnMgr.HandlePlayerTurn(nextState);
     }
-    public void UpdateMouseScreenPosition(InputAction.CallbackContext context)
-    {
-        _currentMouseCellPos = Managers.InputMgr.UpdateMouseCellPos(context.ReadValue<Vector2>());
-        if (_currentMouseCellPos.HasValue)
-        {
-            UpdatePath();
-        }
-    }
-    public void OnClicked(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (_currentMouseCellPos.HasValue && _reachableEmptyTileDict.ContainsKey(_currentMouseCellPos.Value)) 
-            {
-                //Todo
-                if(_board[_currentMouseCellPos.Value].Occupied)
-                {
-                    //Todo
-                    return;
-                }
+    //public void UpdateMouseScreenPosition(InputAction.CallbackContext context)
+    //{
+    //    _currentMouseCellPos = Managers.InputMgr.GetMouseCellPos(context.ReadValue<Vector2>());
+    //    if (_currentMouseCellPos.HasValue)
+    //    {
+    //        UpdatePath();
+    //    }
+    //}
+    //public void OnClicked(InputAction.CallbackContext context)
+    //{
+    //    if (context.performed)
+    //    {
+    //        if (_currentMouseCellPos.HasValue && _reachableEmptyTileDict.ContainsKey(_currentMouseCellPos.Value)) 
+    //        {
+    //            //Todo
+    //            if(_board[_currentMouseCellPos.Value].Occupied)
+    //            {
+    //                //Todo
+    //                return;
+    //            }
                 
-                UpdatePlayerState(Define.UnitState.Moving);
-            }
-        }
-    }
+    //            UpdatePlayerState(Define.UnitState.Moving);
+    //        }
+    //    }
+    //}
     public void HandleIdle()
     {
         _animController.PlayAnimation("idle");
@@ -104,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
 
     #region Reachable Tile Caculation Algorithm
-    class PathInfo :Interface.ICustomPriorityQueueNode<int>
+    public class PathInfo :Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
         Vector3Int _parent;
@@ -189,8 +192,9 @@ public class PlayerController : MonoBehaviour
         }
     }
     #endregion
-    private void UpdatePath()
+    public void UpdatePath(Vector3Int mouseCellPos)
     {
+        _currentMouseCellPos = mouseCellPos;
         if(_destination == _currentMouseCellPos) { return; }
         if (_reachableEmptyTileDict.TryGetValue(_currentMouseCellPos.Value,out PathInfo currentInfo) == false)
         {

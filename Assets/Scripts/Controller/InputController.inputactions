@@ -6,7 +6,7 @@
             "id": "2e93325e-c8c7-446c-a8e4-6c84c4a93f84",
             "actions": [
                 {
-                    "name": "MouseClick",
+                    "name": "OnMouseClick",
                     "type": "Button",
                     "id": "aed84300-f12c-457e-a754-cecae2f792b1",
                     "expectedControlType": "Button",
@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "MousePosition",
+                    "name": "OnMouseMove",
                     "type": "Value",
                     "id": "456d8563-311e-4e91-b022-e628adeccfbb",
                     "expectedControlType": "Vector2",
@@ -46,7 +46,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse+KeyBoard",
-                    "action": "MouseClick",
+                    "action": "OnMouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -57,7 +57,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse+KeyBoard",
-                    "action": "MousePosition",
+                    "action": "OnMouseMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

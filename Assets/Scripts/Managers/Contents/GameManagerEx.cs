@@ -51,6 +51,8 @@ public class GameManagerEx
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _player.transform.position = _floor.GetCellCenterWorld(Vector3Int.zero);
         dungeonInfo.Board[Vector3Int.zero].SetUnit(_player);
+        _floor.GetComponent<Imouse>().Init();
+
         //_worldUnitDic[dungeon].Add(Vector3Int.zero, _player);
         return _player;
     }

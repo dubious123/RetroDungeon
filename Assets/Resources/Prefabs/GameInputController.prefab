@@ -58,35 +58,11 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 874088009456761041}
-        m_TargetAssemblyTypeName: GameInputController, Assembly-CSharp
-        m_MethodName: OnClicked
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: aed84300-f12c-457e-a754-cecae2f792b1
     m_ActionName: GamePlay/MouseClick[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 874088009456761041}
-        m_TargetAssemblyTypeName: GameInputController, Assembly-CSharp
-        m_MethodName: UpdateMouseScreenPosition
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 456d8563-311e-4e91-b022-e628adeccfbb
     m_ActionName: GamePlay/MousePosition[/Mouse/position]
   - m_PersistentCalls:

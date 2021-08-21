@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    Camera camera;
+    Camera _camera;
     [SerializeField]
     float _cameraSize;
     float _cameraDeltaSize;
@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
     public Define.CameraState State { get { return _state; } set { _state = value; } }
     private void Start()
     {
-        camera = gameObject.GetComponent<Camera>();
+        _camera = gameObject.GetComponent<Camera>();
         _state = Define.CameraState.Auto;
         _moveSpeedManual2D = 6.0f;
         _maxHoldDuration = 0.5;
@@ -99,7 +99,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            camera.orthographicSize = _cameraSize;
+            _camera.orthographicSize = _cameraSize;
         }
     }
     #endregion

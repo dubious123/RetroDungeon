@@ -94,8 +94,10 @@ public class PlayerStatus : MonoBehaviour
     void UpdateMaxAnchor(RectTransform rect, ref int memorizedData ,int newData)
     {
         memorizedData = newData;
-        Vector2 delta = new Vector2(0.2f, 0f);
-        rect.anchorMin = rect.anchorMax - delta;
+        float deltaX = (newData - 100) / 5000.0f;
+        if (deltaX < 0.09f) { deltaX = 0.09f; }
+        else if (deltaX > 0.99f) { deltaX = 0.99f; }
+        rect.anchorMin = rect.anchorMax - new Vector2(deltaX, 0f);
     }
     void UpdateLeftBarAnchor(RectTransform left, RectTransform right)
     {
