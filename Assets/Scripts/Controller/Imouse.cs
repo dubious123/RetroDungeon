@@ -8,4 +8,6 @@ public interface Imouse
     public void OnDrag(InputAction.CallbackContext context);
     public void OnMouseMove(InputAction.CallbackContext context);
     public void OnMouseHover(InputAction.CallbackContext context);
+    public void DropDown();
+    public void GetDrop(UnityEngine.GameObject obj);
 }

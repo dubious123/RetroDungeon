@@ -16,6 +16,8 @@ public class GameInputController : MonoBehaviour
     #region UI
     PointerEventData _pointerEventData;
     List<RaycastResult> _results;
+    Imouse _hoverTarget;
+    public Imouse HoverTarget { get { return _hoverTarget; } }
     #endregion
     Imouse _clickTarget;
     public void Init(GameObject player)
@@ -57,11 +59,7 @@ public class GameInputController : MonoBehaviour
             _onMouseMove.Enable();
         }
     }
-    public void OnMouseMove(InputAction.CallbackContext context)
-    {
-        Managers.InputMgr.MouseScreenPosition = context.ReadValue<Vector2>();
-        GetTarget()?.OnMouseHover(context);
-    }
+
     public void OnClickStarted(InputAction.CallbackContext context)
     {
         Imouse temp = GetTarget();
@@ -80,15 +78,12 @@ public class GameInputController : MonoBehaviour
             _clickTarget.OnMouseUp(context);
         }
     }
-    //public void OnClicked(InputAction.CallbackContext context)
-    //{
-    //    if (context.started) { if (GetTarget(_clickTarget)) 
-    //        { 
-    //            _clickTarget.OnMouseDown(context);
-    //        }  }
-        
-    //}
-
+    public void OnMouseMove(InputAction.CallbackContext context)
+    {
+        Managers.InputMgr.MouseScreenPosition = context.ReadValue<Vector2>();
+        _hoverTarget = GetTarget();
+        _hoverTarget?.OnMouseHover(context);
+    }
     private Imouse GetTarget()
     {
         _pointerEventData.position = Managers.InputMgr.MouseScreenPosition;

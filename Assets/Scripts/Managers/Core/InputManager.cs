@@ -17,7 +17,7 @@ public class InputManager
     Vector3Int _currentMouseCellPos;
 
     public PlayerInput GameInputSystem { get { return _gameInputSystem; } }
-    public GameInputController GameInputController { get { return _gameInputController; } }
+    public GameInputController GameController { get { return _gameInputController; } }
     public Vector2 MouseScreenPosition { get { return _mouseScreenPosition; } set { _mouseScreenPosition = value; } }
     public Vector3 MouseWorldPosition { get { return _mouseWorldPosition; } }
     public void Init()

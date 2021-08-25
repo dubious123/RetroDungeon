@@ -49,7 +49,10 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         _weapon = unitDex.Weapon;
         _enemyList = unitDex.EnemyList;
         _allienceList = unitDex.AllienceList;
-        _skillList = unitDex.SkillList;
+        foreach(string skillName in unitDex.SkillList)
+        {
+            _skillDict.Add(skillName, SkillLibrary.GetSkill(skillName));
+        }
     }
     public int GetPriority()
     {
@@ -216,7 +219,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     {
         foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
         {
-            Managers.UI_Mgr.ResetReachableTile(pair.Key);
+            Managers.UI_Mgr.ResetTile(pair.Key);
         }
     }
     #endregion
@@ -487,15 +490,13 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     private bool IsTarGetInAttackRange(GameObject blackTarget)
     {
         Vector3Int cellPos = blackTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
-        SkillLibrary.BaseSkill nextSkill;
         int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
-        foreach(string skill in _skillList)
+        foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
         {
             //Todo
-            nextSkill = SkillLibrary.GetSkill(skill);
-            if(nextSkill.Cost > _currentAp) { continue; }
-            if (nextSkill.Range < distance) { continue; }
-            _nextActionData.NextSkill = nextSkill;
+            if (pair.Value.Cost > _currentAp) { continue; }
+            if (pair.Value.Range < distance) { continue; }
+            _nextActionData.NextSkill = pair.Value;
             return true;
         }
         return false;
@@ -505,15 +506,13 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     {
         //Todo
         Vector3Int cellPos = whiteTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
-        SkillLibrary.BaseSkill nextSkill;
         int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
-        foreach (string skill in _skillList)
+        foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
         {
             //Todo
-            nextSkill = SkillLibrary.GetSkill(skill);
-            if (nextSkill.Cost > _currentAp) { continue; }
-            if(nextSkill.Range < distance) { continue; }
-            _nextActionData.NextSkill = nextSkill;
+            if (pair.Value.Cost > _currentAp) { continue; }
+            if(pair.Value.Range < distance) { continue; }
+            _nextActionData.NextSkill = pair.Value;
             return true;
         }
         return false;

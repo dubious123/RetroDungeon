@@ -34,7 +34,7 @@ public class BaseUnitData : MonoBehaviour
     protected List<string> _enemyList;
     protected Define.WeaponType _weapon;
 
-    protected List<string> _skillList;
+    protected Dictionary<string, SkillLibrary.BaseSkill> _skillDict;
 
 
     public Vector3Int CurrentCellCoor { get { return _currentCellCoor; } set { _currentCellCoor = value; } }
@@ -70,7 +70,7 @@ public class BaseUnitData : MonoBehaviour
     public List<string> AllienceList { get { return _allienceList; } }
     public List<string> EnemyList { get { return _enemyList; } }
 
-    public List<string> SkillList { get { return _skillList; } }
+    public Dictionary<string, SkillLibrary.BaseSkill> SkillDict { get { return _skillDict; } }
 
     void Awake()
     {
@@ -79,6 +79,7 @@ public class BaseUnitData : MonoBehaviour
     public virtual void Init()
     {
         _floor = Managers.GameMgr.Floor;
+        _skillDict = new Dictionary<string, SkillLibrary.BaseSkill>();
     }
 
     internal int UpdateAp(int cost)

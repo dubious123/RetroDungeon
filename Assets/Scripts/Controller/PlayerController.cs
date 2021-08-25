@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 {
     //Todo playerData
     PlayerData _playerData;
+    Define.UnitState _nextState;
     AnimationController _animController;
     Button _endTernBtn;
     static Dictionary<Vector3Int, TileInfo> _board;
@@ -21,15 +22,20 @@ public class PlayerController : MonoBehaviour
     Stack<Vector3Int> _path;
     Vector3Int? _currentMouseCellPos;
     Vector3Int _destination;
+    Dictionary<Vector3Int, TileInfo> _inRangeTileDict;
+    SkillLibrary.BaseSkill _skill;
 
     public Vector3Int? CurrentMouseCellPos { set { _currentMouseCellPos = value; } }
     public Dictionary<Vector3Int, PathInfo> ReachableEmptyTileDict { get { return _reachableEmptyTileDict; } }
+    public Dictionary<Vector3Int, TileInfo> InRangeTileDict { get { return _inRangeTileDict; } }
+    public HashSet<Vector3Int> ReachableOccupiedCoorSet { get { return _reachableOccupiedCoorSet; } }
     void Init()
     {
         _playerData = GetComponent<PlayerData>();
         _animController = gameObject.GetComponent<AnimationController>();
         Managers.TurnMgr.GetPlayerController(this);
         _path = new Stack<Vector3Int>();
+        _inRangeTileDict = new Dictionary<Vector3Int, TileInfo>();
         _currentMouseCellPos = Vector3Int.zero;
         _endTernBtn = GameObject.Find("EndTurnButton").GetComponent<Button>();
         _endTernBtn.onClick.AddListener(EndTurn);
@@ -38,35 +44,11 @@ public class PlayerController : MonoBehaviour
     {
         Init();
     }
+    public void UpdatePlayerNextState(Define.UnitState unitState) { _nextState = unitState; }
     public void UpdatePlayerState(Define.UnitState nextState)
     {
         Managers.TurnMgr.HandlePlayerTurn(nextState);
     }
-    //public void UpdateMouseScreenPosition(InputAction.CallbackContext context)
-    //{
-    //    _currentMouseCellPos = Managers.InputMgr.GetMouseCellPos(context.ReadValue<Vector2>());
-    //    if (_currentMouseCellPos.HasValue)
-    //    {
-    //        UpdatePath();
-    //    }
-    //}
-    //public void OnClicked(InputAction.CallbackContext context)
-    //{
-    //    if (context.performed)
-    //    {
-    //        if (_currentMouseCellPos.HasValue && _reachableEmptyTileDict.ContainsKey(_currentMouseCellPos.Value)) 
-    //        {
-    //            //Todo
-    //            if(_board[_currentMouseCellPos.Value].Occupied)
-    //            {
-    //                //Todo
-    //                return;
-    //            }
-                
-    //            UpdatePlayerState(Define.UnitState.Moving);
-    //        }
-    //    }
-    //}
     public void HandleIdle()
     {
         _animController.PlayAnimation("idle");
@@ -78,15 +60,15 @@ public class PlayerController : MonoBehaviour
         }
         UpdateReachableTileInfo();
         SetReachableTiles();
-        Managers.InputMgr.GameInputController.ActivatePlayerInput();
+        Managers.InputMgr.GameController.ActivatePlayerInput();
         _endTernBtn.enabled = true;
     }
-
+    #region HandleMoving
     public IEnumerator<float> HandleMoving()
     {
         _endTernBtn.enabled = false;
         //_state = Define.UnitState.Moving;
-        Managers.InputMgr.GameInputController.DeactivatePlayerInput();
+        Managers.InputMgr.GameController.DeactivatePlayerInput();
 
         ResetReachableTiles();
         #region Player Moving Algorithm
@@ -95,19 +77,8 @@ public class PlayerController : MonoBehaviour
         yield break;
         #endregion
     }
-
-    public void HandleDie()
-    {
-        throw new NotImplementedException();
-    }
-    public void HandleSkill()
-    {
-        throw new NotImplementedException();
-    }
-
-
     #region Reachable Tile Caculation Algorithm
-    public class PathInfo :Interface.ICustomPriorityQueueNode<int>
+    public class PathInfo : Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int _coor;
         Vector3Int _parent;
@@ -168,8 +139,8 @@ public class PlayerController : MonoBehaviour
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
                 if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
                 {
-                    if (_board[nextCoor].Occupied) 
-                    { 
+                    if (_board[nextCoor].Occupied)
+                    {
                         _reachableOccupiedCoorSet.Add(nextCoor);
                         continue;
                     }
@@ -195,8 +166,8 @@ public class PlayerController : MonoBehaviour
     public void UpdatePath(Vector3Int mouseCellPos)
     {
         _currentMouseCellPos = mouseCellPos;
-        if(_destination == _currentMouseCellPos) { return; }
-        if (_reachableEmptyTileDict.TryGetValue(_currentMouseCellPos.Value,out PathInfo currentInfo) == false)
+        if (_destination == _currentMouseCellPos) { return; }
+        if (_reachableEmptyTileDict.TryGetValue(_currentMouseCellPos.Value, out PathInfo currentInfo) == false)
         {
             return;
         }
@@ -223,7 +194,7 @@ public class PlayerController : MonoBehaviour
         {
             Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
         }
-        foreach(Vector3Int coor in _reachableOccupiedCoorSet)
+        foreach (Vector3Int coor in _reachableOccupiedCoorSet)
         {
             Managers.UI_Mgr.PaintReachableOccupiedTile(coor);
         }
@@ -232,11 +203,11 @@ public class PlayerController : MonoBehaviour
     {
         foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
         {
-            Managers.UI_Mgr.ResetReachableTile(pair.Key);
+            Managers.UI_Mgr.ResetTile(pair.Key);
         }
-        foreach(Vector3Int coor in _reachableOccupiedCoorSet)
+        foreach (Vector3Int coor in _reachableOccupiedCoorSet)
         {
-            Managers.UI_Mgr.ResetReachableOccupiedTile(coor);
+            Managers.UI_Mgr.ResetTile(coor);
         }
     }
     private IEnumerator<float> _MovePlayerAlongPath()
@@ -311,6 +282,59 @@ public class PlayerController : MonoBehaviour
         int cost = nextInfo.Cost - nowInfo.Cost;
         Managers.GameMgr.Player_Data.UpdateAp(-cost);
     }
+
+    #endregion
+    public void HandleDie()
+    {
+        throw new NotImplementedException();
+    }
+    #region HandleSkill
+    public void HandleSkill()
+    {
+        _endTernBtn.enabled = false;
+        Managers.InputMgr.GameController.DeactivatePlayerInput();
+        DeavtivateInRangeTiles();
+
+        UpdatePlayerState(Define.UnitState.Idle);
+    }
+    public void UpdateSkill(string skillName)
+    {
+        if (!_playerData.SkillDict.TryGetValue(skillName, out _skill)) { 
+            Debug.LogError("Not Learned yet"); return; }
+        SetInRangeTilesDict();
+        ActivateInRangeTiles();
+    }
+    public void SetInRangeTilesDict()
+    {
+        int range = _skill.Range;
+        Vector3Int nowPos;
+        for (int y = -range; y <= range; y++)
+        {
+            int k = Mathf.Abs(y);
+            for (int x = k - range; x <= range - k; x++)
+            {
+                nowPos = _playerData.CurrentCellCoor + new Vector3Int(x, y, 0);
+                if (_board.TryGetValue(nowPos,out TileInfo tileInfo)) { _inRangeTileDict.Add(nowPos, tileInfo); }
+            }
+        }
+    }
+    public void ActivateInRangeTiles()
+    {
+        foreach(KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict) 
+        {
+            if (_reachableOccupiedCoorSet.Contains(pair.Key)) { continue; }
+            Managers.UI_Mgr.PaintInRangeTile(pair.Key); 
+        }
+
+    }
+    public void DeavtivateInRangeTiles()
+    {
+        foreach (KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict) { Managers.UI_Mgr.ResetTile(pair.Key); }
+        _inRangeTileDict.Clear();
+    }
+    #endregion
+
+
     public bool SomethingHappened()
     {
         return false;

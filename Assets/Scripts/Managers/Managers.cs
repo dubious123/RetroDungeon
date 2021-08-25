@@ -53,6 +53,7 @@ public class Managers : MonoBehaviour
             _instance._gameMgr.Init();
             _instance._inputMgr.Init();
             _instance._turnMgr.Init();
+            _instance._ui_Mgr.Init();
         }
     }
     public static void Clear()

@@ -6,25 +6,26 @@ using UnityEngine.Tilemaps;
 
 public class UI_Manager
 {
+
     public void Init()
     {
 
+    }
+    public void ResetTile(Vector3Int tilePos)
+    {
+        Managers.GameMgr.Floor.SetColor(tilePos, Color.white);
     }
     public void PaintReachableEmptyTile(Vector3Int tilePos)
     {
         Managers.GameMgr.Floor.SetColor(tilePos, Color.blue);
     }
-    public void ResetReachableTile(Vector3Int tilePos)
-    {
-        Managers.GameMgr.Floor.SetColor(tilePos, Color.white);
-    }
     public void PaintReachableOccupiedTile(Vector3Int tilePos)
     {
         Managers.GameMgr.Floor.SetColor(tilePos,Color.red);
     }
-    public void ResetReachableOccupiedTile(Vector3Int tilePos)
+    public void PaintInRangeTile(Vector3Int tilePos)
     {
-        Managers.GameMgr.Floor.SetColor(tilePos, Color.white);
+        Managers.GameMgr.Floor.SetColor(tilePos, Color.yellow);
     }
     public void InitPlayerStatusBar(PlayerData playerData)
     {

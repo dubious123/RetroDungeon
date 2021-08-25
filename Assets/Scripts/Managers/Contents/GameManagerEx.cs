@@ -8,6 +8,7 @@ public class GameManagerEx
 {
     Define.World _currentWorld;
     GameObject _player;
+    PlayerController _playerController;
     PlayerData _playerData;
     //Dictionary<GameObject, Dictionary<Vector3Int, GameObject>> _worldUnitDic;
     Transform[] _GridLayers;
@@ -16,6 +17,7 @@ public class GameManagerEx
 
     public Define.World CurrentWorld { get { return _currentWorld; } }
     public GameObject Player { get { return _player; } }
+    public PlayerController Player_Controller { get { return _playerController; } }
     public PlayerData Player_Data { get { return _playerData; } }
     //public Dictionary<GameObject, Dictionary<Vector3Int, GameObject>> WorldUnitDic { get { return _worldUnitDic; } }
     public Transform[] Tilemaps { get { return _GridLayers; } }
@@ -48,6 +50,7 @@ public class GameManagerEx
         _tilemaps = dungeonInfo.tilemaps;
         _floor = _tilemaps[0];
         _player = Managers.ResourceMgr.Instantiate("Player/Player", _GridLayers[0]);
+        _playerController = _player.GetComponent<PlayerController>();
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _player.transform.position = _floor.GetCellCenterWorld(Vector3Int.zero);
         dungeonInfo.Board[Vector3Int.zero].SetUnit(_player);

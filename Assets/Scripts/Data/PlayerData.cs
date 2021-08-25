@@ -32,6 +32,13 @@ public class PlayerData : BaseUnitData
         _recoverAp = 5;
         _currentAp = 5;
         _moveSpeed = 3.5f;
+
+
+
+
+        #region test
+        _skillDict.Add("Blunt", SkillLibrary.GetSkill("Blunt"));
+        #endregion
     }
 
 }
