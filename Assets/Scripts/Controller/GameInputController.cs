@@ -31,7 +31,7 @@ public class GameInputController : MonoBehaviour
         _onMouseMove.performed += OnMouseMove;
 
         _player = player.GetComponent<PlayerController>();
-        _camera = Managers.CameraMgr.GameCam;
+        _camera = Managers.CameraMgr.GameCamController;
 
         _pointerEventData = new PointerEventData(null);
         _results = new List<RaycastResult>();

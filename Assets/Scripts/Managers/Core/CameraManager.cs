@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CameraManager
 {
-    CameraController _gameCam;
-    public CameraController GameCam { get { return _gameCam; } }
+    CameraController _gameCamController;
+    Camera _gameCam;
+    public CameraController GameCamController { get { return _gameCamController; } }
+    public Camera GameCam { get { return _gameCam; } }
     public void Init()
     {
-        _gameCam = Camera.main.GetComponent<CameraController>();
+        _gameCam = Camera.main;
+        _gameCamController = _gameCam.GetComponent<CameraController>();
     }
     public void InitGameCamera(GameObject player)
     {
@@ -16,7 +19,7 @@ public class CameraManager
     }
     public void SetGameCameraTarget(GameObject target)
     {
-        _gameCam.Target = target;
+        _gameCamController.Target = target;
     }
     
 }

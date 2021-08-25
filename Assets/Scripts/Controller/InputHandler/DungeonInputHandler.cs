@@ -5,10 +5,12 @@ using UnityEngine.InputSystem;
 
 public class DungeonInputHandler : MonoBehaviour, Imouse
 {
+    ClickCircleInputHandler _handler;
     PlayerController _playerController;
     Vector3Int? _mouseCellPos;
     public void Init()
     {
+        _handler = GameObject.Find("MainCircle").GetComponent<ClickCircleInputHandler>();
         _playerController = Managers.GameMgr.Player_Controller;
     }
     public void OnMouseMove(InputAction.CallbackContext context)
@@ -17,12 +19,14 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     }
     public void OnMouseDown(InputAction.CallbackContext context)
     {
-        Vector2 mosuePos = Managers.InputMgr.MouseScreenPosition;
-        Vector3Int? mouseCellPos = Managers.InputMgr.GetMouseCellPos(mosuePos);
+        Vector2 mousePos = Managers.InputMgr.MouseScreenPosition;
+        Vector3Int? mouseCellPos = Managers.InputMgr.GetMouseCellPos(mousePos);
         if (mouseCellPos.HasValue)
         {
+            ShowClickCircleUI(mouseCellPos.Value);
             if (_playerController.InRangeTileDict.ContainsKey(mouseCellPos.Value)) { Debug.Log("InRange"); }
             else if (_playerController.ReachableEmptyTileDict.ContainsKey(mouseCellPos.Value)) { Debug.Log("move"); }
+            //Todo
             else if (_playerController.ReachableOccupiedCoorSet.Contains(mouseCellPos.Value)) { Debug.Log("occupied"); }
             else { Debug.Log("default"); }
         }
@@ -37,6 +41,11 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
             }
             _playerController.UpdatePlayerState(Define.UnitState.Moving);
         }
+    }
+    private void ShowClickCircleUI(Vector3Int pos)
+    {   
+        _handler.gameObject.transform.position = Managers.CameraMgr.GameCam.WorldToScreenPoint(Managers.GameMgr.Floor.GetCellCenterWorld(pos));
+        _handler.Activate();
     }
     public void OnDrag(InputAction.CallbackContext context)
     {

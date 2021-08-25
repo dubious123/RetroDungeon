@@ -79,6 +79,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseUnit
       objectReference: {fileID: 0}
+    - target: {fileID: 3048699597761493953, guid: a91b5d840982e8f439c095b527d993a0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6534515891235086140, guid: a91b5d840982e8f439c095b527d993a0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7393533401522454515, guid: a91b5d840982e8f439c095b527d993a0, type: 3}
       propertyPath: m_Color.b
       value: 0.18341807

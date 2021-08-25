@@ -47,7 +47,7 @@ public class TurnManager
     public void HandlePlayerTurn(Define.UnitState nextState = Define.UnitState.Idle)
     {
         if(_currentTurn == Define.Turn.Enemy) { _currentTurn = Define.Turn.Player; }
-        Managers.CameraMgr.GameCam.Target = _playerController.gameObject;
+        Managers.CameraMgr.GameCamController.Target = _playerController.gameObject;
         switch (nextState)
         {
             case Define.UnitState.Idle:
@@ -71,7 +71,7 @@ public class TurnManager
     {
         if(_currentTurn == Define.Turn.Player) { _currentTurn = Define.Turn.Enemy; ResetUnitQueue(); }
         if(!_unitQueue.TryDequeue(out _currentUnitData)) { HandlePlayerTurn(); return; }
-        Managers.CameraMgr.GameCam.Target = _currentUnitData.gameObject;
+        Managers.CameraMgr.GameCamController.Target = _currentUnitData.gameObject;
         Timing.WaitForSeconds(0.5f);
         _currentUnitController = _currentUnitData.GetComponent<UnitController>();
         _currentUnitController._PerformUnitTurn().RunCoroutine();

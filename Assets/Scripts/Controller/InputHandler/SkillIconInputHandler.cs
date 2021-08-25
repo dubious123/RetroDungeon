@@ -12,7 +12,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     Sprite _temp;
     GUI _gui;
     string _skillName;
-    public float _duration;
+    float _duration;
 
     void Awake()
     {
