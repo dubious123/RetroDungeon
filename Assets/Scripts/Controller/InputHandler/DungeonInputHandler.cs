@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class DungeonInputHandler : MonoBehaviour, Imouse
@@ -19,32 +20,39 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     }
     public void OnMouseDown(InputAction.CallbackContext context)
     {
+        Managers.UI_Mgr.ResetClickedCell();
         Vector2 mousePos = Managers.InputMgr.MouseScreenPosition;
         Vector3Int? mouseCellPos = Managers.InputMgr.GetMouseCellPos(mousePos);
-        if (mouseCellPos.HasValue)
+        if (mouseCellPos.HasValue)  
         {
-            ShowClickCircleUI(mouseCellPos.Value);
-            if (_playerController.InRangeTileDict.ContainsKey(mouseCellPos.Value)) { Debug.Log("InRange"); }
-            else if (_playerController.ReachableEmptyTileDict.ContainsKey(mouseCellPos.Value)) { Debug.Log("move"); }
-            //Todo
-            else if (_playerController.ReachableOccupiedCoorSet.Contains(mouseCellPos.Value)) { Debug.Log("occupied"); }
-            else { Debug.Log("default"); }
-        }
-        if (mouseCellPos.HasValue && _playerController.ReachableEmptyTileDict.ContainsKey(mouseCellPos.Value))
-        {
-            _playerController.CurrentMouseCellPos = mouseCellPos;
-            //Todo
-            if (Managers.DungeonMgr.GetTileInfoDict()[mouseCellPos.Value].Occupied)
+            Managers.UI_Mgr.PaintClickedCell(mouseCellPos.Value);
+            if (_playerController.InRangeTileDict.ContainsKey(mouseCellPos.Value)) 
             {
-                //Todo
-                return;
+                _handler.EnableBtns(true);
+                _handler.Yes.YesEvent.AddListener(() => _playerController.UpdatePlayerState(Define.UnitState.Skill));
             }
-            _playerController.UpdatePlayerState(Define.UnitState.Moving);
+            else if (_playerController.ReachableEmptyTileDict.ContainsKey(mouseCellPos.Value)) 
+            {
+                _playerController.UpdatePath(mouseCellPos.Value);
+                _handler.EnableBtns(true);
+                _handler.Yes.YesEvent.AddListener(() => _playerController.UpdatePlayerState(Define.UnitState.Moving));
+            }
+            //Todo
+            else if (_playerController.ReachableOccupiedCoorSet.Contains(mouseCellPos.Value)) 
+            {
+                _handler.EnableBtns(false);
+            }
+            else 
+            {
+                _handler.EnableBtns(false);
+            }
+            ShowClickCircleUI(mouseCellPos.Value);
         }
     }
     private void ShowClickCircleUI(Vector3Int pos)
-    {   
-        _handler.gameObject.transform.position = Managers.CameraMgr.GameCam.WorldToScreenPoint(Managers.GameMgr.Floor.GetCellCenterWorld(pos));
+    {
+        _handler.transform.position = Managers.CameraMgr.GameCam.WorldToScreenPoint(Managers.GameMgr.Floor.GetCellCenterWorld(pos));
+        //_handler.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(pos);
         _handler.Activate();
     }
     public void OnDrag(InputAction.CallbackContext context)
@@ -57,11 +65,6 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     }
     public void OnMouseHover(InputAction.CallbackContext context)
     {
-        _mouseCellPos = Managers.InputMgr.GetMouseCellPos(context.ReadValue<Vector2>());
-        if (_mouseCellPos.HasValue)
-        {
-            _playerController.UpdatePath(_mouseCellPos.Value);
-        }
     }
     public void DropDown() { }
     public void GetDrop(GameObject ogj) { }

@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         _animController.PlayAnimation("idle");
         //_state = Define.UnitState.Idle;
         //Todo 
-        if(_board == null)
+        if (_board == null)
         {
             _board = Managers.DungeonMgr.GetTileInfoDict();
         }
@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
             UpdatePlayerLookDir(next);
             _animController.PlayAnimation("walk");
 
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(_MovePlayerOnce(next)));
+            yield return Timing.WaitUntilDone(_MovePlayerOnce(next).RunCoroutine());
             UpdateMoveResult(next);
             yield return Timing.WaitForSeconds(0.15f);
         }
@@ -227,14 +227,16 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator<float> _MovePlayerOnce(Vector3Int next)
     {
-
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
-        Vector3 dir = nextDest - startingPos;
         float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
-        while ((transform.position - nextDest).magnitude > 0.1f)
+        float delta = 0;
+        float ratio = 0;
+        while (ratio <= 1.0f)
         {
-            transform.Translate(dir.normalized * Mathf.Clamp(moveSpeed * Timing.DeltaTime, 0, dir.magnitude));
+            delta += Timing.DeltaTime;
+            ratio = delta * moveSpeed;
+            transform.position = Vector3.Lerp(startingPos, nextDest, ratio);
             yield return 0f;
         }
         yield break;
@@ -294,7 +296,8 @@ public class PlayerController : MonoBehaviour
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
         DeavtivateInRangeTiles();
-
+        _animController.PlayAnimation($"{_skill.Name}");
+        Managers.BattleMgr.SkillFromTo(_playerData,_currentMouseCellPos.Value,_skill);
         UpdatePlayerState(Define.UnitState.Idle);
     }
     public void UpdateSkill(string skillName)

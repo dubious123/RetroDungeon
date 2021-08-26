@@ -31,7 +31,7 @@ public class PlayerData : BaseUnitData
         _maxAp = 7;
         _recoverAp = 5;
         _currentAp = 5;
-        _moveSpeed = 3.5f;
+        _moveSpeed = 3.0f;
 
 
 

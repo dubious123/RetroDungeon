@@ -22,17 +22,23 @@ public static class SkillLibrary
 
     public abstract class BaseSkill
     {
-        public int a;
+        public abstract string Name { get; protected set; }
         public abstract List<string> Tags { get; protected set; }
         public abstract int Cost { get; protected set; }
         public abstract int Range { get; protected set; }
+        public abstract List<Vector2Int> Area { get; protected set; }
     }
     public class Blunt : BaseSkill
     {
+        public override string Name { get; protected set; } = "Blunt";
         public override List<string> Tags { get; protected set; } = new List<string>(
-            new string[] { "Attack", "Melee" });
+            new string[] { "Attack", "Melee" , "SingleTarget" });
         public override int Cost { get; protected set; } = 1;
         public override int Range { get; protected set; } = 1;
+        public override List<Vector2Int> Area { get; protected set; } = new List<Vector2Int>
+        {
+            Vector2Int.zero
+        };
     }
         
     class Library

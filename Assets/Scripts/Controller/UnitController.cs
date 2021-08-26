@@ -102,11 +102,14 @@ public class UnitController : MonoBehaviour
         _animController.PlayAnimation("walk");
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
-        Vector3 dir = nextDest - startingPos;
         float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
-        while ((transform.position - nextDest).magnitude > 0.1f)
+        float delta = 0;
+        float ratio = 0;
+        while (ratio <= 1.0f)
         {
-            transform.Translate(dir.normalized * Mathf.Clamp(moveSpeed * Timing.DeltaTime, 0, dir.magnitude));
+            delta += Timing.DeltaTime;
+            ratio = delta * moveSpeed;
+            transform.position = Vector3.Lerp(startingPos, nextDest, ratio);
             yield return 0f;
         }
         yield break;

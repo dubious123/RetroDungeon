@@ -12,6 +12,7 @@ public class Managers : MonoBehaviour
     public static GameManagerEx GameMgr { get { return Instance._gameMgr; } }
     #endregion
 
+    BattleManager _battleMgr = new BattleManager();
     CameraManager _cameraMgr = new CameraManager();
     DungeonManager _dungeonMgr = new DungeonManager();
     InputManager _inputMgr = new InputManager();
@@ -20,7 +21,8 @@ public class Managers : MonoBehaviour
     TurnManager _turnMgr = new TurnManager();
     UI_Manager _ui_Mgr = new UI_Manager();
 
- 
+    
+    public static BattleManager BattleMgr { get { return Instance._battleMgr; } }
     public static CameraManager CameraMgr { get { return Instance._cameraMgr; } }
     public static DungeonManager DungeonMgr { get { return Instance._dungeonMgr; } }
     public static InputManager InputMgr { get { return Instance._inputMgr; } }

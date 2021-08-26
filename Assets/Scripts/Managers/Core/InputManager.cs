@@ -22,7 +22,7 @@ public class InputManager
     public Vector3 MouseWorldPosition { get { return _mouseWorldPosition; } }
     public void Init()
     {
-        _gameInputController = Managers.ResourceMgr.Instantiate("GameInputController").GetComponent<GameInputController>();
+        _gameInputController = Managers.ResourceMgr.Instantiate("UI/GameInputController").GetComponent<GameInputController>();
         _gameInputSystem = _gameInputController.GetComponent<PlayerInput>();
         _mainCamera = Camera.main;
         

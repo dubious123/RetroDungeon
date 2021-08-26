@@ -40,8 +40,8 @@ public class CameraController : MonoBehaviour
         _maxHoldDuration = 0.5;
         _maxWaitDuration = 2;
 
-        _maxCameraSize = 10.0f;
-        _minCameraSize = 1.0f;
+        _maxCameraSize = 8.0f;
+        _minCameraSize = 3.0f;
         _cameraSize = 5.0f;
         _cameraDeltaSize = 0f;
         
