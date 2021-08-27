@@ -8,7 +8,6 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
 {
     ClickCircleInputHandler _handler;
     PlayerController _playerController;
-    Vector3Int? _mouseCellPos;
     public void Init()
     {
         _handler = GameObject.Find("MainCircle").GetComponent<ClickCircleInputHandler>();
@@ -28,6 +27,7 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
             Managers.UI_Mgr.PaintClickedCell(mouseCellPos.Value);
             if (_playerController.InRangeTileDict.ContainsKey(mouseCellPos.Value)) 
             {
+                _playerController.UpdateTargetPos(mouseCellPos.Value);
                 _handler.EnableBtns(true);
                 _handler.Yes.YesEvent.AddListener(() => _playerController.UpdatePlayerState(Define.UnitState.Skill));
             }

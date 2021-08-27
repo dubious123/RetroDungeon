@@ -57,7 +57,7 @@ public class TurnManager
                 _playerController.HandleMoving().RunCoroutine();
                 break;
             case Define.UnitState.Skill:
-                _playerController.HandleSkill();
+                _playerController.HandleSkill().RunCoroutine();
                 break;
             case Define.UnitState.Die:
                 _playerController.HandleDie();

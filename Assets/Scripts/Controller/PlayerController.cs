@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     Vector3Int _destination;
     Dictionary<Vector3Int, TileInfo> _inRangeTileDict;
     SkillLibrary.BaseSkill _skill;
+    Vector3Int _skillTargetPos;
 
     public Vector3Int? CurrentMouseCellPos { set { _currentMouseCellPos = value; } }
     public Dictionary<Vector3Int, PathInfo> ReachableEmptyTileDict { get { return _reachableEmptyTileDict; } }
@@ -291,19 +292,25 @@ public class PlayerController : MonoBehaviour
         throw new NotImplementedException();
     }
     #region HandleSkill
-    public void HandleSkill()
+    public IEnumerator<float> HandleSkill()
     {
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
         DeavtivateInRangeTiles();
-        _animController.PlayAnimation($"{_skill.Name}");
-        Managers.BattleMgr.SkillFromTo(_playerData,_currentMouseCellPos.Value,_skill);
+        _animController.PlayAnimation($"{_skill.AnimName}");
+        Managers.BattleMgr.SkillFromTo(_playerData, _skillTargetPos,_skill);
+        yield return Timing.WaitForSeconds(0.15f);
         UpdatePlayerState(Define.UnitState.Idle);
+    }
+    public void UpdateTargetPos(Vector3Int pos)
+    {
+        _skillTargetPos = pos;
     }
     public void UpdateSkill(string skillName)
     {
         if (!_playerData.SkillDict.TryGetValue(skillName, out _skill)) { 
             Debug.LogError("Not Learned yet"); return; }
+        ResetReachableTiles();
         SetInRangeTilesDict();
         ActivateInRangeTiles();
     }

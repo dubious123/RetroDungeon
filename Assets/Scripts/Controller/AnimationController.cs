@@ -44,7 +44,6 @@ public class AnimationController : MonoBehaviour
         UpdateDir();
         CheckWeapon(); //Todo
         RunAnimators(animName);
-
     }
     private void UpdateDir()
     {

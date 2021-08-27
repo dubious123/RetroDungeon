@@ -32,7 +32,6 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _duration = 0;
         _skillHolder.sortingOrder = 1;
         _this.raycastTarget = false;
-        //Debug.Log("MouseDown");
     }
     public void OnMouseUp(InputAction.CallbackContext context)
     {
@@ -43,7 +42,6 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _rect.anchoredPosition = Vector2.zero;
         _gui.GUIEvent.RemoveListener(UpdatePositionGUI);
         _gui.enabled = false;
-        //Debug.Log("MouseUp");
     }
     public void OnDrag(InputAction.CallbackContext context)
     {
@@ -51,7 +49,6 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         if(_duration < 0.2) { return; }
         _gui.enabled = true;
         _gui.GUIEvent.AddListener(UpdatePositionGUI);
-        //Debug.Log("MouseDrag");
     }
     public void OnMouseMove(InputAction.CallbackContext context) { }
     public void OnMouseHover(InputAction.CallbackContext context)

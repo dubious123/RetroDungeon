@@ -49,6 +49,7 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(go);
             _instance = go.GetComponent<Managers>();
+            _instance._battleMgr.Init();
             _instance._cameraMgr.Init();
             _instance._dungeonMgr.Init();
             _instance._poolMgr.Init();
