@@ -40,8 +40,18 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     public void SetDataFromLibrary(UnitLibrary.UnitDex.BaseUnitStat unitDex)
     {
         _unitName = unitDex.name;
-        _speed = unitDex.Speed;
-        _moveSpeed = unitDex.MoveSpeed;
+        _maxHp = unitDex.MaxHp;
+        _hp = _maxHp;
+        _maxDef = unitDex.MaxDef;
+        _def = _maxDef;
+        _maxMs = unitDex.MaxMs;
+        _ms = _maxMs;
+        _maxMp = unitDex.MaxMp;
+        _mp = _maxMp;
+        _maxShock = unitDex.MaxShock;
+        _shock = 0;
+        _maxStress = unitDex.MaxStress;
+        _stress = 0;
         _maxAp = unitDex.MaxAp;
         _recoverAp = unitDex.RecoverAp;
         _currentAp = unitDex.RecoverAp;
@@ -49,7 +59,8 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         _weapon = unitDex.Weapon;
         _enemyList = unitDex.EnemyList;
         _allienceList = unitDex.AllienceList;
-        foreach(string skillName in unitDex.SkillList)
+        _moveSpeed = unitDex.MoveSpeed;
+        foreach (string skillName in unitDex.SkillList)
         {
             _skillDict.Add(skillName, SkillLibrary.GetSkill(skillName));
         }
@@ -448,7 +459,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         {
             foreach (GameObject BlackTarget in _nextActionData.BlackList)
             {
-                if (IsTarGetInAttackRange(BlackTarget))
+                if (IsTargetInAttackRange(BlackTarget))
                 {
                     _nextActionData.BlackTarget = BlackTarget;
                     _nextActionData.UpdatePurpose(Define.UnitPurpose.Attack);
@@ -487,7 +498,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         }
     }
 
-    private bool IsTarGetInAttackRange(GameObject blackTarget)
+    private bool IsTargetInAttackRange(GameObject blackTarget)
     {
         Vector3Int cellPos = blackTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
         int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);

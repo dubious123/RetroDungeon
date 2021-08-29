@@ -36,6 +36,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "OnMouseRightClick",
+                    "type": "Button",
+                    "id": "e53fc801-6b90-4e4a-a6ca-f66783df53ea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -126,6 +134,17 @@
                     "action": "Camera2DMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2314b452-9362-46a9-9307-190a0e70e58d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse+KeyBoard",
+                    "action": "OnMouseRightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

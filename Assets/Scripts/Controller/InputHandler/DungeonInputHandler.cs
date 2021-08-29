@@ -8,6 +8,7 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
 {
     ClickCircleInputHandler _handler;
     PlayerController _playerController;
+    GameObject _unitStatusBar;
     public void Init()
     {
         _handler = GameObject.Find("MainCircle").GetComponent<ClickCircleInputHandler>();
@@ -25,11 +26,22 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
         if (mouseCellPos.HasValue)  
         {
             Managers.UI_Mgr.PaintClickedCell(mouseCellPos.Value);
+            GameObject unit = Managers.DungeonMgr.GetTileInfoDict()[mouseCellPos.Value].Unit;
+            if(unit != null) 
+            {
+                _unitStatusBar = Managers.ResourceMgr.Instantiate("UI/UnitStatusBar");
+                _unitStatusBar.GetComponentInChildren<UnitStatus>().Init(unit.GetComponent<BaseUnitData>());
+            }
+            else { Managers.ResourceMgr.Destroy(_unitStatusBar); }
+
             if (_playerController.InRangeTileDict.ContainsKey(mouseCellPos.Value)) 
             {
                 _playerController.UpdateTargetPos(mouseCellPos.Value);
                 _handler.EnableBtns(true);
-                _handler.Yes.YesEvent.AddListener(() => _playerController.UpdatePlayerState(Define.UnitState.Skill));
+                _handler.Yes.YesEvent.AddListener(() => {
+                    _playerController.UpdatePlayerState(Define.UnitState.Skill);
+
+                });
             }
             else if (_playerController.ReachableEmptyTileDict.ContainsKey(mouseCellPos.Value)) 
             {

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3163487827284473610}
   - component: {fileID: -3788127523963614913}
   - component: {fileID: -4396020410959252339}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 6648211219878555532}
   - component: {fileID: 7393533401522454515}
   - component: {fileID: 7016329686458269199}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1107119515883583055}
   - component: {fileID: 7329461030874892284}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 6518350600309490951}
   - component: {fileID: 6534515891235086140}
   - component: {fileID: 5504584755206072598}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 1237320764691159619}
   - component: {fileID: 3048699597761493953}
   - component: {fileID: 793753492556616401}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 8488923067709687117}
   - component: {fileID: 3817575930664806193}
   - component: {fileID: 7562941801426979169}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}

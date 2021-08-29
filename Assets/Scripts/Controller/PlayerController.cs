@@ -200,7 +200,7 @@ public class PlayerController : MonoBehaviour
             Managers.UI_Mgr.PaintReachableOccupiedTile(coor);
         }
     }
-    private void ResetReachableTiles()
+    public void ResetReachableTiles()
     {
         foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
         {
@@ -218,11 +218,11 @@ public class PlayerController : MonoBehaviour
         {
             next = _path.Pop();
             UpdatePlayerLookDir(next);
-            _animController.PlayAnimation("walk");
+            _animController.PlayAnimation("run");
 
             yield return Timing.WaitUntilDone(_MovePlayerOnce(next).RunCoroutine());
             UpdateMoveResult(next);
-            yield return Timing.WaitForSeconds(0.15f);
+            yield return Timing.WaitForSeconds(0.1f);
         }
         yield break;
     }
@@ -314,6 +314,20 @@ public class PlayerController : MonoBehaviour
         SetInRangeTilesDict();
         ActivateInRangeTiles();
     }
+    public void ResetSkill()
+    {
+        _skill = null;
+        ResetInRangeTiles();
+        _inRangeTileDict.Clear();
+        SetReachableTiles();
+    }
+    public void ResetInRangeTiles()
+    {
+        foreach(KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict)
+        {
+            Managers.UI_Mgr.ResetTile(pair.Key);
+        }
+    }
     public void SetInRangeTilesDict()
     {
         int range = _skill.Range;
@@ -332,8 +346,8 @@ public class PlayerController : MonoBehaviour
     {
         foreach(KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict) 
         {
-            if (_reachableOccupiedCoorSet.Contains(pair.Key)) { continue; }
-            Managers.UI_Mgr.PaintInRangeTile(pair.Key); 
+            if (_reachableOccupiedCoorSet.Contains(pair.Key)) { Managers.UI_Mgr.PaintInRangeUnitTile(pair.Key); }
+            else { Managers.UI_Mgr.PaintInRangeTile(pair.Key); }
         }
 
     }

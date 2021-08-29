@@ -16,12 +16,12 @@ public class BattleManager
     {
         _targetPos = targetPos;
         _currentSkill = skill;
-        _targetUnit = Managers.DungeonMgr.GetTileInfoDict()[targetPos].Unit.GetComponent<BaseUnitData>();
+        _targetUnit = Managers.DungeonMgr.GetTileInfoDict()[targetPos].Unit?.GetComponent<BaseUnitData>();
+        from.UpdateAp(skill.Cost);
         if (_targetUnit == null) { Debug.Log("NoTarget"); return; }
         _unitsInRange.Clear();
         GetUnitsInArea();
         DealDamage();
-        from.UpdateAp(skill.Cost);
     }
     private void GetUnitsInArea()
     {
@@ -56,6 +56,10 @@ public class BattleManager
         {
             target.Mp += target.MS;
             target.MS = 0;
+            if(target.Mp < 0) { 
+                target.Hp += target.Mp;
+                target.Mp = 0;
+            }
         }
     }
     private void DealMentalDamage(BaseUnitData target)

@@ -30,9 +30,15 @@ public static class UnitLibrary
         {
             public string name;
             public int Speed { get; protected set; } = 5;
-            public float MoveSpeed { get; protected set; } = 3.5f;
+            public float MoveSpeed { get; protected set; } = 6f;
             
             public int MaxAp { get; protected set; } = 4;
+            public int MaxHp { get; protected set; } = 50;
+            public int MaxDef { get; protected set; } = 10;
+            public int MaxMs { get; protected set; } = 10;
+            public int MaxMp { get; protected set; } = 50;
+            public int MaxShock { get; protected set; } = 50;
+            public int MaxStress { get; protected set; } = 50;
             public int RecoverAp { get; protected set; } = 3;
             public int CurrentAp { get; protected set; } = 3;
             public int EyeSight { get; protected set; } = 10;
@@ -60,6 +66,7 @@ public static class UnitLibrary
             public Miner()
             {
                 base.name = "Miner";
+                base.SkillList.Add("Blunt");
             }
         }
         public override BaseUnitStat GetUnit(string unitName)

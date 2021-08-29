@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameInputController : MonoBehaviour
 {
+    
     PlayerInput _gameInputSystem;
     InputAction _onMouseClick;
     InputAction _onMouseMove;
+    InputAction _onMouseRightClick;
     PlayerController _player;
     CameraController _camera;
     RaycastHit2D _hit;
@@ -17,17 +20,22 @@ public class GameInputController : MonoBehaviour
     PointerEventData _pointerEventData;
     List<RaycastResult> _results;
     Imouse _hoverTarget;
+    UnityEvent _rightClickEvent;
     public Imouse HoverTarget { get { return _hoverTarget; } }
+    public UnityEvent RightClickEvent { get { return _rightClickEvent; } }
     #endregion
     Imouse _clickTarget;
     public void Init(GameObject player)
     {
+        _rightClickEvent = new UnityEvent();
         _gameInputSystem = Managers.InputMgr.GameInputSystem;
         _onMouseClick = _gameInputSystem.actions["OnMouseClick"];
         _onMouseMove = _gameInputSystem.actions["OnMouseMove"];
-
+        _onMouseRightClick = _gameInputSystem.actions["OnMouseRightClick"];
         _onMouseClick.started += OnClickStarted;
         _onMouseClick.canceled += OnClickCanceled;
+        _onMouseRightClick.started += OnRightClickStarted;
+        _onMouseRightClick.canceled += OnRightClickCanceled;
         _onMouseMove.performed += OnMouseMove;
 
         _player = player.GetComponent<PlayerController>();
@@ -60,7 +68,7 @@ public class GameInputController : MonoBehaviour
         }
     }
 
-    public void OnClickStarted(InputAction.CallbackContext context)
+    private void OnClickStarted(InputAction.CallbackContext context)
     {
         Imouse temp = GetTarget();
         if(temp != null)
@@ -70,7 +78,7 @@ public class GameInputController : MonoBehaviour
             _onMouseMove.performed += _clickTarget.OnDrag;
         }
     }
-    public void OnClickCanceled(InputAction.CallbackContext context)
+    private void OnClickCanceled(InputAction.CallbackContext context)
     {
         if(_clickTarget != null)
         {
@@ -78,7 +86,16 @@ public class GameInputController : MonoBehaviour
             _clickTarget.OnMouseUp(context);
         }
     }
-    public void OnMouseMove(InputAction.CallbackContext context)
+    private void OnRightClickStarted(InputAction.CallbackContext context)
+    {
+        _rightClickEvent.Invoke();
+
+    }
+    private void OnRightClickCanceled(InputAction.CallbackContext context)
+    {
+        _rightClickEvent.RemoveAllListeners();
+    }
+    private void OnMouseMove(InputAction.CallbackContext context)
     {
         Managers.InputMgr.MouseScreenPosition = context.ReadValue<Vector2>();
         _hoverTarget = GetTarget();

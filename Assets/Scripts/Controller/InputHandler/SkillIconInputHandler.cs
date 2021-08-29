@@ -11,9 +11,9 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     Image _this;
     Sprite _temp;
     GUI _gui;
+    ActiveSkillCache _activeSkill;
     string _skillName;
     float _duration;
-
     void Awake()
     {
         Init();
@@ -22,6 +22,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     {
         _rect = GetComponent<RectTransform>();
         _skillHolder = transform.parent.GetComponent<Canvas>();
+        _activeSkill = _skillHolder.transform.parent.parent.GetComponent<ActiveSkillCache>();
         _this = transform.GetComponent<Image>();
         _gui = GetComponent<GUI>();
         _gui.enabled = false;
@@ -35,7 +36,28 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     }
     public void OnMouseUp(InputAction.CallbackContext context)
     {
-        if (_duration < 0.2 && _skillName != null) { Managers.GameMgr.Player_Controller.UpdateSkill(_skillName); }
+        if(_activeSkill.Skill == this)
+        {
+            Cancel();
+            Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
+            _activeSkill.Skill = null;
+            return;
+        }
+        else if(_activeSkill.Skill != null)
+        {
+            Managers.InputMgr.GameController.RightClickEvent.RemoveListener(_activeSkill.Skill.Cancel);
+        }
+        if (_duration < 0.2 && _skillName != null) 
+        {
+            Managers.GameMgr.Player_Controller.ResetReachableTiles();
+            Managers.GameMgr.Player_Controller.ReachableEmptyTileDict.Clear();
+            Managers.GameMgr.Player_Controller.ReachableOccupiedCoorSet.Clear();
+            Managers.GameMgr.Player_Controller.ResetSkill();
+            Managers.GameMgr.Player_Controller.UpdateSkill(_skillName);
+            Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
+            Managers.InputMgr.GameController.RightClickEvent.AddListener(Cancel);
+            _activeSkill.Skill = this;
+        }
         _skillHolder.sortingOrder = 0;
         DropDown();
         _this.raycastTarget = true;
@@ -48,12 +70,11 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _duration += Time.deltaTime;
         if(_duration < 0.2) { return; }
         _gui.enabled = true;
+        _gui.GUIEvent.RemoveListener(UpdatePositionGUI);
         _gui.GUIEvent.AddListener(UpdatePositionGUI);
     }
     public void OnMouseMove(InputAction.CallbackContext context) { }
-    public void OnMouseHover(InputAction.CallbackContext context)
-    {
-    }
+    public void OnMouseHover(InputAction.CallbackContext context) { }
     public void DropDown()
     {
         Managers.InputMgr.GameController.HoverTarget?.GetDrop(gameObject);
@@ -69,5 +90,10 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     private void UpdatePositionGUI()
     {
         transform.position = Managers.InputMgr.MouseScreenPosition;
+    }
+    private void Cancel()
+    {
+        Managers.GameMgr.Player_Controller.ResetSkill();
+        Managers.GameMgr.Player_Controller.UpdatePlayerState(Define.UnitState.Idle);
     }
 }

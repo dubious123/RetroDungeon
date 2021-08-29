@@ -82,7 +82,7 @@ public class UnitController : MonoBehaviour
         if(nextCoor.HasValue) { yield return Timing.WaitUntilDone(_MoveUnitOnce(nextCoor.Value).RunCoroutine()); 
             _unitData.UpdateMoveResult(nextCoor.Value); }
         else { Debug.LogError("nextCoor is null"); }
-        yield return Timing.WaitForSeconds(0.5f);
+        yield return Timing.WaitForSeconds(0.1f);
         #endregion
         yield break;
     }
@@ -99,7 +99,7 @@ public class UnitController : MonoBehaviour
     private IEnumerator<float> _MoveUnitOnce(Vector3Int next)
     {
         UpdateUnitLookDir(next);
-        _animController.PlayAnimation("walk");
+        _animController.PlayAnimation("run");
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
         float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;

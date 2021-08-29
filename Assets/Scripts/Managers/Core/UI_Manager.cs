@@ -28,6 +28,10 @@ public class UI_Manager
     {
         Managers.GameMgr.Floor.SetColor(tilePos,Color.red);
     }
+    internal void PaintInRangeUnitTile(Vector3Int tilePos)
+    {
+        Managers.GameMgr.Floor.SetColor(tilePos, Color.magenta);
+    }
     public void PaintClickedCell(Vector3Int tilePos)
     {
         _clickedCellPos = tilePos;
@@ -42,4 +46,5 @@ public class UI_Manager
     {
         GameObject.Find("Status").GetComponent<PlayerStatus>().Init(playerData);
     }
+
 }
