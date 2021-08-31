@@ -39,7 +39,7 @@ public static class SkillLibrary
         public override string AnimName { get; protected set; } = "throw";
         public override List<string> Tags { get; protected set; } = new List<string>(
             new string[] { "Attack", "Melee" , "SingleTarget" });
-        public override int Cost { get; protected set; } = -1;
+        public override int Cost { get; protected set; } = 1;
         public override int Range { get; protected set; } = 1;
         public override List<Vector2Int> Area { get; protected set; } = new List<Vector2Int>
         {

@@ -34,14 +34,12 @@ public class UnitController : MonoBehaviour
         Init();
     }
     public IEnumerator<float> _PerformUnitTurn()
-    {
-        Debug.Log("unit turn start");   
+    { 
         do
         {
             _nextAction = _unitData.UpdateNextAction();
             yield return Timing.WaitUntilDone(_PerformAction().RunCoroutine());
         } while (_nextAction.UnitPurpose != Define.UnitPurpose.PassTurn);
-        Debug.Log("unit turn end");
         EndTurn();
         yield break;
     }
@@ -51,15 +49,13 @@ public class UnitController : MonoBehaviour
         switch (_unitData.CurrentState)
         {
             case Define.UnitState.Idle:
-                Debug.Log("Idle");
                 HandleIdle();
                 yield break;
             case Define.UnitState.Moving:
-                Debug.Log("Moving");
                 yield return Timing.WaitUntilDone(_HandleMoving().RunCoroutine());
                 yield break;
             case Define.UnitState.Skill:
-                HandleSkill();
+                yield return Timing.WaitUntilDone(_HandleSkill().RunCoroutine());
                 yield break;
             case Define.UnitState.Die:
                 HandleDie();
@@ -91,9 +87,12 @@ public class UnitController : MonoBehaviour
     {
         throw new NotImplementedException();
     }
-    public void HandleSkill()
+    public IEnumerator<float> _HandleSkill()
     {
-        throw new NotImplementedException();
+        _animController.PlayAnimation(_nextAction.NextSkill.AnimName);
+        Managers.BattleMgr.SkillFromTo(_unitData, _nextAction.TargetPos, _nextAction.NextSkill);
+        yield return Timing.WaitForSeconds(0.15f);
+        yield break;
     }
     //Todo duplicate code
     private IEnumerator<float> _MoveUnitOnce(Vector3Int next)
@@ -137,7 +136,7 @@ public class UnitController : MonoBehaviour
     }
     private void EndTurn()
     {
-        _unitData.UpdateAp(_unitData.RecoverAp);
+        _unitData.UpdateApCost(_unitData.RecoverAp);
         Managers.TurnMgr._HandleUnitTurn();
     }
 }

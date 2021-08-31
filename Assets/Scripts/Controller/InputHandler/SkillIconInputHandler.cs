@@ -14,6 +14,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     ActiveSkillCache _activeSkill;
     string _skillName;
     float _duration;
+    bool _disabled;
     void Awake()
     {
         Init();
@@ -27,6 +28,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _gui = GetComponent<GUI>();
         _gui.enabled = false;
         _skillName = "Blunt";
+        _disabled = false;
     }
     public void OnMouseDown(InputAction.CallbackContext context)
     {
@@ -40,14 +42,12 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         {
             Cancel();
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
-            _activeSkill.Skill = null;
-            return;
         }
         else if(_activeSkill.Skill != null)
         {
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(_activeSkill.Skill.Cancel);
         }
-        if (_duration < 0.2 && _skillName != null) 
+        else if (_duration < 0.2 && _skillName != null && _disabled == false) 
         {
             Managers.GameMgr.Player_Controller.ResetReachableTiles();
             Managers.GameMgr.Player_Controller.ReachableEmptyTileDict.Clear();
@@ -91,9 +91,20 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     {
         transform.position = Managers.InputMgr.MouseScreenPosition;
     }
-    private void Cancel()
+    public void Cancel()
     {
+        _activeSkill.Skill = null;
         Managers.GameMgr.Player_Controller.ResetSkill();
         Managers.GameMgr.Player_Controller.UpdatePlayerState(Define.UnitState.Idle);
+    }
+    public void DisableSkill()
+    {
+        _disabled = true;
+        _this.CrossFadeAlpha(0.5f,0.2f,true);
+    }
+    public void EnableSkill()
+    {
+        _disabled = false;
+        _this.CrossFadeAlpha(1f, 0.2f, true);
     }
 }

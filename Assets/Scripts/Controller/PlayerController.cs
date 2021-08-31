@@ -283,7 +283,7 @@ public class PlayerController : MonoBehaviour
         _reachableEmptyTileDict.TryGetValue(_playerData.CurrentCellCoor, out PathInfo nowInfo);
         _reachableEmptyTileDict.TryGetValue(next, out PathInfo nextInfo);
         int cost = nextInfo.Cost - nowInfo.Cost;
-        Managers.GameMgr.Player_Data.UpdateAp(-cost);
+        Managers.GameMgr.Player_Data.UpdateApCost(cost);
     }
 
     #endregion
@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour
     }
     public void EndTurn()
     {
-        Managers.GameMgr.Player_Data.UpdateAp(Managers.GameMgr.Player_Data.RecoverAp);
+        Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.RecoverAp);
         ResetReachableTiles();
         _endTernBtn.enabled = false;
         Managers.TurnMgr._HandleUnitTurn();

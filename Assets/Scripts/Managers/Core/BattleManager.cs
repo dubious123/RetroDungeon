@@ -17,7 +17,7 @@ public class BattleManager
         _targetPos = targetPos;
         _currentSkill = skill;
         _targetUnit = Managers.DungeonMgr.GetTileInfoDict()[targetPos].Unit?.GetComponent<BaseUnitData>();
-        from.UpdateAp(skill.Cost);
+        from.UpdateApCost(skill.Cost);
         if (_targetUnit == null) { Debug.Log("NoTarget"); return; }
         _unitsInRange.Clear();
         GetUnitsInArea();

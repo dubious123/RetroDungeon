@@ -82,11 +82,15 @@ public class BaseUnitData : MonoBehaviour
         _skillDict = new Dictionary<string, SkillLibrary.BaseSkill>();
     }
 
-    internal int UpdateAp(int cost)
+    internal int UpdateApCost(int cost)
     {
-        _currentAp += cost;
+        _currentAp -= cost;
         if (_currentAp > _maxAp) { _currentAp = _maxAp; }
         else if (_currentAp < 0) { _currentAp = 0; }
         return _currentAp;
+    }
+    public int UpdateApRecover(int recover)
+    {
+        return UpdateApCost(-recover);
     }
 }

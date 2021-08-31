@@ -58,11 +58,6 @@ public class PoolManager
             if (_poolStack.Count > 0) { copy = _poolStack.Pop(); }
             else { copy = Create(); }
             copy.gameObject.SetActive(true);
-            if(parent == null)
-            {
-                //Todo
-                Debug.LogError("null parent");
-            }
             copy.transform.parent = parent;
             return copy;
         }

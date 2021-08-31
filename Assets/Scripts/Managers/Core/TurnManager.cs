@@ -48,6 +48,7 @@ public class TurnManager
     {
         if(_currentTurn == Define.Turn.Enemy) { _currentTurn = Define.Turn.Player; }
         Managers.CameraMgr.GameCamController.Target = _playerController.gameObject;
+        Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkillIcon();
         switch (nextState)
         {
             case Define.UnitState.Idle:

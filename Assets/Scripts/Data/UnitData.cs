@@ -82,7 +82,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     Vector3Int _memorizedDestination;
     NextActionData _nextActionData;
     UnitController _unitController;
-    GameObject _target;
 
     public class NextActionData
     {
@@ -91,11 +90,12 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
 
         public Define.UnitPurpose UnitPurpose { get; private set; }
         public bool IsNewPurpose { get; set; }
-        public List<GameObject> BlackList { get; set; } = new List<GameObject>();
-        public GameObject BlackTarget { get; set; }
-        public List<GameObject> WhiteList { get; set; } = new List<GameObject>();
-        public GameObject WhiteTarget { get; set; }
+        public List<KeyValuePair<Vector3Int, GameObject>> BlackList { get; set; } = new List<KeyValuePair<Vector3Int, GameObject>>();
+        //public KeyValuePair<Vector3Int, GameObject> BlackTarget { get; set; }
+        public List<KeyValuePair<Vector3Int, GameObject>> WhiteList { get; set; } = new List<KeyValuePair<Vector3Int, GameObject>>();
+        //public KeyValuePair<Vector3Int, GameObject> WhiteTarget { get; set; }
         public Dictionary<Vector3Int, GameObject> InSightUnitDict { get; set; } = new Dictionary<Vector3Int, GameObject>();
+        public Vector3Int TargetPos;
         public SkillLibrary.BaseSkill NextSkill { get; set; }
         public void UpdatePurpose(Define.UnitPurpose newPurpose)
         {
@@ -122,14 +122,14 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         _reachableOccupiedCoorSet = new HashSet<Vector3Int>();
         _path = new Stack<Vector3Int>();
         if (_unitController == null) { _unitController = GetComponent<UnitController>(); }
-        if(_nextActionData == null) { _nextActionData = new NextActionData(); } else { InitNextAction(); }
+        if(_nextActionData == null) { _nextActionData = new NextActionData(); } 
+        else { InitNextAction(); }
 
-
+        CheckUnitsInSight();
         UpdateReachableTileInfo();
 
 
         UpdateUnitMentalState();
-        CheckUnitsInSight();
         CalculateUnitPurpose();
         HandleUnitPurpose();
         return _nextActionData;
@@ -242,13 +242,13 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     private void CheckUnitsInSight()
     {
         Vector3Int nextCoor;
-        TileInfo nextTileInfo;
         for (int y = -_eyeSight; y <= _eyeSight; y++)
         {
-            for (int x = y - _eyeSight; x <= _eyeSight - y; x++)
+            int k = Mathf.Abs(y);
+            for (int x = k - _eyeSight; x <= _eyeSight - k; x++)
             {
                 nextCoor = _currentCellCoor + new Vector3Int(x, y, 0);
-                if (_board.TryGetValue(nextCoor,out nextTileInfo) && nextTileInfo.Unit != null)
+                if (_board.TryGetValue(nextCoor,out TileInfo nextTileInfo) && nextTileInfo.Unit != null)
                 {
                     if(x==0 && y == 0) { continue; }
                     _nextActionData.InSightUnitDict.Add(nextCoor, nextTileInfo.Unit);
@@ -341,7 +341,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     #endregion 
     private void HandleAttack()
     {
-        _target = _nextActionData.BlackTarget;
         _currentState = Define.UnitState.Skill;
     }
     #region HandleApproach
@@ -350,14 +349,13 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         if (_nextActionData.IsNewPurpose)
         {
             _currentState = Define.UnitState.Moving;
-            _target = _nextActionData.BlackTarget == null ? _nextActionData.WhiteTarget : _nextActionData.BlackTarget;
         }
         UpdateApproachDestination();
         UpdateApproachPath();
     }
     private void UpdateApproachDestination()
     {
-        _destination = _target.GetComponent<BaseUnitData>().CurrentCellCoor;
+        _destination = _nextActionData.TargetPos;
         if (_reachableOccupiedCoorSet.Contains(_destination)) { GetClosestReachableCoorFromDestination(); }
         //Todo
         else { GetClosestReachableCoorToDestination(); }
@@ -365,7 +363,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     #endregion
     private void HandleHelp()
     {
-        _target = _nextActionData.WhiteTarget;
         _currentState = Define.UnitState.Skill;
     }
     #region HandleRunAway
@@ -438,7 +435,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         _reachableEmptyTileDict.TryGetValue(_currentCellCoor, out PathInfo nowInfo);
         _reachableEmptyTileDict.TryGetValue(next, out PathInfo nextInfo);
         int cost = nextInfo.Cost - nowInfo.Cost;
-        UpdateAp(-cost);
+        UpdateApCost(cost);
     }
     #endregion
 
@@ -457,28 +454,28 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         UpdateTargetsInSight();
         if (_nextActionData.BlackList.Count > 0)
         {
-            foreach (GameObject BlackTarget in _nextActionData.BlackList)
+            foreach (KeyValuePair<Vector3Int, GameObject> blackTarget in _nextActionData.BlackList)
             {
-                if (IsTargetInAttackRange(BlackTarget))
+                if (IsTargetInAttackRange(blackTarget))
                 {
-                    _nextActionData.BlackTarget = BlackTarget;
+                    _nextActionData.TargetPos = blackTarget.Key;
                     _nextActionData.UpdatePurpose(Define.UnitPurpose.Attack);
                     return;
                 }
             }
-            _nextActionData.BlackTarget = _nextActionData.BlackList[Random.Range(0, _nextActionData.BlackList.Count)];
+            _nextActionData.TargetPos = _nextActionData.BlackList[Random.Range(0, _nextActionData.BlackList.Count)].Key;
             _nextActionData.UpdatePurpose(Define.UnitPurpose.Approach);
             return;
         }
-        foreach (GameObject WhiteTarget in _nextActionData.WhiteList)
+        foreach (KeyValuePair<Vector3Int, GameObject> whiteTarget in _nextActionData.WhiteList)
         {
-            if (IsTargetInHelpRange( WhiteTarget))
+            if (IsTargetInHelpRange( whiteTarget))
             {
-                _nextActionData.WhiteTarget = WhiteTarget;
+                _nextActionData.TargetPos = whiteTarget.Key;
                 _nextActionData.UpdatePurpose(Define.UnitPurpose.Help);
                 return;
             }
-            _nextActionData.WhiteTarget = _nextActionData.WhiteList[Random.Range(0, _nextActionData.BlackList.Count)];
+            _nextActionData.TargetPos = _nextActionData.WhiteList[Random.Range(0, _nextActionData.BlackList.Count)].Key;
             _nextActionData.UpdatePurpose(Define.UnitPurpose.Approach);
             return;
         }
@@ -493,19 +490,19 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         foreach(KeyValuePair<Vector3Int,GameObject> pair in _nextActionData.InSightUnitDict)
         {
             nextName = pair.Value.GetComponent<BaseUnitData>().UnitName;
-            if (_enemyList.Contains(nextName)) { _nextActionData.BlackList.Add(pair.Value); }
-            else if (_allienceList.Contains(nextName)) { _nextActionData.WhiteList.Add(pair.Value); }
+            if (_enemyList.Contains(nextName)) { _nextActionData.BlackList.Add(pair); }
+            else if (_allienceList.Contains(nextName)) { _nextActionData.WhiteList.Add(pair); }
         }
     }
 
-    private bool IsTargetInAttackRange(GameObject blackTarget)
+    private bool IsTargetInAttackRange(KeyValuePair<Vector3Int, GameObject> blackTarget)
     {
-        Vector3Int cellPos = blackTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
+        Vector3Int cellPos = blackTarget.Key;
         int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
         foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
         {
             //Todo
-            if (pair.Value.Cost > _currentAp) { continue; }
+            if (pair.Value.Cost + _currentAp < 0) { continue; }
             if (pair.Value.Range < distance) { continue; }
             _nextActionData.NextSkill = pair.Value;
             return true;
@@ -513,10 +510,10 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         return false;
     }
 
-    private bool IsTargetInHelpRange(GameObject whiteTarget)
+    private bool IsTargetInHelpRange(KeyValuePair<Vector3Int, GameObject> whiteTarget)
     {
         //Todo
-        Vector3Int cellPos = whiteTarget.GetComponent<BaseUnitData>().CurrentCellCoor;
+        Vector3Int cellPos = whiteTarget.Key;
         int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
         foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
         {
