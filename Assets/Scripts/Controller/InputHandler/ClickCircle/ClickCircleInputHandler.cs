@@ -121,9 +121,12 @@ public class ClickCircleInputHandler : MonoBehaviour
         else { _activeBtnNum = _children.Length - 1; Yes.gameObject.SetActive(false); }
         for (int i = 0; i < _activeBtnNum; i++)
         {
+            _children[i].gameObject.SetActive(false);
             _children[i].gameObject.SetActive(true);
             radian = (_activeBtnNum - i) * Mathf.PI / (_activeBtnNum + 1);
             _btnMoveDir[i] = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
         }
+        _exit.ExitEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
+        _yes.YesEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
     }
 }

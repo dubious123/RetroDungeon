@@ -68,7 +68,7 @@ public class UnitController : MonoBehaviour
 
     public void HandleIdle()
     {
-        _animController.PlayAnimation("idle");
+        _animController.PlayAnimationLoop("idle");
     }
     public IEnumerator<float> _HandleMoving()
     {
@@ -89,16 +89,17 @@ public class UnitController : MonoBehaviour
     }
     public IEnumerator<float> _HandleSkill()
     {
-        _animController.PlayAnimation(_nextAction.NextSkill.AnimName);
         Managers.BattleMgr.SkillFromTo(_unitData, _nextAction.TargetPos, _nextAction.NextSkill);
-        yield return Timing.WaitForSeconds(0.15f);
+        yield return Timing.WaitUntilDone(_animController._PlayAnimation(_nextAction.NextSkill.AnimName, 1).RunCoroutine());
+        //yield return Timing.WaitForSeconds(0.5f);
+        //Todo
         yield break;
     }
     //Todo duplicate code
     private IEnumerator<float> _MoveUnitOnce(Vector3Int next)
     {
         UpdateUnitLookDir(next);
-        _animController.PlayAnimation("run");
+        _animController.PlayAnimationLoop("run");
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
         float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
@@ -136,7 +137,9 @@ public class UnitController : MonoBehaviour
     }
     private void EndTurn()
     {
-        _unitData.UpdateApCost(_unitData.RecoverAp);
-        Managers.TurnMgr._HandleUnitTurn();
+        _unitData.UpdateApRecover(_unitData.RecoverAp);
+        //Todo
+        _animController.PlayAnimationLoop("idle");
+        Managers.TurnMgr._HandleUnitTurn().RunCoroutine();
     }
 }

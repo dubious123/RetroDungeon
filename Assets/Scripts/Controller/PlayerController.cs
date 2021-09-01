@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     }
     public void HandleIdle()
     {
-        _animController.PlayAnimation("idle");
+        _animController.PlayAnimationLoop("idle");
         //_state = Define.UnitState.Idle;
         //Todo 
         if (_board == null)
@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviour
         {
             next = _path.Pop();
             UpdatePlayerLookDir(next);
-            _animController.PlayAnimation("run");
+            _animController.PlayAnimationLoop("run");
 
             yield return Timing.WaitUntilDone(_MovePlayerOnce(next).RunCoroutine());
             UpdateMoveResult(next);
@@ -297,10 +297,11 @@ public class PlayerController : MonoBehaviour
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
         DeavtivateInRangeTiles();
-        _animController.PlayAnimation($"{_skill.AnimName}");
-        Managers.BattleMgr.SkillFromTo(_playerData, _skillTargetPos,_skill);
-        yield return Timing.WaitForSeconds(0.15f);
+        Managers.BattleMgr.SkillFromTo(_playerData, _skillTargetPos, _skill);
+        yield return Timing.WaitUntilDone(_animController._PlayAnimation($"{_skill.AnimName}", 1).RunCoroutine());
+        //yield return Timing.WaitForSeconds(0.15f);
         UpdatePlayerState(Define.UnitState.Idle);
+        yield break;
     }
     public void UpdateTargetPos(Vector3Int pos)
     {
@@ -368,7 +369,7 @@ public class PlayerController : MonoBehaviour
         Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.RecoverAp);
         ResetReachableTiles();
         _endTernBtn.enabled = false;
-        Managers.TurnMgr._HandleUnitTurn();
+        Managers.TurnMgr._HandleUnitTurn().RunCoroutine();
     }
 
 

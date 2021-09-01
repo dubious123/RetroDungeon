@@ -68,14 +68,15 @@ public class TurnManager
                 break;
         }
     }
-    public void _HandleUnitTurn()
+    public IEnumerator<float> _HandleUnitTurn()
     {
         if(_currentTurn == Define.Turn.Player) { _currentTurn = Define.Turn.Enemy; ResetUnitQueue(); }
-        if(!_unitQueue.TryDequeue(out _currentUnitData)) { HandlePlayerTurn(); return; }
+        if(!_unitQueue.TryDequeue(out _currentUnitData)) { HandlePlayerTurn(); yield break; }
         Managers.CameraMgr.GameCamController.Target = _currentUnitData.gameObject;
-        Timing.WaitForSeconds(0.5f);
+        yield return Timing.WaitForSeconds(0.5f);
         _currentUnitController = _currentUnitData.GetComponent<UnitController>();
-        _currentUnitController._PerformUnitTurn().RunCoroutine();
+        yield return Timing.WaitUntilDone(_currentUnitController._PerformUnitTurn().RunCoroutine());
+        yield break;
     }
     private void ResetUnitQueue()
     {

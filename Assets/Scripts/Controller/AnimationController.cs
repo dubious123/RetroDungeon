@@ -1,3 +1,4 @@
+using MEC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,11 +40,17 @@ public class AnimationController : MonoBehaviour
         _weaponFlashAnim = _animators[3];
     }
 
-    public void PlayAnimation(string animName)
+    public void PlayAnimationLoop(string animName)
     {
         UpdateDir();
         CheckWeapon(); //Todo
-        RunAnimators(animName);
+        _RunAnimators(animName, 0).RunCoroutine();
+    }
+    public IEnumerator<float> _PlayAnimation(string animName, int roop)
+    {
+        UpdateDir();
+        CheckWeapon(); //Todo
+        yield return Timing.WaitUntilDone(_RunAnimators(animName, roop).RunCoroutine());
     }
     private void UpdateDir()
     {
@@ -105,12 +112,12 @@ public class AnimationController : MonoBehaviour
 
     }
 
-    void RunAnimators(string animName)
+    IEnumerator<float> _RunAnimators(string animName, int loop)
     {
         if (_hasWeapon)
         {
             //Todo
-            _bodyAnim.CrossFade($"Player.{animName}_{_dir}",0.1f);
+            _bodyAnim.CrossFade($"Player.{animName}_{_dir}",0.1f); 
             _weaponCoverAnim.CrossFade($"Player.{animName}_{_dir}", 0.1f);
             _weaponAnim.CrossFade($"Player.{animName}_{_dir}", 0.1f);
             _weaponFlashAnim.CrossFade($"Player.{animName}_{_dir}", 0.1f);
@@ -119,6 +126,10 @@ public class AnimationController : MonoBehaviour
         {
             _bodyAnim.CrossFade($"Player.{animName}_{_dir}", 0.1f);
         }
+        if(loop == 0) { yield break; }
+        yield return Timing.WaitForOneFrame;
+        yield return Timing.WaitForSeconds(_bodyAnim.GetCurrentAnimatorStateInfo(0).length);
+        yield break;
     }
     
 }

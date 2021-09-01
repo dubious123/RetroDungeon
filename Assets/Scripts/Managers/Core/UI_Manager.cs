@@ -39,10 +39,11 @@ public class UI_Manager
     }
     public void PaintClickedCell(Vector3Int tilePos)
     {
-        _clickedCellPos = tilePos;
+        _clickedCellPos = tilePos; 
         _clickedCellColor = Managers.GameMgr.Floor.GetColor(tilePos);
         Managers.GameMgr.Floor.SetColor(tilePos, Color.cyan);
     }
+    
     public void PaintInRangeTile(Vector3Int tilePos)
     {
         Managers.GameMgr.Floor.SetColor(tilePos, Color.yellow);

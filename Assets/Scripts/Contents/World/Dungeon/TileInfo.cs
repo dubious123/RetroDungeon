@@ -36,7 +36,7 @@ public class TileInfo
         SetTileType();
 
     }
-    void SetTileType()
+    void SetTileType() 
     {
         switch (_tileType)
         {

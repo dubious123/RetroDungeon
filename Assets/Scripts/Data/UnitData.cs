@@ -386,7 +386,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         float closest = float.MaxValue;
         float now;
         Vector3Int closestDir = Vector3Int.zero;
-        foreach (Vector3Int dir in Define.TileCoor8Dir)
+        foreach (Vector3Int dir in Define.TileCoor4Dir)
         {
             now = (_currentCellCoor - _destination - dir).magnitude;
             if(closest > now)

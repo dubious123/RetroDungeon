@@ -42,7 +42,7 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
                 _playerController.UpdateTargetPos(mouseCellPos.Value);
                 _handler.EnableBtns(true);
                 _handler.Yes.YesEvent.AddListener(() => 
-                { 
+                {
                     _playerController.UpdatePlayerState(Define.UnitState.Skill);
                     _skillCache.Skill = null;
                 });
@@ -69,6 +69,7 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     }
     private void ShowClickCircleUI(Vector3Int pos)
     {
+        
         _handler.transform.position = Managers.CameraMgr.GameCam.WorldToScreenPoint(Managers.GameMgr.Floor.GetCellCenterWorld(pos));
         //_handler.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(pos);
         _handler.Activate();
