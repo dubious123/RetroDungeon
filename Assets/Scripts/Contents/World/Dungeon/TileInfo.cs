@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 public class TileInfo
 {
     Define.World _worldtype = Define.World.Unknown;
-    Vector3Int _position;
     Define.TileType _tileType;
     IsometricRuleTile[] _tiles;
     int _level = 0;
@@ -14,10 +13,8 @@ public class TileInfo
     GameObject _unit;
     bool _occupied;
 
-    public Define.TileType tileType { get { return _tileType; } set { _tileType = value; SetTileType(); } }
+    public Define.TileType Type { get { return _tileType; } set { _tileType = value; } }
     public IsometricRuleTile[] RuleTiles { get { return _tiles; } }
-
-    Vector3Int Position { get { return _position; } }
     public int Level { get { return _level; } }
     public int LeaveCost { get { return _leaveCost; } }
 
@@ -33,33 +30,27 @@ public class TileInfo
         _tileType = tileType;
         _tiles = new IsometricRuleTile[Define.TileLayerNum];
         _occupied = false;
-        SetTileType();
-
     }
-    void SetTileType() 
+    public void SetTileDetails() 
     {
+        _tiles[0] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Floor");
         switch (_tileType)
         {
             //Todo
             case Define.TileType.Default:
-                _tiles[0] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Floor");
                 _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
-
-                _leaveCost = 0;
+                break;
+            case Define.TileType.Water:
+                _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/Water");
+                _leaveCost = 1;
                 break;
             case Define.TileType.Entrance:
-                _tiles[0] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Floor");
                 _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
                 _tiles[2] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Entrance");
-                _level++;
-                
-                _leaveCost = 0;
+                _level++;           
                 break;
             case Define.TileType.Exit:
-                _tiles[0] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Floor");
                 _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Exit");
-
-                _leaveCost = 0;
                 break;
             default:
                 break;

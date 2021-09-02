@@ -140,6 +140,8 @@ public class Define
     public enum TileType
     {
         Default,
+        Water,
+        Lava,
         Entrance,
         Exit
     }

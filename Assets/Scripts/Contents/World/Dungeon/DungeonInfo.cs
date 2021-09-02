@@ -20,7 +20,10 @@ public class DungeonInfo : MonoBehaviour
     int _iteration;
     [SerializeField]
     int _tileCount;
-
+    [SerializeField]
+    int _lakeCount;
+    [SerializeField]
+    int _riverCount;
     int _enemyCount;
     
 
@@ -29,6 +32,8 @@ public class DungeonInfo : MonoBehaviour
     public int Iteration { get { return _iteration; } }
     public int RoomSize { get { return _roomSize; } }
     public int TileCount { get { return _tileCount; } }
+    public int LakeCount { get { return _lakeCount; } set { _lakeCount = value; } }
+    public int RiverCount { get { return _riverCount; } set { _riverCount = value; } }
     public int EnemyCount { get { return _enemyCount; } }
 
     Dictionary<Vector3Int, TileInfo> _board;
@@ -48,7 +53,9 @@ public class DungeonInfo : MonoBehaviour
         _GridLayers = _dungeon.GetChildren();
 
         _tilemaps = new Tilemap[Define.TileLayerNum];
-
+        //Todo
+        _lakeCount = 3;
+        _riverCount = 3;
         for (int i = 0; i < Define.TileLayerNum; i++)
         {
             //???????????????????????
