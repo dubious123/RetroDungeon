@@ -137,7 +137,7 @@ public class DungeonGenerator
     {
         foreach(Vector3Int dir in Define.TileCoor4Dir)
         {
-            if(_dungeonInfo.Board.ContainsKey(pair.Key + dir) || failCondition(_noiseDic[pair.Key + dir])) 
+            if(!_dungeonInfo.Board.ContainsKey(pair.Key + dir) || failCondition(_noiseDic[pair.Key + dir])) 
             {
                 return false;
             }

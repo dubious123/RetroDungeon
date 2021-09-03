@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e6f3fbb560bd6041a202ea918fa4f23, type: 3}
-  m_Name: ISO_Autotile_Fence_01_Short
+  m_Name: Fence
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 21300000, guid: 92183ffa846379749a67155799808a97, type: 3}
   m_DefaultGameObject: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 9
     m_Sprites:
-    - {fileID: 21300000, guid: 27805b57bfb6b5245b7a91e1c04d14ec, type: 3}
+    - {fileID: 21300000, guid: 58674859ce78fa0468a29f4246da796d, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -176,7 +176,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 10
     m_Sprites:
-    - {fileID: 21300000, guid: 177a01e62a553d24f813e4063fb9f089, type: 3}
+    - {fileID: 21300000, guid: 88ddd5d20781c7f4eb3e40b20b1ae64d, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -190,7 +190,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 11
     m_Sprites:
-    - {fileID: 21300000, guid: b267f7fa9ad26774585ca4e72b932487, type: 3}
+    - {fileID: 21300000, guid: 6d009edcba48ff2428f2fe699c46a7b7, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -204,7 +204,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 12
     m_Sprites:
-    - {fileID: 21300000, guid: 475985155edd81d4ea9821e7b5635d14, type: 3}
+    - {fileID: 21300000, guid: a49f91126ddeeaa47a06a897edc47448, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5

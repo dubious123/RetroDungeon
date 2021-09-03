@@ -41,7 +41,7 @@ public class TileInfo
                 _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
                 break;
             case Define.TileType.Water:
-                _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/Water");
+                _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/Water_Complex");
                 _leaveCost = 1;
                 break;
             case Define.TileType.Entrance:
