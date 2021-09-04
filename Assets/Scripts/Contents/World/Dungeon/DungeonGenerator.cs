@@ -20,9 +20,13 @@ public class DungeonGenerator
     TileInfo _tile;
     PerlinNoiseHelper _noiseHelper;
     Dictionary<Vector3Int, float> _noiseDic;
+    List<Vector3Int> _endPosList;
+    List<Vector3Int> _startPosList;
     float _maxAltitude = 0.8f;
-    float _minAltitude = 0.2f;
-    int _maxLakeSize = 5;
+    float _minAltitude = 0.4f;
+    int _maxLakeSize = 10;
+    int _maxRiverLength = 100;
+    int _minRiverlength = 20;
     public DungeonGenerator(Define.World world)
     {
         Init(world);
@@ -39,7 +43,7 @@ public class DungeonGenerator
         _dungeonInfo = _dungeon.GetOrAddComponent<DungeonInfo>();
         _dungeonInfo.Init(_world);
 
-        _tilemaps = _dungeonInfo.tilemaps;
+        _tilemaps = _dungeonInfo.Tilemaps;
         _noiseHelper = new PerlinNoiseHelper();
         _noiseDic = new Dictionary<Vector3Int, float>();
     }
@@ -107,7 +111,8 @@ public class DungeonGenerator
             {
                 for(int y = -lakeSize; y < lakeSize; y++)
                 {
-                    if(_dungeonInfo.Board.ContainsKey(pos + new Vector3Int(x, y, 0)))
+                    Vector3Int newPos = pos + new Vector3Int(x, y, 0);
+                    if (_dungeonInfo.Board.ContainsKey(newPos) && _noiseDic[newPos] < _noiseDic[pos] + 0.1f) 
                     {
                         _dungeonInfo.Board[pos + new Vector3Int(x, y, 0)].Type = Define.TileType.Water;
                     }
@@ -115,22 +120,21 @@ public class DungeonGenerator
             }
         }
     }
-    private List<Vector3Int> CalculateLakeStartPos()
+    private IEnumerable<Vector3Int> CalculateLakeStartPos()
     {
-        List<Vector3Int> posList = new List<Vector3Int>();
+        _endPosList = new List<Vector3Int>();
         int count = 0;
         foreach(KeyValuePair<Vector3Int,float> pair in _noiseDic)
         {
             if(pair.Value > _minAltitude) { continue; }
             if(CheckNeighbours(pair, neighbourNoise => neighbourNoise < pair.Value)) 
-            { 
-                posList.Add(pair.Key);
+            {
+                _endPosList.Add(pair.Key);
                 count++;
-                if(count >= _dungeonInfo.LakeCount) { break; }
             }
         }
         if(count < _dungeonInfo.LakeCount) { _dungeonInfo.LakeCount = count; }
-        return posList;
+        return _endPosList.OrderBy(pos => _noiseDic[pos]).Take(Random.Range(0,_dungeonInfo.LakeCount));
     }
 
     private bool CheckNeighbours(KeyValuePair<Vector3Int, float> pair, Func<float, bool> failCondition)
@@ -147,8 +151,54 @@ public class DungeonGenerator
 
     private void GenerateRiver()
     {
-
+        foreach (Vector3Int pos in CalculateRiverStartPos())
+        {
+            if(Random.Range(0, 2) == 0) { CreateRiver(pos,_endPosList.OrderBy(endPos=>(pos-endPos).magnitude).First()); }
+            else { CreateRiver(pos); }             
+        }
     }
+
+    private void CreateRiver(Vector3Int start)
+    {
+        int riverLength = Random.Range(_minRiverlength, _maxRiverLength);
+        for(int i = 0; i < riverLength; i++)
+        {
+
+        }
+    }
+
+    private void CreateRiver(Vector3Int start, Vector3Int end)
+    {
+        Vector3Int prePos = start;
+        Vector3Int nowPos = start;
+        for(;nowPos != end;nowPos = GetNextDirToEndPos())
+        {
+
+        }
+    }
+    private Vector3Int GetNextDirToEndPos()
+    {
+        Vector3Int dir = Vector3Int.zero;
+
+        return dir;
+    }
+    private IEnumerable<Vector3Int> CalculateRiverStartPos()
+    {
+        _startPosList = new List<Vector3Int>();
+        int count = 0;
+        foreach (KeyValuePair<Vector3Int, float> pair in _noiseDic)
+        {
+            if (pair.Value > _minAltitude) { continue; }
+            if (CheckNeighbours(pair, neighbourNoise => neighbourNoise > pair.Value))
+            {
+                _startPosList.Add(pair.Key);
+                count++;
+            }
+        }
+        if (count < _dungeonInfo.RiverCount) { _dungeonInfo.RiverCount = count; }
+        return _startPosList.OrderByDescending(pos => _noiseDic[pos]).Take(Random.Range(0,_dungeonInfo.RiverCount));
+    }
+
     private void GenerateEntranceAndExit()
     {
 

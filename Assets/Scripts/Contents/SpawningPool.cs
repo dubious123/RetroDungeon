@@ -27,7 +27,7 @@ public class SpawningPool : MonoBehaviour
         KeyValuePair<Vector3Int, TileInfo> pair;
         DungeonInfo dungeonInfo = _dungeon.GetComponent<DungeonInfo>();
         _board = dungeonInfo.Board;
-        _floor = dungeonInfo.tilemaps[0];
+        _floor = dungeonInfo.Tilemaps[0];
         Stack<Vector3Int> randomCoorStack = new Stack<Vector3Int>();
         for (int i = 0; i < dungeonInfo.EnemyCount; i++)
         {

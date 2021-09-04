@@ -28,7 +28,7 @@ public class DungeonInfo : MonoBehaviour
     
 
     public Transform[] GridLayers { get { return _GridLayers; } }
-    public Tilemap[] tilemaps { get { return _tilemaps; } }
+    public Tilemap[] Tilemaps { get { return _tilemaps; } }
     public int Iteration { get { return _iteration; } }
     public int RoomSize { get { return _roomSize; } }
     public int TileCount { get { return _tileCount; } }

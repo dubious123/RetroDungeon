@@ -47,7 +47,7 @@ public class GameManagerEx
     {
         DungeonInfo dungeonInfo = dungeon.GetComponent<DungeonInfo>();
         _GridLayers = dungeonInfo.GridLayers;
-        _tilemaps = dungeonInfo.tilemaps;
+        _tilemaps = dungeonInfo.Tilemaps;
         _floor = _tilemaps[0];
         _player = Managers.ResourceMgr.Instantiate("Player/Player", _GridLayers[0]);
         _playerController = _player.GetComponent<PlayerController>();

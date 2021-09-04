@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Define
 {
-    public const int TileLayerNum = 7;
+    public const int TileLayerNum = 8;
     public const int PlayerAnimatorNum = 4;
     public static int[] TileMoveCost =
     {
