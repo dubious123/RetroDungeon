@@ -191,7 +191,7 @@ public class Define
     public enum SceneType
     {
         Unknown,
-        Login,
+        Menu,
         Game,
     }
 

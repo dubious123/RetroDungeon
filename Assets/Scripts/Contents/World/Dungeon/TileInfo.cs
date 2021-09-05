@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
+
 public class TileInfo
 {
     Define.World _worldtype = Define.World.Unknown;
     Define.TileType _tileType;
-    IsometricRuleTile[] _tiles;
+    RuleTile[] _tiles;
     int _level = 0;
     int _leaveCost;
 
@@ -14,7 +17,7 @@ public class TileInfo
     bool _occupied;
 
     public Define.TileType Type { get { return _tileType; } set { _tileType = value; } }
-    public IsometricRuleTile[] RuleTiles { get { return _tiles; } }
+    public RuleTile[] RuleTiles { get { return _tiles; } }
     public int Level { get { return _level; } }
     public int LeaveCost { get { return _leaveCost; } }
 
@@ -28,7 +31,7 @@ public class TileInfo
     {
         _worldtype = world;
         _tileType = tileType;
-        _tiles = new IsometricRuleTile[Define.TileLayerNum];
+        _tiles = new RuleTile[Define.TileLayerNum];
         _occupied = false;
     }
     public void SetTileDetails() 
@@ -39,6 +42,7 @@ public class TileInfo
             //Todo
             case Define.TileType.Default:
                 _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
+                if (Random.Range(0, 3) == 0) { _tiles[4] = Managers.ResourceMgr.Load<Overlay1>("Prefabs/Tiles/AbandonedMineShaft/Overlay_1"); }
                 break;
             case Define.TileType.Water:
                 _tiles[2] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/Water_Complex");

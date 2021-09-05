@@ -26,6 +26,11 @@ public class DungeonInfo : MonoBehaviour
     int _riverCount;
     int _enemyCount;
     
+    public List<Vector3Int> water = new List<Vector3Int>();
+    public List<Vector3Int> lake = new List<Vector3Int>();
+    public List<Vector3Int> riverstart = new List<Vector3Int>();
+    public List<Vector3Int> riverend = new List<Vector3Int>();
+    public List<Vector3Int> river = new List<Vector3Int>();
 
     public Transform[] GridLayers { get { return _GridLayers; } }
     public Tilemap[] Tilemaps { get { return _tilemaps; } }
@@ -55,7 +60,7 @@ public class DungeonInfo : MonoBehaviour
         _tilemaps = new Tilemap[Define.TileLayerNum];
         //Todo
         _lakeCount = 3;
-        _riverCount = 3;
+        _riverCount = 5;
         for (int i = 0; i < Define.TileLayerNum; i++)
         {
             //???????????????????????

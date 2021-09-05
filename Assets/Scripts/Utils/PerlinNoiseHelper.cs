@@ -6,7 +6,7 @@ using UnityEngine;
 public class PerlinNoiseHelper
 {
     [Min(1)]
-    public static float Scale = 10f;
+    public static float Scale = 6f;
     public static int OffsetX;
     public static int OffsetY;
     public PerlinNoiseHelper()
