@@ -86,7 +86,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_77ce5d8b053f48de8ae77c8b53618f7a: 1
-    - _Alpha: 0
+    - _Alpha: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -104,7 +104,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _Radius: 0
+    - _Radius: 0.494
     - _RemoveSegments: 0
     - _Rotation: 0
     - _SampleGI: 0

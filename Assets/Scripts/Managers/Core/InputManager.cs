@@ -16,20 +16,47 @@ public class InputManager
     Vector3 _mouseWorldPosition;
     Vector3Int _currentMouseCellPos;
 
-    public PlayerInput GameInputSystem { get { return _gameInputSystem; } }
-    public GameInputController GameController { get { return _gameInputController; } }
+    public Camera MainCamera
+    {
+        get
+        {
+            if(_mainCamera == null)
+            {
+                _mainCamera = Camera.main;
+            }
+            return _mainCamera;
+        }
+    }
+    public PlayerInput GameInputSystem 
+    { 
+        get 
+        { 
+            if(_gameInputSystem == null) 
+            {
+                _gameInputSystem = GameController.GetComponent<PlayerInput>();
+            }
+            return _gameInputSystem; 
+        } 
+    }
+    public GameInputController GameController 
+    { 
+        get 
+        { 
+            if(_gameInputController == null)
+            {
+                _gameInputController = Managers.ResourceMgr.Instantiate("UI/GameInputController").GetComponent<GameInputController>();
+            }
+            return _gameInputController; 
+        } 
+    }
     public Vector2 MouseScreenPosition { get { return _mouseScreenPosition; } set { _mouseScreenPosition = value; } }
     public Vector3 MouseWorldPosition { get { return _mouseWorldPosition; } }
     public void Init()
-    {
-        _gameInputController = Managers.ResourceMgr.Instantiate("UI/GameInputController").GetComponent<GameInputController>();
-        _gameInputSystem = _gameInputController.GetComponent<PlayerInput>();
-        _mainCamera = Camera.main;
-        
+    {   
     }
     public void InitControllers(GameObject player)
     {
-        _gameInputController.Init(player);
+        GameController.Init(player);
         Managers.CameraMgr.InitGameCamera(player);
     }
     public void UpdateMouseScreenPos(InputAction.CallbackContext context)
@@ -42,7 +69,7 @@ public class InputManager
         _map = Managers.GameMgr.Floor;
         
         //Todo, need new func
-        _mouseWorldPosition = _mainCamera.ScreenToWorldPoint(screenMousePos);
+        _mouseWorldPosition = MainCamera.ScreenToWorldPoint(screenMousePos);
         _mouseWorldPosition.z = 0;  
 
         _currentMouseCellPos = _grid.WorldToCell(_mouseWorldPosition);

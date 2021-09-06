@@ -6,12 +6,24 @@ public class CameraManager
 {
     CameraController _gameCamController;
     Camera _gameCam;
-    public CameraController GameCamController { get { return _gameCamController; } }
-    public Camera GameCam { get { return _gameCam; } }
+    public CameraController GameCamController 
+    { 
+        get 
+        { 
+            if(_gameCamController == null) { _gameCamController = Camera.main.GetComponent<CameraController>(); }
+            return _gameCamController; 
+        } 
+    }
+    public Camera GameCam 
+    { 
+        get 
+        { 
+            if(_gameCam == null) { _gameCam = Camera.main; }
+            return _gameCam; 
+        } 
+    }
     public void Init()
     {
-        _gameCam = Camera.main;
-        _gameCamController = _gameCam.GetComponent<CameraController>();
     }
     public void InitGameCamera(GameObject player)
     {
