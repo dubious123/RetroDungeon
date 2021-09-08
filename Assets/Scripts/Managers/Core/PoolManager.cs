@@ -42,7 +42,8 @@ public class PoolManager
             {
                 return;
             }
-            copy.transform.parent = Root;
+            if(copy.GetComponent<RectTransform>() == null) { copy.transform.parent = Root; }
+            else { copy.transform.SetParent(Root, false); } 
             copy.gameObject.SetActive(false);
             _poolStack.Push(copy);
         }

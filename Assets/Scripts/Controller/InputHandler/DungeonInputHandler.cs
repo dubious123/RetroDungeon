@@ -40,7 +40,7 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
             if (_playerController.InRangeTileDict.ContainsKey(mouseCellPos.Value)) 
             {
                 _playerController.UpdateTargetPos(mouseCellPos.Value);
-                _handler.EnableBtns(true);
+                _handler.EnableBtns(true,unit);
                 _handler.Yes.YesEvent.AddListener(() => 
                 {
                     _playerController.UpdatePlayerState(Define.UnitState.Skill);
@@ -51,18 +51,18 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
             else if (_playerController.ReachableEmptyTileDict.ContainsKey(mouseCellPos.Value)) 
             {
                 _playerController.UpdatePath(mouseCellPos.Value);
-                _handler.EnableBtns(true);
+                _handler.EnableBtns(true, unit);
                 _handler.Yes.YesEvent.AddListener(() => _playerController.UpdatePlayerState(Define.UnitState.Moving));
                 _handler.Exit.ExitEvent.AddListener(() => _skillCache.Skill?.Cancel());
             }
             //Todo
             else if (_playerController.ReachableOccupiedCoorSet.Contains(mouseCellPos.Value)) 
             {
-                _handler.EnableBtns(false);
+                _handler.EnableBtns(false, unit);
             }
             else 
             {
-                _handler.EnableBtns(false);
+                _handler.EnableBtns(false, unit);
             }
             ShowClickCircleUI(mouseCellPos.Value);
         }

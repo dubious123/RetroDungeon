@@ -26,6 +26,7 @@ public class UI_Manager
     {
         _unitStatusBarName = "UnitStatusBar";
         Managers.PoolMgr.CreatePool(Managers.ResourceMgr.Load<GameObject>($"Prefabs/UI/{_unitStatusBarName}"), 1);
+        Managers.PoolMgr.CreatePool(Managers.ResourceMgr.Load<GameObject>($"Prefabs/UI/{"TilePopup"}"), 1);
     }
     public void ResetTile(Vector3Int tilePos)
     {
@@ -63,4 +64,8 @@ public class UI_Manager
         GameObject.Find("Status").GetComponent<PlayerStatus>().Init(playerData);
     }
 
+    public void ShowTilePopup(GameObject unit = null)
+    {
+        Managers.ResourceMgr.Instantiate("UI/TilePopup").GetComponentInChildren<TilePopup_Content>(true).Init(unit);
+    }
 }

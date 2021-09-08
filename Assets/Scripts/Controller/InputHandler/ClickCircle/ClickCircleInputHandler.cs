@@ -114,7 +114,7 @@ public class ClickCircleInputHandler : MonoBehaviour
         _activeBtnNum = 0;
     }
 
-    public void EnableBtns(bool isYesIncluded)
+    public void EnableBtns(bool isYesIncluded, GameObject unit = null)
     {
         float radian;
         if (isYesIncluded) { _activeBtnNum = _children.Length; }
@@ -128,5 +128,7 @@ public class ClickCircleInputHandler : MonoBehaviour
         }
         _exit.ExitEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
         _yes.YesEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
+        _info.InfoEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
+        _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowTilePopup(unit));
     }
 }
