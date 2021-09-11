@@ -15,6 +15,10 @@ public static class Extension
     {
         return Util.GetChildren(go);
     }
+    public static T[] GetChildren<T>(this GameObject go)
+    {
+        return Util.GetChildren<T>(go);
+    }
     public static Vector3 ConvertToCart(this Vector3 iso,int z = 0)
     {
         return Util.ConvertToCart(iso , z);

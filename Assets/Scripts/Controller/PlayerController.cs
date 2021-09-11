@@ -369,6 +369,7 @@ public class PlayerController : MonoBehaviour
         Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.RecoverAp);
         ResetReachableTiles();
         _endTernBtn.enabled = false;
+        Managers.InputMgr.GameController.DeactivatePlayerInput();
         Managers.TurnMgr._HandleUnitTurn().RunCoroutine();
     }
 

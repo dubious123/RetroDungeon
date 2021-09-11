@@ -33,6 +33,7 @@ public class GameManagerEx
     {
         Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>().SpawnUnits();
         Managers.InputMgr.InitControllers(_player);
+        _floor.GetComponent<Imouse>().Init();
         Managers.UI_Mgr.InitPlayerStatusBar(_playerData);
         Managers.TurnMgr.UpdateDataFromCurrentSpawningPool();
         Managers.TurnMgr.HandlePlayerTurn();
@@ -54,7 +55,6 @@ public class GameManagerEx
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _player.transform.position = _floor.GetCellCenterWorld(Vector3Int.zero);
         dungeonInfo.Board[Vector3Int.zero].SetUnit(_player);
-        _floor.GetComponent<Imouse>().Init();
 
         //_worldUnitDic[dungeon].Add(Vector3Int.zero, _player);
         return _player;

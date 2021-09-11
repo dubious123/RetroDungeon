@@ -40,6 +40,10 @@ public class ResourceManager
             Debug.Log($"Failed to load prefab : {path}");
             return null;
         }
+        if(original.GetComponent<Poolable>() != null)
+        {
+            return Managers.PoolMgr.Pop(original, parent).gameObject;
+        }
         GameObject go = Object.Instantiate(original, parent);
         go.name = original.name;
         return go;

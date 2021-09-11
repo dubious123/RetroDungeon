@@ -26,6 +26,29 @@ public class Util
         }
         return arr;
     }
+    public static T[] GetChildren<T>(GameObject go)
+    {
+        int childcount = go.transform.childCount;
+        T[] result = null;
+        if (childcount > 0)
+        {
+            if(typeof(T) == typeof(GameObject))
+            {
+                GameObject[] newResult = new GameObject[childcount];
+                for(int i = 0; i < childcount; i++)
+                {
+                    newResult[i] = go.transform.GetChild(i).gameObject;
+                }
+                return newResult as T[];
+            }
+            result = new T[childcount];
+            for (int i = 0; i < childcount; i++)
+            {
+                result[i] = go.transform.GetChild(i).GetComponent<T>();
+            }
+        }
+        return result;
+    }
 
     public static Vector3 ConvertToCart(Vector3 iso, int z = 0)
     {

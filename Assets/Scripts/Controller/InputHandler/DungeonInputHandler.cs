@@ -10,10 +10,14 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     PlayerController _playerController;
     GameObject _unitStatusBar;
     ActiveSkillCache _skillCache;
+    GameObject _gameCanvas;
+    UnitCamController _unitCam;
     public void Init()
     {
+        _unitCam = GameObject.Find("Unit_Cam").GetComponent<UnitCamController>();
         _handler = GameObject.Find("MainCircle").GetComponent<ClickCircleInputHandler>();
-        _skillCache = GameObject.Find("Canvas_Game").GetChildren()[1].GetComponent<ActiveSkillCache>();
+        _gameCanvas = GameObject.Find("Canvas_Game");
+        _skillCache = _gameCanvas.GetChildren()[1].GetComponent<ActiveSkillCache>();
         _playerController = Managers.GameMgr.Player_Controller;
     }
     public void OnMouseMove(InputAction.CallbackContext context)
@@ -31,9 +35,13 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
             GameObject unit = Managers.DungeonMgr.GetTileInfoDict()[mouseCellPos.Value].Unit;
             if(unit != null) 
             {
-                _unitStatusBar = GameObject.Find(Managers.UI_Mgr.UnitStatusBarName);             
-                if (_unitStatusBar == null) { Managers.ResourceMgr.Instantiate($"UI/{Managers.UI_Mgr.UnitStatusBarName}"); }
-                else { _unitStatusBar.GetComponentInChildren<UnitStatus>().Init(unit.GetComponent<BaseUnitData>()); }
+                //_unitStatusBar = GameObject.Find(Managers.UI_Mgr.UnitStatusBarName);             
+                if (_unitStatusBar == null || _unitStatusBar.activeInHierarchy == false)
+                {
+                    _unitStatusBar = Managers.ResourceMgr.Instantiate($"UI/{Managers.UI_Mgr.UnitStatusBarName}", _gameCanvas.transform);
+                }
+                _unitStatusBar.GetComponentInChildren<UnitStatus>().Init(unit.GetComponent<BaseUnitData>());
+                _unitCam.SetPosition(unit.transform.position);
             }
             else { Managers.ResourceMgr.Destroy(_unitStatusBar); }
 
@@ -65,12 +73,12 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
                 _handler.EnableBtns(false, unit);
             }
             ShowClickCircleUI(mouseCellPos.Value);
+            Managers.CameraMgr.GameCamController.TargetPos = Managers.GameMgr.Floor.GetCellCenterWorld(mouseCellPos.Value);
         }
     }
     private void ShowClickCircleUI(Vector3Int pos)
     {
-        
-        _handler.transform.position = Managers.CameraMgr.GameCam.WorldToScreenPoint(Managers.GameMgr.Floor.GetCellCenterWorld(pos));
+        _handler.SetPosition(Managers.GameMgr.Floor.GetCellCenterWorld(pos));
         //_handler.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(pos);
         _handler.Activate();
     }

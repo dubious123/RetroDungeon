@@ -5,7 +5,7 @@ using MEC;
 using System;
 using UnityEngine.InputSystem;
 
-public class CameraController : MonoBehaviour
+public class GameCamController : MonoBehaviour
 {
     Camera _camera;
     [SerializeField]
@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     Define.CameraState _state;
     GameObject _player;
-    GameObject _target;
+    Vector3 _target;
     [SerializeField]
     Vector2 _dir;
     float _moveSpeedAuto;
@@ -30,7 +30,8 @@ public class CameraController : MonoBehaviour
     Vector3 _delta = new Vector3(0, 0, -20);
     float DeltaSize;
     [SerializeField]
-    public GameObject Target { set { _target = value; } }
+    public GameObject Target { set { _target = value.transform.position; } }
+    public Vector3 TargetPos { set { _target = value; } }
     public Define.CameraState State { get { return _state; } set { _state = value; } }
     private void Start()
     {
@@ -46,7 +47,7 @@ public class CameraController : MonoBehaviour
         _cameraDeltaSize = 0f;
         
     }
-    void LateUpdate()
+    void OnGUI()
     {
         if (_state == Define.CameraState.Auto)
         {
@@ -104,15 +105,19 @@ public class CameraController : MonoBehaviour
     }
     #endregion
     #region Auto Target Movement
+    public void ResetTargetToPlayer()
+    {
+        if (_player == null)
+        {
+            _player = Managers.GameMgr.Player;
+        }
+        _target = _player.transform.position;
+    }
     private void UpdateTarget()
     {
         if (_target == null)
         {
-            if (_player == null)
-            {
-                _player = Managers.GameMgr.Player;
-            }
-            _target = _player;
+            ResetTargetToPlayer();
         }
     }
     private void UpdatePosition()
@@ -125,7 +130,7 @@ public class CameraController : MonoBehaviour
     }
     private void CalculateDir()
     {
-        _dir = _target.transform.position - transform.position;
+        _dir = _target - transform.position;
     }
     private void CalculateMoveSpeed()
     {

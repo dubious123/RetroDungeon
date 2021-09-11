@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PoolManager
 {
@@ -59,7 +60,12 @@ public class PoolManager
             if (_poolStack.Count > 0) { copy = _poolStack.Pop(); }
             else { copy = Create(); }
             copy.gameObject.SetActive(true);
-            copy.transform.parent = parent;
+            if(parent == null) {
+                copy.transform.SetParent(null);
+                SceneManager.MoveGameObjectToScene(copy.gameObject, SceneManager.GetActiveScene()); 
+            }
+            else { copy.transform.SetParent(parent); }
+            
             return copy;
         }
     }

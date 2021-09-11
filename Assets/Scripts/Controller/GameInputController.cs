@@ -14,7 +14,7 @@ public class GameInputController : MonoBehaviour
     InputAction _onMouseMove;
     InputAction _onMouseRightClick;
     PlayerController _player;
-    CameraController _camera;
+    GameCamController _camera;
     RaycastHit2D _hit;
     #region UI
     PointerEventData _pointerEventData;

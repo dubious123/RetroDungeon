@@ -16,6 +16,7 @@ public class ClickCircleInputHandler : MonoBehaviour
     RectTransform[] _children;
     Vector2[] _btnMoveDir;
     #endregion
+    Vector3 _pos;
     Material _material;
     GUI _gui;
     float _delta;
@@ -41,6 +42,14 @@ public class ClickCircleInputHandler : MonoBehaviour
         _btnMoveDir = new Vector2[3];
         _children = Children;
     }
+    private void OnGUI()
+    {
+        transform.position = Managers.CameraMgr.GameCam.WorldToScreenPoint(_pos);
+    }
+    public void SetPosition(Vector3 newPos)
+    {
+        _pos = newPos;
+    }
     private void ResetUI()
     {
         for(int i = 0; i < _activeBtnNum; i++)
@@ -56,6 +65,7 @@ public class ClickCircleInputHandler : MonoBehaviour
     }
     public void Deactivate()
     {
+        Managers.UI_Mgr.ResetClickedCell();
         _gui.enabled = true;
         _gui.GUIEvent.AddListener(FadeOut);
         DisableBtns();
@@ -129,6 +139,9 @@ public class ClickCircleInputHandler : MonoBehaviour
         _exit.ExitEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
         _yes.YesEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
         _info.InfoEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
-        _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowTilePopup(unit));
+        _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowTilePopup(unit)); 
+        _info.InfoEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
+        _exit.ExitEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
+
     }
 }
