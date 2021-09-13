@@ -142,6 +142,5 @@ public class ClickCircleInputHandler : MonoBehaviour
         _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowTilePopup(unit)); 
         _info.InfoEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
         _exit.ExitEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
-
     }
 }
