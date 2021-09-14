@@ -35,11 +35,12 @@ public class UnitController : MonoBehaviour
     }
     public IEnumerator<float> _PerformUnitTurn()
     { 
-        do
+        while(true)
         {
             _nextAction = _unitData.UpdateNextAction();
+            if(_nextAction.UnitPurpose == Define.UnitPurpose.PassTurn) { break; }
             yield return Timing.WaitUntilDone(_PerformAction().RunCoroutine());
-        } while (_nextAction.UnitPurpose != Define.UnitPurpose.PassTurn);
+        }
         EndTurn();
         yield break;
     }
