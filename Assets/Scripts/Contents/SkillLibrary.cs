@@ -45,7 +45,7 @@ public static class SkillLibrary
         {
             Vector2Int.zero
         };
-        public override int PhysicalDamage { get; protected set; } = 5;
+        public override int PhysicalDamage { get; protected set; } = 50;
         public override int MagicDamage { get; protected set; } = 0;
         public override int MentalDamage { get; protected set; } = 0;
         public override int ShockDamage { get; protected set; } = 5;

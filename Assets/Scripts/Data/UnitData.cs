@@ -79,6 +79,9 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     public override void PerformDeath()
     {
         Debug.Log("Performing Death -- Unit");
+        Managers.DungeonMgr.GetTileInfoDict()[CurrentCellCoor].RemoveUnit();
+        Managers.TurnMgr.RemoveUnit(this);
+        Managers.ResourceMgr.Destroy(gameObject);
     }
     public override void Response()
     {

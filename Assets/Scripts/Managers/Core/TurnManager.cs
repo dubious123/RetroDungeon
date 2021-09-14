@@ -78,6 +78,11 @@ public class TurnManager
         yield return Timing.WaitUntilDone(_currentUnitController._PerformUnitTurn().RunCoroutine());
         yield break;
     }
+    public void RemoveUnit(UnitData unit)
+    {
+        _unitList.Remove(unit);
+        _unitQueue.TryRemove(unit);
+    }
     private void ResetUnitQueue()
     {
         _unitQueue.Clear();
