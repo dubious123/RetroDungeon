@@ -31,7 +31,7 @@ public class TilePopup_UnitDetail : MonoBehaviour
         _Btn.onClick.RemoveListener(HideAll);
         _Btn.onClick.AddListener(ShowAll);
     }
-
+     
     public void Init(BaseUnitData data)
     {
         _Ap.text = $"Max Ap : {data.MaxAp}  Current Ap : {data.CurrentAp}  Recover Ap : {data.RecoverAp}";

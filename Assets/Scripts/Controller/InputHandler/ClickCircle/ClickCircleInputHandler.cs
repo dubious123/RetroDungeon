@@ -17,6 +17,7 @@ public class ClickCircleInputHandler : MonoBehaviour
     Vector2[] _btnMoveDir;
     #endregion
     Vector3 _pos;
+    Vector3Int _cellPos;
     Material _material;
     GUI _gui;
     float _delta;
@@ -46,9 +47,10 @@ public class ClickCircleInputHandler : MonoBehaviour
     {
         transform.position = Managers.CameraMgr.GameCam.WorldToScreenPoint(_pos);
     }
-    public void SetPosition(Vector3 newPos)
+    public void SetPosition(Vector3Int newPos)
     {
-        _pos = newPos;
+        _cellPos = newPos;
+        _pos = Managers.GameMgr.Floor.GetCellCenterWorld(newPos);
     }
     private void ResetUI()
     {
@@ -139,8 +141,9 @@ public class ClickCircleInputHandler : MonoBehaviour
         _exit.ExitEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
         _yes.YesEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
         _info.InfoEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
-        _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowTilePopup(unit)); 
+        _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowTilePopup(_cellPos,unit)); 
         _info.InfoEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
+        _info.InfoEvent.AddListener(Managers.InputMgr.GameController.DeactivateCameraScroll);
         _exit.ExitEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
     }
 }

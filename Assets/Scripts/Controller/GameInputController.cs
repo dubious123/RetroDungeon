@@ -13,6 +13,7 @@ public class GameInputController : MonoBehaviour
     InputAction _onMouseClick;
     InputAction _onMouseMove;
     InputAction _onMouseRightClick;
+    InputAction _onMouseScroll;
     PlayerController _player;
     GameCamController _camera;
     RaycastHit2D _hit;
@@ -32,6 +33,7 @@ public class GameInputController : MonoBehaviour
         _onMouseClick = _gameInputSystem.actions["OnMouseClick"];
         _onMouseMove = _gameInputSystem.actions["OnMouseMove"];
         _onMouseRightClick = _gameInputSystem.actions["OnMouseRightClick"];
+        _onMouseScroll = _gameInputSystem.actions["CameraScrollMovement"];
         _onMouseClick.started += OnClickStarted;
         _onMouseClick.canceled += OnClickCanceled;
         _onMouseRightClick.started += OnRightClickStarted;
@@ -67,7 +69,21 @@ public class GameInputController : MonoBehaviour
             _onMouseMove.Enable();
         }
     }
+    public void DeactivateCameraScroll()
+    {
+        if (_onMouseScroll.enabled == true)
+        {
+            _onMouseScroll.Disable();
+        }
+    }
+    public void ActivateCameraScroll()
+    {
+        if (_onMouseScroll.enabled == false)
+        {
+            _onMouseScroll.Enable();
+        }
 
+    }
     private void OnClickStarted(InputAction.CallbackContext context)
     {
         Imouse temp = GetTarget();

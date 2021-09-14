@@ -64,8 +64,8 @@ public class UI_Manager
         GameObject.Find("Status").GetComponent<PlayerStatus>().Init(playerData);
     }
 
-    public void ShowTilePopup(GameObject unit = null)
+    public void ShowTilePopup(Vector3Int pos,GameObject unit = null)
     {
-        Managers.ResourceMgr.Instantiate("UI/TilePopup").GetComponentInChildren<TilePopup_Content>(true).Init(unit);
+        Managers.ResourceMgr.Instantiate("UI/TilePopup").GetComponentInChildren<TilePopup_Content>(true).Init(pos,unit);
     }
 }

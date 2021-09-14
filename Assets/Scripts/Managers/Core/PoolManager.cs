@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -103,8 +104,9 @@ public class PoolManager
         string name = poolable.gameObject.name; 
         if(_pool.ContainsKey(name) == false)
         {
-            //Todo
-            GameObject.Destroy(poolable.gameObject);
+            string path = poolable.GetComponent<IOriginalPath>()?.Path;
+            if (path != null) { CreatePool(Resources.Load<GameObject>(path)); }
+            GameObject.Destroy(poolable.gameObject); 
             return;
         }
         _pool[name].Push(poolable);

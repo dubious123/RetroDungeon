@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ResourceManager
+public class ResourceManager 
 {
     /// <summary>
     /// if T is GameObject, try to Get Original from Pool
@@ -48,6 +47,12 @@ public class ResourceManager
         go.name = original.name;
         return go;
     }
+    public GameObject Instantiate(GameObject original, Transform parent = null)
+    {
+        string path = original.GetComponent<IOriginalPath>().Path;
+
+        return path == null? null : Instantiate(path, parent);
+    }
     public Sprite GetSprite(string path)
     {
         //To Do
@@ -65,7 +70,7 @@ public class ResourceManager
         Poolable poolable = go.GetComponent<Poolable>();
         if(poolable != null)
         {
-            Managers.PoolMgr.Push(poolable);
+            Managers.PoolMgr.Push(poolable); 
             return;
         }
         Object.Destroy(go);

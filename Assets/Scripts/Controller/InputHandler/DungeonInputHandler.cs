@@ -78,7 +78,7 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     }
     private void ShowClickCircleUI(Vector3Int pos)
     {
-        _handler.SetPosition(Managers.GameMgr.Floor.GetCellCenterWorld(pos));
+        _handler.SetPosition(pos);
         //_handler.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(pos);
         _handler.Activate();
     }
