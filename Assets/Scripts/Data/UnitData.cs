@@ -71,8 +71,19 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
 
 
-
-
+    public override bool IsDead()
+    {
+        bool isUnitDead = false;
+        return isUnitDead || base.IsDead();
+    }
+    public override void PerformDeath()
+    {
+        Debug.Log("Performing Death -- Unit");
+    }
+    public override void Response()
+    {
+        Debug.Log("Performing Response -- Unit");
+    }
 
     Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;

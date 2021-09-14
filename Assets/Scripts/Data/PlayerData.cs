@@ -34,13 +34,22 @@ public class PlayerData : BaseUnitData
         _recoverAp = 5;
         _currentAp = 5;
         _moveSpeed = 6.0f;
-
-
-
-
         #region test
         _skillDict.Add("Blunt", SkillLibrary.GetSkill("Blunt"));
         #endregion
     }
-
+    public override bool IsDead()
+    {
+        //Debug.Log("checking dead -- player");
+        bool isPlayerDead = false;
+        return isPlayerDead || base.IsDead();
+    }
+    public override void PerformDeath()
+    {
+        Debug.Log("Performing Death -- player");
+    }
+    public override void Response()
+    {
+        Debug.Log("Performing Response -- player");
+    }
 }

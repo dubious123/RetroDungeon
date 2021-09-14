@@ -93,4 +93,17 @@ public class BaseUnitData : MonoBehaviour
     {
         return UpdateApCost(-recover);
     }
+    public virtual bool IsDead() 
+    {
+        //Debug.Log("checking dead -- base");
+        return _hp <= 0;
+    }
+    public virtual void PerformDeath()
+    {
+        Debug.Log("Performing Death -- base");
+    }
+    public virtual void Response()
+    {
+        Debug.Log("Responding -- base");    
+    }
 }

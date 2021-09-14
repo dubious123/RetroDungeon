@@ -22,6 +22,7 @@ public class BattleManager
         _unitsInRange.Clear();
         GetUnitsInArea();
         DealDamage();
+        
     }
     private void GetUnitsInArea()
     {
@@ -38,6 +39,8 @@ public class BattleManager
             DealMagicDamage(target);
             DealMentalDamage(target);
             DealShockDamage(target);
+            if (target.IsDead()) { target.PerformDeath(); }
+            else { target.Response(); }
         }
     }
     private void DealPhysicalDamage(BaseUnitData target)
