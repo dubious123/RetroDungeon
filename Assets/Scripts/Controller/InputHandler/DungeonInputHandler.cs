@@ -26,16 +26,17 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     }
     public void OnMouseDown(InputAction.CallbackContext context)
     {
-        Managers.UI_Mgr.ResetClickedCell();
+        Managers.UI_Mgr.EndDisplayClickCell();
+        Managers.InputMgr.GameController.RightClickEvent.RemoveListener(_handler.Deactivate);
+        Managers.InputMgr.GameController.RightClickEvent.AddListener(_handler.Deactivate);
         Vector2 mousePos = Managers.InputMgr.MouseScreenPosition;
         Vector3Int? mouseCellPos = Managers.InputMgr.GetMouseCellPos(mousePos);
         if (mouseCellPos.HasValue)  
         {
-            Managers.UI_Mgr.PaintClickedCell(mouseCellPos.Value);
+            Managers.UI_Mgr.StartDisplayClickCell(mouseCellPos.Value);
             GameObject unit = Managers.DungeonMgr.GetTileInfoDict()[mouseCellPos.Value].Unit;
             if(unit != null) 
-            {
-                //_unitStatusBar = GameObject.Find(Managers.UI_Mgr.UnitStatusBarName);             
+            {           
                 if (_unitStatusBar == null || _unitStatusBar.activeInHierarchy == false)
                 {
                     _unitStatusBar = Managers.ResourceMgr.Instantiate($"UI/{Managers.UI_Mgr.UnitStatusBarName}", _gameCanvas.transform);
@@ -79,7 +80,6 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     private void ShowClickCircleUI(Vector3Int pos)
     {
         _handler.SetPosition(pos);
-        //_handler.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(pos);
         _handler.Activate();
     }
     public void OnDrag(InputAction.CallbackContext context)

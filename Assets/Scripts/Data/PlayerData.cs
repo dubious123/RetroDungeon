@@ -13,7 +13,7 @@ public class PlayerData : BaseUnitData
         _enemyList = new List<string>();
         _unitName = "Player";
         _unitType = Define.Unit.Player;
-        _currentCellCoor = _floor.WorldToCell(Vector3Int.zero);
+        CurrentCellCoor = _floor.WorldToCell(Vector3Int.zero);
         _weapon = Define.WeaponType.None;
         _lookDir = Define.CharDir.Right;
 

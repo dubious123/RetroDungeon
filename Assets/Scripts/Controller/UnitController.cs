@@ -103,7 +103,7 @@ public class UnitController : MonoBehaviour
         _animController.PlayAnimationLoop("run");
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
-        float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
+        float moveSpeed = _unitData.Movespeed;
         float delta = 0;
         float ratio = 0;
         while (ratio <= 1.0f)

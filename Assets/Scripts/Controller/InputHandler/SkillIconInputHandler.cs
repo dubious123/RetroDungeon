@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SkillIconInputHandler : MonoBehaviour, Imouse
 {
+    ClickCircleInputHandler _handler;
     Canvas _skillHolder;
     RectTransform _rect;
     Image _this;
@@ -24,6 +25,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _rect = GetComponent<RectTransform>();
         _skillHolder = transform.parent.GetComponent<Canvas>();
         _activeSkill = _skillHolder.transform.parent.parent.GetComponent<ActiveSkillCache>();
+        _handler = GameObject.Find("MainCircle").GetComponent<ClickCircleInputHandler>();
         _this = transform.GetComponent<Image>();
         _gui = GetComponent<GUI>();
         _gui.enabled = false;
@@ -32,6 +34,8 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     }
     public void OnMouseDown(InputAction.CallbackContext context)
     {
+        Managers.UI_Mgr.EndDisplayClickCell();
+        _handler.Deactivate();
         _duration = 0;
         _skillHolder.sortingOrder = 1;
         _this.raycastTarget = false;
@@ -49,7 +53,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         }
         else if (_duration < 0.2 && _skillName != null && _disabled == false) 
         {
-            Managers.GameMgr.Player_Controller.ResetReachableTiles();
+            Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Move);
             Managers.GameMgr.Player_Controller.ReachableEmptyTileDict.Clear();
             Managers.GameMgr.Player_Controller.ReachableOccupiedCoorSet.Clear();
             Managers.GameMgr.Player_Controller.ResetSkill();

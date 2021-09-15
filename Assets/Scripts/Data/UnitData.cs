@@ -29,7 +29,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         base.Init();
         _currentState = Define.UnitState.Idle;
         _lookDir = (Define.CharDir)Random.Range(0, 4);
-        
         #region Init more state
         _foundPlayer = false;
         _angry = false;
@@ -190,7 +189,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
 
         _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
         _reachableOccupiedCoorSet = new HashSet<Vector3Int>();
-        PathInfo currentInfo = new PathInfo(_currentCellCoor, _currentCellCoor, 0);
+        PathInfo currentInfo = new PathInfo(CurrentCellCoor, CurrentCellCoor, 0);
         PathInfo nextInfo;
         Vector3Int currentCoor;
         Vector3Int nextCoor;
@@ -232,21 +231,21 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
             }
         }
     }
-    private void SetReachableTiles()
-    {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-        {
-            Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
-        }
-        Timing.WaitForSeconds(0.5f);
-    }
-    private void ResetReachableTiles()
-    {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-        {
-            Managers.UI_Mgr.ResetTile(pair.Key);
-        }
-    }
+    //private void SetReachableTiles()
+    //{
+    //    foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
+    //    {
+    //        Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
+    //    }
+    //    Timing.WaitForSeconds(0.5f);
+    //}
+    //private void ResetReachableTiles()
+    //{
+    //    foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
+    //    {
+    //        Managers.UI_Mgr.ResetTile(pair.Key);
+    //    }
+    //}
     #endregion
     private void UpdateUnitMentalState()
     {
@@ -261,7 +260,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
             int k = Mathf.Abs(y);
             for (int x = k - _eyeSight; x <= _eyeSight - k; x++)
             {
-                nextCoor = _currentCellCoor + new Vector3Int(x, y, 0);
+                nextCoor = CurrentCellCoor + new Vector3Int(x, y, 0);
                 if (_board.TryGetValue(nextCoor,out TileInfo nextTileInfo) && nextTileInfo.Unit != null)
                 {
                     if(x==0 && y == 0) { continue; }
@@ -402,7 +401,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         Vector3Int closestDir = Vector3Int.zero;
         foreach (Vector3Int dir in Define.TileCoor4Dir)
         {
-            now = (_currentCellCoor - _destination - dir).magnitude;
+            now = (CurrentCellCoor - _destination - dir).magnitude;
             if(closest > now)
             {
                 closest = now;
@@ -418,7 +417,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     {
         float closest = float.MaxValue;
         float now;
-        Vector3Int closestDestination = _currentCellCoor;
+        Vector3Int closestDestination = CurrentCellCoor;
         foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
         {
             now = (pair.Key - _destination).magnitude;
@@ -428,7 +427,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
                 closestDestination = pair.Key;
             }
         }
-        if(closestDestination == _currentCellCoor) { Debug.Log("new destination is the same"); }
+        if(closestDestination == CurrentCellCoor) { Debug.Log("new destination is the same"); }
         _destination = closestDestination;
     }
     public Vector3Int? GetNextCoor()
@@ -438,15 +437,15 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
     public void UpdateMoveResult(Vector3Int next)
     {
-        _board[_currentCellCoor].RemoveUnit();
+        _board[CurrentCellCoor].RemoveUnit();
         _board[next].SetUnit(gameObject);
         UpdateMoveAp(next);
-        _currentCellCoor = next;
+        CurrentCellCoor = next;
         //Todo extra
     }
     private void UpdateMoveAp(Vector3Int next)
     {
-        _reachableEmptyTileDict.TryGetValue(_currentCellCoor, out PathInfo nowInfo);
+        _reachableEmptyTileDict.TryGetValue(CurrentCellCoor, out PathInfo nowInfo);
         _reachableEmptyTileDict.TryGetValue(next, out PathInfo nextInfo);
         int cost = nextInfo.Cost - nowInfo.Cost;
         UpdateApCost(cost);
@@ -512,7 +511,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     private bool IsTargetInAttackRange(KeyValuePair<Vector3Int, GameObject> blackTarget)
     {
         Vector3Int cellPos = blackTarget.Key;
-        int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
+        int distance = Mathf.Abs(cellPos.x - CurrentCellCoor.x) + Mathf.Abs(cellPos.y - CurrentCellCoor.y);
         foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
         {
             //Todo
@@ -528,7 +527,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     {
         //Todo
         Vector3Int cellPos = whiteTarget.Key;
-        int distance = Mathf.Abs(cellPos.x - _currentCellCoor.x) + Mathf.Abs(cellPos.y - _currentCellCoor.y);
+        int distance = Mathf.Abs(cellPos.x - CurrentCellCoor.x) + Mathf.Abs(cellPos.y - CurrentCellCoor.y);
         foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
         {
             //Todo

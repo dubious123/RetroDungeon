@@ -19,16 +19,11 @@ public class SpawningPool : MonoBehaviour
     }
     public void SpawnUnits()
     {
-        //if (Managers.GameMgr.WorldUnitDic.TryGetValue(_dungeon, out UnitDic) == false)
-        //{
-        //    UnitDic = new Dictionary<Vector3Int, GameObject>();
-        //}
         GameObject newUnit;
         KeyValuePair<Vector3Int, TileInfo> pair;
         DungeonInfo dungeonInfo = _dungeon.GetComponent<DungeonInfo>();
         _board = dungeonInfo.Board;
         _floor = dungeonInfo.Tilemaps[0];
-        Stack<Vector3Int> randomCoorStack = new Stack<Vector3Int>();
         for (int i = 0; i < dungeonInfo.EnemyCount; i++)
         {
             //Todo
@@ -44,7 +39,6 @@ public class SpawningPool : MonoBehaviour
                     break; 
                 }
             }
-            //UnitDic.Add(pair.Key, newUnit);
             newUnitData.CurrentCellCoor = pair.Key;
             newUnit.transform.position = _floor.GetCellCenterWorld(pair.Key);
             UnitList.Add(newUnitData);

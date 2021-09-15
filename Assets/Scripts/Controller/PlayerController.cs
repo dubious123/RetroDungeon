@@ -60,7 +60,10 @@ public class PlayerController : MonoBehaviour
             _board = Managers.DungeonMgr.GetTileInfoDict();
         }
         UpdateReachableTileInfo();
-        SetReachableTiles();
+        Managers.UI_Mgr.HideAllOverlay();
+        Managers.UI_Mgr.AddTileSet(Define.TileOverlay.Unit, _playerData.CurrentCellCoor,_playerData.TileColor);
+        Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Move, _reachableEmptyTileDict.Keys);
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Move,Define.TileOverlay.Unit);
         Managers.InputMgr.GameController.ActivatePlayerInput();
         _endTernBtn.enabled = true;
     }
@@ -68,10 +71,8 @@ public class PlayerController : MonoBehaviour
     public IEnumerator<float> HandleMoving()
     {
         _endTernBtn.enabled = false;
-        //_state = Define.UnitState.Moving;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
-
-        ResetReachableTiles();
+        Managers.UI_Mgr.HideAllOverlay();
         #region Player Moving Algorithm
         yield return Timing.WaitUntilDone(_MovePlayerAlongPath().RunCoroutine());
         UpdatePlayerState(Define.UnitState.Idle);
@@ -189,28 +190,6 @@ public class PlayerController : MonoBehaviour
     {
         _path.Clear();
     }
-    private void SetReachableTiles()
-    {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-        {
-            Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
-        }
-        foreach (Vector3Int coor in _reachableOccupiedCoorSet)
-        {
-            Managers.UI_Mgr.PaintReachableOccupiedTile(coor);
-        }
-    }
-    public void ResetReachableTiles()
-    {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-        {
-            Managers.UI_Mgr.ResetTile(pair.Key);
-        }
-        foreach (Vector3Int coor in _reachableOccupiedCoorSet)
-        {
-            Managers.UI_Mgr.ResetTile(coor);
-        }
-    }
     private IEnumerator<float> _MovePlayerAlongPath()
     {
         Vector3Int next;
@@ -296,10 +275,9 @@ public class PlayerController : MonoBehaviour
     {
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
-        DeavtivateInRangeTiles();
+        Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Skill);
         Managers.BattleMgr.SkillFromTo(_playerData, _skillTargetPos, _skill);
         yield return Timing.WaitUntilDone(_animController._PlayAnimation($"{_skill.AnimName}", 1).RunCoroutine());
-        //yield return Timing.WaitForSeconds(0.15f);
         UpdatePlayerState(Define.UnitState.Idle);
         yield break;
     }
@@ -311,16 +289,17 @@ public class PlayerController : MonoBehaviour
     {
         if (!_playerData.SkillDict.TryGetValue(skillName, out _skill)) { 
             Debug.LogError("Not Learned yet"); return; }
-        ResetReachableTiles();
+        Managers.UI_Mgr.HideAllOverlay();
         SetInRangeTilesDict();
-        ActivateInRangeTiles();
+        Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Skill, _inRangeTileDict.Keys);
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Skill);
     }
     public void ResetSkill()
     {
         _skill = null;
-        ResetInRangeTiles();
+        Managers.UI_Mgr.HideAllOverlay();
         _inRangeTileDict.Clear();
-        SetReachableTiles();
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Move);
     }
     public void ResetInRangeTiles()
     {
@@ -343,20 +322,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    public void ActivateInRangeTiles()
-    {
-        foreach(KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict) 
-        {
-            if (_reachableOccupiedCoorSet.Contains(pair.Key)) { Managers.UI_Mgr.PaintInRangeUnitTile(pair.Key); }
-            else { Managers.UI_Mgr.PaintInRangeTile(pair.Key); }
-        }
-
-    }
-    public void DeavtivateInRangeTiles()
-    {
-        foreach (KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict) { Managers.UI_Mgr.ResetTile(pair.Key); }
-        _inRangeTileDict.Clear();
-    }
     #endregion
 
 
@@ -367,7 +332,7 @@ public class PlayerController : MonoBehaviour
     public void EndTurn()
     {
         Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.RecoverAp);
-        ResetReachableTiles();
+        Managers.UI_Mgr.HideAllOverlay();
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
         Managers.TurnMgr._HandleUnitTurn().RunCoroutine();

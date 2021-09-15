@@ -35,6 +35,7 @@ public class GameManagerEx
         Managers.InputMgr.InitControllers(_player);
         _floor.GetComponent<Imouse>().Init();
         Managers.UI_Mgr.InitPlayerStatusBar(_playerData);
+        Managers.UI_Mgr.SetFloorOverlay();
         Managers.TurnMgr.UpdateDataFromCurrentSpawningPool();
         Managers.TurnMgr.HandlePlayerTurn();
     }

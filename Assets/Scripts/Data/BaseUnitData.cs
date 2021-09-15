@@ -6,9 +6,10 @@ using UnityEngine.Tilemaps;
 public class BaseUnitData : MonoBehaviour
 {
     protected Tilemap _floor;
-    protected Vector3Int _currentCellCoor;
+    Vector3Int _currentCellCoor;
     protected Define.CharDir _lookDir;
     protected Define.Unit _unitType;
+    Color _tileColor;
     protected string _unitName;
     
     protected Define.UnitMentalState _mental;
@@ -33,14 +34,15 @@ public class BaseUnitData : MonoBehaviour
     protected List<string> _allienceList;
     protected List<string> _enemyList;
     protected Define.WeaponType _weapon;
-
+     
     protected Dictionary<string, SkillLibrary.BaseSkill> _skillDict;
 
 
-    public Vector3Int CurrentCellCoor { get { return _currentCellCoor; } set { _currentCellCoor = value; } }
+    public Vector3Int CurrentCellCoor { get { return _currentCellCoor; } set { UpdateCoor(value); } }
     public Define.CharDir LookDir { get { return _lookDir; } set { _lookDir = value; } }
 
     public Define.Unit UnitType { get { return _unitType; } set { _unitType = value; } }
+    public Color TileColor { get { UpdateColor(); return _tileColor; } }
     public string UnitName { get { return _unitName; } set { _unitName = value; } }
 
 
@@ -81,7 +83,11 @@ public class BaseUnitData : MonoBehaviour
         _floor = Managers.GameMgr.Floor;
         _skillDict = new Dictionary<string, SkillLibrary.BaseSkill>();
     }
-
+    protected virtual void UpdateCoor(Vector3Int newPos)
+    {
+        Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, _currentCellCoor, newPos, TileColor);
+        _currentCellCoor = newPos;
+    }
     internal int UpdateApCost(int cost)
     {
         _currentAp -= cost;
@@ -105,5 +111,13 @@ public class BaseUnitData : MonoBehaviour
     public virtual void Response()
     {
         Debug.Log("Responding -- base");    
+    }
+    protected virtual void UpdateColor()
+    {
+        //Todo
+        if(_unitName == "Player") { _tileColor = Color.green; }
+        else if (EnemyList.Contains("Player")) { _tileColor = Color.red; }
+        else if (AllienceList.Contains("Player")) { _tileColor = Color.green; }
+
     }
 }
