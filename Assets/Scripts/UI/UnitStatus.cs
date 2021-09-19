@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UnitStatus : MonoBehaviour
 {
+    public BaseUnitData Data { get { return _data; } }
     BaseUnitData _data;
     RectTransform _hp;
     RectTransform _hpGauge;

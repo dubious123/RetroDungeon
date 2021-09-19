@@ -39,6 +39,12 @@ public class GameManagerEx
         Managers.TurnMgr.UpdateDataFromCurrentSpawningPool();
         Managers.TurnMgr.HandlePlayerTurn();
     }
+    public void PerformPlayerLose()
+    {
+        Managers.ResourceMgr.Destroy(_player);
+        Managers.ResourceMgr.Instantiate("UI/Popup/EndingPopup_PlayerDeath");
+        
+    }
     /// <summary>
     /// First Thing GameManager Actually do
     /// bring needed data from other Component/Mgr

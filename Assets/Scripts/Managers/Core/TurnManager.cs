@@ -46,6 +46,7 @@ public class TurnManager
     }
     public void HandlePlayerTurn(Define.UnitState nextState = Define.UnitState.Idle)
     {
+        if(_playerController == null) { return; }
         if(_currentTurn == Define.Turn.Enemy) { _currentTurn = Define.Turn.Player; }
         Managers.CameraMgr.GameCamController.Target = _playerController.gameObject;
         Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkillIcon();
@@ -61,7 +62,7 @@ public class TurnManager
                 _playerController.HandleSkill().RunCoroutine();
                 break;
             case Define.UnitState.Die:
-                _playerController.HandleDie();
+                _playerController._HandleDie();
                 break;
             default:
                 Debug.LogError("Not Defined PlayerState");

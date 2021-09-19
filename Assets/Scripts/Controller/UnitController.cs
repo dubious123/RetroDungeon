@@ -53,13 +53,17 @@ public class UnitController : MonoBehaviour
                 HandleIdle();
                 yield break;
             case Define.UnitState.Moving:
+                Managers.UI_Mgr.RemoveTileSet(Define.TileOverlay.Unit, _unitData.CurrentCellCoor);
+                Managers.UI_Mgr.ShowOverlay();
                 yield return Timing.WaitUntilDone(_HandleMoving().RunCoroutine());
+                Managers.UI_Mgr.AddTileSet(Define.TileOverlay.Unit, _unitData.CurrentCellCoor);
+                Managers.UI_Mgr.ShowOverlay();
                 yield break;
             case Define.UnitState.Skill:
                 yield return Timing.WaitUntilDone(_HandleSkill().RunCoroutine());
                 yield break;
             case Define.UnitState.Die:
-                HandleDie();
+                _HandleDie().RunCoroutine();
                 yield break;
         }
     }
@@ -67,11 +71,11 @@ public class UnitController : MonoBehaviour
    
 
 
-    public void HandleIdle()
+    protected void HandleIdle()
     {
         _animController.PlayAnimationLoop("idle");
     }
-    public IEnumerator<float> _HandleMoving()
+    protected IEnumerator<float> _HandleMoving()
     {
 
         #region Unit Moving Algorithm
@@ -84,11 +88,15 @@ public class UnitController : MonoBehaviour
         yield break;
     }
 
-    public void HandleDie()
+    protected IEnumerator<float> _HandleDie()
     {
-        throw new NotImplementedException();
+        GameObject go = GameObject.Find(Managers.UI_Mgr.UnitStatusBarName);
+        if(go != null && go.GetComponentInChildren<UnitStatus>(true).Data == _unitData) { Managers.ResourceMgr.Destroy(go); }
+        yield return Timing.WaitUntilDone(_animController._PlayAnimation("vanish", 1).RunCoroutine());
+        Managers.ResourceMgr.Destroy(gameObject);
+        yield break;
     }
-    public IEnumerator<float> _HandleSkill()
+    protected IEnumerator<float> _HandleSkill()
     {
         Managers.BattleMgr.SkillFromTo(_unitData, _nextAction.TargetPos, _nextAction.NextSkill);
         yield return Timing.WaitUntilDone(_animController._PlayAnimation(_nextAction.NextSkill.AnimName, 1).RunCoroutine());

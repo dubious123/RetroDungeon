@@ -1,3 +1,4 @@
+using MEC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -101,16 +102,17 @@ public class BaseUnitData : MonoBehaviour
     }
     public virtual bool IsDead() 
     {
-        //Debug.Log("checking dead -- base");
         return _hp <= 0;
     }
     public virtual void PerformDeath()
     {
-        Debug.Log("Performing Death -- base");
+        Managers.DungeonMgr.GetTileInfoDict()[CurrentCellCoor].RemoveUnit();
+        Managers.UI_Mgr.RemoveTileSet(Define.TileOverlay.Unit, CurrentCellCoor);
+        Managers.UI_Mgr.ShowOverlay();
     }
     public virtual void Response()
     {
-        Debug.Log("Responding -- base");    
+        GetComponent<AnimationController>()._PlayAnimation("hit1", 1).RunCoroutine(); 
     }
     protected virtual void UpdateColor()
     {

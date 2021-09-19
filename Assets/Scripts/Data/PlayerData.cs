@@ -1,3 +1,4 @@
+using MEC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,10 +47,12 @@ public class PlayerData : BaseUnitData
     }
     public override void PerformDeath()
     {
-        Debug.Log("Performing Death -- player");
+        base.PerformDeath();
+        GetComponent<PlayerController>()._HandleDie().CancelWith(gameObject).RunCoroutine();
+
     }
     public override void Response()
     {
-        Debug.Log("Performing Response -- player");
+        base.Response();
     }
 }

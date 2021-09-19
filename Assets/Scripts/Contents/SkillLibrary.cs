@@ -27,6 +27,7 @@ public static class SkillLibrary
         public abstract List<string> Tags { get; protected set; }
         public abstract int Cost { get; protected set; }
         public abstract int Range { get; protected set; }
+        public abstract bool IsSelfIncluded { get; protected set; }
         public abstract List<Vector2Int> Area { get; protected set; }
         public abstract int PhysicalDamage { get; protected set; }
         public abstract int MagicDamage { get; protected set; }
@@ -41,6 +42,7 @@ public static class SkillLibrary
             new string[] { "Attack", "Melee" , "SingleTarget" });
         public override int Cost { get; protected set; } = 1;
         public override int Range { get; protected set; } = 1;
+        public override bool IsSelfIncluded { get; protected set; } = true;
         public override List<Vector2Int> Area { get; protected set; } = new List<Vector2Int>
         {
             Vector2Int.zero

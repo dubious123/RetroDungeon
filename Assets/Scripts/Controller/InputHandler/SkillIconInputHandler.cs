@@ -53,7 +53,6 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         }
         else if (_duration < 0.2 && _skillName != null && _disabled == false) 
         {
-            Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Move);
             Managers.GameMgr.Player_Controller.ReachableEmptyTileDict.Clear();
             Managers.GameMgr.Player_Controller.ReachableOccupiedCoorSet.Clear();
             Managers.GameMgr.Player_Controller.ResetSkill();

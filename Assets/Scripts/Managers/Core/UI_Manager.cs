@@ -56,10 +56,10 @@ public class UI_Manager
     }
     void DisplayOverlay()
     {
-        foreach (TileOverlay overlay in _overlayArr.Where(overlay => !overlay.IsActive))
-        {
-            ResetTile(overlay);
-        }
+        //foreach (TileOverlay overlay in _overlayArr.Where(overlay => !overlay.IsActive))
+        //{
+        //    ResetTile(overlay);
+        //}
         foreach (TileOverlay overlay in _overlayArr.Where(overlay => overlay.IsActive))
         {
             overlay.Display();
@@ -143,25 +143,24 @@ public class UI_Manager
                 if (_overlayArr[i].IsActive && _overlayArr[i].TileColorDict.ContainsKey(_clickedCellPos))
                 {
                     _overlayArr[i].TileColorDict[_clickedCellPos] = new Color(_clickCellColor.r, _clickCellColor.g, _clickCellColor.b, 0.7f + 0.3f * Mathf.Cos(delta * _blinkf));
-                    _overlayArr[i].Display();
                 }
             }
             delta += 0.1f;
+            DisplayOverlay();
             yield return Timing.WaitForSeconds(0.1f);
         }
     }
     public void EndDisplayClickCell()
     {
-
-        Timing.KillCoroutines("Display ClickedCell");
+        if(Timing.KillCoroutines("Display ClickedCell") == 0) { return; }
         for(int i = 0; i < _overlayArr.Length; i++)
         {
             if(_overlayArr[i].IsActive && _overlayArr[i].TileColorDict.ContainsKey(_clickedCellPos))
             {
                 _overlayArr[i].TileColorDict[_clickedCellPos] = _saving[i];
-                _overlayArr[i].Display();
             }
         }
+        DisplayOverlay();
     }
     public void ResetTile(Vector3Int tilePos)
     {

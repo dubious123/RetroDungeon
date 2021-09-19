@@ -77,14 +77,15 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
     public override void PerformDeath()
     {
-        Debug.Log("Performing Death -- Unit");
-        Managers.DungeonMgr.GetTileInfoDict()[CurrentCellCoor].RemoveUnit();
+        base.PerformDeath();
         Managers.TurnMgr.RemoveUnit(this);
-        Managers.ResourceMgr.Destroy(gameObject);
+        CurrentState = Define.UnitState.Die;
+        _unitController._PerformAction().CancelWith(gameObject).RunCoroutine();
     }
     public override void Response()
     {
-        Debug.Log("Performing Response -- Unit");
+        base.Response();
+
     }
 
     Dictionary<Vector3Int, TileInfo> _board;
@@ -231,21 +232,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
             }
         }
     }
-    //private void SetReachableTiles()
-    //{
-    //    foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-    //    {
-    //        Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
-    //    }
-    //    Timing.WaitForSeconds(0.5f);
-    //}
-    //private void ResetReachableTiles()
-    //{
-    //    foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-    //    {
-    //        Managers.UI_Mgr.ResetTile(pair.Key);
-    //    }
-    //}
     #endregion
     private void UpdateUnitMentalState()
     {

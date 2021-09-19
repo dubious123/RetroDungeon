@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour
         Vector3Int nextCoor;
 
         nextTiles.Enqueue(currentInfo);
+        _reachableOccupiedCoorSet.Add(_playerData.CurrentCellCoor);
         while (nextTiles.Count > 0)
         {
             currentInfo = nextTiles.Dequeue();
@@ -266,9 +267,15 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-    public void HandleDie()
+    public IEnumerator<float> _HandleDie()
     {
-        throw new NotImplementedException();
+        Managers.InputMgr.GameController.DeactivatePlayerInput();
+        Managers.InputMgr.GameController.DeactivateCameraScroll();
+        yield return Timing.WaitUntilDone(_animController._PlayAnimation("vanish",1).RunCoroutine());
+        Managers.GameMgr.PerformPlayerLose();
+        yield break;
+
+
     }
     #region HandleSkill
     public IEnumerator<float> HandleSkill()
@@ -278,6 +285,7 @@ public class PlayerController : MonoBehaviour
         Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Skill);
         Managers.BattleMgr.SkillFromTo(_playerData, _skillTargetPos, _skill);
         yield return Timing.WaitUntilDone(_animController._PlayAnimation($"{_skill.AnimName}", 1).RunCoroutine());
+        ResetSkill();
         UpdatePlayerState(Define.UnitState.Idle);
         yield break;
     }
@@ -292,7 +300,7 @@ public class PlayerController : MonoBehaviour
         Managers.UI_Mgr.HideAllOverlay();
         SetInRangeTilesDict();
         Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Skill, _inRangeTileDict.Keys);
-        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Skill);
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Skill,Define.TileOverlay.Unit);
     }
     public void ResetSkill()
     {
@@ -300,13 +308,6 @@ public class PlayerController : MonoBehaviour
         Managers.UI_Mgr.HideAllOverlay();
         _inRangeTileDict.Clear();
         Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Move);
-    }
-    public void ResetInRangeTiles()
-    {
-        foreach(KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict)
-        {
-            Managers.UI_Mgr.ResetTile(pair.Key);
-        }
     }
     public void SetInRangeTilesDict()
     {
@@ -321,6 +322,7 @@ public class PlayerController : MonoBehaviour
                 if (_board.TryGetValue(nowPos,out TileInfo tileInfo)) { _inRangeTileDict.Add(nowPos, tileInfo); }
             }
         }
+        if (!_skill.IsSelfIncluded) { _inRangeTileDict.Remove(_playerData.CurrentCellCoor); }
     }
     #endregion
 
@@ -332,7 +334,7 @@ public class PlayerController : MonoBehaviour
     public void EndTurn()
     {
         Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.RecoverAp);
-        Managers.UI_Mgr.HideAllOverlay();
+        Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Move,Define.TileOverlay.Skill);
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
         Managers.TurnMgr._HandleUnitTurn().RunCoroutine();

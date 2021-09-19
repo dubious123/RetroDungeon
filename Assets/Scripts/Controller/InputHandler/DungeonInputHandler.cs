@@ -57,17 +57,17 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
                 });
                 _handler.Exit.ExitEvent.AddListener(() => _skillCache.Skill?.Cancel());
             }
+            //Todo
+            else if (_playerController.ReachableOccupiedCoorSet.Contains(mouseCellPos.Value))
+            {
+                _handler.EnableBtns(false, unit);
+            }
             else if (_playerController.ReachableEmptyTileDict.ContainsKey(mouseCellPos.Value)) 
             {
                 _playerController.UpdatePath(mouseCellPos.Value);
                 _handler.EnableBtns(true, unit);
                 _handler.Yes.YesEvent.AddListener(() => _playerController.UpdatePlayerState(Define.UnitState.Moving));
                 _handler.Exit.ExitEvent.AddListener(() => _skillCache.Skill?.Cancel());
-            }
-            //Todo
-            else if (_playerController.ReachableOccupiedCoorSet.Contains(mouseCellPos.Value)) 
-            {
-                _handler.EnableBtns(false, unit);
             }
             else 
             {
