@@ -423,10 +423,8 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
     public void UpdateMoveResult(Vector3Int next)
     {
-        _board[CurrentCellCoor].RemoveUnit();
-        _board[next].SetUnit(gameObject);
-        UpdateMoveAp(next);
         CurrentCellCoor = next;
+        UpdateMoveAp(next);
         //Todo extra
     }
     private void UpdateMoveAp(Vector3Int next)

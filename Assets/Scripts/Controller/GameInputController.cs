@@ -48,6 +48,10 @@ public class GameInputController : MonoBehaviour
 
         _pointerEventData = new PointerEventData(null);
         _results = new List<RaycastResult>();
+
+        //TestMode
+        _gameInputSystem.actions["EnterTestMode"].performed += Managers.TestMgr.StartTest;
+
         DeactivatePlayerInput();
     }
     public void DeactivatePlayerInput()

@@ -41,6 +41,7 @@ public class DungeonGenerator
             return ;
         }
         _dungeonInfo = _dungeon.GetOrAddComponent<DungeonInfo>();
+        _dungeon.AddComponent<TileEvents>();
         _dungeonInfo.Init(_world);
 
         _tilemaps = _dungeonInfo.Tilemaps;
@@ -224,6 +225,7 @@ public class DungeonGenerator
         {
             _cellPosition = _dungeonInfo.Board.ElementAt(Random.Range(0, _dungeonInfo.Board.Count - 1)).Key;
         }
+        _dungeonInfo.ExitCoor = _cellPosition;
         _dungeonInfo.Board[_cellPosition].Type = Define.TileType.Exit;
         foreach (Vector3Int dir in Define.TileCoor8Dir)
         {

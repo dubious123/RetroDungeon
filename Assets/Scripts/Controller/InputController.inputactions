@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "EnterTestMode",
+                    "type": "Button",
+                    "id": "a5103704-18cc-4310-8989-62e72e40b167",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -145,6 +153,50 @@
                     "action": "OnMouseRightClick",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Button With Two Modifiers",
+                    "id": "2fd904c6-aa60-4ee1-b9cf-a4f44b1ac4d4",
+                    "path": "ButtonWithTwoModifiers",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnterTestMode",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier1",
+                    "id": "d2344dbb-1eed-4b69-90cf-5e7c385bc577",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse+KeyBoard",
+                    "action": "EnterTestMode",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "modifier2",
+                    "id": "79c76b0d-01c9-4f5e-80e8-a6c09fda5c81",
+                    "path": "<Keyboard>/period",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse+KeyBoard",
+                    "action": "EnterTestMode",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "20fb399a-ec96-49a5-a903-3ff751476a77",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse+KeyBoard",
+                    "action": "EnterTestMode",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

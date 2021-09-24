@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -23,6 +24,8 @@ public class TileInfo
 
     public GameObject Unit { get { return _unit; } set { _unit = value; } }
     public bool Occupied { get { return _occupied; } set { _occupied = value; } }
+
+    public UnityEvent TileInterEvent { get; set; }
     public TileInfo(Define.World world, Define.TileType tileType = Define.TileType.Default)
     {
         Init(world, tileType);
@@ -33,6 +36,7 @@ public class TileInfo
         _tileType = tileType;
         _tiles = new RuleTile[Define.TileLayerNum];
         _occupied = false;
+        TileInterEvent = new UnityEvent();
     }
     public void SetTileDetails() 
     {
@@ -55,6 +59,7 @@ public class TileInfo
                 break;
             case Define.TileType.Exit:
                 _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Exit");
+                TileInterEvent.AddListener(() => Managers.DungeonMgr.CurrentDungeon.GetComponent<TileEvents>().EnableExit(_unit));
                 break;
             default:
                 break;
@@ -70,5 +75,6 @@ public class TileInfo
         _occupied = false;
         _unit = null;
     }
+
 }
 

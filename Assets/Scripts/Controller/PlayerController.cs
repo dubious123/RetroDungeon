@@ -246,10 +246,8 @@ public class PlayerController : MonoBehaviour
     public void UpdateMoveResult(Vector3Int next)
     {
         // calculate current Ap
-        _board[_playerData.CurrentCellCoor].RemoveUnit();
-        _board[next].SetUnit(gameObject);
-        UpdateMoveAp(next);
         _playerData.CurrentCellCoor = next;
+        UpdateMoveAp(next);
 
         // if something happened -> Kill Coroutine
         if (SomethingHappened())

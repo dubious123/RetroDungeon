@@ -86,6 +86,9 @@ public class BaseUnitData : MonoBehaviour
     }
     protected virtual void UpdateCoor(Vector3Int newPos)
     {
+        Dictionary<Vector3Int, TileInfo> board = Managers.DungeonMgr.GetTileInfoDict(Managers.DungeonMgr._currentLevel);
+        board[_currentCellCoor].RemoveUnit();
+        board[newPos].SetUnit(gameObject);
         Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, _currentCellCoor, newPos, TileColor);
         _currentCellCoor = newPos;
     }

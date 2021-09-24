@@ -5,10 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class DungeonInfo : MonoBehaviour
 {
+    public Vector3Int ExitCoor;
+
     GameObject _dungeon;
     Transform[] _GridLayers;
     Tilemap[] _tilemaps;
-
     Define.World _world;
     Define.RoomSize _size;
     Define.MapType _mapType;

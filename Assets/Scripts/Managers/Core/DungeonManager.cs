@@ -8,8 +8,8 @@ public class DungeonManager
     Dictionary<int, GameObject> _dungeons ;
     public int _currentLevel;
     public Dictionary<int,GameObject> Dungeons { get { return _dungeons; } }
-    public int Level { get { return _currentLevel; } } 
-
+    public int Level { get { return _currentLevel; } }
+    public DungeonInfo CurrentDungeonInfo { get { return CurrentDungeon.GetComponent<DungeonInfo>(); } }
     public GameObject CurrentDungeon;
 
     DungeonGenerator _dungeonGenerator;
@@ -24,6 +24,7 @@ public class DungeonManager
         CurrentDungeon = _dungeonGenerator.GenerateDungeon();
         _currentLevel++;
         Dungeons.Add(_currentLevel, CurrentDungeon);
+        
         return CurrentDungeon;
     }
     public Dictionary<Vector3Int,TileInfo> GetTileInfoDict(int level = 0)
