@@ -79,5 +79,12 @@ public class InputManager
         }
         return null;
     }
-    
+    public void Clear()
+    {
+        _gameInputController.Clear();
+        _gameInputSystem = null;
+        _gameInputController = null;
+        _mainCamera = null;
+        _map = null;
+    }
 }

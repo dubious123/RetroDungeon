@@ -15,7 +15,7 @@ public class UnitController : MonoBehaviour
     AnimationController _animController;
     UnitData _unitData;
     UnitData.NextActionData _nextAction;
-    static Dictionary<Vector3Int, TileInfo> _board;
+    Dictionary<Vector3Int, TileInfo> _board;
     
 
 

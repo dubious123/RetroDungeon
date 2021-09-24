@@ -1,3 +1,4 @@
+using MEC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -61,6 +62,15 @@ public class Managers : MonoBehaviour
     }
     public static void Clear()
     {
-        PoolMgr.Clear();
+        _instance._gameMgr.Clear();
+        _instance._battleMgr.Clear();
+        _instance._cameraMgr.Clear();
+        _instance._dungeonMgr.Clear();
+        _instance._inputMgr.Clear();
+        _instance._poolMgr.Clear();
+        _instance._turnMgr.Clear();
+        _instance._ui_Mgr.Clear();
+        Timing.KillCoroutines();
+        _instance = null;
     }
 }

@@ -74,4 +74,12 @@ public class BattleManager
     {
         target.Shock -= _currentSkill.ShockDamage;
     }
+    public void Clear()
+    {
+        _unitsInRange.Clear();
+        _targetPos = Vector3Int.zero;
+        _targetUnit = null;
+        _unitsInRange = null;
+        _currentSkill = null;
+    }
 }

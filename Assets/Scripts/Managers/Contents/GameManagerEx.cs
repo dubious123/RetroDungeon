@@ -10,7 +10,6 @@ public class GameManagerEx
     GameObject _player;
     PlayerController _playerController;
     PlayerData _playerData;
-    //Dictionary<GameObject, Dictionary<Vector3Int, GameObject>> _worldUnitDic;
     Transform[] _GridLayers;
     Tilemap[] _tilemaps;
     Tilemap _floor;
@@ -19,14 +18,12 @@ public class GameManagerEx
     public GameObject Player { get { return _player; } }
     public PlayerController Player_Controller { get { return _playerController; } }
     public PlayerData Player_Data { get { return _playerData; } }
-    //public Dictionary<GameObject, Dictionary<Vector3Int, GameObject>> WorldUnitDic { get { return _worldUnitDic; } }
     public Transform[] Tilemaps { get { return _GridLayers; } }
     public Tilemap Floor { get { return _floor; } }
 
     public void Init()
     {
         _currentWorld = Define.World.AbandonedMineShaft;
-        //_worldUnitDic = new Dictionary<GameObject, Dictionary<Vector3Int, GameObject>>();
     }
 
     public void StartGame()
@@ -62,16 +59,12 @@ public class GameManagerEx
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _player.transform.position = _floor.GetCellCenterWorld(Vector3Int.zero);
         dungeonInfo.Board[Vector3Int.zero].SetUnit(_player);
-
-        //_worldUnitDic[dungeon].Add(Vector3Int.zero, _player);
         return _player;
     }
-    //public Dictionary<Vector3Int, GameObject> GetEnemyDic(GameObject currentDungeon = null)
-    //{
-    //    if(currentDungeon == null) { return _worldUnitDic[Managers.DungeonMgr.CurrentDungeon]; }
-    //    return _worldUnitDic[currentDungeon];
-    //}
-
+    public void Clear()
+    {
+        _currentWorld = Define.World.Unknown;
+    }
 
 
 }

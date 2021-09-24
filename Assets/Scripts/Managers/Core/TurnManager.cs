@@ -92,5 +92,10 @@ public class TurnManager
             _unitQueue.Enqueue(unitData);
         }
     }
-
+    public void Clear()
+    {
+        _currentTurn = Define.Turn.Player;
+        _unitList.Clear();
+        _unitList = null;
+    }
 }

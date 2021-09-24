@@ -31,9 +31,13 @@ public class DungeonManager
         if(level == 0) { level = _currentLevel; }
         Managers.DungeonMgr.Dungeons.TryGetValue(level, out GameObject dungeon);
         return dungeon.GetComponent<DungeonInfo>().Board;
-        
-
     }
-
+    public void Clear()
+    {
+        _dungeons.Clear();
+        _dungeons = null;
+        _currentLevel = 0;
+        _dungeonGenerator = null;
+    }
 
 }

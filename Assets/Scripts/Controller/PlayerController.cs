@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     Define.UnitState _nextState;
     AnimationController _animController;
     Button _endTernBtn;
-    static Dictionary<Vector3Int, TileInfo> _board;
+    Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;
     HashSet<Vector3Int> _reachableOccupiedCoorSet;
     Stack<Vector3Int> _path;

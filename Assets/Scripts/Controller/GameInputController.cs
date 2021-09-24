@@ -34,6 +34,9 @@ public class GameInputController : MonoBehaviour
         _onMouseMove = _gameInputSystem.actions["OnMouseMove"];
         _onMouseRightClick = _gameInputSystem.actions["OnMouseRightClick"];
         _onMouseScroll = _gameInputSystem.actions["CameraScrollMovement"];
+        foreach (InputAction action in _gameInputSystem.actions)
+        {
+        }
         _onMouseClick.started += OnClickStarted;
         _onMouseClick.canceled += OnClickCanceled;
         _onMouseRightClick.started += OnRightClickStarted;
@@ -139,7 +142,14 @@ public class GameInputController : MonoBehaviour
         _camera.UpdateCameraSize(context);
     }
     #endregion
-
+    public void Clear()
+    {
+        _onMouseClick.started -= OnClickStarted;
+        _onMouseClick.canceled -= OnClickCanceled;
+        _onMouseRightClick.started -= OnRightClickStarted;
+        _onMouseRightClick.canceled -= OnRightClickCanceled;
+        _onMouseMove.performed -= OnMouseMove;
+    }
 
 
 

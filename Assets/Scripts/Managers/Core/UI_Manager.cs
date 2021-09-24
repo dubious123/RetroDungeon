@@ -182,4 +182,8 @@ public class UI_Manager
     {
         Managers.ResourceMgr.Instantiate("UI/TilePopup").GetComponentInChildren<TilePopup_Content>(true).Init(pos,unit);
     }
+    public void Clear()
+    {
+
+    }
 }
