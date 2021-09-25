@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class BaseUnitData : MonoBehaviour
 {
     protected Tilemap _floor;
-    Vector3Int _currentCellCoor;
+    Vector3Int _currentCellCoor = new Vector3Int(int.MinValue,int.MinValue,int.MinValue);
     protected Define.CharDir _lookDir;
     protected Define.Unit _unitType;
     Color _tileColor;
@@ -86,8 +86,8 @@ public class BaseUnitData : MonoBehaviour
     }
     protected virtual void UpdateCoor(Vector3Int newPos)
     {
-        Dictionary<Vector3Int, TileInfo> board = Managers.DungeonMgr.GetTileInfoDict(Managers.DungeonMgr._currentLevel);
-        board[_currentCellCoor].RemoveUnit();
+        Dictionary<Vector3Int, TileInfo> board = Managers.DungeonMgr.GetTileInfoDict(Managers.DungeonMgr.Level);
+        if (board.ContainsKey(_currentCellCoor)) { board[_currentCellCoor].RemoveUnit(); }
         board[newPos].SetUnit(gameObject);
         Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, _currentCellCoor, newPos, TileColor);
         _currentCellCoor = newPos;
@@ -107,11 +107,12 @@ public class BaseUnitData : MonoBehaviour
     {
         return _hp <= 0;
     }
-    public virtual void PerformDeath()
+    public virtual IEnumerator<float> _PerformDeath()
     {
         Managers.DungeonMgr.GetTileInfoDict()[CurrentCellCoor].RemoveUnit();
         Managers.UI_Mgr.RemoveTileSet(Define.TileOverlay.Unit, CurrentCellCoor);
         Managers.UI_Mgr.ShowOverlay();
+        yield break;
     }
     public virtual void Response()
     {

@@ -14,6 +14,7 @@ public class GameInputController : MonoBehaviour
     InputAction _onMouseMove;
     InputAction _onMouseRightClick;
     InputAction _onMouseScroll;
+    InputAction _interactionKey;
     PlayerController _player;
     GameCamController _camera;
     RaycastHit2D _hit;
@@ -22,26 +23,29 @@ public class GameInputController : MonoBehaviour
     List<RaycastResult> _results;
     Imouse _hoverTarget;
     UnityEvent _rightClickEvent;
+    UnityEvent _interactionEvent;
     public Imouse HoverTarget { get { return _hoverTarget; } }
     public UnityEvent RightClickEvent { get { return _rightClickEvent; } }
+    public UnityEvent InteractionEvent { get { return _interactionEvent; } }
     #endregion
     Imouse _clickTarget;
     public void Init(GameObject player)
     {
         _rightClickEvent = new UnityEvent();
+        _interactionEvent = new UnityEvent();
         _gameInputSystem = Managers.InputMgr.GameInputSystem;
         _onMouseClick = _gameInputSystem.actions["OnMouseClick"];
         _onMouseMove = _gameInputSystem.actions["OnMouseMove"];
         _onMouseRightClick = _gameInputSystem.actions["OnMouseRightClick"];
         _onMouseScroll = _gameInputSystem.actions["CameraScrollMovement"];
-        foreach (InputAction action in _gameInputSystem.actions)
-        {
-        }
+        _interactionKey = _gameInputSystem.actions["InteractionKey"];
         _onMouseClick.started += OnClickStarted;
         _onMouseClick.canceled += OnClickCanceled;
         _onMouseRightClick.started += OnRightClickStarted;
         _onMouseRightClick.canceled += OnRightClickCanceled;
         _onMouseMove.performed += OnMouseMove;
+        _interactionKey.started += OnInteractionKeyStarted;
+        _interactionKey.canceled += OnInteractionKeyCanceled;
 
         _player = player.GetComponent<PlayerController>();
         _camera = Managers.CameraMgr.GameCamController;
@@ -123,6 +127,14 @@ public class GameInputController : MonoBehaviour
         Managers.InputMgr.MouseScreenPosition = context.ReadValue<Vector2>();
         _hoverTarget = GetTarget();
         _hoverTarget?.OnMouseHover(context);
+    }
+    private void OnInteractionKeyStarted(InputAction.CallbackContext context)
+    {
+        _interactionEvent.Invoke();
+    }
+    private void OnInteractionKeyCanceled(InputAction.CallbackContext context)
+    {
+        _interactionEvent.RemoveAllListeners();
     }
     private Imouse GetTarget()
     {

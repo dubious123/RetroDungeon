@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class GameManagerEx
 {
@@ -10,7 +11,7 @@ public class GameManagerEx
     GameObject _player;
     PlayerController _playerController;
     PlayerData _playerData;
-    Transform[] _GridLayers;
+    Transform[] _gridLayers;
     Tilemap[] _tilemaps;
     Tilemap _floor;
 
@@ -18,7 +19,7 @@ public class GameManagerEx
     public GameObject Player { get { return _player; } }
     public PlayerController Player_Controller { get { return _playerController; } }
     public PlayerData Player_Data { get { return _playerData; } }
-    public Transform[] Tilemaps { get { return _GridLayers; } }
+    public Transform[] Tilemaps { get { return _gridLayers; } }
     public Tilemap Floor { get { return _floor; } }
 
     public void Init()
@@ -51,15 +52,18 @@ public class GameManagerEx
     public GameObject CreatePlayer(GameObject dungeon)
     {
         DungeonInfo dungeonInfo = dungeon.GetComponent<DungeonInfo>();
-        _GridLayers = dungeonInfo.GridLayers;
+        _gridLayers = dungeonInfo.GridLayers;
         _tilemaps = dungeonInfo.Tilemaps;
         _floor = _tilemaps[0];
-        _player = Managers.ResourceMgr.Instantiate("Player/Player", _GridLayers[0]);
+        _player = Managers.ResourceMgr.Instantiate("Player/Player", _gridLayers[0]);
         _playerController = _player.GetComponent<PlayerController>();
         _playerData = _player.GetOrAddComponent<PlayerData>();
+        _playerData.CurrentCellCoor = Vector3Int.zero;
         _player.transform.position = _floor.GetCellCenterWorld(Vector3Int.zero);
-        dungeonInfo.Board[Vector3Int.zero].SetUnit(_player);
         return _player;
+    }
+    public void ToTheNextDungeon()
+    {
     }
     public void Clear()
     {

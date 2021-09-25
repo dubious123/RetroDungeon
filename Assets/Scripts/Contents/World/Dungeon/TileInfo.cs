@@ -26,6 +26,7 @@ public class TileInfo
     public bool Occupied { get { return _occupied; } set { _occupied = value; } }
 
     public UnityEvent TileInterEvent { get; set; }
+    public UnityEvent TileExitEvent { get; set; }
     public TileInfo(Define.World world, Define.TileType tileType = Define.TileType.Default)
     {
         Init(world, tileType);
@@ -37,6 +38,7 @@ public class TileInfo
         _tiles = new RuleTile[Define.TileLayerNum];
         _occupied = false;
         TileInterEvent = new UnityEvent();
+        TileExitEvent = new UnityEvent();
     }
     public void SetTileDetails() 
     {
@@ -60,6 +62,7 @@ public class TileInfo
             case Define.TileType.Exit:
                 _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Exit");
                 TileInterEvent.AddListener(() => Managers.DungeonMgr.CurrentDungeon.GetComponent<TileEvents>().EnableExit(_unit));
+                TileExitEvent.AddListener(() => Managers.DungeonMgr.CurrentDungeon.GetComponent<TileEvents>().DisableExit(_unit));
                 break;
             default:
                 break;
@@ -69,11 +72,14 @@ public class TileInfo
     {
         _occupied = true;
         _unit = unit;
+        TileInterEvent.Invoke();
     }
     public void RemoveUnit()
     {
+        TileExitEvent.Invoke();
         _occupied = false;
         _unit = null;
+        
     }
 
 }

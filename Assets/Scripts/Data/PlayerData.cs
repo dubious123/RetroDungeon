@@ -45,11 +45,11 @@ public class PlayerData : BaseUnitData
         bool isPlayerDead = false;
         return isPlayerDead || base.IsDead();
     }
-    public override void PerformDeath()
+    public override IEnumerator<float> _PerformDeath()
     {
-        base.PerformDeath();
+        base._PerformDeath().RunCoroutine();
         GetComponent<PlayerController>()._HandleDie().CancelWith(gameObject).RunCoroutine();
-
+        yield break;
     }
     public override void Response()
     {

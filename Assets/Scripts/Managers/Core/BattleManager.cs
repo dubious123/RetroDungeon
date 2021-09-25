@@ -1,3 +1,4 @@
+using MEC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,10 @@ public class BattleManager
             DealMagicDamage(target);
             DealMentalDamage(target);
             DealShockDamage(target);
-            if (target.IsDead()) { target.PerformDeath(); }
+            if (target.IsDead()) 
+            {
+                target._PerformDeath().CancelWith(target.gameObject).RunCoroutine();
+            }
             else { target.Response(); }
         }
     }

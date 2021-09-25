@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "InteractionKey",
+                    "type": "Button",
+                    "id": "35348bc3-c305-4ec7-a085-6d97946b4180",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -197,6 +205,17 @@
                     "action": "EnterTestMode",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "56108822-0576-4ec5-9084-235241395b0d",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse+KeyBoard",
+                    "action": "InteractionKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -246,8 +246,8 @@ public class PlayerController : MonoBehaviour
     public void UpdateMoveResult(Vector3Int next)
     {
         // calculate current Ap
-        _playerData.CurrentCellCoor = next;
         UpdateMoveAp(next);
+        _playerData.CurrentCellCoor = next;
 
         // if something happened -> Kill Coroutine
         if (SomethingHappened())
@@ -270,6 +270,7 @@ public class PlayerController : MonoBehaviour
         Managers.InputMgr.GameController.DeactivatePlayerInput();
         Managers.InputMgr.GameController.DeactivateCameraScroll();
         yield return Timing.WaitUntilDone(_animController._PlayAnimation("vanish",1).RunCoroutine());
+        Managers.ResourceMgr.Destroy(gameObject);
         Managers.GameMgr.PerformPlayerLose();
         yield break;
 

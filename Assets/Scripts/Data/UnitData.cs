@@ -75,12 +75,13 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         bool isUnitDead = false;
         return isUnitDead || base.IsDead();
     }
-    public override void PerformDeath()
+    public override IEnumerator<float> _PerformDeath()
     {
-        base.PerformDeath();
+        base._PerformDeath().RunCoroutine();
         Managers.TurnMgr.RemoveUnit(this);
         CurrentState = Define.UnitState.Die;
         _unitController._PerformAction().CancelWith(gameObject).RunCoroutine();
+        yield break;
     }
     public override void Response()
     {
@@ -131,7 +132,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
     public NextActionData UpdateNextAction()
     {
-        _board = Managers.DungeonMgr.GetTileInfoDict(Managers.DungeonMgr._currentLevel);
+        _board = Managers.DungeonMgr.GetTileInfoDict(Managers.DungeonMgr.Level);
         _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
         _reachableOccupiedCoorSet = new HashSet<Vector3Int>();
         _path = new Stack<Vector3Int>();
@@ -423,8 +424,8 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
     public void UpdateMoveResult(Vector3Int next)
     {
-        CurrentCellCoor = next;
         UpdateMoveAp(next);
+        CurrentCellCoor = next;
         //Todo extra
     }
     private void UpdateMoveAp(Vector3Int next)
