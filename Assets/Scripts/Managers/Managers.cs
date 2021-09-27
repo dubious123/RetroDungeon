@@ -11,8 +11,10 @@ public class Managers : MonoBehaviour
     #region Contents
     GameManagerEx _gameMgr = new GameManagerEx();
     TestManager _testMgr = new TestManager();
+    WorldManager _worldMgr = new WorldManager();
     public static GameManagerEx GameMgr { get { return Instance._gameMgr; } }
     public static TestManager TestMgr { get { return Instance._testMgr; } }
+    public static WorldManager WorldMgr { get { return Instance._worldMgr; } }
     #endregion
 
     BattleManager _battleMgr = new BattleManager();
@@ -61,12 +63,14 @@ public class Managers : MonoBehaviour
             _instance._turnMgr.Init();
             _instance._ui_Mgr.Init();
             _instance._testMgr.Init();
+            _instance._worldMgr.Init();
         }
     }
     public static void Clear()
     {
         _instance._gameMgr.Clear();
         _instance._testMgr.Clear();
+        _instance._worldMgr.Clear();
         _instance._battleMgr.Clear();
         _instance._cameraMgr.Clear();
         _instance._dungeonMgr.Clear();
@@ -74,6 +78,7 @@ public class Managers : MonoBehaviour
         _instance._poolMgr.Clear();
         _instance._turnMgr.Clear();
         _instance._ui_Mgr.Clear();
+       
         Timing.KillCoroutines();
         _instance = null;
     }

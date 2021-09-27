@@ -7,11 +7,10 @@ public class GameScene : BaseScene
     public override void Init()
     {
         base.Init();
-        base._sceneType = Define.SceneType.Game;
-        
-        GameObject dungeon = Managers.DungeonMgr.CreateNewDungeon(Managers.GameMgr.CurrentWorld);
+        _sceneType = Define.SceneType.Game;
+        Managers.WorldMgr.CreateWorld();
 
-        GameObject player = Managers.GameMgr.CreatePlayer(dungeon);
+        Managers.GameMgr.CreatePlayer();
 
         Managers.GameMgr.StartGame();
     }

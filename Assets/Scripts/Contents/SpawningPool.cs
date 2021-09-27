@@ -6,24 +6,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class SpawningPool : MonoBehaviour
+public class SpawningPool
 { 
-    GameObject _dungeon;
-    public List<UnitData> UnitList;
-    Dictionary<Vector3Int, TileInfo> _board;
-    Tilemap _floor;
-    private void Awake()
-    {
-        _dungeon = transform.gameObject;
-        UnitList = new List<UnitData>();
-    }
+    public List<UnitData> UnitList = new List<UnitData>();
     public void SpawnUnits()
     {
         GameObject newUnit;
         KeyValuePair<Vector3Int, TileInfo> pair;
-        DungeonInfo dungeonInfo = _dungeon.GetComponent<DungeonInfo>();
-        _board = dungeonInfo.Board;
-        _floor = dungeonInfo.Tilemaps[0];
+        DungeonGenerationInfo info = Managers.WorldMgr.
         for (int i = 0; i < dungeonInfo.EnemyCount; i++)
         {
             //Todo
