@@ -13,7 +13,7 @@ public class DungeonRenderer
         BoundsInt posSet = new BoundsInt(0,0,0,dungeon.Width,dungeon.Hight,1);
         foreach (Vector3Int nowpos in posSet.allPositionsWithin)
         {
-            _tileBrush.Paint(nowpos, dungeon.GetOrSetTileInfo(nowpos));
+            _tileBrush.Paint(nowpos, dungeon.GetTile(nowpos));
         }
     }
     static void ClearTiles()      

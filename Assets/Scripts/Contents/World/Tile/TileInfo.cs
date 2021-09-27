@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class TileInfo
 {
+    public Vector3Int Coor;
     public WorldPosition PreWorld;
     public WorldPosition NextWorld;
 

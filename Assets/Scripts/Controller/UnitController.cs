@@ -15,19 +15,10 @@ public class UnitController : MonoBehaviour
     AnimationController _animController;
     UnitData _unitData;
     UnitData.NextActionData _nextAction;
-    Dictionary<Vector3Int, TileInfo> _board;
-    
-
-
-    Vector3Int _destination;
-    
-
-
     void Init()
     {
         _animController = gameObject.GetComponent<AnimationController>();
         _unitData = transform.GetComponent<UnitData>();
-        _board = Managers.DungeonMgr.GetTileInfoDict();
     }
     private void Awake()
     {
@@ -111,7 +102,7 @@ public class UnitController : MonoBehaviour
         _animController.PlayAnimationLoop("run");
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
-        float moveSpeed = _unitData.Movespeed;
+        float moveSpeed = _unitData.Stat.MoveSpeed;
         float delta = 0;
         float ratio = 0;
         while (ratio <= 1.0f)
@@ -146,7 +137,7 @@ public class UnitController : MonoBehaviour
     }
     private void EndTurn()
     {
-        _unitData.UpdateApRecover(_unitData.RecoverAp);
+        _unitData.UpdateApRecover(_unitData.Stat.RecoverAp);
         //Todo
         _animController.PlayAnimationLoop("idle");
         Managers.TurnMgr._HandleUnitTurn().RunCoroutine();

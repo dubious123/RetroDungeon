@@ -17,7 +17,7 @@ public class Test_MoveUnit : MonoBehaviour
     void SelectUnit(InputAction.CallbackContext context)
     {
         Managers.InputMgr.GameInputSystem.actions["OnMouseClick"].performed -= SelectUnit;
-        _selectedUnit = Managers.DungeonMgr.GetTileInfoDict()[Managers.GameMgr.Floor.WorldToCell(Managers.InputMgr.MouseWorldPosition)].Unit;
+        _selectedUnit = Managers.GameMgr.GetUnit(Managers.InputMgr.GetMouseCellPos());
 
         if (_selectedUnit == null) { return; }
         else 
@@ -40,12 +40,10 @@ public class Test_MoveUnit : MonoBehaviour
     void MoveUnit(InputAction.CallbackContext context)
     {
         Managers.InputMgr.GameInputSystem.actions["OnMouseClick"].performed -= MoveUnit;
-        Vector3Int cellpos = Managers.GameMgr.Floor.WorldToCell(Managers.InputMgr.MouseWorldPosition);
-        if (!Managers.DungeonMgr.GetTileInfoDict().ContainsKey(cellpos) || _selectedUnit ==null) { return; }
-        _selectedUnit.transform.position = Managers.GameMgr.Floor.GetCellCenterWorld(Managers.GameMgr.Floor.WorldToCell(Managers.InputMgr.MouseWorldPosition));
-        _Content.SetActive(true);
-        Managers.GameMgr.Player_Data.CurrentCellCoor = cellpos;
-
+        Vector3Int cellpos = Managers.InputMgr.GetMouseCellPos();
+        if (!Managers.GameMgr.HasTile(cellpos) || _selectedUnit == null) { return; }
+        Managers.GameMgr.MoveUnit(_selectedUnit, cellpos);
+        _Content.SetActive(true);   
         Managers.GameMgr.Player_Controller.HandleIdle();
     }
 }

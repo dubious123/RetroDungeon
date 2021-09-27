@@ -12,10 +12,6 @@ public class InputManager
     GameInputController _gameInputController;
     Camera _mainCamera;
     Tilemap _map;
-    Vector2 _mouseScreenPosition;
-    Vector3 _mouseWorldPosition;
-    Vector3Int _currentMouseCellPos;
-
     public Camera MainCamera
     {
         get
@@ -49,8 +45,7 @@ public class InputManager
             return _gameInputController; 
         } 
     }
-    public Vector2 MouseScreenPosition { get { return _mouseScreenPosition; } set { _mouseScreenPosition = value; } }
-    public Vector3 MouseWorldPosition { get { return _mouseWorldPosition; } }
+    public Vector2 MouseScreenPos { get; set; }
     public void Init()
     {   
     }
@@ -61,23 +56,18 @@ public class InputManager
     }
     public void UpdateMouseScreenPos(InputAction.CallbackContext context)
     {
-        _mouseScreenPosition = context.ReadValue<Vector2>();
+        MouseScreenPos = context.ReadValue<Vector2>();
     }
-    public Vector3Int? GetMouseCellPos(Vector2 screenMousePos)
+    public Vector3Int GetMouseCellPos()
     {
-        if(_grid == null) { _grid = Managers.DungeonMgr.CurrentDungeon.GetComponent<Grid>(); }
-        _map = Managers.GameMgr.Floor;
-        
-        //Todo, need new func
-        _mouseWorldPosition = MainCamera.ScreenToWorldPoint(screenMousePos);
-        _mouseWorldPosition.z = 0;  
-
-        _currentMouseCellPos = _grid.WorldToCell(_mouseWorldPosition);
-        if (_map.HasTile(_currentMouseCellPos))
-        {
-            return _currentMouseCellPos;
-        }
-        return null;
+        if (_grid == null) { _grid = Managers.WorldMgr.World_go.GetComponent<Grid>(); }
+        return _grid.WorldToCell(GetMouseWorldPos());
+    }
+    public Vector3 GetMouseWorldPos()
+    {
+        Vector3 pos = MainCamera.ScreenToWorldPoint(MouseScreenPos);
+        pos.z = 0;
+        return pos;
     }
     public void Clear()
     {

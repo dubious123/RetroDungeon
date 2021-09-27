@@ -92,7 +92,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     }
     private void UpdatePositionGUI()
     {
-        transform.position = Managers.InputMgr.MouseScreenPosition;
+        transform.position = Managers.InputMgr.MouseScreenPos;
     }
     public void Cancel()
     {

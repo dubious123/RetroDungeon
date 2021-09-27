@@ -28,41 +28,12 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     {
         base.Init();
         _currentState = Define.UnitState.Idle;
-        _lookDir = (Define.CharDir)Random.Range(0, 4);
         #region Init more state
         _foundPlayer = false;
         _angry = false;
         _lowHealth = false;
         _canAttackPlayer = false;
         #endregion
-    }
-    public void SetDataFromLibrary(UnitLibrary.UnitDex.BaseUnitStat unitDex)
-    {
-        _unitName = unitDex.name;
-        _maxHp = unitDex.MaxHp;
-        _hp = _maxHp;
-        _maxDef = unitDex.MaxDef;
-        _def = _maxDef;
-        _maxMs = unitDex.MaxMs;
-        _ms = _maxMs;
-        _maxMp = unitDex.MaxMp;
-        _mp = _maxMp;
-        _maxShock = unitDex.MaxShock;
-        _shock = 0;
-        _maxStress = unitDex.MaxStress;
-        _stress = 0;
-        _maxAp = unitDex.MaxAp;
-        _recoverAp = unitDex.RecoverAp;
-        _currentAp = unitDex.RecoverAp;
-        _eyeSight = unitDex.EyeSight;
-        _weapon = unitDex.Weapon;
-        _enemyList = unitDex.EnemyList;
-        _allienceList = unitDex.AllienceList;
-        _moveSpeed = unitDex.MoveSpeed;
-        foreach (string skillName in unitDex.SkillList)
-        {
-            _skillDict.Add(skillName, SkillLibrary.GetSkill(skillName));
-        }
     }
     public int GetPriority()
     {
@@ -132,7 +103,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
     public NextActionData UpdateNextAction()
     {
-        _board = Managers.DungeonMgr.GetTileInfoDict(Managers.DungeonMgr.Level);
         _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
         _reachableOccupiedCoorSet = new HashSet<Vector3Int>();
         _path = new Stack<Vector3Int>();
@@ -208,9 +178,9 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
                 if (_reachableEmptyTileDict.ContainsKey(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && _currentAp >= totalMoveCost)
+                if (_board.ContainsKey(nextCoor) && Stat.Ap >= totalMoveCost)
                 {
-                    if (_board[nextCoor].Occupied)
+                    if (Managers.GameMgr.IsTileOccupied(nextCoor))
                     {
                         _reachableOccupiedCoorSet.Add(nextCoor);
                         continue;
@@ -237,15 +207,15 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     private void UpdateUnitMentalState()
     {
         //Todo
-        _mental = Define.UnitMentalState.Hostile;
+        Mental = Define.UnitMentalState.Hostile;
     }
     private void CheckUnitsInSight()
     {
         Vector3Int nextCoor;
-        for (int y = -_eyeSight; y <= _eyeSight; y++)
+        for (int y = -Stat.EyeSight; y <= Stat.EyeSight; y++)
         {
             int k = Mathf.Abs(y);
-            for (int x = k - _eyeSight; x <= _eyeSight - k; x++)
+            for (int x = k - Stat.EyeSight; x <= Stat.EyeSight - k; x++)
             {
                 nextCoor = CurrentCellCoor + new Vector3Int(x, y, 0);
                 if (_board.TryGetValue(nextCoor,out TileInfo nextTileInfo) && nextTileInfo.Unit != null)
@@ -258,7 +228,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
     private void CalculateUnitPurpose()
     {
-        switch (_mental)
+        switch (Mental)
         {
             case Define.UnitMentalState.Mad:
                 HandleMad();
@@ -282,7 +252,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     #region HandleUnitPurpos
     private void HandleUnitPurpose()
     {
-        if(_currentAp <= 0) { _nextActionData.UpdatePurpose(Define.UnitPurpose.PassTurn); }
+        if(Stat.Ap <= 0) { _nextActionData.UpdatePurpose(Define.UnitPurpose.PassTurn); }
         switch (_nextActionData.UnitPurpose)
         {
             case Define.UnitPurpose.PassTurn:
@@ -334,7 +304,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
             pathInfo = _reachableEmptyTileDict.ElementAt(Random.Range(0, _reachableEmptyTileDict.Count)).Value;
         } while (pathInfo.Coor == pathInfo.Parent);
         #region Test
-        if (_board[pathInfo.Coor].Occupied) { Debug.LogError("Roam Destination already Occupied"); }
+        if (Managers.GameMgr.IsTileOccupied(pathInfo.Coor)) { Debug.LogError("Roam Destination already Occupied"); }
         #endregion
         _destination = pathInfo.Coor;
     }
@@ -488,8 +458,8 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         foreach(KeyValuePair<Vector3Int,GameObject> pair in _nextActionData.InSightUnitDict)
         {
             nextName = pair.Value.GetComponent<BaseUnitData>().UnitName;
-            if (_enemyList.Contains(nextName)) { _nextActionData.BlackList.Add(pair); }
-            else if (_allienceList.Contains(nextName)) { _nextActionData.WhiteList.Add(pair); }
+            if (EnemyList.Contains(nextName)) { _nextActionData.BlackList.Add(pair); }
+            else if (AllienceList.Contains(nextName)) { _nextActionData.WhiteList.Add(pair); }
         }
     }
 
@@ -500,7 +470,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
         {
             //Todo
-            if (pair.Value.Cost + _currentAp < 0) { continue; }
+            if (pair.Value.Cost + Stat.Ap < 0) { continue; }
             if (pair.Value.Range < distance) { continue; }
             _nextActionData.NextSkill = pair.Value;
             return true;
@@ -516,7 +486,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
         {
             //Todo
-            if (pair.Value.Cost > _currentAp) { continue; }
+            if (pair.Value.Cost > Stat.Ap) { continue; }
             if(pair.Value.Range < distance) { continue; }
             _nextActionData.NextSkill = pair.Value;
             return true;

@@ -15,7 +15,7 @@ public class TurnManager
 
     #region Unit
     SpawningPool _currentPool;
-    List<UnitData> _unitList;
+    List<BaseUnitData> _unitList;
     UnitData _currentUnitData;
     UnitController _currentUnitController;
     private class UnitPriorityComparer : IComparer<int>
@@ -41,8 +41,7 @@ public class TurnManager
     }
     public void UpdateDataFromCurrentSpawningPool()
     {
-        _currentPool = Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>();
-        _unitList = _currentPool.UnitList;
+        _unitList = SpawningPool.UnitList;
     }
     public void HandlePlayerTurn(Define.UnitState nextState = Define.UnitState.Idle)
     {

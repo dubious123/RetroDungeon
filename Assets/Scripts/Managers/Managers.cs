@@ -19,6 +19,7 @@ public class Managers : MonoBehaviour
 
     BattleManager _battleMgr = new BattleManager();
     CameraManager _cameraMgr = new CameraManager();
+    DataManager _dataMgr = new DataManager();
     DungeonManager _dungeonMgr = new DungeonManager();
     InputManager _inputMgr = new InputManager();
     PoolManager _poolMgr = new PoolManager();
@@ -29,6 +30,7 @@ public class Managers : MonoBehaviour
     
     public static BattleManager BattleMgr { get { return Instance._battleMgr; } }
     public static CameraManager CameraMgr { get { return Instance._cameraMgr; } }
+    public static DataManager DataMgr { get { return Instance._dataMgr; }  }
     public static DungeonManager DungeonMgr { get { return Instance._dungeonMgr; } }
     public static InputManager InputMgr { get { return Instance._inputMgr; } }
     public static PoolManager PoolMgr { get { return Instance._poolMgr; } }
@@ -56,6 +58,7 @@ public class Managers : MonoBehaviour
             _instance = go.GetComponent<Managers>();
             _instance._battleMgr.Init();
             _instance._cameraMgr.Init();
+            _instance._dataMgr.Init();
             _instance._dungeonMgr.Init();
             _instance._poolMgr.Init();
             _instance._gameMgr.Init();
@@ -73,6 +76,7 @@ public class Managers : MonoBehaviour
         _instance._worldMgr.Clear();
         _instance._battleMgr.Clear();
         _instance._cameraMgr.Clear();
+        _instance._dataMgr.Clear();
         _instance._dungeonMgr.Clear();
         _instance._inputMgr.Clear();
         _instance._poolMgr.Clear();

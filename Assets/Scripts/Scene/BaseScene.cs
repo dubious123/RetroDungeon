@@ -13,7 +13,7 @@ public abstract class BaseScene : MonoBehaviour
     public virtual void Init()
     {
         //Initialize what All Scene must do
-        Object obj = GameObject.FindObjectOfType(typeof(EventSystem));
+        Object obj = FindObjectOfType(typeof(EventSystem));
         if(obj == null)
         {
             Managers.ResourceMgr.Instantiate("UI/EventSystem").name = "@EventSystem";

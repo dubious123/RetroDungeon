@@ -17,7 +17,7 @@ public class BattleManager
     {
         _targetPos = targetPos;
         _currentSkill = skill;
-        _targetUnit = Managers.DungeonMgr.GetTileInfoDict()[targetPos].Unit?.GetComponent<BaseUnitData>();
+        _targetUnit = Managers.GameMgr.GetUnitData(targetPos);
         from.UpdateApCost(skill.Cost);
         if (_targetUnit == null) { Debug.Log("NoTarget"); return; }
         _unitsInRange.Clear();
@@ -29,7 +29,8 @@ public class BattleManager
     {
         foreach(Vector3Int delta in _currentSkill.Area)
         {
-            _unitsInRange.Add(Managers.DungeonMgr.GetTileInfoDict()[_targetPos + delta].Unit?.GetComponent<BaseUnitData>());
+            BaseUnitData unit = Managers.GameMgr.GetUnitData(_targetPos + delta);
+            if(unit != null) { _unitsInRange.Add(unit); }              
         }
     }
     private void DealDamage()
@@ -49,23 +50,23 @@ public class BattleManager
     }
     private void DealPhysicalDamage(BaseUnitData target)
     {
-        target.Def -= _currentSkill.PhysicalDamage;
-        if(target.Def < 0) 
+        target.Stat.Def -= _currentSkill.PhysicalDamage;
+        if(target.Stat.Def < 0) 
         { 
-            target.Hp += target.Def;
-            target.Def = 0;
+            target.Stat.Hp += target.Stat.Def;
+            target.Stat.Def = 0;
         }
     }
     private void DealMagicDamage(BaseUnitData target)
     {
-        target.MS -= _currentSkill.MagicDamage;
-        if(target.MS < 0)
+        target.Stat.Ms -= _currentSkill.MagicDamage;
+        if(target.Stat.Ms < 0)
         {
-            target.Mp += target.MS;
-            target.MS = 0;
-            if(target.Mp < 0) { 
-                target.Hp += target.Mp;
-                target.Mp = 0;
+            target.Stat.Mp += target.Stat.Ms;
+            target.Stat.Ms = 0;
+            if(target.Stat.Mp < 0) { 
+                target.Stat.Hp += target.Stat.Mp;
+                target.Stat.Mp = 0;
             }
         }
     }
@@ -76,7 +77,7 @@ public class BattleManager
     }
     private void DealShockDamage(BaseUnitData target)
     {
-        target.Shock -= _currentSkill.ShockDamage;
+        target.Stat.Shock -= _currentSkill.ShockDamage;
     }
     public void Clear()
     {

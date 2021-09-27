@@ -68,8 +68,8 @@ public class DungeonGenerator_ConwayLife : BaseDungeonGenerator
         {
             for (int y = 0; y < _hight; y++)
             {
-                if(_lifeMap[x,y] == 0) { _dungeon.GetOrSetTileInfo(x, y).Type = _generationInfo.DeadTile; }
-                else { _dungeon.GetOrSetTileInfo(x, y).Type = _generationInfo.AliveTile; }
+                if(_lifeMap[x,y] == 0) { _dungeon.GetTile(x, y).Type = _generationInfo.DeadTile; }
+                else { _dungeon.GetTile(x, y).Type = _generationInfo.AliveTile; }
             }
         }
     }

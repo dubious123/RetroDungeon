@@ -124,7 +124,7 @@ public class GameInputController : MonoBehaviour
     }
     private void OnMouseMove(InputAction.CallbackContext context)
     {
-        Managers.InputMgr.MouseScreenPosition = context.ReadValue<Vector2>();
+        Managers.InputMgr.MouseScreenPos = context.ReadValue<Vector2>();
         _hoverTarget = GetTarget();
         _hoverTarget?.OnMouseHover(context);
     }
@@ -138,12 +138,12 @@ public class GameInputController : MonoBehaviour
     }
     private Imouse GetTarget()
     {
-        _pointerEventData.position = Managers.InputMgr.MouseScreenPosition;
+        _pointerEventData.position = Managers.InputMgr.MouseScreenPos;
         EventSystem.current.RaycastAll(_pointerEventData, _results);
         if(_results.Count > 0) { return _results[0].gameObject.GetComponent<Imouse>(); }
         else
         {
-            _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Managers.InputMgr.MouseScreenPosition), Vector2.zero);
+            _hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Managers.InputMgr.MouseScreenPos), Vector2.zero);
             return _hit.collider?.GetComponent<Imouse>();
         }
     }

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerEx
 {
-    WorldPosition _currentWorld;
+    WorldPosition _currentWorld = new WorldPosition(Define.World.AbandonedMineShaft, 1);
     GameObject _player;
     PlayerController _playerController;
     PlayerData _playerData;
@@ -31,8 +31,6 @@ public class GameManagerEx
 
     public void Init()
     {
-        _currentWorld = new WorldPosition(Define.World.AbandonedMineShaft, 1);
-
     }
     public void CreatePlayer()
     {
@@ -44,7 +42,6 @@ public class GameManagerEx
     }
     public void StartGame()
     {
-        Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>().SpawnUnits();
         Managers.InputMgr.InitControllers(_player);
         _floor.GetComponent<Imouse>().Init();
         Managers.UI_Mgr.InitPlayerStatusBar(_playerData);
@@ -78,7 +75,46 @@ public class GameManagerEx
     }
     public void SetUnit(GameObject unit, Vector3Int pos)
     {
-        unit.transform.position = _floor.GetCellCenterWorld(Vector3Int.zero);
+        unit.transform.position = Floor.GetCellCenterWorld(Vector3Int.zero);
     }
-
+    public void MoveUnit(GameObject unit, Vector3Int newPos)
+    {
+        MoveUnit(unit.GetComponent<BaseUnitData>(), newPos);
+    }
+    public void MoveUnit(BaseUnitData unit, Vector3Int newPos)
+    {
+        if (Managers.GameMgr.HasTile(unit.CurrentCellCoor))
+        {
+            RemoveUnit(unit.CurrentCellCoor);
+            CurrentDungeon.GetTile(newPos).SetUnit(unit.gameObject);
+            Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, unit.CurrentCellCoor, newPos, unit.TileColor);
+        }      
+        unit.CurrentCellCoor = newPos;
+    }
+    public void RemoveUnit(Vector3Int pos)
+    {
+        CurrentDungeon.GetTile(pos).RemoveUnit();
+        Managers.UI_Mgr.RemoveTileSet(Define.TileOverlay.Unit, pos);
+        Managers.UI_Mgr.ShowOverlay();
+    }
+    public bool IsTileOccupied(Vector3Int pos)
+    {
+        return CurrentDungeon.GetTile(pos).Unit == null;
+    }
+    public GameObject GetUnit(Vector3Int pos)
+    {
+        return CurrentDungeon.GetTile(pos).Unit;
+    }
+    public BaseUnitData GetUnitData(Vector3Int pos)
+    {
+        return CurrentDungeon.GetTile(pos).Unit?.GetComponent<BaseUnitData>();
+    }
+    public bool IsTileEmpty(Vector3Int pos)
+    {
+        return CurrentDungeon.IsEmpty(pos);
+    }
+    public bool HasTile(Vector3Int pos)
+    {
+        return CurrentDungeon.IsInBound(pos);
+    }
 }

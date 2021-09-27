@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseRoomData
+public class BaseRoomData
 {
-    public Vector2Int Coor;
-    public int Range;
     public Define.RoomType Type;
+    public Vector2Int Coor;
+    public int Range; 
     public Define.TileType StartTileType;
     public Vector3Int AliveSize;
     public Vector3Int DeadSize;
@@ -15,7 +16,9 @@ public abstract class BaseRoomData
     public BaseRoomData()
     {
         Load();
+    }
+    protected virtual void Load()
+    {
 
     }
-    protected abstract void Load();
 }

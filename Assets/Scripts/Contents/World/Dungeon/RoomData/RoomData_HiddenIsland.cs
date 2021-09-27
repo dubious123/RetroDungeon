@@ -12,8 +12,8 @@ public class RoomData_HiddenIsland : BaseRoomData
     {
         Coor = new Vector2Int(400, 300);
         Type = Define.RoomType.Entrance;
-        AliveRange = 5;
-        DeadRange = 20;
+        AliveSize = new Vector3Int(5,5,0);
+        DeadSize = new Vector3Int(10,10,0);
         Range = 4;
     }
 }

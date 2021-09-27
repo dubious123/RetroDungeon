@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     Define.UnitState _nextState;
     AnimationController _animController;
     Button _endTernBtn;
-    Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;
     HashSet<Vector3Int> _reachableOccupiedCoorSet;
     Stack<Vector3Int> _path;
@@ -53,12 +52,6 @@ public class PlayerController : MonoBehaviour
     public void HandleIdle()
     {
         _animController.PlayAnimationLoop("idle");
-        //_state = Define.UnitState.Idle;
-        //Todo 
-        if (_board == null)
-        {
-            _board = Managers.DungeonMgr.GetTileInfoDict();
-        }
         UpdateReachableTileInfo();
         Managers.UI_Mgr.HideAllOverlay();
         Managers.UI_Mgr.AddTileSet(Define.TileOverlay.Unit, _playerData.CurrentCellCoor,_playerData.TileColor);
@@ -117,7 +110,7 @@ public class PlayerController : MonoBehaviour
     }
     private void UpdateReachableTileInfo()
     {
-        int currentAp = Managers.GameMgr.Player_Data.CurrentAp;
+        int currentAp = Managers.GameMgr.Player_Data.Stat.Ap;
         SimplePriorityQueue<PathInfo, int> nextTiles = new SimplePriorityQueue<PathInfo, int>(new PathInfoEquality());
 
         _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
@@ -129,6 +122,7 @@ public class PlayerController : MonoBehaviour
 
         nextTiles.Enqueue(currentInfo);
         _reachableOccupiedCoorSet.Add(_playerData.CurrentCellCoor);
+        Dungeon dungeon = Managers.GameMgr.CurrentDungeon;
         while (nextTiles.Count > 0)
         {
             currentInfo = nextTiles.Dequeue();
@@ -139,10 +133,10 @@ public class PlayerController : MonoBehaviour
                 nextCoor = currentCoor + Define.TileCoor8Dir[i];
                 if (_reachableEmptyTileDict.ContainsKey(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
-                int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
+                int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + dungeon.GetTile(currentCoor).LeaveCost; /*To do + reachCost*/
+                if (Managers.GameMgr.HasTile(nextCoor)&& currentAp >= totalMoveCost)
                 {
-                    if (_board[nextCoor].Occupied)
+                    if (Managers.GameMgr.IsTileOccupied(nextCoor))
                     {
                         _reachableOccupiedCoorSet.Add(nextCoor);
                         continue;
@@ -210,7 +204,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
-        float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
+        float moveSpeed = Managers.GameMgr.Player_Data.Stat.MoveSpeed;
         float delta = 0;
         float ratio = 0;
         while (ratio <= 1.0f)
@@ -318,7 +312,7 @@ public class PlayerController : MonoBehaviour
             for (int x = k - range; x <= range - k; x++)
             {
                 nowPos = _playerData.CurrentCellCoor + new Vector3Int(x, y, 0);
-                if (_board.TryGetValue(nowPos,out TileInfo tileInfo)) { _inRangeTileDict.Add(nowPos, tileInfo); }
+                if (Managers.GameMgr.HasTile(nowPos)) { _inRangeTileDict.Add(nowPos, Managers.GameMgr.CurrentDungeon.GetTile(nowPos)); }
             }
         }
         if (!_skill.IsSelfIncluded) { _inRangeTileDict.Remove(_playerData.CurrentCellCoor); }
@@ -332,7 +326,7 @@ public class PlayerController : MonoBehaviour
     }
     public void EndTurn()
     {
-        Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.RecoverAp);
+        Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.Stat.RecoverAp);
         Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Move,Define.TileOverlay.Skill);
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();

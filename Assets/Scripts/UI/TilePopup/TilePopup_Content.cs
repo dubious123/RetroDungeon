@@ -19,6 +19,6 @@ public class TilePopup_Content : MonoBehaviour
             _UnitDetail.Init(data);
             _UnitSkill.Init(data);
         }
-        _TileInfo.Init(Managers.DungeonMgr.GetTileInfoDict()[pos]);
+        _TileInfo.Init(Managers.GameMgr.CurrentDungeon.GetTile(pos));
     }
 }

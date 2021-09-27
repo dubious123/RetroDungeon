@@ -431,8 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198051b141e9d045947d88e7c948064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameCanvas: {fileID: 0}
-  _unitCam: {fileID: 3950224644138477416, guid: 921d9df283b4b7e488792f55a2b64cab, type: 3}
 --- !u!1 &2728135949161829233
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,8 +913,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5128390316824197176}
   - component: {fileID: 7307545163751613231}
-  - component: {fileID: 8100603071835611449}
-  - component: {fileID: 8613580901300932776}
   m_Layer: 0
   m_Name: Dungeon
   m_TagString: Untagged
@@ -965,41 +961,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 3
   m_CellSwizzle: 0
---- !u!114 &8100603071835611449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5113224946104379000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a3def930f6060a49ba8e4f2664ae1af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _roomSize: 0
-  _iteration: 0
-  _tileCount: 0
-  _lakeCount: 0
-  _riverCount: 0
-  water: []
-  lake: []
-  riverstart: []
-  riverend: []
-  river: []
---- !u!114 &8613580901300932776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5113224946104379000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9854cf80ea26cea41b0be1d85030bacf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UnitList: []
 --- !u!1 &6208334015706070474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1088,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 544599768749111461}
-  - component: {fileID: 4628906758473806275}
   m_Layer: 0
   m_Name: SpawningPool
   m_TagString: Untagged
@@ -1149,19 +1109,6 @@ Transform:
   m_Father: {fileID: 5128390316824197176}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4628906758473806275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865562607279860526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9854cf80ea26cea41b0be1d85030bacf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UnitList: []
 --- !u!1 &7894579682024052038
 GameObject:
   m_ObjectHideFlags: 0

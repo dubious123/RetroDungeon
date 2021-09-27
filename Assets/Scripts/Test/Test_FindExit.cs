@@ -6,8 +6,8 @@ public class Test_FindExit : MonoBehaviour
 {
     public void FindExit()
     {
-        Managers.CameraMgr.GameCamController.TargetPos = 
+        Managers.CameraMgr.GameCamController.TargetPos =
             Managers.GameMgr.Floor.GetCellCenterWorld
-            (Managers.DungeonMgr.CurrentDungeon.GetComponent<DungeonGenerationInfo>().ExitCoor);
+            (Managers.GameMgr.CurrentDungeon.ExitPosList[0]);
     }
 }

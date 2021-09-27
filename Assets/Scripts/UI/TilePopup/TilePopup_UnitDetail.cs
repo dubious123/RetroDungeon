@@ -34,8 +34,8 @@ public class TilePopup_UnitDetail : MonoBehaviour
      
     public void Init(BaseUnitData data)
     {
-        _Ap.text = $"Max Ap : {data.MaxAp}  Current Ap : {data.CurrentAp}  Recover Ap : {data.RecoverAp}";
-        _EyeSight.text = $"Eye Sight : {data.EyeSight}";
+        _Ap.text = $"Max Ap : {data.Stat.MaxAp}  Current Ap : {data.Stat.Ap}  Recover Ap : {data.Stat.RecoverAp}";
+        _EyeSight.text = $"Eye Sight : {data.Stat.EyeSight}";
         if(data.EnemyList.Count == 0) { _EnemyList.text = "Enemy List : empty"; }
         else { _EnemyList.text = $"Enemy List : {data.EnemyList.Aggregate((x, y) => x + ", " + y)}"; }
         if(data.AllienceList.Count == 0) { _AllyList.text = "Ally List : empty"; }

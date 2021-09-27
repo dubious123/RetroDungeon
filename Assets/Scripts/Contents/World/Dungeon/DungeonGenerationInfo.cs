@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class DungeonGenerationInfo
 {
-    public Vector3Int ExitCoor;
     public DungeonGenerationInfo NextDungeonInfo;
 
     public WorldPosition ID;
@@ -21,6 +21,5 @@ public class DungeonGenerationInfo
     public Define.TileType AliveTile = Define.TileType.Default;
     public Define.TileType DeadTile = Define.TileType.Empty;
     public List<BaseRoomData> StaticRoomList = new List<BaseRoomData>();
-
-
+    public Dictionary<string, int> UnitList = new Dictionary<string, int>();
 }

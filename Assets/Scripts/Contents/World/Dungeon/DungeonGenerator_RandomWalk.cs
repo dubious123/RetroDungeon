@@ -69,8 +69,8 @@ public class DungeonGenerator_RandomWalk : BaseDungeonGenerator
         {
             for (int y = 0; y < _hight; y++)
             {
-                if (_walkMap[x, y] == 0) { _dungeon.GetOrSetTileInfo(x, y).Type = _generationInfo.DeadTile; }
-                else { _dungeon.GetOrSetTileInfo(x, y).Type = _generationInfo.AliveTile; }
+                if (_walkMap[x, y] == 0) { _dungeon.GetTile(x, y).Type = _generationInfo.DeadTile; }
+                else { _dungeon.GetTile(x, y).Type = _generationInfo.AliveTile; }
             }
         }
     }

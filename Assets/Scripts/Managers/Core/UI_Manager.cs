@@ -52,7 +52,7 @@ public class UI_Manager
     }
     public void SetFloorOverlay()
     {
-        _floorOverlay.SetTilePos(Managers.DungeonMgr.GetTileInfoDict().Keys);
+        _floorOverlay.SetTilePos(Managers.GameMgr.CurrentDungeon.GetAllTiles());
     }
     void DisplayOverlay()
     {
