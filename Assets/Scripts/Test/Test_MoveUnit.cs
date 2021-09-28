@@ -12,6 +12,7 @@ public class Test_MoveUnit : MonoBehaviour
         DisableAll();
         Debug.Log("Move unit clicked");
         Managers.InputMgr.GameInputSystem.actions["OnMouseClick"].performed += SelectUnit;
+        Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
         Managers.InputMgr.GameController.RightClickEvent.AddListener(Cancel);
     }
     void SelectUnit(InputAction.CallbackContext context)
@@ -42,7 +43,8 @@ public class Test_MoveUnit : MonoBehaviour
         Managers.InputMgr.GameInputSystem.actions["OnMouseClick"].performed -= MoveUnit;
         Vector3Int cellpos = Managers.InputMgr.GetMouseCellPos();
         if (!Managers.GameMgr.HasTile(cellpos) || _selectedUnit == null) { return; }
-        Managers.GameMgr.MoveUnit(_selectedUnit, cellpos);
+        _selectedUnit.GetComponent<BaseUnitData>().CurrentCellCoor = cellpos;
+        Managers.GameMgr.SetUnit(_selectedUnit,cellpos);
         _Content.SetActive(true);   
         Managers.GameMgr.Player_Controller.HandleIdle();
     }

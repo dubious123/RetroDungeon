@@ -22,7 +22,7 @@ public class TileInfo
     public Define.TileType Type
     {
         get { return _tileType; }
-        set { TileGenerator.UpdateTile(this, value); }
+        set { TileGenerator.UpdateTile(this, value); _tileType = value; }
     }
     public int LeaveCost { get { return _leaveCost; } set { _leaveCost = value; } }
 
@@ -30,40 +30,13 @@ public class TileInfo
 
     public UnityEvent TileInterEvent { get; set; }
     public UnityEvent TileExitEvent { get; set; }
-    public TileInfo(Define.TileType tileType = Define.TileType.Empty)
+    public TileInfo(int x, int y, Define.TileType tileType = Define.TileType.Empty)
     {
+        Coor = new Vector3Int(x, y, 0);
         _tileType = tileType;
         TileInterEvent = new UnityEvent();
         TileExitEvent = new UnityEvent();
     }
-    //public void SetTileDetails() 
-    //{
-    //    _tiles[0] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Floor");
-    //    switch (_tileType)
-    //    {
-    //        //Todo
-    //        case Define.TileType.Default:
-    //            _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
-    //            if (Random.Range(0, 3) == 0) { _tiles[4] = Managers.ResourceMgr.Load<Overlay1>("Prefabs/Tiles/AbandonedMineShaft/Overlay_1"); }
-    //            break;
-    //        case Define.TileType.Water:
-    //            _tiles[2] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/Water_Complex");
-    //            _leaveCost = 1;
-    //            break;
-    //        case Define.TileType.Entrance:
-    //            _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/DefaultTile");
-    //            _tiles[3] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Entrance");
-    //            _level++;           
-    //            break;
-    //        case Define.TileType.Exit:
-    //            _tiles[1] = Managers.ResourceMgr.Load<IsometricRuleTile>("Prefabs/Tiles/AbandonedMineShaft/Exit");
-    //            TileInterEvent.AddListener(() => Managers.DungeonMgr.CurrentDungeon.GetComponent<TileEvents>().EnableExit(_unit));
-    //            TileExitEvent.AddListener(() => Managers.DungeonMgr.CurrentDungeon.GetComponent<TileEvents>().DisableExit(_unit));
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
     public void SetUnit(GameObject unit) 
     {
         _unit = unit;
@@ -72,8 +45,7 @@ public class TileInfo
     public void RemoveUnit()
     {
         TileExitEvent.Invoke();
-        _unit = null;
-        
+        _unit = null;      
     }
 
 }

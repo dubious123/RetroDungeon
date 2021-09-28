@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TileBrush_AbandonedMineShaft : BaseTileBrush
 {
-    protected override void LoadData()
+    public TileBrush_AbandonedMineShaft()
     {
+        LoadData("RenderingData/Tile/TileBrush_AbandonedMineShaft");
     }
 }

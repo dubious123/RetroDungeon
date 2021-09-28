@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TileBrush_CrystalLake : BaseTileBrush
 {
-    protected override void LoadData()
+    public TileBrush_CrystalLake()
     {
+        LoadData("Data/RenderingData/Tile/TileBrush_Crystallake");
     }
 }

@@ -1,86 +1,46 @@
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
-public abstract class BaseTileBrush 
+[Serializable]
+public class BaseTileBrush 
 {
     protected Tilemap[] _tilemaps;
-    protected List<IsometricRuleTile[]> _tilesList;
-    protected IsometricRuleTile[] _ruleTiles_Empty;
-    protected IsometricRuleTile[] _ruleTiles_Default;
-    protected IsometricRuleTile[] _ruleTiles_Water;
-    protected IsometricRuleTile[] _ruleTiles_Lava;
-    protected IsometricRuleTile[] _ruleTiles_Entrance;
-    protected IsometricRuleTile[] _ruleTiles_Exit;
+    [SerializeField]
+    protected string _defaultPrefabPath;
+    [SerializeField]
+    protected Dictionary<string, TileBase[]> _tilesDict;
+    int _length;
     public BaseTileBrush()
     {
         _tilemaps = Managers.WorldMgr.World_go.GetComponentsInChildren<Tilemap>();
-        _tilesList = new List<IsometricRuleTile[]>
-        {_ruleTiles_Empty, _ruleTiles_Default,_ruleTiles_Water,_ruleTiles_Lava,_ruleTiles_Entrance,_ruleTiles_Exit};
-        int length = _tilemaps.Length;
-        _ruleTiles_Empty = new IsometricRuleTile[length];
-        _ruleTiles_Default = new IsometricRuleTile[length];
-        _ruleTiles_Water = new IsometricRuleTile[length];
-        _ruleTiles_Lava = new IsometricRuleTile[length];
-        _ruleTiles_Entrance = new IsometricRuleTile[length];
-        _ruleTiles_Exit = new IsometricRuleTile[length];
-        LoadData();
+        _length = _tilemaps.Length;
+        _tilesDict = new Dictionary<string, TileBase[]>()
+        {
+            {"Empty",new TileBase[_length] },
+            {"Default",new TileBase[_length] },
+            {"Water",new TileBase[_length] },
+            {"Lava",new TileBase[_length] },
+            {"Entrance",new TileBase[_length] },
+            {"Exit",new TileBase[_length] }
+        };
     }
     public virtual void Paint(Vector3Int pos, TileInfo tile)
     {
-        switch (tile.Type)
+        _tilemaps.SetTile(pos, _tilesDict[$"{tile.Type}"]);
+    }
+    protected void LoadData(string path)
+    {
+        JObject jo = Managers.DataMgr.GetJObject(path);
+        _defaultPrefabPath = jo["_defaultPrefabPath"].Value<string>();
+        foreach(var pairB in jo["_tilesDict"].ToObject<Dictionary<string, Dictionary<int,string>>>())
         {
-            case Define.TileType.Empty:
-                PaintEmpty(pos);
-                break;
-            case Define.TileType.Default:
-                PaintDefault(pos);
-                break;
-            case Define.TileType.Water:
-                PaintWater(pos);
-                break;
-            case Define.TileType.Lava:
-                PaintLava(pos);
-                break;
-            case Define.TileType.Entrance:
-                PaintEntrance(pos);
-                break;
-            case Define.TileType.Exit:
-                PaintExit(pos);
-                break;
-            default:
-                break;
-
+            foreach(var pairS in pairB.Value)
+            {
+                _tilesDict[pairB.Key][pairS.Key] = Managers.ResourceMgr.Load<TileBase>($"{_defaultPrefabPath}{pairS.Value}");
+            }
         }
     }
-    protected virtual void PaintEmpty(Vector3Int pos)
-    {
-        _tilemaps.SetTile(pos,_ruleTiles_Empty);
-    }
-    protected virtual void PaintDefault(Vector3Int pos)
-    {
-        _tilemaps.SetTile(pos, _ruleTiles_Default);
-
-    }
-    protected virtual void PaintWater(Vector3Int pos)
-    {
-        _tilemaps.SetTile(pos, _ruleTiles_Water);
-
-    }
-    protected virtual void PaintLava(Vector3Int pos)
-    {
-        _tilemaps.SetTile(pos, _ruleTiles_Lava);
-
-    }
-    protected virtual void PaintEntrance(Vector3Int pos)
-    {
-        _tilemaps.SetTile(pos, _ruleTiles_Entrance);
-
-    }
-    protected virtual void PaintExit(Vector3Int pos)
-    {
-        _tilemaps.SetTile(pos, _ruleTiles_Exit);
-    }
-    protected abstract void LoadData();
 }

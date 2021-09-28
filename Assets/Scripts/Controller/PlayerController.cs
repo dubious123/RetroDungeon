@@ -131,10 +131,10 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < Define.TileCoor8Dir.Length; i++)
             {
                 nextCoor = currentCoor + Define.TileCoor8Dir[i];
-                if (_reachableEmptyTileDict.ContainsKey(nextCoor)) { continue; }
+                if (_reachableEmptyTileDict.ContainsKey(nextCoor) || !Managers.GameMgr.IsReachableTile(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + dungeon.GetTile(currentCoor).LeaveCost; /*To do + reachCost*/
-                if (Managers.GameMgr.HasTile(nextCoor)&& currentAp >= totalMoveCost)
+                if (currentAp >= totalMoveCost)
                 {
                     if (Managers.GameMgr.IsTileOccupied(nextCoor))
                     {

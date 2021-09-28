@@ -59,8 +59,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         base.Response();
 
     }
-
-    Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;
     HashSet<Vector3Int> _reachableOccupiedCoorSet;
     Stack<Vector3Int> _path;
@@ -175,10 +173,10 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
             for (int i = 0; i < Define.TileCoor8Dir.Length; i++)
             {
                 nextCoor = currentCoor + Define.TileCoor8Dir[i];
-                if (_reachableEmptyTileDict.ContainsKey(nextCoor)) { continue; }
+                if (_reachableEmptyTileDict.ContainsKey(nextCoor)|| Managers.GameMgr.IsReachableTile(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
-                int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && Stat.Ap >= totalMoveCost)
+                int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + Managers.GameMgr.GetTile(currentCoor).LeaveCost; /*To do + reachCost*/
+                if (Stat.Ap >= totalMoveCost)
                 {
                     if (Managers.GameMgr.IsTileOccupied(nextCoor))
                     {
@@ -218,7 +216,8 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
             for (int x = k - Stat.EyeSight; x <= Stat.EyeSight - k; x++)
             {
                 nextCoor = CurrentCellCoor + new Vector3Int(x, y, 0);
-                if (_board.TryGetValue(nextCoor,out TileInfo nextTileInfo) && nextTileInfo.Unit != null)
+                TileInfo nextTileInfo = Managers.GameMgr.GetTile(nextCoor);
+                if (nextTileInfo != null && nextTileInfo?.Unit != null)
                 {
                     if(x==0 && y == 0) { continue; }
                     _nextActionData.InSightUnitDict.Add(nextCoor, nextTileInfo.Unit);

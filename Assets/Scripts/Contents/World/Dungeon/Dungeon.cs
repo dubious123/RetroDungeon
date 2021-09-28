@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class Dungeon 
 {
     public WorldPosition ID;
-    TileInfo[,] _map;
+    Dictionary<Vector3Int, TileInfo> _map;
     public int Width;
     public int Hight;
     public List<KeyValuePair<Vector3Int, BaseUnitData>> UnitSpawnInfoList;
@@ -14,12 +14,12 @@ public class Dungeon
     public List<Vector3Int> ExitPosList = new List<Vector3Int>();
     public void InitMap(int width,int hight)
     {
-        _map = new TileInfo[width, hight];
+        _map = new Dictionary<Vector3Int, TileInfo>();
         for (int x = 0; x < width; x++) 
         {
             for(int y = 0; y < hight; y++)
             {
-                _map[x, y] = new TileInfo();
+                _map.Add(new Vector3Int(x,y,0), new TileInfo(x, y));
             }
         }
         Width = width;
@@ -35,12 +35,12 @@ public class Dungeon
     }
     public TileInfo GetTile(int x, int y)
     {
-        if (IsInBound(x,y)) { return _map[x, y]; }
+        if (IsInBound(x,y)) { return _map[new Vector3Int(x,y,0)]; }
         else { Debug.Log("position out of bound"); return null; }
     }
     public bool IsEmpty(int x, int y)
     {
-        return GetTile(x, y).Type == Define.TileType.Empty;
+        return GetTile(x, y)?.Type == Define.TileType.Empty;
     }
     public bool IsEmpty(Vector3Int pos)
     {
@@ -48,15 +48,15 @@ public class Dungeon
     }
     public bool IsInBound(Vector3Int pos)
     {
-        return IsInBound(pos.x,pos.y);
+        return _map.ContainsKey(pos);
     }
     public bool IsInBound(int x, int y)
     {
-        return !(x < 0 || x >= Width || y < 0 || y >= Hight);
+        return _map.ContainsKey(new Vector3Int(x,y,0));
     }
     public TileInfo GetRandomTile()
     {
-        return _map[Random.Range(0, Width), Random.Range(0, Hight)];
+        return GetTile(Random.Range(0, Width), Random.Range(0, Hight));
     }
     public List<Vector3Int> GetAllTiles()
     {

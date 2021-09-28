@@ -11,7 +11,6 @@ public class InputManager
     PlayerInput _gameInputSystem;
     GameInputController _gameInputController;
     Camera _mainCamera;
-    Tilemap _map;
     public Camera MainCamera
     {
         get
@@ -75,6 +74,5 @@ public class InputManager
         _gameInputSystem = null;
         _gameInputController = null;
         _mainCamera = null;
-        _map = null;
     }
 }

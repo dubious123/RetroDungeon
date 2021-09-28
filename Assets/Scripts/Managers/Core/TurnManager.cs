@@ -14,7 +14,6 @@ public class TurnManager
     #endregion
 
     #region Unit
-    SpawningPool _currentPool;
     List<BaseUnitData> _unitList;
     UnitData _currentUnitData;
     UnitController _currentUnitController;
@@ -32,16 +31,15 @@ public class TurnManager
     {
         _currentTurn = Define.Turn.Player;
         _unitQueue = new SimplePriorityQueue<UnitData, int>(new UnitPriorityComparer());
-
     }
 
     public void GetPlayerController(PlayerController playerController)
     {
         _playerController = playerController;
     }
-    public void UpdateDataFromCurrentSpawningPool()
+    public void UpdateCurrentUnitList()
     {
-        _unitList = SpawningPool.UnitList;
+        _unitList = GameObject.Find("Units").GetComponent<SpawningPool>().UnitDict[Managers.GameMgr.CurrentWorld];
     }
     public void HandlePlayerTurn(Define.UnitState nextState = Define.UnitState.Idle)
     {

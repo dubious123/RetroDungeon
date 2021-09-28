@@ -38,6 +38,7 @@ public class GameManagerEx
         _playerController = _player.GetComponent<PlayerController>();
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _playerData.CurrentCellCoor = Vector3Int.zero;
+        UnitLibrary.SetUnitData("Player", _playerData);
         SetUnit(_player, Vector3Int.zero);
     }
     public void StartGame()
@@ -46,7 +47,8 @@ public class GameManagerEx
         _floor.GetComponent<Imouse>().Init();
         Managers.UI_Mgr.InitPlayerStatusBar(_playerData);
         Managers.UI_Mgr.SetFloorOverlay();
-        Managers.TurnMgr.UpdateDataFromCurrentSpawningPool();
+        EnterTheDungeon(_currentWorld);
+        Managers.TurnMgr.UpdateCurrentUnitList();
         Managers.TurnMgr.HandlePlayerTurn();
     }
     public void PerformPlayerLose()
@@ -61,9 +63,19 @@ public class GameManagerEx
     /// <param name="dungeon"></param>
     /// <returns></returns>
 
+    public void EnterTheDungeon(WorldPosition position)
+    {
+        RemoveUnit(_playerData.CurrentCellCoor);
+        _currentWorld = position;
+        DungeonRenderer.RenderDungeon(CurrentDungeon);
+        CurrentDungeon.GetTile(CurrentDungeon.EntrancePosList[0]).SetUnit(_player);
+        Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, _playerData.CurrentCellCoor, CurrentDungeon.EntrancePosList[0], _playerData.TileColor);
+        SetUnit(Player, CurrentDungeon.EntrancePosList[0]);
+        _playerData.CurrentCellCoor = CurrentDungeon.EntrancePosList[0];
+    }
     public void EnterTheDungeon()
     {
-
+        EnterTheDungeon(CurrentDungeon.GetTile(_playerData.CurrentCellCoor).NextWorld);     
     }
     public void FallToTheDungeion()
     {
@@ -75,7 +87,7 @@ public class GameManagerEx
     }
     public void SetUnit(GameObject unit, Vector3Int pos)
     {
-        unit.transform.position = Floor.GetCellCenterWorld(Vector3Int.zero);
+        unit.transform.position = Floor.GetCellCenterWorld(pos);
     }
     public void MoveUnit(GameObject unit, Vector3Int newPos)
     {
@@ -87,9 +99,8 @@ public class GameManagerEx
         {
             RemoveUnit(unit.CurrentCellCoor);
             CurrentDungeon.GetTile(newPos).SetUnit(unit.gameObject);
-            Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, unit.CurrentCellCoor, newPos, unit.TileColor);
+            Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, unit.CurrentCellCoor, newPos, unit.TileColor); 
         }      
-        unit.CurrentCellCoor = newPos;
     }
     public void RemoveUnit(Vector3Int pos)
     {
@@ -99,7 +110,7 @@ public class GameManagerEx
     }
     public bool IsTileOccupied(Vector3Int pos)
     {
-        return CurrentDungeon.GetTile(pos).Unit == null;
+        return HasTile(pos) && CurrentDungeon.GetTile(pos).Unit != null;
     }
     public GameObject GetUnit(Vector3Int pos)
     {
@@ -109,12 +120,16 @@ public class GameManagerEx
     {
         return CurrentDungeon.GetTile(pos).Unit?.GetComponent<BaseUnitData>();
     }
-    public bool IsTileEmpty(Vector3Int pos)
+    public bool IsReachableTile(Vector3Int pos)
     {
-        return CurrentDungeon.IsEmpty(pos);
+        return HasTile(pos) && !CurrentDungeon.IsEmpty(pos);
     }
     public bool HasTile(Vector3Int pos)
     {
         return CurrentDungeon.IsInBound(pos);
+    }
+    public TileInfo GetTile(Vector3Int pos)
+    {   
+        return CurrentDungeon.GetTile(pos);
     }
 }

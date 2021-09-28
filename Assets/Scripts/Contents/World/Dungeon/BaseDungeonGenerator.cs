@@ -50,7 +50,12 @@ public abstract class BaseDungeonGenerator
     }
     Vector3Int GetRandomCoorInRange(BaseRoomData roomData)
     {
-        return Vector3Int.RoundToInt(Random.insideUnitCircle * Random.Range(roomData.Range,0f) + roomData.Coor);
+        Vector3Int randPos;
+        while (true)
+        {
+            randPos = Vector3Int.RoundToInt(Random.insideUnitCircle * Random.Range(roomData.Range, 0f) + roomData.Coor);
+            if (_dungeon.IsInBound(randPos)) { return randPos; }
+        }
     }
     protected abstract void GenerateRest();
 }

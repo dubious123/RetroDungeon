@@ -18,14 +18,22 @@ public class BaseUnitData : MonoBehaviour
     public List<string> AllienceList { get; set; } = new List<string>();
     public List<string> SkillList { get; set; } = new List<string>();
 
-    Vector3Int _currentCellCoor = new Vector3Int(int.MinValue,int.MinValue,int.MinValue);
+    Vector3Int _currentCellCoor = new Vector3Int(10000,10000,10000);
     Color _tileColor;
 
 
     protected Dictionary<string, SkillLibrary.BaseSkill> _skillDict;
 
 
-    public Vector3Int CurrentCellCoor { get { return _currentCellCoor; } set { Managers.GameMgr.MoveUnit(this,value); } }
+    public Vector3Int CurrentCellCoor
+    { 
+        get => _currentCellCoor;
+        set
+        {
+            Managers.GameMgr.MoveUnit(this, value);
+            _currentCellCoor = value;
+        }
+    }
     public Define.CharDir LookDir { get; set; }
 
     public Color TileColor { get { UpdateColor(); return _tileColor; } }

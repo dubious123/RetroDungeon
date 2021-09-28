@@ -27,13 +27,15 @@ public class DungeonGenerator_ConwayLife : BaseDungeonGenerator
     }
     void GetNextGenMap()
     {
+        int[,] nextMap = new int[_width, _hight];
         BoundsInt neighbors = new BoundsInt(-1, -1, 0, 3, 3, 1);
         Vector3Int nowPos;
-        int liveCount = 0;
+        int liveCount;
         for (int x = 0; x < _width; x++)
         {
             for (int y = 0; y < _hight; y++)
             {
+                liveCount = 0;
                 foreach (Vector3Int neighbor in neighbors.allPositionsWithin)
                 {
                     if (neighbor == Vector3Int.zero) 
@@ -43,7 +45,7 @@ public class DungeonGenerator_ConwayLife : BaseDungeonGenerator
                     nowPos = neighbor + new Vector3Int(x, y, 0);
                     if (!_dungeon.IsInBound(nowPos)) 
                     {
-                        liveCount++;
+                        liveCount += Random.Range(0,1);
                         continue;
                     }
                     if (_lifeMap[nowPos.x, nowPos.y] == 1)
@@ -53,14 +55,18 @@ public class DungeonGenerator_ConwayLife : BaseDungeonGenerator
                 }
                 if (_lifeMap[x, y] == 1 && liveCount < _generationInfo.DeathLimit)
                 {
-                    _lifeMap[x, y] = 0;
+                    nextMap[x, y] = 0;
+                    continue;
                 }
                 else if (_lifeMap[x, y] == 0 && liveCount > _generationInfo.BirthLimit)
                 {
-                    _lifeMap[x, y] = 1;
+                    nextMap[x, y] = 1;
+                    continue;
                 }
+                nextMap[x, y] = _lifeMap[x, y];
             }
         }
+        _lifeMap = nextMap;
     }
     void ApplyResult()
     {
