@@ -9,8 +9,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
 {
     Define.UnitState _currentState;
     PlayerData _playerData;
-    int _speed;
-    public int Speed { get { return _speed; } set { _speed = value; } }
     public Define.UnitState CurrentState { get { return _currentState; } set { _currentState = value; } }
     //Todo
     #region more state
@@ -38,7 +36,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     }
     public int GetPriority()
     {
-        return _speed;
+        return Stat.Priority;
     }
 
 

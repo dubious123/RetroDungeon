@@ -69,6 +69,8 @@ public class GameManagerEx
         DisableUnits(_currentWorld);
         _currentWorld = position;
         _playerData.WorldPos = _currentWorld;
+
+
         Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Unit, CurrentDungeon.GetAllUnitPos());
         DungeonRenderer.RenderDungeon(CurrentDungeon);
         EnableUnits(position);

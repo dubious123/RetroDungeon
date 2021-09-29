@@ -5,25 +5,25 @@ using UnityEngine;
 public class BaseUnitStat
 {
 
-    public int Speed { get; set; } = 5;
-    public float MoveSpeed { get; set; } = 6f;
+    public int MaxAp { get; set; } 
+    public int RecoverAp { get; set; } 
+    public int Ap { get; set; } 
+    public int MaxHp { get; set; } 
+    public int Hp { get; set; } 
+    public int MaxDef { get; set; } 
+    public int Def { get; set; } 
+    public int MaxMs { get; set; } 
+    public int Ms { get; set; }
+    public int MaxMp { get; set; } 
+    public int Mp { get; set; } 
+    public int MaxShock { get; set; } 
+    public int Shock { get; set; } 
+    public int MaxStress { get; set; } 
+    public int Stress { get; set; } 
 
-    public int MaxAp { get; set; } = 4;
-    public int RecoverAp { get; set; } = 3;
-    public int Ap { get; set; } = 3;
-    public int MaxHp { get; set; } = 50;
-    public int Hp { get; set; } = 50;
-    public int MaxDef { get; set; } = 10;
-    public int Def { get; set; } = 10;
-    public int MaxMs { get; set; } = 10;
-    public int Ms { get; set; } = 10;
-    public int MaxMp { get; set; } = 50;
-    public int Mp { get; set; } = 50;
-    public int MaxShock { get; set; } = 50;
-    public int Shock { get; set; } = 0;
-    public int MaxStress { get; set; } = 50;
-    public int Stress { get; set; } = 0;
+    public int EyeSight { get; set; } 
 
-    public int EyeSight { get; set; } = 10;
+    public int Priority { get; set; } 
+    public float MoveSpeed { get; set; } 
 
 }

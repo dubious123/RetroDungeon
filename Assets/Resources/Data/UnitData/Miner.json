@@ -1,0 +1,26 @@
+{
+  "Stat": {
+    "MaxAp": 4,
+    "RecoverAp": 3,
+    "Ap": 3,
+    "MaxHp": 50,
+    "Hp": 50,
+    "MaxDef": 10,
+    "Def": 10,
+    "MaxMs": 10,
+    "Ms": 10,
+    "MaxMp": 50,
+    "Mp": 50,
+    "MaxShock": 50,
+    "Shock": 0,
+    "MaxStress": 50,
+    "Stress": 0,
+    "EyeSight": 10,
+    "Priority": 5,
+    "MoveSpeed": 6
+  },
+  "UnitType": "Default",
+  "SkillList": [
+    "Blunt"
+  ]
+}

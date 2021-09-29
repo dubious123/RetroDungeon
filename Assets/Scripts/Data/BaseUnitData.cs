@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class BaseUnitData : MonoBehaviour
 {
-    public BaseUnitStat Stat { get; set; }
+    public BaseUnitStat Stat { get; set; } = new BaseUnitStat();
     public Define.Unit UnitType { get; protected set; }
     public string UnitName { get; set; }
 
@@ -16,7 +16,6 @@ public class BaseUnitData : MonoBehaviour
 
     public List<string> EnemyList { get; set; } = new List<string>();
     public List<string> AllienceList { get; set; } = new List<string>();
-    public List<string> SkillList { get; set; } = new List<string>();
     public WorldPosition WorldPos;
     Vector3Int _currentCellCoor = new Vector3Int(10000,10000,10000);
     Color _tileColor;
