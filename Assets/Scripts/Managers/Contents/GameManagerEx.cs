@@ -46,7 +46,7 @@ public class GameManagerEx
         Managers.InputMgr.InitControllers(_player);
         _floor.GetComponent<Imouse>().Init();
         Managers.UI_Mgr.InitPlayerStatusBar(_playerData);
-        Managers.UI_Mgr.SetFloorOverlay();
+        Managers.UI_Mgr.ResetFloorOverlay();
         EnterTheDungeon(_currentWorld);
         Managers.TurnMgr.UpdateCurrentUnitList();
         Managers.TurnMgr.HandlePlayerTurn();
@@ -66,12 +66,19 @@ public class GameManagerEx
     public void EnterTheDungeon(WorldPosition position)
     {
         RemoveUnit(_playerData.CurrentCellCoor);
+        DisableUnits(_currentWorld);
         _currentWorld = position;
+        _playerData.WorldPos = _currentWorld;
+        Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Unit, CurrentDungeon.GetAllUnitPos());
         DungeonRenderer.RenderDungeon(CurrentDungeon);
+        EnableUnits(position);
         CurrentDungeon.GetTile(CurrentDungeon.EntrancePosList[0]).SetUnit(_player);
-        Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, _playerData.CurrentCellCoor, CurrentDungeon.EntrancePosList[0], _playerData.TileColor);
+        //Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, _playerData.CurrentCellCoor, CurrentDungeon.EntrancePosList[0], _playerData.TileColor);
         SetUnit(Player, CurrentDungeon.EntrancePosList[0]);
         _playerData.CurrentCellCoor = CurrentDungeon.EntrancePosList[0];
+        Managers.UI_Mgr.ResetFloorOverlay();
+        Managers.TurnMgr.UpdateCurrentUnitList();
+        _playerController.HandleIdle();
     }
     public void EnterTheDungeon()
     {
@@ -93,12 +100,13 @@ public class GameManagerEx
     {
         MoveUnit(unit.GetComponent<BaseUnitData>(), newPos);
     }
-    public void MoveUnit(BaseUnitData unit, Vector3Int newPos)
+    public void MoveUnit(BaseUnitData unit, Vector3Int newPos, WorldPosition worldPos = null)
     {
         if (Managers.GameMgr.HasTile(unit.CurrentCellCoor))
         {
+            if(worldPos == null) { worldPos = unit.WorldPos; }
             RemoveUnit(unit.CurrentCellCoor);
-            CurrentDungeon.GetTile(newPos).SetUnit(unit.gameObject);
+            Managers.WorldMgr.WorldMap[worldPos].GetTile(newPos).SetUnit(unit.gameObject);
             Managers.UI_Mgr.MoveTileSet(Define.TileOverlay.Unit, unit.CurrentCellCoor, newPos, unit.TileColor); 
         }      
     }
@@ -131,5 +139,19 @@ public class GameManagerEx
     public TileInfo GetTile(Vector3Int pos)
     {   
         return CurrentDungeon.GetTile(pos);
+    }
+    public void DisableUnits(WorldPosition pos)
+    {
+        foreach (BaseUnitData unit in Managers.WorldMgr.WorldMap[pos].UnitList)
+        {
+            unit.gameObject.SetActive(false);
+        } 
+    }
+    public void EnableUnits(WorldPosition pos)
+    {
+        foreach (BaseUnitData unit in Managers.WorldMgr.WorldMap[pos].UnitList)
+        {
+            unit.gameObject.SetActive(true);
+        }
     }
 }

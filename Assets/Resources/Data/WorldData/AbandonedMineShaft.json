@@ -57,7 +57,6 @@
             "World": "AbandonedMineShaft",
             "Level": "2"
           }
-          
         }
       ],
       "UnitList": {
@@ -72,9 +71,9 @@
       "Width": "100",
       "Hight": "100",
       "Iteration": "2",
-      "DeathLimit": "2",
-      "BirthLimit": "3",
-      "InitChance": "70",
+      "DeathLimit": "3",
+      "BirthLimit": "4",
+      "InitChance": "50",
       "WalkCount": "100",
       "AliveTile": "Default",
       "DeadTile": "Empty",
@@ -124,7 +123,6 @@
             "World": "CrystalLake",
             "Level": "1"
           }
-
         }
       ],
       "UnitList": {
@@ -132,6 +130,4 @@
       }
     }
   ]
-
-  
 }

@@ -50,7 +50,7 @@ public class UI_Manager
         Managers.PoolMgr.CreatePool(Managers.ResourceMgr.Load<GameObject>($"Prefabs/UI/{_unitStatusBarName}"), 1);
         Managers.PoolMgr.CreatePool(Managers.ResourceMgr.Load<GameObject>($"Prefabs/UI/{"TilePopup"}"), 1);
     }
-    public void SetFloorOverlay()
+    public void ResetFloorOverlay()
     {
         _floorOverlay.SetTilePos(Managers.GameMgr.CurrentDungeon.GetAllTiles());
     }

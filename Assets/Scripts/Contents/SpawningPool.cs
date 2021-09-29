@@ -8,12 +8,10 @@ using UnityEngine.Tilemaps;
 
 public class SpawningPool : MonoBehaviour
 { 
-    public Dictionary<WorldPosition,List<BaseUnitData>> UnitDict = new Dictionary<WorldPosition, List<BaseUnitData>>();
     public void GenerateUnits(DungeonGenerationInfo dungeonInfo, Dungeon dungeon)
     {
         WorldPosition worldPos = dungeonInfo.ID;
         string worldName = worldPos.World.ToString();
-        if (!UnitDict.ContainsKey(worldPos)) { UnitDict.Add(worldPos, new List<BaseUnitData>()); }
         Transform world = transform.Find(worldName);
         if(world == null) { world = new GameObject($"{worldName}").transform; world.SetParent(gameObject.transform); }
         Transform level = world.Find($"Level : {worldPos.Level}");
@@ -26,15 +24,17 @@ public class SpawningPool : MonoBehaviour
             for (int i = 0; i < pair.Value; i++)
             {
                 unit = Managers.ResourceMgr.Instantiate("Unit/BaseUnit",level);
+                unit.SetActive(false);
                 unitData = unit.GetOrAddComponent<BaseUnitData>();
                 UnitLibrary.SetUnitData(pair.Key, unitData);
+                dungeon.UnitList.Add(unitData);
+                unitData.WorldPos = worldPos;
                 TileInfo tile;
                 while (true)
                 {
                     tile = dungeon.GetRandomTile();
                     if(tile.Type!=Define.TileType.Empty&&!Managers.GameMgr.IsTileOccupied(tile.Coor))
                     {
-                        UnitDict[worldPos].Add(unitData);
                         unitData.CurrentCellCoor = tile.Coor;
                         Managers.GameMgr.MoveUnit(unit, tile.Coor);
                         Managers.GameMgr.SetUnit(unit, tile.Coor);

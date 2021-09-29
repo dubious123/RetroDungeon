@@ -28,6 +28,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     {
         base.Init();
         _currentState = Define.UnitState.Idle;
+        UnitName = "Miner";
         #region Init more state
         _foundPlayer = false;
         _angry = false;
@@ -75,9 +76,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         public Define.UnitPurpose UnitPurpose { get; private set; }
         public bool IsNewPurpose { get; set; }
         public List<KeyValuePair<Vector3Int, GameObject>> BlackList { get; set; } = new List<KeyValuePair<Vector3Int, GameObject>>();
-        //public KeyValuePair<Vector3Int, GameObject> BlackTarget { get; set; }
         public List<KeyValuePair<Vector3Int, GameObject>> WhiteList { get; set; } = new List<KeyValuePair<Vector3Int, GameObject>>();
-        //public KeyValuePair<Vector3Int, GameObject> WhiteTarget { get; set; }
         public Dictionary<Vector3Int, GameObject> InSightUnitDict { get; set; } = new Dictionary<Vector3Int, GameObject>();
         public Vector3Int TargetPos;
         public SkillLibrary.BaseSkill NextSkill { get; set; }
@@ -110,8 +109,6 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
 
         CheckUnitsInSight();
         UpdateReachableTileInfo();
-
-
         UpdateUnitMentalState();
         CalculateUnitPurpose();
         HandleUnitPurpose();
@@ -173,7 +170,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
             for (int i = 0; i < Define.TileCoor8Dir.Length; i++)
             {
                 nextCoor = currentCoor + Define.TileCoor8Dir[i];
-                if (_reachableEmptyTileDict.ContainsKey(nextCoor)|| Managers.GameMgr.IsReachableTile(nextCoor)) { continue; }
+                if (_reachableEmptyTileDict.ContainsKey(nextCoor)|| !Managers.GameMgr.IsReachableTile(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
                 int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + Managers.GameMgr.GetTile(currentCoor).LeaveCost; /*To do + reachCost*/
                 if (Stat.Ap >= totalMoveCost)

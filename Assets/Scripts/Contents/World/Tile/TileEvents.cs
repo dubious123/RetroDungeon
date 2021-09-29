@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class TileEvents
 {
-    static GameObject _nextDungeonText;
-    public void Start()
-    {
-        _nextDungeonText = GameObject.Find("Canvas_Game").transform.Find("ToTheNextDungeon").gameObject;
-    }
+    static GameObject _nextDungeonText = GameObject.Find("Canvas_Game").transform.Find("ToTheNextDungeon").gameObject;
     public static void EnableExit(GameObject unit)
     {
         if(unit.GetComponent<BaseUnitData>().UnitName != "Player") { return; }

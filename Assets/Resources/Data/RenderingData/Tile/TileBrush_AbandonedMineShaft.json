@@ -1,8 +1,7 @@
 {
   "_defaultPrefabPath": "Prefabs/Tiles/AbandonedMineShaft/",
   "_tilesDict": {
-    "Empty": {
-    },
+    "Empty": {},
     "Default": {
       "0": "Floor",
       "1": "DefaultTile",

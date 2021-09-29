@@ -8,9 +8,9 @@
       },
       "Width": "100",
       "Hight": "100",
-      "Iteration": "4",
-      "DeathLimit": "2",
-      "BirthLimit": "3",
+      "Iteration": "2",
+      "DeathLimit": "3",
+      "BirthLimit": "4",
       "InitChance": "70",
       "WalkCount": "100",
       "AliveTile": "Default",
@@ -61,7 +61,6 @@
             "World": "CrystalLake",
             "Level": "2"
           }
-
         }
       ],
       "UnitList": {
@@ -75,9 +74,9 @@
       },
       "Width": "100",
       "Hight": "100",
-      "Iteration": "4",
-      "DeathLimit": "2",
-      "BirthLimit": "3",
+      "Iteration": "2",
+      "DeathLimit": "3",
+      "BirthLimit": "4",
       "InitChance": "70",
       "WalkCount": "100",
       "AliveTile": "Default",
@@ -124,7 +123,6 @@
             "y": "5",
             "z": "0"
           }
-
         }
       ],
       "UnitList": {
@@ -132,5 +130,4 @@
       }
     }
   ]
-
 }

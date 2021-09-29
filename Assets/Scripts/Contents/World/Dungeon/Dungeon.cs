@@ -9,7 +9,7 @@ public class Dungeon
     Dictionary<Vector3Int, TileInfo> _map;
     public int Width;
     public int Hight;
-    public List<KeyValuePair<Vector3Int, BaseUnitData>> UnitSpawnInfoList;
+    public List<BaseUnitData> UnitList = new List<BaseUnitData>(); 
     public List<Vector3Int> EntrancePosList = new List<Vector3Int>();
     public List<Vector3Int> ExitPosList = new List<Vector3Int>();
     public void InitMap(int width,int hight)
@@ -24,10 +24,6 @@ public class Dungeon
         }
         Width = width;
         Hight = hight;
-    }
-    public void InitUnitSpawnInfoList()
-    {
-        UnitSpawnInfoList = new List<KeyValuePair<Vector3Int, BaseUnitData>>();
     }
     public TileInfo GetTile(Vector3Int pos)
     {
@@ -67,6 +63,15 @@ public class Dungeon
             {
                 if (!IsEmpty(x, y)) { result.Add(new Vector3Int(x, y, 0)); }
             }
+        }
+        return result;
+    }
+    public List<Vector3Int> GetAllUnitPos()
+    {
+        List<Vector3Int> result = new List<Vector3Int>();
+        foreach (BaseUnitData unit in UnitList)
+        {
+            result.Add(unit.CurrentCellCoor);
         }
         return result;
     }

@@ -17,7 +17,7 @@ public class BaseUnitData : MonoBehaviour
     public List<string> EnemyList { get; set; } = new List<string>();
     public List<string> AllienceList { get; set; } = new List<string>();
     public List<string> SkillList { get; set; } = new List<string>();
-
+    public WorldPosition WorldPos;
     Vector3Int _currentCellCoor = new Vector3Int(10000,10000,10000);
     Color _tileColor;
 
@@ -72,6 +72,7 @@ public class BaseUnitData : MonoBehaviour
     public virtual IEnumerator<float> _PerformDeath()
     {
         Managers.GameMgr.RemoveUnit(CurrentCellCoor);
+        Managers.GameMgr.CurrentDungeon.UnitList.Remove(this);
         yield break;
     }
     public virtual void Response()
@@ -81,7 +82,7 @@ public class BaseUnitData : MonoBehaviour
     protected virtual void UpdateColor()
     {
         if(UnitName == "Player") { _tileColor = Color.green; }
-        else if (EnemyList.Contains("Player")) { _tileColor = Color.red; }
         else if (AllienceList.Contains("Player")) { _tileColor = Color.green; }
+        else { _tileColor = Color.red; }
     }
 }

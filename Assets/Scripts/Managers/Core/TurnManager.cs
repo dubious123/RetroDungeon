@@ -39,7 +39,7 @@ public class TurnManager
     }
     public void UpdateCurrentUnitList()
     {
-        _unitList = GameObject.Find("Units").GetComponent<SpawningPool>().UnitDict[Managers.GameMgr.CurrentWorld];
+        _unitList = Managers.GameMgr.CurrentDungeon.UnitList;
     }
     public void HandlePlayerTurn(Define.UnitState nextState = Define.UnitState.Idle)
     {
