@@ -8,12 +8,12 @@ public class BattleManager
     Vector3Int _targetPos;
     BaseUnitData _targetUnit;
     List<BaseUnitData> _unitsInRange;
-    SkillLibrary.BaseSkill _currentSkill;
+    BaseSkill _currentSkill;
     public void Init()
     {
         _unitsInRange = new List<BaseUnitData>();
     }
-    public void SkillFromTo(BaseUnitData from, Vector3Int targetPos, SkillLibrary.BaseSkill skill)
+    public void SkillFromTo(BaseUnitData from, Vector3Int targetPos, BaseSkill skill)
     {
         _targetPos = targetPos;
         _currentSkill = skill;
@@ -72,12 +72,12 @@ public class BattleManager
     }
     private void DealMentalDamage(BaseUnitData target)
     {
-        target.Mental -= _currentSkill.MentalDamage;
+        target.Mental += _currentSkill.MentalDamage;
         if(target.Mental < 0) { target.Mental = 0; }
     }
     private void DealShockDamage(BaseUnitData target)
     {
-        target.Stat.Shock -= _currentSkill.ShockDamage;
+        target.Stat.Shock += _currentSkill.ShockDamage;
     }
     public void Clear()
     {

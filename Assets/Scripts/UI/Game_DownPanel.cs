@@ -7,9 +7,9 @@ public class Game_DownPanel : MonoBehaviour
 {
     int _leftIndex;
     int _rightIndex;
-    SkillLibrary.BaseSkill[][] _leftSkillSets;
+    BaseSkill[][] _leftSkillSets;
     SkillIconInputHandler[] _leftInputHandlerArr;
-    SkillLibrary.BaseSkill[][] _rightSkillSets;
+    BaseSkill[][] _rightSkillSets;
     SkillIconInputHandler[] _rightInputHandlerArr;
     private void Awake()
     {

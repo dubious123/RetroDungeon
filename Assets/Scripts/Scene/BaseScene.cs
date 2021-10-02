@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public abstract class BaseScene : MonoBehaviour
 {
     public Define.SceneType _sceneType { get; protected set; } = Define.SceneType.Unknown;
-    private void Awake()
+    private void Start()
     {
         Init();
     }
@@ -18,7 +18,6 @@ public abstract class BaseScene : MonoBehaviour
         {
             Managers.ResourceMgr.Instantiate("UI/EventSystem").name = "@EventSystem";
         }
-
     }
     public abstract void Clear();
 }

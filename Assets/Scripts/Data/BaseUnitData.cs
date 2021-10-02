@@ -21,7 +21,7 @@ public class BaseUnitData : MonoBehaviour
     Color _tileColor;
 
 
-    protected Dictionary<string, SkillLibrary.BaseSkill> _skillDict;
+    protected Dictionary<string, BaseSkill> _skillDict;
 
 
     public Vector3Int CurrentCellCoor
@@ -40,7 +40,7 @@ public class BaseUnitData : MonoBehaviour
 
 
 
-    public Dictionary<string, SkillLibrary.BaseSkill> SkillDict { get { return _skillDict; } }
+    public Dictionary<string, BaseSkill> SkillDict { get { return _skillDict; } }
 
     void Awake()
     {
@@ -48,7 +48,7 @@ public class BaseUnitData : MonoBehaviour
     }
     public virtual void Init()
     {
-        _skillDict = new Dictionary<string, SkillLibrary.BaseSkill>();
+        _skillDict = new Dictionary<string, BaseSkill>();
         AllienceList = new List<string>();
         EnemyList = new List<string>();
         LookDir = (Define.CharDir)Random.Range(0, 4);

@@ -77,7 +77,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         public List<KeyValuePair<Vector3Int, GameObject>> WhiteList { get; set; } = new List<KeyValuePair<Vector3Int, GameObject>>();
         public Dictionary<Vector3Int, GameObject> InSightUnitDict { get; set; } = new Dictionary<Vector3Int, GameObject>();
         public Vector3Int TargetPos;
-        public SkillLibrary.BaseSkill NextSkill { get; set; }
+        public BaseSkill NextSkill { get; set; }
         public void UpdatePurpose(Define.UnitPurpose newPurpose)
         {
             if (UnitPurpose == newPurpose && UnitPurpose != Define.UnitPurpose.PassTurn) { IsNewPurpose = false; } 
@@ -461,7 +461,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
     {
         Vector3Int cellPos = blackTarget.Key;
         int distance = Mathf.Abs(cellPos.x - CurrentCellCoor.x) + Mathf.Abs(cellPos.y - CurrentCellCoor.y);
-        foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
+        foreach (KeyValuePair<string, BaseSkill> pair in _skillDict)
         {
             //Todo
             if (pair.Value.Cost + Stat.Ap < 0) { continue; }
@@ -477,7 +477,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         //Todo
         Vector3Int cellPos = whiteTarget.Key;
         int distance = Mathf.Abs(cellPos.x - CurrentCellCoor.x) + Mathf.Abs(cellPos.y - CurrentCellCoor.y);
-        foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in _skillDict)
+        foreach (KeyValuePair<string, BaseSkill> pair in _skillDict)
         {
             //Todo
             if (pair.Value.Cost > Stat.Ap) { continue; }

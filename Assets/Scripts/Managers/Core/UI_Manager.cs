@@ -56,10 +56,6 @@ public class UI_Manager
     }
     void DisplayOverlay()
     {
-        //foreach (TileOverlay overlay in _overlayArr.Where(overlay => !overlay.IsActive))
-        //{
-        //    ResetTile(overlay);
-        //}
         foreach (TileOverlay overlay in _overlayArr.Where(overlay => overlay.IsActive))
         {
             overlay.Display();
@@ -184,6 +180,6 @@ public class UI_Manager
     }
     public void Clear()
     {
-
+        _game_DownPanel = null;
     }
 }

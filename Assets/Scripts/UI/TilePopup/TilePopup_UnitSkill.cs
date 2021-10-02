@@ -20,7 +20,7 @@ public class TilePopup_UnitSkill : MonoBehaviour
             return; 
         }
         else { _None.SetActive(false); }
-        foreach (KeyValuePair<string, SkillLibrary.BaseSkill> pair in data.SkillDict)
+        foreach (KeyValuePair<string, BaseSkill> pair in data.SkillDict)
         {
             GameObject skillBox = Managers.ResourceMgr.Instantiate(_SkillBox, transform);
             skillBox.GetComponent<TextMeshProUGUI>().text = pair.Key;

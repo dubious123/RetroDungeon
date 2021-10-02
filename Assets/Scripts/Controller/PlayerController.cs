@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     Vector3Int? _currentMouseCellPos;
     Vector3Int _destination;
     Dictionary<Vector3Int, TileInfo> _inRangeTileDict;
-    SkillLibrary.BaseSkill _skill;
+    BaseSkill _skill;
     Vector3Int _skillTargetPos;
 
     public Vector3Int? CurrentMouseCellPos { set { _currentMouseCellPos = value; } }
