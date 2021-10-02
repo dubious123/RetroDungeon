@@ -20,6 +20,14 @@ public class Game_DownPanel : MonoBehaviour
         Transform[] children = gameObject.GetChildren();
         _leftInputHandlerArr = children[0].GetComponentsInChildren<SkillIconInputHandler>();
         _rightInputHandlerArr = children[2].GetComponentsInChildren<SkillIconInputHandler>();
+        foreach (SkillIconInputHandler handler in _leftInputHandlerArr)
+        {
+            handler.Init();
+        }
+        foreach (SkillIconInputHandler handler in _rightInputHandlerArr)
+        {
+            handler.Init();
+        }
     }
     public void UpdateSkillIcon()
     {

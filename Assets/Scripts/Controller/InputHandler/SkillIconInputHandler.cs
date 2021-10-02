@@ -16,10 +16,6 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     string _skillName;
     float _duration;
     bool _disabled;
-    void Awake()
-    {
-        Init();
-    }
     public void Init()
     {
         _rect = GetComponent<RectTransform>();
@@ -47,12 +43,12 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
             Cancel();
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
         }
-        else if(_activeSkill.Skill != null)
-        {
-            Managers.InputMgr.GameController.RightClickEvent.RemoveListener(_activeSkill.Skill.Cancel);
-        }
         else if (_duration < 0.2 && _skillName != null && _disabled == false) 
         {
+            if(_activeSkill.Skill != null)
+            {
+                Managers.InputMgr.GameController.RightClickEvent.RemoveListener(_activeSkill.Skill.Cancel);
+            }
             Managers.GameMgr.Player_Controller.ReachableEmptyTileDict.Clear();
             Managers.GameMgr.Player_Controller.ReachableOccupiedCoorSet.Clear();
             Managers.GameMgr.Player_Controller.ResetSkill();

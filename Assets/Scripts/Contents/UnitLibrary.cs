@@ -14,6 +14,8 @@ public static class UnitLibrary
     {
         if (!_unitJsonDict.ContainsKey(name)) { _unitJsonDict.Add(name, Managers.DataMgr.GetJson(_defualtPath + $"{name}")); }
         Managers.DataMgr.PopulateObject(_unitJsonDict[name], unitData);
+        var jo = JObject.Parse(_unitJsonDict[name])["SkillList"];
+        List<string> list = JObject.Parse(_unitJsonDict[name])["SkillList"].ToObject<List<string>>();
         foreach (string skill in JObject.Parse(_unitJsonDict[name])["SkillList"].ToObject<List<string>>())
         {
             unitData.SkillDict.Add(skill, SkillLibrary.GetSkill(skill));

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerEx
 {
-    WorldPosition _currentWorld = new WorldPosition(Define.World.AbandonedMineShaft, 1);
+    WorldPosition _currentWorld;
     GameObject _player;
     PlayerController _playerController;
     PlayerData _playerData;
@@ -31,6 +31,7 @@ public class GameManagerEx
 
     public void Init()
     {
+        _currentWorld = new WorldPosition(Define.World.AbandonedMineShaft, 1);
     }
     public void CreatePlayer()
     {

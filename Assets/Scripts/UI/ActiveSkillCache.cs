@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ActiveSkillCache : MonoBehaviour
 {
-    public SkillIconInputHandler Skill;
+    public SkillIconInputHandler Skill { get; set; }
 }
