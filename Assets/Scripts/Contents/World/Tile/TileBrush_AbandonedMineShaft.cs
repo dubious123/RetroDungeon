@@ -6,6 +6,6 @@ public class TileBrush_AbandonedMineShaft : BaseTileBrush
 {
     public TileBrush_AbandonedMineShaft()
     {
-        LoadData("RenderingData/Tile/TileBrush_AbandonedMineShaft");
+        LoadData("RenderingData/TileBrush/TileBrush_AbandonedMineShaft");
     }
 }

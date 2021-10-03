@@ -34,13 +34,13 @@ public class Game_DownPanel : MonoBehaviour
         foreach(SkillIconInputHandler handler in _leftInputHandlerArr)
         {
             //Todo 
-            if (Managers.GameMgr.Player_Data.Stat.Ap < 1) { handler.DisableSkill(); }
+            if (Managers.GameMgr.Player_Data.Stat.Ap < 2) { handler.DisableSkill(); }
             else { handler.EnableSkill(); }
         }
         foreach (SkillIconInputHandler handler in _rightInputHandlerArr)
         {
             //Todo 
-            if (Managers.GameMgr.Player_Data.Stat.Ap < 1) { handler.DisableSkill(); }
+            if (Managers.GameMgr.Player_Data.Stat.Ap < 2) { handler.DisableSkill(); }
             else { handler.EnableSkill(); }
         }
     }

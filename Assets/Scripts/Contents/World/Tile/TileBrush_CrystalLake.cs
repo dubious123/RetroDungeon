@@ -6,6 +6,6 @@ public class TileBrush_CrystalLake : BaseTileBrush
 {
     public TileBrush_CrystalLake()
     {
-        LoadData("Data/RenderingData/Tile/TileBrush_Crystallake");
+        LoadData("Data/RenderingData/TileBrush/TileBrush_Crystallake");
     }
 }

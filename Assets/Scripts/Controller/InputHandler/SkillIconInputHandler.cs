@@ -13,7 +13,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     Sprite _temp;
     GUI _gui;
     ActiveSkillCache _activeSkill;
-    string _skillName;
+    [SerializeField] string _SkillName;
     float _duration;
     bool _disabled;
     public void Init()
@@ -25,7 +25,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _this = transform.GetComponent<Image>();
         _gui = GetComponent<GUI>();
         _gui.enabled = false;
-        _skillName = "Blunt";
+        _SkillName = "MagicArrow";
         _disabled = false;
     }
     public void OnMouseDown(InputAction.CallbackContext context)
@@ -43,7 +43,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
             Cancel();
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
         }
-        else if (_duration < 0.2 && _skillName != null && _disabled == false) 
+        else if (_duration < 0.2 && _SkillName != null && _disabled == false) 
         {
             if(_activeSkill.Skill != null)
             {
@@ -52,7 +52,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
             Managers.GameMgr.Player_Controller.ReachableEmptyTileDict.Clear();
             Managers.GameMgr.Player_Controller.ReachableOccupiedCoorSet.Clear();
             Managers.GameMgr.Player_Controller.ResetSkill();
-            Managers.GameMgr.Player_Controller.UpdateSkill(_skillName);
+            Managers.GameMgr.Player_Controller.UpdateSkill(_SkillName);
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
             Managers.InputMgr.GameController.RightClickEvent.AddListener(Cancel);
             _activeSkill.Skill = this;

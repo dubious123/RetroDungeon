@@ -1,8 +1,8 @@
 {
   "Stat": {
-    "MaxAp": 7,
-    "RecoverAp": 4,
-    "Ap": 4,
+    "MaxAp": 20,
+    "RecoverAp": 15,
+    "Ap": 15,
     "MaxHp": 100,
     "Hp": 100,
     "MaxDef": 50,
@@ -20,6 +20,7 @@
     "MoveSpeed": 6
   },
   "SkillList": [
-    "Blunt"
+    "Blunt",
+    "MagicArrow"
   ]
 }
