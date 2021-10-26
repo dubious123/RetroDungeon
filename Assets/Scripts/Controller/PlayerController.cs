@@ -16,14 +16,13 @@ public class PlayerController : MonoBehaviour
     Define.UnitState _nextState;
     AnimationController _animController;
     Button _endTernBtn;
-    static Dictionary<Vector3Int, TileInfo> _board;
     Dictionary<Vector3Int, PathInfo> _reachableEmptyTileDict;
     HashSet<Vector3Int> _reachableOccupiedCoorSet;
     Stack<Vector3Int> _path;
     Vector3Int? _currentMouseCellPos;
     Vector3Int _destination;
     Dictionary<Vector3Int, TileInfo> _inRangeTileDict;
-    SkillLibrary.BaseSkill _skill;
+    BaseSkill _skill;
     Vector3Int _skillTargetPos;
 
     public Vector3Int? CurrentMouseCellPos { set { _currentMouseCellPos = value; } }
@@ -53,14 +52,11 @@ public class PlayerController : MonoBehaviour
     public void HandleIdle()
     {
         _animController.PlayAnimationLoop("idle");
-        //_state = Define.UnitState.Idle;
-        //Todo 
-        if (_board == null)
-        {
-            _board = Managers.DungeonMgr.GetTileInfoDict();
-        }
         UpdateReachableTileInfo();
-        SetReachableTiles();
+        Managers.UI_Mgr.HideAllOverlay();
+        Managers.UI_Mgr.AddTileSet(Define.TileOverlay.Unit, _playerData.CurrentCellCoor,_playerData.TileColor);
+        Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Move, _reachableEmptyTileDict.Keys);
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Move,Define.TileOverlay.Unit);
         Managers.InputMgr.GameController.ActivatePlayerInput();
         _endTernBtn.enabled = true;
     }
@@ -68,10 +64,8 @@ public class PlayerController : MonoBehaviour
     public IEnumerator<float> HandleMoving()
     {
         _endTernBtn.enabled = false;
-        //_state = Define.UnitState.Moving;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
-
-        ResetReachableTiles();
+        Managers.UI_Mgr.HideAllOverlay();
         #region Player Moving Algorithm
         yield return Timing.WaitUntilDone(_MovePlayerAlongPath().RunCoroutine());
         UpdatePlayerState(Define.UnitState.Idle);
@@ -116,7 +110,7 @@ public class PlayerController : MonoBehaviour
     }
     private void UpdateReachableTileInfo()
     {
-        int currentAp = Managers.GameMgr.Player_Data.CurrentAp;
+        int currentAp = Managers.GameMgr.Player_Data.Stat.Ap;
         SimplePriorityQueue<PathInfo, int> nextTiles = new SimplePriorityQueue<PathInfo, int>(new PathInfoEquality());
 
         _reachableEmptyTileDict = new Dictionary<Vector3Int, PathInfo>();
@@ -127,6 +121,8 @@ public class PlayerController : MonoBehaviour
         Vector3Int nextCoor;
 
         nextTiles.Enqueue(currentInfo);
+        _reachableOccupiedCoorSet.Add(_playerData.CurrentCellCoor);
+        Dungeon dungeon = Managers.GameMgr.CurrentDungeon;
         while (nextTiles.Count > 0)
         {
             currentInfo = nextTiles.Dequeue();
@@ -135,12 +131,12 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < Define.TileCoor8Dir.Length; i++)
             {
                 nextCoor = currentCoor + Define.TileCoor8Dir[i];
-                if (_reachableEmptyTileDict.ContainsKey(nextCoor)) { continue; }
+                if (_reachableEmptyTileDict.ContainsKey(nextCoor) || !Managers.GameMgr.IsReachableTile(nextCoor)) { continue; }
                 //nextCoor is not in the dictionary
-                int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + _board[currentCoor].LeaveCost; /*To do + reachCost*/
-                if (_board.ContainsKey(nextCoor) && currentAp >= totalMoveCost)
+                int totalMoveCost = currentInfo.Cost + Define.TileMoveCost[i] + dungeon.GetTile(currentCoor).LeaveCost; /*To do + reachCost*/
+                if (currentAp >= totalMoveCost)
                 {
-                    if (_board[nextCoor].Occupied)
+                    if (Managers.GameMgr.IsTileOccupied(nextCoor))
                     {
                         _reachableOccupiedCoorSet.Add(nextCoor);
                         continue;
@@ -189,28 +185,6 @@ public class PlayerController : MonoBehaviour
     {
         _path.Clear();
     }
-    private void SetReachableTiles()
-    {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-        {
-            Managers.UI_Mgr.PaintReachableEmptyTile(pair.Key);
-        }
-        foreach (Vector3Int coor in _reachableOccupiedCoorSet)
-        {
-            Managers.UI_Mgr.PaintReachableOccupiedTile(coor);
-        }
-    }
-    public void ResetReachableTiles()
-    {
-        foreach (KeyValuePair<Vector3Int, PathInfo> pair in _reachableEmptyTileDict)
-        {
-            Managers.UI_Mgr.ResetTile(pair.Key);
-        }
-        foreach (Vector3Int coor in _reachableOccupiedCoorSet)
-        {
-            Managers.UI_Mgr.ResetTile(coor);
-        }
-    }
     private IEnumerator<float> _MovePlayerAlongPath()
     {
         Vector3Int next;
@@ -230,7 +204,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
-        float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
+        float moveSpeed = Managers.GameMgr.Player_Data.Stat.MoveSpeed;
         float delta = 0;
         float ratio = 0;
         while (ratio <= 1.0f)
@@ -266,8 +240,6 @@ public class PlayerController : MonoBehaviour
     public void UpdateMoveResult(Vector3Int next)
     {
         // calculate current Ap
-        _board[_playerData.CurrentCellCoor].RemoveUnit();
-        _board[next].SetUnit(gameObject);
         UpdateMoveAp(next);
         _playerData.CurrentCellCoor = next;
 
@@ -287,19 +259,26 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-    public void HandleDie()
+    public IEnumerator<float> _HandleDie()
     {
-        throw new NotImplementedException();
+        Managers.InputMgr.GameController.DeactivatePlayerInput();
+        Managers.InputMgr.GameController.DeactivateCameraScroll();
+        yield return Timing.WaitUntilDone(_animController._PlayAnimation("vanish",1).RunCoroutine());
+        Managers.ResourceMgr.Destroy(gameObject);
+        Managers.GameMgr.PerformPlayerLose();
+        yield break;
+
+
     }
     #region HandleSkill
     public IEnumerator<float> HandleSkill()
     {
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
-        DeavtivateInRangeTiles();
+        Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Skill);
         Managers.BattleMgr.SkillFromTo(_playerData, _skillTargetPos, _skill);
         yield return Timing.WaitUntilDone(_animController._PlayAnimation($"{_skill.AnimName}", 1).RunCoroutine());
-        //yield return Timing.WaitForSeconds(0.15f);
+        ResetSkill();
         UpdatePlayerState(Define.UnitState.Idle);
         yield break;
     }
@@ -311,23 +290,17 @@ public class PlayerController : MonoBehaviour
     {
         if (!_playerData.SkillDict.TryGetValue(skillName, out _skill)) { 
             Debug.LogError("Not Learned yet"); return; }
-        ResetReachableTiles();
+        Managers.UI_Mgr.HideAllOverlay();
         SetInRangeTilesDict();
-        ActivateInRangeTiles();
+        Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Skill, _inRangeTileDict.Keys);
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Skill,Define.TileOverlay.Unit);
     }
     public void ResetSkill()
     {
         _skill = null;
-        ResetInRangeTiles();
+        Managers.UI_Mgr.HideAllOverlay();
         _inRangeTileDict.Clear();
-        SetReachableTiles();
-    }
-    public void ResetInRangeTiles()
-    {
-        foreach(KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict)
-        {
-            Managers.UI_Mgr.ResetTile(pair.Key);
-        }
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Move);
     }
     public void SetInRangeTilesDict()
     {
@@ -339,23 +312,10 @@ public class PlayerController : MonoBehaviour
             for (int x = k - range; x <= range - k; x++)
             {
                 nowPos = _playerData.CurrentCellCoor + new Vector3Int(x, y, 0);
-                if (_board.TryGetValue(nowPos,out TileInfo tileInfo)) { _inRangeTileDict.Add(nowPos, tileInfo); }
+                if (Managers.GameMgr.HasTile(nowPos)) { _inRangeTileDict.Add(nowPos, Managers.GameMgr.CurrentDungeon.GetTile(nowPos)); }
             }
         }
-    }
-    public void ActivateInRangeTiles()
-    {
-        foreach(KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict) 
-        {
-            if (_reachableOccupiedCoorSet.Contains(pair.Key)) { Managers.UI_Mgr.PaintInRangeUnitTile(pair.Key); }
-            else { Managers.UI_Mgr.PaintInRangeTile(pair.Key); }
-        }
-
-    }
-    public void DeavtivateInRangeTiles()
-    {
-        foreach (KeyValuePair<Vector3Int, TileInfo> pair in _inRangeTileDict) { Managers.UI_Mgr.ResetTile(pair.Key); }
-        _inRangeTileDict.Clear();
+        if (!_skill.IsSelfIncluded) { _inRangeTileDict.Remove(_playerData.CurrentCellCoor); }
     }
     #endregion
 
@@ -366,8 +326,8 @@ public class PlayerController : MonoBehaviour
     }
     public void EndTurn()
     {
-        Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.RecoverAp);
-        ResetReachableTiles();
+        Managers.GameMgr.Player_Data.UpdateApRecover(Managers.GameMgr.Player_Data.Stat.RecoverAp);
+        Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Move,Define.TileOverlay.Skill);
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
         Managers.TurnMgr._HandleUnitTurn().RunCoroutine();

@@ -80,11 +80,11 @@ public class Util
     //    iso.z = z;
     //    return iso;
     //}
-    public static void SetTile(Tilemap[] tilemaps, Vector3Int gridPosition, TileInfo tileInfo)
+    public static void SetTile(Tilemap[] tilemaps, Vector3Int gridPosition, TileBase[] tiles)
     {
         for (int i = 0; i < tilemaps.Length; i++)
         {
-            tilemaps[i].SetTile(gridPosition, tileInfo.RuleTiles[i]);
+            tilemaps[i].SetTile(gridPosition, tiles[i]);
         }
     }
 }

@@ -35,9 +35,9 @@ public static class Extension
     //{
     //    return Util.ConvertToIso(cart, z);
     //}
-    public static void SetTile(this Tilemap[] tilemaps, Vector3Int tileCartPos, TileInfo tileInfo)
+    public static void SetTile(this Tilemap[] tilemaps, Vector3Int tileCartPos, TileBase[] tiles)
     {
-        Util.SetTile(tilemaps, tileCartPos, tileInfo);
+        Util.SetTile(tilemaps, tileCartPos, tiles);
     }
     #region Priority Queue Extensions
     public static void Enqueue<TItem, TPriority>(this SimplePriorityQueue<TItem, TPriority> simplePriorityQueue, TItem item) where TItem : Interface.ICustomPriorityQueueNode<TPriority>

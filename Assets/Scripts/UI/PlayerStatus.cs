@@ -69,26 +69,26 @@ public class PlayerStatus : MonoBehaviour
     }
     void UpdatePlayerStatusBar()
     {
-        if (_memorizedMaxHp != _data.MaxHp) 
+        if (_memorizedMaxHp != _data.Stat.MaxHp) 
         { 
-            UpdateMaxAnchor(_hp, ref _memorizedMaxHp, _data.MaxHp);
+            UpdateMaxAnchor(_hp, ref _memorizedMaxHp, _data.Stat.MaxHp);
             UpdateLeftBarAnchor(_def, _hp);
         }
-        if (_memorizedHp != _data.Hp) { UpdateGaugeAnchor(_hpGauge, ref _memorizedHp, _memorizedMaxHp, _data.Hp); }
-        if (_memorizedMaxDef != _data.MaxDef) { UpdateMaxAnchor(_def, ref _memorizedMaxDef, _data.MaxDef); }
-        if (_memorizedDef != _data.Def) { UpdateGaugeAnchor(_defGauge, ref _memorizedDef, _memorizedMaxDef, _data.Def); }
-        if (_memorizedMaxMp != _data.MaxMp) 
+        if (_memorizedHp != _data.Stat.Hp) { UpdateGaugeAnchor(_hpGauge, ref _memorizedHp, _memorizedMaxHp, _data.Stat.Hp); }
+        if (_memorizedMaxDef != _data.Stat.MaxDef) { UpdateMaxAnchor(_def, ref _memorizedMaxDef, _data.Stat.MaxDef); }
+        if (_memorizedDef != _data.Stat.Def) { UpdateGaugeAnchor(_defGauge, ref _memorizedDef, _memorizedMaxDef, _data.Stat.Def); }
+        if (_memorizedMaxMp != _data.Stat.MaxMp) 
         { 
-            UpdateMaxAnchor(_mp, ref _memorizedMaxMp, _data.MaxMp);
+            UpdateMaxAnchor(_mp, ref _memorizedMaxMp, _data.Stat.MaxMp);
             UpdateLeftBarAnchor(_ms, _mp);
         }
-        if (_memorizedMp != _data.Mp) { UpdateGaugeAnchor(_mpGauge, ref _memorizedMp, _memorizedMaxMp, _data.Mp); }
-        if (_memorizedMaxMs != _data.MaxMS) { UpdateMaxAnchor(_ms, ref _memorizedMaxMs, _data.MaxMS); }
-        if (_memorizedMs != _data.MS) { UpdateGaugeAnchor(_msGauge, ref _memorizedMs, _memorizedMaxMs, _data.MS); }
-        if (_memorizedMaxShock != _data.MaxShock) { UpdateMaxAnchor(_shock, ref _memorizedMaxShock, _data.MaxShock); }
-        if (_memorizedShock != _data.Shock) { UpdateGaugeAnchor(_shockGauge, ref _memorizedShock, _memorizedMaxShock, _data.Shock); }
-        if (_memorizedMaxStress != _data.MaxStress) { UpdateMaxAnchor(_stress, ref _memorizedMaxStress, _data.MaxStress); }
-        if (_memorizedStress != _data.Stress) { UpdateGaugeAnchor(_stressGauge, ref _memorizedStress, _memorizedMaxStress, _data.Stress); }
+        if (_memorizedMp != _data.Stat.Mp) { UpdateGaugeAnchor(_mpGauge, ref _memorizedMp, _memorizedMaxMp, _data.Stat.Mp); }
+        if (_memorizedMaxMs != _data.Stat.MaxMs) { UpdateMaxAnchor(_ms, ref _memorizedMaxMs, _data.Stat.MaxMs); }
+        if (_memorizedMs != _data.Stat.Ms) { UpdateGaugeAnchor(_msGauge, ref _memorizedMs, _memorizedMaxMs, _data.Stat.Ms); }
+        if (_memorizedMaxShock != _data.Stat.MaxShock) { UpdateMaxAnchor(_shock, ref _memorizedMaxShock, _data.Stat.MaxShock); }
+        if (_memorizedShock != _data.Stat.Shock) { UpdateGaugeAnchor(_shockGauge, ref _memorizedShock, _memorizedMaxShock, _data.Stat.Shock); }
+        if (_memorizedMaxStress != _data.Stat.MaxStress) { UpdateMaxAnchor(_stress, ref _memorizedMaxStress, _data.Stat.MaxStress); }
+        if (_memorizedStress != _data.Stat.Stress) { UpdateGaugeAnchor(_stressGauge, ref _memorizedStress, _memorizedMaxStress, _data.Stat.Stress); }
     }
 
     void UpdateMaxAnchor(RectTransform rect, ref int memorizedData ,int newData)

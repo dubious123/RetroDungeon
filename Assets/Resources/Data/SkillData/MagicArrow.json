@@ -1,0 +1,42 @@
+{
+  "Name": "MagicArrow",
+  "AnimName": "throw",
+  "Tags": [
+    "Attack",
+    "Melee"
+  ],
+  "Cost": 2,
+  "Range": 6,
+  "IsSelfIncluded": false,
+  "Area": [
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "z": 0
+    }
+  ],
+  "PhysicalDamage": 100,
+  "MagicDamage": 50,
+  "MentalDamage": 0,
+  "ShockDamage": 20
+}

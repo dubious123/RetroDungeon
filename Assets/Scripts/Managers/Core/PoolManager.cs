@@ -136,6 +136,7 @@ public class PoolManager
     {
         foreach(Transform child in _poolRoot) { GameObject.Destroy(child.gameObject); }
         _pool.Clear();
+        GameObject.Destroy(_poolRoot.gameObject);
     }
 
 }

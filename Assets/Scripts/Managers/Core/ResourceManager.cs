@@ -64,6 +64,16 @@ public class ResourceManager
         }
         return sprite;
     }
+    public Sprite GetSkillSprite(string name)
+    {
+        Sprite sprite = Load<Sprite>("Data/RenderingData/Skill/"+ name);
+        if (sprite == null)
+        {
+            Debug.Log("Failed to load sprite : " + name);
+            return null;
+        }
+        return sprite;
+    }
     public void Destroy(GameObject go)
     {
         if (go == null) { return; }

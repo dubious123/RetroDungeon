@@ -1,0 +1,27 @@
+{
+  "_defaultPrefabPath": "Prefabs/Tiles/AbandonedMineShaft/",
+  "_tilesDict": {
+    "Empty": {},
+    "Default": {
+      "0": "Floor",
+      "1": "DefaultTile",
+      "3": "Overlay_1"
+    },
+    "Water": {
+      "0": "Floor",
+      "2": "Water_Complex"
+    },
+    "Lava": {
+      "0": "Floor"
+    },
+    "Entrance": {
+      "0": "Floor",
+      "1": "DefaultTile",
+      "5": "Entrance"
+    },
+    "Exit": {
+      "0": "Floor",
+      "1": "Exit"
+    }
+  }
+}

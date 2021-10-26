@@ -1,0 +1,133 @@
+{
+  "_count": "2",
+  "DungeonInfoList": [
+    {
+      "ID": {
+        "World": "AbandonedMineShaft",
+        "Level": "1"
+      },
+      "Width": "100",
+      "Hight": "100",
+      "Iteration": "2",
+      "DeathLimit": "3",
+      "BirthLimit": "4",
+      "InitChance": "50",
+      "WalkCount": "100",
+      "AliveTile": "Default",
+      "DeadTile": "Empty",
+      "RoomSet": [
+        {
+          "Type": "Entrance",
+          "Coor": {
+            "x": "2",
+            "y": "2"
+          },
+          "Range": "5",
+          "StartTileType": "Entrance",
+          "AliveSize": {
+            "x": "6",
+            "y": "6",
+            "z": "0"
+          },
+          "DeadSize": {
+            "x": "1",
+            "y": "1",
+            "z": "0"
+          }
+        },
+        {
+          "Type": "Exit",
+          "Coor": {
+            "x": "80",
+            "y": "80"
+          },
+          "Range": "40",
+          "StartTileType": "Exit",
+          "AliveSize": {
+            "x": "6",
+            "y": "6",
+            "z": "0"
+          },
+          "DeadSize": {
+            "x": "5",
+            "y": "5",
+            "z": "0"
+          },
+          "ExitWorld": {
+            "World": "AbandonedMineShaft",
+            "Level": "2"
+          }
+        }
+      ],
+      "UnitList": {
+        "Miner": "10"
+      }
+    },
+    {
+      "ID": {
+        "World": "AbandonedMineShaft",
+        "Level": "2"
+      },
+      "Width": "100",
+      "Hight": "100",
+      "Iteration": "2",
+      "DeathLimit": "3",
+      "BirthLimit": "4",
+      "InitChance": "50",
+      "WalkCount": "100",
+      "AliveTile": "Default",
+      "DeadTile": "Empty",
+      "RoomSet": [
+        {
+          "Type": "Entrance",
+          "Coor": {
+            "x": "2",
+            "y": "2"
+          },
+          "Range": "5",
+          "StartTileType": "Entrance",
+          "AliveSize": {
+            "x": "6",
+            "y": "6",
+            "z": "0"
+          },
+          "DeadSize": {
+            "x": "1",
+            "y": "1",
+            "z": "0"
+          },
+          "PreWorld": {
+            "World": "AbandonedMineShaft",
+            "Level": "1"
+          }
+        },
+        {
+          "Type": "Exit",
+          "Coor": {
+            "x": "50",
+            "y": "50"
+          },
+          "Range": "49",
+          "StartTileType": "Exit",
+          "AliveSize": {
+            "x": "6",
+            "y": "6",
+            "z": "0"
+          },
+          "DeadSize": {
+            "x": "5",
+            "y": "5",
+            "z": "0"
+          },
+          "ExitWorld": {
+            "World": "CrystalLake",
+            "Level": "1"
+          }
+        }
+      ],
+      "UnitList": {
+        "Miner": "10"
+      }
+    }
+  ]
+}

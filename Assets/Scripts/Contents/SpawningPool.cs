@@ -7,47 +7,42 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class SpawningPool : MonoBehaviour
-{
-    GameObject _dungeon;
-    public List<UnitData> UnitList;
-    Dictionary<Vector3Int, TileInfo> _board;
-    Tilemap _floor;
-    private void Awake()
+{ 
+    public void GenerateUnits(DungeonGenerationInfo dungeonInfo, Dungeon dungeon)
     {
-        _dungeon = transform.gameObject;
-        UnitList = new List<UnitData>();
-    }
-    public void SpawnUnits()
-    {
-        //if (Managers.GameMgr.WorldUnitDic.TryGetValue(_dungeon, out UnitDic) == false)
-        //{
-        //    UnitDic = new Dictionary<Vector3Int, GameObject>();
-        //}
-        GameObject newUnit;
-        KeyValuePair<Vector3Int, TileInfo> pair;
-        DungeonInfo dungeonInfo = _dungeon.GetComponent<DungeonInfo>();
-        _board = dungeonInfo.Board;
-        _floor = dungeonInfo.Tilemaps[0];
-        Stack<Vector3Int> randomCoorStack = new Stack<Vector3Int>();
-        for (int i = 0; i < dungeonInfo.EnemyCount; i++)
+        WorldPosition worldPos = dungeonInfo.ID;
+        string worldName = worldPos.World.ToString();
+        Transform world = transform.Find(worldName);
+        if(world == null) { world = new GameObject($"{worldName}").transform; world.SetParent(gameObject.transform); }
+        Transform level = world.Find($"Level : {worldPos.Level}");
+        if(level == null) { level = new GameObject($"Level : {worldPos.Level}").transform; level.SetParent(world); }
+
+        foreach (KeyValuePair<string,int> pair in dungeonInfo.UnitList)
         {
-            //Todo
-            newUnit = Managers.ResourceMgr.Instantiate("Unit/BaseUnit", _floor.transform);
-            UnitData newUnitData = newUnit.GetComponent<UnitData>();
-            newUnitData.SetDataFromLibrary(UnitLibrary._abandonedMinshaftDex.GetUnit("Unit_Miner"));
-            while(true)
+            GameObject unit;    
+            BaseUnitData unitData;
+            for (int i = 0; i < pair.Value; i++)
             {
-                pair = _board.ElementAt(Random.Range(0, _board.Count - 1));
-                if(!pair.Value.Occupied) 
+                unit = Managers.ResourceMgr.Instantiate("Unit/BaseUnit",level);
+                unit.SetActive(false);
+                unitData = unit.GetOrAddComponent<BaseUnitData>();
+                UnitLibrary.SetUnitData(pair.Key, unitData);
+                dungeon.UnitList.Add(unitData);
+                unitData.WorldPos = worldPos;
+                TileInfo tile;
+                while (true)
                 {
-                    pair.Value.SetUnit(newUnit);
-                    break; 
+                    tile = dungeon.GetRandomTile();
+                    if(tile.Type!=Define.TileType.Empty&&!Managers.GameMgr.IsTileOccupied(tile.Coor))
+                    {
+                        unitData.CurrentCellCoor = tile.Coor;
+                        Managers.GameMgr.MoveUnit(unit, tile.Coor);
+                        Managers.GameMgr.SetUnit(unit, tile.Coor);
+                        break;
+                    }
                 }
             }
-            //UnitDic.Add(pair.Key, newUnit);
-            newUnitData.CurrentCellCoor = pair.Key;
-            newUnit.transform.position = _floor.GetCellCenterWorld(pair.Key);
-            UnitList.Add(newUnitData);
+
         }
     }
 }

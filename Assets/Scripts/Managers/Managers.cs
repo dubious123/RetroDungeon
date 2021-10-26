@@ -1,3 +1,4 @@
+using MEC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,16 @@ public class Managers : MonoBehaviour
 
     #region Contents
     GameManagerEx _gameMgr = new GameManagerEx();
+    TestManager _testMgr = new TestManager();
+    WorldManager _worldMgr = new WorldManager();
     public static GameManagerEx GameMgr { get { return Instance._gameMgr; } }
+    public static TestManager TestMgr { get { return Instance._testMgr; } }
+    public static WorldManager WorldMgr { get { return Instance._worldMgr; } }
     #endregion
 
     BattleManager _battleMgr = new BattleManager();
     CameraManager _cameraMgr = new CameraManager();
+    DataManager _dataMgr = new DataManager();
     DungeonManager _dungeonMgr = new DungeonManager();
     InputManager _inputMgr = new InputManager();
     PoolManager _poolMgr = new PoolManager();
@@ -24,6 +30,7 @@ public class Managers : MonoBehaviour
     
     public static BattleManager BattleMgr { get { return Instance._battleMgr; } }
     public static CameraManager CameraMgr { get { return Instance._cameraMgr; } }
+    public static DataManager DataMgr { get { return Instance._dataMgr; }  }
     public static DungeonManager DungeonMgr { get { return Instance._dungeonMgr; } }
     public static InputManager InputMgr { get { return Instance._inputMgr; } }
     public static PoolManager PoolMgr { get { return Instance._poolMgr; } }
@@ -51,16 +58,32 @@ public class Managers : MonoBehaviour
             _instance = go.GetComponent<Managers>();
             _instance._battleMgr.Init();
             _instance._cameraMgr.Init();
+            _instance._dataMgr.Init();
             _instance._dungeonMgr.Init();
             _instance._poolMgr.Init();
             _instance._gameMgr.Init();
             _instance._inputMgr.Init();
             _instance._turnMgr.Init();
             _instance._ui_Mgr.Init();
+            _instance._testMgr.Init();
+            _instance._worldMgr.Init();
         }
     }
     public static void Clear()
     {
-        PoolMgr.Clear();
+        _instance._gameMgr.Clear();
+        _instance._testMgr.Clear();
+        _instance._worldMgr.Clear();
+        _instance._battleMgr.Clear();
+        _instance._cameraMgr.Clear();
+        _instance._dataMgr.Clear();
+        _instance._dungeonMgr.Clear();
+        _instance._inputMgr.Clear();
+        _instance._poolMgr.Clear();
+        _instance._turnMgr.Clear();
+        _instance._ui_Mgr.Clear();
+       
+        Timing.KillCoroutines();
+        _instance = null;
     }
 }

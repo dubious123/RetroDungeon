@@ -97,6 +97,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d0fa2965-f9de-40b5-8261-913c6c45dddc
     m_ActionName: GamePlay/Camera2DMovement[/Keyboard/w,/Keyboard/a,/Keyboard/s,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e53fc801-6b90-4e4a-a6ca-f66783df53ea
+    m_ActionName: GamePlay/OnMouseRightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a5103704-18cc-4310-8989-62e72e40b167
+    m_ActionName: GamePlay/EnterTestMode[/Keyboard/j,/Keyboard/period,/Keyboard/h]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: GamePlay

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Define
 {
-    public const int TileLayerNum = 8;
     public const int PlayerAnimatorNum = 4;
     public static int[] TileMoveCost =
     {
@@ -70,6 +69,14 @@ public class Define
         public static Vector3Int Right = new Vector3Int(1, -1, 0);
         public static Vector3Int Down = new Vector3Int(-1, -1, 0);
         public static Vector3Int Left = new Vector3Int(-1, 1, 0);
+    }
+    public enum TileOverlay
+    {
+        floor,
+        Move,
+        Unit,
+        Skill,
+
     }
     //Todo
     public enum StatusEffects
@@ -139,6 +146,7 @@ public class Define
     }
     public enum TileType
     {
+        Empty,
         Default,
         Water,
         Lava,
@@ -168,25 +176,23 @@ public class Define
         Cliff,
         num
     }
-    public enum RoomSize
-    {
-        Default,
-        Tiny,
-        Small,
-        Big,
-        Huge,
-        num
-    }
     public enum World
     {
         Unknown,
         AbandonedMineShaft,
+        CrystalLake,
     }
     public enum MapType
     {
         Default,
         Boss,
         Shop,
+    }
+    public enum RoomType
+    {
+        Entrance,
+        Exit,
+        HiddenIsland,
     }
     public enum SceneType
     {

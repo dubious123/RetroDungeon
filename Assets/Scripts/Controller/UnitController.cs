@@ -15,19 +15,10 @@ public class UnitController : MonoBehaviour
     AnimationController _animController;
     UnitData _unitData;
     UnitData.NextActionData _nextAction;
-    static Dictionary<Vector3Int, TileInfo> _board;
-    
-
-
-    Vector3Int _destination;
-    
-
-
     void Init()
     {
         _animController = gameObject.GetComponent<AnimationController>();
         _unitData = transform.GetComponent<UnitData>();
-        _board = Managers.DungeonMgr.GetTileInfoDict();
     }
     private void Awake()
     {
@@ -35,11 +26,12 @@ public class UnitController : MonoBehaviour
     }
     public IEnumerator<float> _PerformUnitTurn()
     { 
-        do
+        while(true)
         {
             _nextAction = _unitData.UpdateNextAction();
+            if(_nextAction.UnitPurpose == Define.UnitPurpose.PassTurn) { break; }
             yield return Timing.WaitUntilDone(_PerformAction().RunCoroutine());
-        } while (_nextAction.UnitPurpose != Define.UnitPurpose.PassTurn);
+        }
         EndTurn();
         yield break;
     }
@@ -52,13 +44,17 @@ public class UnitController : MonoBehaviour
                 HandleIdle();
                 yield break;
             case Define.UnitState.Moving:
+                Managers.UI_Mgr.RemoveTileSet(Define.TileOverlay.Unit, _unitData.CurrentCellCoor);
+                Managers.UI_Mgr.ShowOverlay();
                 yield return Timing.WaitUntilDone(_HandleMoving().RunCoroutine());
+                Managers.UI_Mgr.AddTileSet(Define.TileOverlay.Unit, _unitData.CurrentCellCoor);
+                Managers.UI_Mgr.ShowOverlay();
                 yield break;
             case Define.UnitState.Skill:
                 yield return Timing.WaitUntilDone(_HandleSkill().RunCoroutine());
                 yield break;
             case Define.UnitState.Die:
-                HandleDie();
+                _HandleDie().RunCoroutine();
                 yield break;
         }
     }
@@ -66,11 +62,11 @@ public class UnitController : MonoBehaviour
    
 
 
-    public void HandleIdle()
+    protected void HandleIdle()
     {
         _animController.PlayAnimationLoop("idle");
     }
-    public IEnumerator<float> _HandleMoving()
+    protected IEnumerator<float> _HandleMoving()
     {
 
         #region Unit Moving Algorithm
@@ -83,11 +79,15 @@ public class UnitController : MonoBehaviour
         yield break;
     }
 
-    public void HandleDie()
+    protected IEnumerator<float> _HandleDie()
     {
-        throw new NotImplementedException();
+        GameObject go = GameObject.Find(Managers.UI_Mgr.UnitStatusBarName);
+        if(go != null && go.GetComponentInChildren<UnitStatus>(true).Data == _unitData) { Managers.ResourceMgr.Destroy(go); }
+        yield return Timing.WaitUntilDone(_animController._PlayAnimation("vanish", 1).RunCoroutine());
+        Managers.ResourceMgr.Destroy(gameObject);
+        yield break;
     }
-    public IEnumerator<float> _HandleSkill()
+    protected IEnumerator<float> _HandleSkill()
     {
         Managers.BattleMgr.SkillFromTo(_unitData, _nextAction.TargetPos, _nextAction.NextSkill);
         yield return Timing.WaitUntilDone(_animController._PlayAnimation(_nextAction.NextSkill.AnimName, 1).RunCoroutine());
@@ -102,7 +102,7 @@ public class UnitController : MonoBehaviour
         _animController.PlayAnimationLoop("run");
         Vector3 startingPos = transform.position;
         Vector3 nextDest = Managers.GameMgr.Floor.GetCellCenterWorld(next);
-        float moveSpeed = Managers.GameMgr.Player_Data.Movespeed;
+        float moveSpeed = _unitData.Stat.MoveSpeed;
         float delta = 0;
         float ratio = 0;
         while (ratio <= 1.0f)
@@ -137,7 +137,7 @@ public class UnitController : MonoBehaviour
     }
     private void EndTurn()
     {
-        _unitData.UpdateApRecover(_unitData.RecoverAp);
+        _unitData.UpdateApRecover(_unitData.Stat.RecoverAp);
         //Todo
         _animController.PlayAnimationLoop("idle");
         Managers.TurnMgr._HandleUnitTurn().RunCoroutine();

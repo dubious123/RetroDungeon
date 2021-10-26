@@ -14,8 +14,7 @@ public class TurnManager
     #endregion
 
     #region Unit
-    SpawningPool _currentPool;
-    List<UnitData> _unitList;
+    List<BaseUnitData> _unitList;
     UnitData _currentUnitData;
     UnitController _currentUnitController;
     private class UnitPriorityComparer : IComparer<int>
@@ -32,20 +31,19 @@ public class TurnManager
     {
         _currentTurn = Define.Turn.Player;
         _unitQueue = new SimplePriorityQueue<UnitData, int>(new UnitPriorityComparer());
-
     }
 
     public void GetPlayerController(PlayerController playerController)
     {
         _playerController = playerController;
     }
-    public void UpdateDataFromCurrentSpawningPool()
+    public void UpdateCurrentUnitList()
     {
-        _currentPool = Managers.DungeonMgr.CurrentDungeon.GetComponent<SpawningPool>();
-        _unitList = _currentPool.UnitList;
+        _unitList = Managers.GameMgr.CurrentDungeon.UnitList;
     }
     public void HandlePlayerTurn(Define.UnitState nextState = Define.UnitState.Idle)
     {
+        if(_playerController == null) { return; }
         if(_currentTurn == Define.Turn.Enemy) { _currentTurn = Define.Turn.Player; }
         Managers.CameraMgr.GameCamController.Target = _playerController.gameObject;
         Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkillIcon();
@@ -61,7 +59,7 @@ public class TurnManager
                 _playerController.HandleSkill().RunCoroutine();
                 break;
             case Define.UnitState.Die:
-                _playerController.HandleDie();
+                _playerController._HandleDie();
                 break;
             default:
                 Debug.LogError("Not Defined PlayerState");
@@ -78,6 +76,11 @@ public class TurnManager
         yield return Timing.WaitUntilDone(_currentUnitController._PerformUnitTurn().RunCoroutine());
         yield break;
     }
+    public void RemoveUnit(UnitData unit)
+    {
+        _unitList.Remove(unit);
+        _unitQueue.TryRemove(unit);
+    }
     private void ResetUnitQueue()
     {
         _unitQueue.Clear();
@@ -86,5 +89,10 @@ public class TurnManager
             _unitQueue.Enqueue(unitData);
         }
     }
-
+    public void Clear()
+    {
+        _currentTurn = Define.Turn.Player;
+        _unitList.Clear();
+        _unitList = null;
+    }
 }

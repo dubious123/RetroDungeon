@@ -20,6 +20,7 @@ public class ClickCircleInputHandler : MonoBehaviour
     Vector3Int _cellPos;
     Material _material;
     GUI _gui;
+    bool _isActive;
     float _delta;
     float _speed;
     float _ratio;
@@ -62,12 +63,15 @@ public class ClickCircleInputHandler : MonoBehaviour
     public void Activate()
     {
         ResetUI();
+        _isActive = true;
         _gui.enabled = true;
         _gui.GUIEvent.AddListener(FadeIn);
     }
     public void Deactivate()
     {
-        Managers.UI_Mgr.ResetClickedCell();
+        Managers.UI_Mgr.EndDisplayClickCell();
+        if(_isActive == false) { return; }
+        _isActive = false;
         _gui.enabled = true;
         _gui.GUIEvent.AddListener(FadeOut);
         DisableBtns();
@@ -138,9 +142,9 @@ public class ClickCircleInputHandler : MonoBehaviour
             radian = (_activeBtnNum - i) * Mathf.PI / (_activeBtnNum + 1);
             _btnMoveDir[i] = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
         }
-        _exit.ExitEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
-        _yes.YesEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
-        _info.InfoEvent.AddListener(Managers.UI_Mgr.ResetClickedCell);
+        _exit.ExitEvent.AddListener(Managers.UI_Mgr.EndDisplayClickCell);
+        _yes.YesEvent.AddListener(Managers.UI_Mgr.EndDisplayClickCell);
+        _info.InfoEvent.AddListener(Managers.UI_Mgr.EndDisplayClickCell);
         _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowTilePopup(_cellPos,unit)); 
         _info.InfoEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
         _info.InfoEvent.AddListener(Managers.InputMgr.GameController.DeactivateCameraScroll);

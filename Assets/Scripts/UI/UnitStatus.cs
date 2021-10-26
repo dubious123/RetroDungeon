@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UnitStatus : MonoBehaviour
 {
+    public BaseUnitData Data { get { return _data; } }
     BaseUnitData _data;
     RectTransform _hp;
     RectTransform _hpGauge;
@@ -75,12 +76,12 @@ public class UnitStatus : MonoBehaviour
     }
     void UpdateUnitStatusBar()
     {
-        if (_memorizedHp != _data.Hp) { UpdateGauge(_hpGauge, ref _memorizedHp, _data.MaxHp, _data.Hp, _hpText); }
-        if (_memorizedDef != _data.Def) { UpdateGauge(_defGauge, ref _memorizedDef, _data.MaxDef, _data.Def, _defText); }
-        if (_memorizedMp != _data.Mp) { UpdateGauge(_mpGauge, ref _memorizedMp, _data.MaxMp, _data.Mp, _mpText); }
-        if (_memorizedMs != _data.MS) { UpdateGauge(_msGauge, ref _memorizedMs, _data.MaxMS, _data.MS, _msText); }
-        if (_memorizedShock != _data.Shock) { UpdateGauge(_shockGauge, ref _memorizedShock, _data.MaxShock, _data.Shock, _shockText); }
-        if (_memorizedStress != _data.Stress) { UpdateGauge(_stressGauge, ref _memorizedStress, _data.MaxStress, _data.Stress, _stressText); }
+        if (_memorizedHp != _data.Stat.Hp) { UpdateGauge(_hpGauge, ref _memorizedHp, _data.Stat.MaxHp, _data.Stat.Hp, _hpText); }
+        if (_memorizedDef != _data.Stat.Def) { UpdateGauge(_defGauge, ref _memorizedDef, _data.Stat.MaxDef, _data.Stat.Def, _defText); }
+        if (_memorizedMp != _data.Stat.Mp) { UpdateGauge(_mpGauge, ref _memorizedMp, _data.Stat.MaxMp, _data.Stat.Mp, _mpText); }
+        if (_memorizedMs != _data.Stat.Ms) { UpdateGauge(_msGauge, ref _memorizedMs, _data.Stat.MaxMs, _data.Stat.Ms, _msText); }
+        if (_memorizedShock != _data.Stat.Shock) { UpdateGauge(_shockGauge, ref _memorizedShock, _data.Stat.MaxShock, _data.Stat.Shock, _shockText); }
+        if (_memorizedStress != _data.Stat.Stress) { UpdateGauge(_stressGauge, ref _memorizedStress, _data.Stat.MaxStress, _data.Stat.Stress, _stressText); }
         if(_memeorizedName != _data.UnitName) { _memeorizedName = _data.UnitName; _name.text = _memeorizedName;  }
     }
     void UpdateGauge(RectTransform rect, ref int memorizedData, int maxData, int newData, TextMeshProUGUI textUGUI)

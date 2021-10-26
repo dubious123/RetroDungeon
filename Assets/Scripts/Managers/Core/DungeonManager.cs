@@ -5,35 +5,27 @@ using UnityEngine.Tilemaps;
 
 public class DungeonManager
 {
-    Dictionary<int, GameObject> _dungeons ;
-    public int _currentLevel;
-    public Dictionary<int,GameObject> Dungeons { get { return _dungeons; } }
-    public int Level { get { return _currentLevel; } } 
-
-    public GameObject CurrentDungeon;
-
-    DungeonGenerator _dungeonGenerator;
+    BaseDungeonGenerator _generator;
     public void Init()
     {
-        _currentLevel = 0;
-        _dungeons = new Dictionary<int, GameObject>();
-    }
-    public GameObject CreateNewDungeon(Define.World world)
-    {
-         _dungeonGenerator = new DungeonGenerator(world);
-        CurrentDungeon = _dungeonGenerator.GenerateDungeon();
-        _currentLevel++;
-        Dungeons.Add(_currentLevel, CurrentDungeon);
-        return CurrentDungeon;
-    }
-    public Dictionary<Vector3Int,TileInfo> GetTileInfoDict(int level = 0)
-    {
-        if(level == 0) { level = _currentLevel; }
-        Managers.DungeonMgr.Dungeons.TryGetValue(level, out GameObject dungeon);
-        return dungeon.GetComponent<DungeonInfo>().Board;
-        
 
     }
+    Dungeon CreateNewDungeon_Conway(DungeonGenerationInfo info)
+    {
+        _generator = new DungeonGenerator_ConwayLife();
+        return _generator.Generate(info);
+    }
+    void CreateNewDungeon_RandomWalk(DungeonGenerationInfo info)
+    {
 
+    }
+    public Dungeon CreateNextDungeon(DungeonGenerationInfo info)
+    {
+        return CreateNewDungeon_Conway(info);
+    }
+    public void Clear()
+    {
+        _generator = null;
+    }
 
 }

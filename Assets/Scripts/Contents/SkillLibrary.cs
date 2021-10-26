@@ -1,62 +1,35 @@
+using Newtonsoft.Json.Linq;
 using System;
 
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using Newtonsoft.Json;
+using Random = UnityEngine.Random;
 
 public static class SkillLibrary
 {
-    static Library _instance;
+    static List<string> _skillNameList;
+    static string _defualtPath = "SkillData/";
+    static Dictionary<string, string> _skillJsonDict = new Dictionary<string, string>();
     static SkillLibrary()
     {
-        _instance = new Library();
+        JObject jo = Managers.DataMgr.GetJObject(_defualtPath + "SkillList");
+        _skillNameList = jo["SkillList"].ToObject<List<string>>();
+    }
+    public static void ReplaceSkill(string name, BaseSkill skill)
+    {
+        if (!_skillJsonDict.ContainsKey(name)) { _skillJsonDict.Add(name, Managers.DataMgr.GetJson(_defualtPath + name)); }
+        Managers.DataMgr.PopulateObject(_skillJsonDict[name], skill);
     }
     public static BaseSkill GetSkill(string name)
     {
-        Type type = typeof(Library);
-        FieldInfo field = type.GetField("Skill_" + name);
-        object obj = field.GetValue(_instance);
-        return (BaseSkill)obj;
+        if (!_skillJsonDict.ContainsKey(name)) { _skillJsonDict.Add(name, Managers.DataMgr.GetJson(_defualtPath + name)); }
+        return JsonConvert.DeserializeObject<BaseSkill>(_skillJsonDict[name]);
     }
-
-    public abstract class BaseSkill
+    public static BaseSkill GetRandomSkill()
     {
-        public abstract string Name { get; protected set; }
-        public abstract string AnimName { get; protected set; }
-        public abstract List<string> Tags { get; protected set; }
-        public abstract int Cost { get; protected set; }
-        public abstract int Range { get; protected set; }
-        public abstract List<Vector2Int> Area { get; protected set; }
-        public abstract int PhysicalDamage { get; protected set; }
-        public abstract int MagicDamage { get; protected set; }
-        public abstract int MentalDamage { get; protected set; }
-        public abstract int ShockDamage { get; protected set; }
-    }
-    public class Blunt : BaseSkill
-    {
-        public override string Name { get; protected set; } = "Blunt";
-        public override string AnimName { get; protected set; } = "throw";
-        public override List<string> Tags { get; protected set; } = new List<string>(
-            new string[] { "Attack", "Melee" , "SingleTarget" });
-        public override int Cost { get; protected set; } = 1;
-        public override int Range { get; protected set; } = 1;
-        public override List<Vector2Int> Area { get; protected set; } = new List<Vector2Int>
-        {
-            Vector2Int.zero
-        };
-        public override int PhysicalDamage { get; protected set; } = 5;
-        public override int MagicDamage { get; protected set; } = 0;
-        public override int MentalDamage { get; protected set; } = 0;
-        public override int ShockDamage { get; protected set; } = 5;
-    }
-
-    class Library
-    {
-        public static Blunt Skill_Blunt;
-        public Library()
-        {
-            Skill_Blunt = new Blunt();
-        }
+        return GetSkill(_skillNameList[Random.Range(0, _skillNameList.Count - 1)]);
     }
 }

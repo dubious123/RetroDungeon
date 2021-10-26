@@ -12,7 +12,7 @@ public class MainMenu : BaseScene
     }
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("GameScene",LoadSceneMode.Single);
     }
     public override void Clear()
     {

@@ -51,6 +51,8 @@ public class AnimationController : MonoBehaviour
         UpdateDir();
         CheckWeapon(); //Todo
         yield return Timing.WaitUntilDone(_RunAnimators(animName, roop).RunCoroutine());
+        //Todo
+        PlayAnimationLoop("idle");
     }
     private void UpdateDir()
     {

@@ -1,0 +1,23 @@
+{
+  "Name": "Blunt",
+  "AnimName": "throw",
+  "Tags": [
+    "Attack",
+    "Melee",
+    "SingleTarget"
+  ],
+  "Cost": 1,
+  "Range": 1,
+  "IsSelfIncluded": true,
+  "Area": [
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  ],
+  "PhysicalDamage": 50,
+  "MagicDamage": 0,
+  "MentalDamage": 0,
+  "ShockDamage": 5
+}

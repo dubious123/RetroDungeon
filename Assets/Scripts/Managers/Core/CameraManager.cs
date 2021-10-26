@@ -34,5 +34,8 @@ public class CameraManager
     {
         _gameCamController.Target = target;
     }
-    
+    public void Clear()
+    {
+
+    }
 }
