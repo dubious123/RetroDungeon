@@ -32,8 +32,7 @@ public class UI_Manager
     string _unitStatusBarName;
     public string UnitStatusBarName { get { return _unitStatusBarName; } }
     public void Init()
-    {
-        
+    {      
         _clickCellColor = new Color32(83, 125, 170, 1);
         _overlayArr = new TileOverlay[4];
         _floorOverlay = new TileOverlay(Color.white);
@@ -177,6 +176,10 @@ public class UI_Manager
     public void ShowTilePopup(Vector3Int pos,GameObject unit = null)
     {
         Managers.ResourceMgr.Instantiate("UI/TilePopup").GetComponentInChildren<TilePopup_Content>(true).Init(pos,unit);
+    }
+    public void ShowGetSkillPopup()
+    {
+        Managers.ResourceMgr.Instantiate("UI/Popup/GetSkillPopup");
     }
     public void Clear()
     {

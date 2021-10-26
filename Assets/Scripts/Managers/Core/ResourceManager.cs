@@ -66,7 +66,7 @@ public class ResourceManager
     }
     public Sprite GetSkillSprite(string name)
     {
-        Sprite sprite = Load<Sprite>("Data/RenderingData/Skill"+ name);
+        Sprite sprite = Load<Sprite>("Data/RenderingData/Skill/"+ name);
         if (sprite == null)
         {
             Debug.Log("Failed to load sprite : " + name);

@@ -19,8 +19,5 @@
     "Priority": 5,
     "MoveSpeed": 6
   },
-  "SkillList": [
-    "Blunt",
-    "MagicArrow"
-  ]
+  "SkillList": []
 }

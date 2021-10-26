@@ -84,4 +84,10 @@ public class BaseUnitData : MonoBehaviour
         else if (AllienceList.Contains("Player")) { _tileColor = Color.green; }
         else { _tileColor = Color.red; }
     }
+    public virtual void LearnSkill(BaseSkill skill)
+    {
+        if (_skillDict.ContainsKey(skill.Name)) { return; }
+        _skillDict.Add(skill.Name, skill);
+        Managers.UI_Mgr.Canvas_Game_DownPanel.PutSkill(skill.Name);
+    }
 }

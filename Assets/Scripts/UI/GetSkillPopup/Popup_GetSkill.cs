@@ -9,8 +9,10 @@ public class Popup_GetSkill : MonoBehaviour
     BaseSkill[] _randomSkillArr = new BaseSkill[3];
     [SerializeField] TextMeshProUGUI[] _SkillTexts;
     [SerializeField] Image[] _SkillImages;
-    private void Awake()
+    [SerializeField] RectTransform _SkillPanel;
+    private void Start()
     {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_SkillPanel);
         GetRandomSkill();
         UpdateUI();
     }
@@ -18,7 +20,7 @@ public class Popup_GetSkill : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            _randomSkillArr[i] = SkillLibrary.GetSkill("Blunt");
+            _randomSkillArr[i] = SkillLibrary.GetRandomSkill();
         }
     }
     void UpdateUI()
@@ -26,7 +28,12 @@ public class Popup_GetSkill : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             _SkillTexts[i].text = _randomSkillArr[i].Name;
-            _SkillImages[i].sprite = Managers.ResourceMgr.GetSprite(_randomSkillArr[i].Name);
+            _SkillImages[i].sprite = Managers.ResourceMgr.GetSkillSprite(_randomSkillArr[i].Name);
         }
+    }
+    public void GetSkill(int num)
+    {
+        Managers.GameMgr.Player_Data.LearnSkill(_randomSkillArr[num]);
+        Managers.ResourceMgr.Destroy(gameObject);
     }
 }

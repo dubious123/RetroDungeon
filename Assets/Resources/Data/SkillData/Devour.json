@@ -1,0 +1,42 @@
+{
+  "Name": "Devour",
+  "AnimName": "throw",
+  "Tags": [
+    "Attack",
+    "Melee"
+  ],
+  "Cost": 3,
+  "Range": 6,
+  "IsSelfIncluded": true,
+  "Area": [
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "z": 0
+    }
+  ],
+  "PhysicalDamage": 500,
+  "MagicDamage": 0,
+  "MentalDamage": 0,
+  "ShockDamage": 20
+}

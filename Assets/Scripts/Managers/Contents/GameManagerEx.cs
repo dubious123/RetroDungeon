@@ -28,7 +28,7 @@ public class GameManagerEx
             return _floor;
         }
     }
-
+    public BaseUnitData Me { get; set; }
     public void Init()
     {
         _currentWorld = new WorldPosition(Define.World.AbandonedMineShaft, 1);
@@ -50,6 +50,7 @@ public class GameManagerEx
         Managers.UI_Mgr.ResetFloorOverlay();
         EnterTheDungeon(_currentWorld);
         Managers.TurnMgr.UpdateCurrentUnitList();
+        Me = _playerData;
         Managers.TurnMgr.HandlePlayerTurn();
     }
     public void PerformPlayerLose()
@@ -70,8 +71,6 @@ public class GameManagerEx
         DisableUnits(_currentWorld);
         _currentWorld = position;
         _playerData.WorldPos = _currentWorld;
-
-
         Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Unit, CurrentDungeon.GetAllUnitPos());
         DungeonRenderer.RenderDungeon(CurrentDungeon);
         EnableUnits(position);
@@ -80,6 +79,7 @@ public class GameManagerEx
         SetUnit(Player, CurrentDungeon.EntrancePosList[0]);
         _playerData.CurrentCellCoor = CurrentDungeon.EntrancePosList[0];
         Managers.UI_Mgr.ResetFloorOverlay();
+        Managers.UI_Mgr.ShowGetSkillPopup();
         Managers.TurnMgr.UpdateCurrentUnitList();
         _playerController.HandleIdle();
     }

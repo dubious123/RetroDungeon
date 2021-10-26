@@ -13,6 +13,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     Sprite _temp;
     GUI _gui;
     ActiveSkillCache _activeSkill;
+    bool _isLeft;
     [SerializeField] string _SkillName;
     float _duration;
     bool _disabled;
@@ -21,11 +22,11 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _rect = GetComponent<RectTransform>();
         _skillHolder = transform.parent.GetComponent<Canvas>();
         _activeSkill = _skillHolder.transform.parent.parent.GetComponent<ActiveSkillCache>();
+        _isLeft = _skillHolder.transform.parent.GetComponent<DownPanel_LeftOrRight>().IsLeft;
         _handler = GameObject.Find("MainCircle").GetComponent<ClickCircleInputHandler>();
         _this = transform.GetComponent<Image>();
         _gui = GetComponent<GUI>();
         _gui.enabled = false;
-        _SkillName = "MagicArrow";
         _disabled = false;
     }
     public void OnMouseDown(InputAction.CallbackContext context)
@@ -80,11 +81,16 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     }
     public void GetDrop(GameObject obj)
     {
-        Image other = obj.GetComponent<SkillIconInputHandler>()?.GetComponent<Image>();
+        SkillIconInputHandler other = obj.GetComponent<SkillIconInputHandler>();
         if(other == null) { return; }
-        _temp = _this.sprite;
-        _this.sprite = other.sprite;
-        other.sprite = _temp;
+        string temp = _SkillName;
+        _SkillName = other._SkillName;
+        other._SkillName = temp;
+        int i = transform.GetSiblingIndex();
+
+        Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkill(_isLeft, transform.parent.GetSiblingIndex(), _SkillName);
+        Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkill(other._isLeft, other.transform.parent.GetSiblingIndex(), other._SkillName);
+        Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkillIcon();
     }
     private void UpdatePositionGUI()
     {
@@ -95,6 +101,19 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _activeSkill.Skill = null;
         Managers.GameMgr.Player_Controller.ResetSkill();
         Managers.GameMgr.Player_Controller.UpdatePlayerState(Define.UnitState.Idle);
+    }
+    public void UpdateSkill(string skillName)
+    {
+        _SkillName = skillName;
+        if(_SkillName == null) 
+        {
+            DisableSkill();
+            _this.sprite = null;
+            return;
+        }
+        if(Managers.GameMgr.Me.SkillDict[skillName].Cost > Managers.GameMgr.Me.Stat.Ap) { DisableSkill(); }
+        _this.sprite = Managers.ResourceMgr.GetSkillSprite(skillName);
+        EnableSkill();
     }
     public void DisableSkill()
     {
