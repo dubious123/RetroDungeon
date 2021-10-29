@@ -49,9 +49,12 @@ public class ResourceManager
     }
     public GameObject Instantiate(GameObject original, Transform parent = null)
     {
-        string path = original.GetComponent<IOriginalPath>().Path;
-
-        return path == null? null : Instantiate(path, parent);
+        string path = original.GetComponent<IOriginalPath>()?.Path;
+        if(path != null) { return Instantiate(path, parent); }
+        else if (original.GetComponent<Poolable>()) { return Managers.PoolMgr.Pop(original, parent).gameObject; }
+        GameObject go = Object.Instantiate(original, parent);
+        go.name = original.name;
+        return go;
     }
     public Sprite GetSprite(string path)
     {

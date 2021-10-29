@@ -8,8 +8,9 @@ using UnityEngine.Tilemaps;
 
 public class UI_Manager
 {
+    PopupController _popupController;
+    Game_DownPanel _downPanel;
     Vector3Int _clickedCellPos;
-    Game_DownPanel _game_DownPanel;
     TileOverlay[] _overlayArr;
     TileOverlay _floorOverlay;
     TileOverlay _unitOverlay;
@@ -18,19 +19,28 @@ public class UI_Manager
     float _blinkf = 2 * Mathf.PI * 0.5f;
     Color _clickCellColor;
     Color[] _saving;
-    public Game_DownPanel Canvas_Game_DownPanel
+    public PopupController Popup_Controller
     {
         get
         {
-            if (_game_DownPanel == null)
+            if (_popupController == null)
             {
-                _game_DownPanel = GameObject.Find("Canvas_Game").GetComponentInChildren<Game_DownPanel>();
+                _popupController = Managers.ResourceMgr.Instantiate("UI/Popup/PopupController").GetComponent<PopupController>();
             }
-            return _game_DownPanel;
+            return _popupController;
         }
     }
-    string _unitStatusBarName;
-    public string UnitStatusBarName { get { return _unitStatusBarName; } }
+    public Game_DownPanel DownPanel
+    {
+        get
+        {
+            if (_downPanel == null)
+            {
+                _downPanel = GameObject.FindWithTag("UI_DownPanel").GetComponent<Game_DownPanel>();
+            }
+            return _downPanel;
+        }
+    }
     public void Init()
     {      
         _clickCellColor = new Color32(83, 125, 170, 1);
@@ -45,9 +55,6 @@ public class UI_Manager
         _overlayArr[2] = _unitOverlay;
         _overlayArr[3] = _skillOverlay;
         _saving = new Color[_overlayArr.Length];
-        _unitStatusBarName = "UnitStatusBar";
-        Managers.PoolMgr.CreatePool(Managers.ResourceMgr.Load<GameObject>($"Prefabs/UI/{_unitStatusBarName}"), 1);
-        Managers.PoolMgr.CreatePool(Managers.ResourceMgr.Load<GameObject>($"Prefabs/UI/{"TilePopup"}"), 1);
     }
     public void ResetFloorOverlay()
     {
@@ -168,21 +175,41 @@ public class UI_Manager
             ResetTile(pos);
         }
     }
+    public void InitGamePopups()
+    {
+        Popup_Controller.Init_GamePopups();
+
+        Managers.InputMgr.GameController.PlayerInfoEvent.AddListener(() => ShowPopup_PlayerInfo());
+    }
     public void InitPlayerStatusBar(PlayerData playerData)
     {
-        GameObject.Find("Status").GetComponent<PlayerStatus>().Init(playerData);
+        GameObject.FindWithTag("UI_Status").GetComponent<PlayerStatus>().Init(playerData);
     }
 
-    public void ShowTilePopup(Vector3Int pos,GameObject unit = null)
+    public void ShowPopup_TileInfo(Vector3Int pos,GameObject unit = null)
     {
-        Managers.ResourceMgr.Instantiate("UI/TilePopup").GetComponentInChildren<TilePopup_Content>(true).Init(pos,unit);
+        Managers.ResourceMgr.Instantiate(Popup_Controller._TileInfo).GetComponentInChildren<TilePopup_Content>(true).Init(pos, unit);
     }
-    public void ShowGetSkillPopup()
+    public GameObject ShowGetSkillPopup()
     {
-        Managers.ResourceMgr.Instantiate("UI/Popup/GetSkillPopup");
+        return Managers.ResourceMgr.Instantiate(Popup_Controller._GetSkill);
+    }
+    public GameObject ShowPopup_UnitStatus()
+    {
+        return Managers.ResourceMgr.Instantiate(Popup_Controller._UnitStatusBar, GameObject.FindWithTag("UI_Game_MainCanvas").transform);
+    }
+    public GameObject ShowPopup_PlayerDeath()
+    {
+        return Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerDeath);
+    }
+    public GameObject ShowPopup_PlayerInfo()
+    {
+        return Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerInfo);
     }
     public void Clear()
     {
-        _game_DownPanel = null;
+        _popupController.Clear();
+        _popupController = null;
+        _downPanel = null;
     }
 }

@@ -223,8 +223,8 @@ GameObject:
   - component: {fileID: 3193051739834299202}
   - component: {fileID: -1925715108451854655}
   m_Layer: 0
-  m_Name: UnitStatusBar
-  m_TagString: Untagged
+  m_Name: Popup_UnitStatusBar
+  m_TagString: UI_Popup_UnitStatus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

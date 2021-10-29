@@ -88,6 +88,6 @@ public class BaseUnitData : MonoBehaviour
     {
         if (_skillDict.ContainsKey(skill.Name)) { return; }
         _skillDict.Add(skill.Name, skill);
-        Managers.UI_Mgr.Canvas_Game_DownPanel.PutSkill(skill.Name);
+        Managers.UI_Mgr.DownPanel.PutSkill(skill.Name);
     }
 }

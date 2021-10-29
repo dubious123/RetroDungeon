@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6816617362458856040}
   - component: {fileID: 300256409102224400}
   - component: {fileID: -331462758363186499}
-  - component: {fileID: 3279397946459285432}
   m_Layer: 5
   m_Name: TilePopup_SkillBox
   m_TagString: Untagged
@@ -184,16 +183,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f76bfa817cf2c4f97afc9ed5989514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3279397946459285432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5144634027646312823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4bbe0695323fe84dace63d229b27831, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: UI/TilePopup_SkillBox

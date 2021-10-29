@@ -145,9 +145,9 @@ public class ClickCircleInputHandler : MonoBehaviour
         _exit.ExitEvent.AddListener(Managers.UI_Mgr.EndDisplayClickCell);
         _yes.YesEvent.AddListener(Managers.UI_Mgr.EndDisplayClickCell);
         _info.InfoEvent.AddListener(Managers.UI_Mgr.EndDisplayClickCell);
-        _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowTilePopup(_cellPos,unit)); 
-        _info.InfoEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
+        _info.InfoEvent.AddListener(() => Managers.UI_Mgr.ShowPopup_TileInfo(_cellPos,unit)); 
+        _info.InfoEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.FindWithTag("UI_Popup_UnitStatus")));
         _info.InfoEvent.AddListener(Managers.InputMgr.GameController.DeactivateCameraScroll);
-        _exit.ExitEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.Find(Managers.UI_Mgr.UnitStatusBarName)));
+        _exit.ExitEvent.AddListener(() => Managers.ResourceMgr.Destroy(GameObject.FindWithTag("UI_Popup_UnitStatus")));
     }
 }

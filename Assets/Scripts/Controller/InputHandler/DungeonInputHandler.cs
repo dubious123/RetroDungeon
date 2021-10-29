@@ -10,14 +10,12 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     PlayerController _playerController;
     GameObject _unitStatusBar;
     ActiveSkillCache _skillCache;
-    GameObject _gameCanvas;
     UnitCamController _unitCam;
     public void Init()
     {
-        _unitCam = GameObject.Find("Unit_Cam").GetComponent<UnitCamController>();
-        _handler = GameObject.Find("MainCircle").GetComponent<ClickCircleInputHandler>();
-        _gameCanvas = GameObject.Find("Canvas_Game");
-        _skillCache = _gameCanvas.GetChildren()[1].GetComponent<ActiveSkillCache>();
+        _unitCam = GameObject.FindWithTag("UnitCam").GetComponent<UnitCamController>();
+        _handler = GameObject.FindWithTag("UI_ClickCircle").GetComponent<ClickCircleInputHandler>();
+        _skillCache = Managers.UI_Mgr.DownPanel.GetComponent<ActiveSkillCache>();
         _playerController = Managers.GameMgr.Player_Controller;
     }
     public void OnMouseMove(InputAction.CallbackContext context)
@@ -38,7 +36,7 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
             {           
                 if (_unitStatusBar == null || _unitStatusBar.activeInHierarchy == false)
                 {
-                    _unitStatusBar = Managers.ResourceMgr.Instantiate($"UI/{Managers.UI_Mgr.UnitStatusBarName}", _gameCanvas.transform);
+                    _unitStatusBar = Managers.UI_Mgr.ShowPopup_UnitStatus();
                 }
                 _unitStatusBar.GetComponentInChildren<UnitStatus>().Init(unit.GetComponent<BaseUnitData>());
                 _unitCam.SetPosition(unit.transform.position);

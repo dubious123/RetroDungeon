@@ -48,6 +48,7 @@ public class GameManagerEx
         _floor.GetComponent<Imouse>().Init();
         Managers.UI_Mgr.InitPlayerStatusBar(_playerData);
         Managers.UI_Mgr.ResetFloorOverlay();
+        Managers.UI_Mgr.Popup_Controller.Init_GamePopups();
         EnterTheDungeon(_currentWorld);
         Managers.TurnMgr.UpdateCurrentUnitList();
         Me = _playerData;
@@ -56,7 +57,7 @@ public class GameManagerEx
     public void PerformPlayerLose()
     {
         Managers.ResourceMgr.Destroy(_player);
-        Managers.ResourceMgr.Instantiate("UI/Popup/EndingPopup_PlayerDeath");      
+        Managers.UI_Mgr.ShowPopup_PlayerDeath();   
     }
     /// <summary>
     /// First Thing GameManager Actually do

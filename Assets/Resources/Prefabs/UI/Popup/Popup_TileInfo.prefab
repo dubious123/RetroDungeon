@@ -3830,7 +3830,7 @@ GameObject:
   - component: {fileID: 9180968517182112149}
   - component: {fileID: 3178709015977873208}
   m_Layer: 5
-  m_Name: TilePopup
+  m_Name: Popup_TileInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

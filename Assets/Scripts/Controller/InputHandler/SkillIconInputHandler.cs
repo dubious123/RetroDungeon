@@ -23,7 +23,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         _skillHolder = transform.parent.GetComponent<Canvas>();
         _activeSkill = _skillHolder.transform.parent.parent.GetComponent<ActiveSkillCache>();
         _isLeft = _skillHolder.transform.parent.GetComponent<DownPanel_LeftOrRight>().IsLeft;
-        _handler = GameObject.Find("MainCircle").GetComponent<ClickCircleInputHandler>();
+        _handler = GameObject.FindWithTag("UI_ClickCircle").GetComponent<ClickCircleInputHandler>();
         _this = transform.GetComponent<Image>();
         _gui = GetComponent<GUI>();
         _gui.enabled = false;
@@ -86,11 +86,9 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         string temp = _SkillName;
         _SkillName = other._SkillName;
         other._SkillName = temp;
-        int i = transform.GetSiblingIndex();
-
-        Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkill(_isLeft, transform.parent.GetSiblingIndex(), _SkillName);
-        Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkill(other._isLeft, other.transform.parent.GetSiblingIndex(), other._SkillName);
-        Managers.UI_Mgr.Canvas_Game_DownPanel.UpdateSkillIcon();
+        Managers.UI_Mgr.DownPanel.UpdateSkill(_isLeft, transform.parent.GetSiblingIndex(), _SkillName);
+        Managers.UI_Mgr.DownPanel.UpdateSkill(other._isLeft, other.transform.parent.GetSiblingIndex(), other._SkillName);
+        Managers.UI_Mgr.DownPanel.UpdateSkillIcon();
     }
     private void UpdatePositionGUI()
     {
