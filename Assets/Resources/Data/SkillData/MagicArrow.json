@@ -35,7 +35,7 @@
       "z": 0
     }
   ],
-  "PhysicalDamage": 100,
+  "AttackDamage": 100,
   "MagicDamage": 50,
   "MentalDamage": 0,
   "ShockDamage": 20

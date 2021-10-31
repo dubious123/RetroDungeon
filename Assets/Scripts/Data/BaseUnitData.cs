@@ -22,7 +22,7 @@ public class BaseUnitData : MonoBehaviour
 
 
     protected Dictionary<string, BaseSkill> _skillDict;
-
+    protected Dictionary<string, BaseItem> _itemDict;
 
     public Vector3Int CurrentCellCoor
     { 
@@ -41,6 +41,7 @@ public class BaseUnitData : MonoBehaviour
 
 
     public Dictionary<string, BaseSkill> SkillDict { get { return _skillDict; } }
+    public Dictionary<string, BaseItem> ItemDict { get { return _itemDict; } }
 
     void Awake()
     {
@@ -49,6 +50,7 @@ public class BaseUnitData : MonoBehaviour
     public virtual void Init()
     {
         _skillDict = new Dictionary<string, BaseSkill>();
+        _itemDict = new Dictionary<string, BaseItem>();
         AllienceList = new List<string>();
         EnemyList = new List<string>();
         LookDir = (Define.CharDir)Random.Range(0, 4);
@@ -89,5 +91,14 @@ public class BaseUnitData : MonoBehaviour
         if (_skillDict.ContainsKey(skill.Name)) { return; }
         _skillDict.Add(skill.Name, skill);
         Managers.UI_Mgr.DownPanel.PutSkill(skill.Name);
+    }
+    public virtual void PutPocket(BaseItem item)
+    {
+        if (!_itemDict.ContainsKey(item.ItemName)) 
+        { 
+            _itemDict.Add(item.ItemName,item);
+            Managers.UI_Mgr.DownPanel.PutSkill(item.ItemName);
+        }
+        _itemDict[item.ItemName].CurrentStack++;
     }
 }

@@ -9,6 +9,7 @@ public class Game_DownPanel : MonoBehaviour
     int _rightIndex;
     SkillIconInputHandler[] _leftInputHandlerArr;
     SkillIconInputHandler[] _rightInputHandlerArr;
+
     string[,] _leftSkillSets;
     string[,] _rightSkillSets;
     private void Awake()
@@ -65,7 +66,7 @@ public class Game_DownPanel : MonoBehaviour
     }
     public void PutSkill(string newSkill)
     {
-        for(int n = 0; n < 4; n++)
+        for(int n = 0; n < 5; n++)
         {
             for(int m =0; m < 9; m++)
                 {
@@ -75,8 +76,11 @@ public class Game_DownPanel : MonoBehaviour
                     UpdateSkillIcon();
                     return;
                 }
-                if (_rightSkillSets[n, m] == null) 
-                { 
+            }
+            for(int m = 0; m < 9; m++)
+            {
+                if (_rightSkillSets[n, m] == null)
+                {
                     _rightSkillSets[n, m] = newSkill;
                     UpdateSkillIcon();
                     return;

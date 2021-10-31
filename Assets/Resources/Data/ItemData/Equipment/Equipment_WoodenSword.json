@@ -1,0 +1,26 @@
+{
+  "Usable": false,
+  "Wearble": true,
+  "MaxStack": 1,
+  "SkillName": "",
+  "EquipmentStat": {
+    "MaxAp": 0,
+    "RecoverAp": 0,
+    "MaxHp": 0,
+    "MaxDef": 0,
+    "MaxMs": 0,
+    "MaxMp": 0,
+    "MaxShock": 0,
+    "MaxStress": 0,
+    "EyeSight": 0,
+    "AttackDamage": 5,
+    "AttackDamage_Percentage": 5,
+    "MagicDamage": 5,
+    "MagicDamage_Percentage": 5,
+    "MentalDamage": 5,
+    "MentalDamage_Percentage": 5,
+    "ShockDamage": 5,
+    "ShockDamage_Percentage": 5
+  },
+  "ItemName": "WoodenSword"
+}

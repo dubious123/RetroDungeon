@@ -109,8 +109,18 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
             _this.sprite = null;
             return;
         }
-        if(Managers.GameMgr.Me.SkillDict[skillName].Cost > Managers.GameMgr.Me.Stat.Ap) { DisableSkill(); }
-        _this.sprite = Managers.ResourceMgr.GetSkillSprite(skillName);
+        if(Managers.GameMgr.Me.SkillDict.TryGetValue(skillName,out BaseSkill skill))
+        {
+            if (skill.Cost > Managers.GameMgr.Me.Stat.Ap) { DisableSkill(); }
+            _this.sprite = Managers.ResourceMgr.GetSkillSprite(skillName);
+        }
+        else if(Managers.GameMgr.Me.ItemDict.TryGetValue(skillName, out BaseItem item))
+        {
+            if (item.ItemUseContent.Cost > Managers.GameMgr.Me.Stat.Ap) { DisableSkill(); }
+            _this.sprite = Managers.ResourceMgr.GetSkillSprite(item.ItemUseContent.Name);
+        }
+        else { throw new System.Exception(); }
+        
         EnableSkill();
     }
     public void DisableSkill()

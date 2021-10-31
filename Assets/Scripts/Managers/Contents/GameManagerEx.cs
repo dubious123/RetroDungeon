@@ -39,6 +39,7 @@ public class GameManagerEx
         _playerController = _player.GetComponent<PlayerController>();
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _playerData.CurrentCellCoor = Vector3Int.zero;
+        Me = _playerData;
         UnitLibrary.SetUnitData("Player", _playerData);
         SetUnit(_player, Vector3Int.zero);
     }
@@ -51,7 +52,7 @@ public class GameManagerEx
         Managers.UI_Mgr.Popup_Controller.Init_GamePopups();
         EnterTheDungeon(_currentWorld);
         Managers.TurnMgr.UpdateCurrentUnitList();
-        Me = _playerData;
+        
         Managers.TurnMgr.HandlePlayerTurn();
     }
     public void PerformPlayerLose()

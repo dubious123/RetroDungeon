@@ -26,4 +26,14 @@ public class BaseUnitStat
     public int Priority { get; set; } 
     public float MoveSpeed { get; set; } 
 
+
+
+    public int AttackDamage { get; set; }
+    public int MagicDamage { get; set; }
+    public int MentalDamage { get; set; }
+    public int ShockDamage { get; set; }
+    public int AttackDamage_Percentage { get; set; }
+    public int MagicDamage_Percentage { get; set; }
+    public int MentalDamage_Percentage { get; set; }
+    public int ShockDamage_Percentage { get; set; }
 }

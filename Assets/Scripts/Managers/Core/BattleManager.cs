@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleManager
 {
     Vector3Int _targetPos;
+    BaseUnitStat _unitStat;
     BaseUnitData _targetUnit;
     List<BaseUnitData> _unitsInRange;
     BaseSkill _currentSkill;
@@ -18,8 +19,9 @@ public class BattleManager
         _targetPos = targetPos;
         _currentSkill = skill;
         _targetUnit = Managers.GameMgr.GetUnitData(targetPos);
-        from.UpdateApCost(skill.Cost);
+        _unitStat = from.Stat;
         if (_targetUnit == null) { Debug.Log("NoTarget"); return; }
+        from.UpdateApCost(skill.Cost);
         _unitsInRange.Clear();
         GetUnitsInArea();
         DealDamage();
@@ -50,7 +52,8 @@ public class BattleManager
     }
     private void DealPhysicalDamage(BaseUnitData target)
     {
-        target.Stat.Def -= _currentSkill.PhysicalDamage;
+        int pd = _currentSkill.AttackDamage * (100 + _unitStat.AttackDamage_Percentage) / 100 + _unitStat.AttackDamage;
+        target.Stat.Def -= pd;
         if(target.Stat.Def < 0) 
         { 
             target.Stat.Hp += target.Stat.Def;
@@ -59,7 +62,8 @@ public class BattleManager
     }
     private void DealMagicDamage(BaseUnitData target)
     {
-        target.Stat.Ms -= _currentSkill.MagicDamage;
+        int md = _currentSkill.MagicDamage * (100 + _unitStat.MagicDamage_Percentage) / 100 + _unitStat.MagicDamage;
+        target.Stat.Ms -= md;
         if(target.Stat.Ms < 0)
         {
             target.Stat.Mp += target.Stat.Ms;
@@ -72,12 +76,14 @@ public class BattleManager
     }
     private void DealMentalDamage(BaseUnitData target)
     {
-        target.Mental += _currentSkill.MentalDamage;
+        int md = _currentSkill.MentalDamage * (100 + _unitStat.MentalDamage_Percentage) / 100 + _unitStat.MentalDamage;
+        target.Mental += md;
         if(target.Mental < 0) { target.Mental = 0; }
     }
     private void DealShockDamage(BaseUnitData target)
     {
-        target.Stat.Shock += _currentSkill.ShockDamage;
+        int sd = _currentSkill.MentalDamage * (100 + _unitStat.MentalDamage_Percentage) / 100 + _unitStat.MentalDamage;
+        target.Stat.Shock += sd;
     }
     public void Clear()
     {
