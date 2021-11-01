@@ -1,4 +1,5 @@
 using MEC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,12 +21,17 @@ public class BattleManager
         _currentSkill = skill;
         _targetUnit = Managers.GameMgr.GetUnitData(targetPos);
         _unitStat = from.Stat;
-        if (_targetUnit == null) { Debug.Log("NoTarget"); return; }
+        if (_targetUnit == null) { Debug.Log("NoTarget"); }
         from.UpdateApCost(skill.Cost);
         _unitsInRange.Clear();
         GetUnitsInArea();
         DealDamage();
         
+    }
+    public void ItemFromTo(PlayerData from, Vector3Int targetPos, BaseItem item)
+    {
+        SkillFromTo(from, targetPos, item.ItemUseContent);
+        item.CurrentStack--;
     }
     private void GetUnitsInArea()
     {
@@ -93,4 +99,6 @@ public class BattleManager
         _unitsInRange = null;
         _currentSkill = null;
     }
+
+
 }

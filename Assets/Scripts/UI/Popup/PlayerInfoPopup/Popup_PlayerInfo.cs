@@ -6,15 +6,18 @@ using UnityEngine.Events;
 public class Popup_PlayerInfo : MonoBehaviour
 {
     UnityEvent _keyPressedEvent;
-    void Awake()
+    public InventoryController Inventory;
+    void OnEnable()
     {
         _keyPressedEvent = Managers.InputMgr.GameController.PlayerInfoEvent;
         _keyPressedEvent.RemoveAllListeners();
-        _keyPressedEvent.AddListener(() => Managers.ResourceMgr.Destroy(gameObject));
+        _keyPressedEvent.AddListener(() => gameObject.SetActive(false));
+        Managers.UI_Mgr.DownPanel.DeactivateAll();
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         _keyPressedEvent.RemoveAllListeners();
         _keyPressedEvent.AddListener(() => Managers.UI_Mgr.ShowPopup_PlayerInfo());
+        Managers.UI_Mgr.DownPanel.ActivateAll();
     }
 }

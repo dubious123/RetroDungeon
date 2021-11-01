@@ -10,6 +10,7 @@ TagManager:
   - UI_ClickCircle
   - UnitCam
   - UI_Popup_UnitStatus
+  - UI_Popup_PlayerInfo
   layers:
   - Default
   - TransparentFX

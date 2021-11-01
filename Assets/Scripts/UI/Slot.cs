@@ -9,6 +9,7 @@ public class Slot : MonoBehaviour, Imouse
     [SerializeField] UnityEvent _GetDropEvent;
     [SerializeField] UnityEvent _OnMouseDownEvent;
     [SerializeField] UnityEvent _OnMouseUpEvent;
+    BaseItem item;
     void Start()
     {
 
@@ -29,7 +30,10 @@ public class Slot : MonoBehaviour, Imouse
     {
         _OnMouseUpEvent.Invoke();
     }
+    public void PutContent(BaseItem item)
+    {
 
+    }
 
 
 

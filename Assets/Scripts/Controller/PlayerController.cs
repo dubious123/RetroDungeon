@@ -1,4 +1,4 @@
-using System;
+    using System;
 //using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     Vector3Int _destination;
     Dictionary<Vector3Int, TileInfo> _inRangeTileDict;
     BaseSkill _skill;
+    BaseItem _item;
     Vector3Int _skillTargetPos;
 
     public Vector3Int? CurrentMouseCellPos { set { _currentMouseCellPos = value; } }
@@ -273,11 +274,21 @@ public class PlayerController : MonoBehaviour
     #region HandleSkill
     public IEnumerator<float> HandleSkill()
     {
+        string AnimName;
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
         Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Skill);
-        Managers.BattleMgr.SkillFromTo(_playerData, _skillTargetPos, _skill);
-        yield return Timing.WaitUntilDone(_animController._PlayAnimation($"{_skill.AnimName}", 1).RunCoroutine());
+        if (_skill != null) 
+        {
+            Managers.BattleMgr.SkillFromTo(_playerData, _skillTargetPos, _skill);
+            AnimName = _skill.AnimName;
+        }
+        else
+        {
+            Managers.BattleMgr.ItemFromTo(_playerData, _skillTargetPos, _item);
+            AnimName = _item.ItemUseContent.AnimName;
+        }    
+        yield return Timing.WaitUntilDone(_animController._PlayAnimation($"{AnimName}", 1).RunCoroutine());
         ResetSkill();
         UpdatePlayerState(Define.UnitState.Idle);
         yield break;
@@ -288,12 +299,16 @@ public class PlayerController : MonoBehaviour
     }
     public void UpdateSkill(string skillName)
     {
-        if (!_playerData.SkillDict.TryGetValue(skillName, out _skill)) { 
-            Debug.LogError("Not Learned yet"); return; }
+        if(!_playerData.SkillDict.TryGetValue(skillName, out _skill)&&!_playerData.ItemDict.TryGetValue(skillName, out _item))
+        {
+            Debug.LogError("Not learned skill or Not acquired item");
+            return;
+        }
         Managers.UI_Mgr.HideAllOverlay();
         SetInRangeTilesDict();
         Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Skill, _inRangeTileDict.Keys);
-        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Skill,Define.TileOverlay.Unit);
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Skill, Define.TileOverlay.Unit);
+        
     }
     public void ResetSkill()
     {
@@ -304,7 +319,11 @@ public class PlayerController : MonoBehaviour
     }
     public void SetInRangeTilesDict()
     {
-        int range = _skill.Range;
+        BaseSkill skill;
+        if (_skill == null) skill = _item.ItemUseContent;
+        else skill = _skill;
+
+        int range = skill.Range;
         Vector3Int nowPos;
         for (int y = -range; y <= range; y++)
         {
@@ -315,7 +334,7 @@ public class PlayerController : MonoBehaviour
                 if (Managers.GameMgr.HasTile(nowPos)) { _inRangeTileDict.Add(nowPos, Managers.GameMgr.CurrentDungeon.GetTile(nowPos)); }
             }
         }
-        if (!_skill.IsSelfIncluded) { _inRangeTileDict.Remove(_playerData.CurrentCellCoor); }
+        if (!skill.IsSelfIncluded) { _inRangeTileDict.Remove(_playerData.CurrentCellCoor); }
     }
     #endregion
 
@@ -330,6 +349,7 @@ public class PlayerController : MonoBehaviour
         Managers.UI_Mgr.HideOverlay(Define.TileOverlay.Move,Define.TileOverlay.Skill);
         _endTernBtn.enabled = false;
         Managers.InputMgr.GameController.DeactivatePlayerInput();
+        Managers.UI_Mgr.DownPanel.DeactivateAll();
         Managers.TurnMgr._HandleUnitTurn().RunCoroutine();
     }
 

@@ -22,5 +22,6 @@
     "ShockDamage": 0,
     "ShockDamage_Percentage": 0
   },
-  "ItemName": "LeatherArmor"
+  "ItemName": "LeatherArmor",
+  "new string": "Armor"
 }

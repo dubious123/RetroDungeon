@@ -22,6 +22,6 @@
     "ShockDamage": 5,
     "ShockDamage_Percentage": 5
   },
-  "ItemName": "WoodenSword",
-  "new string": "Weapon"
+  "ItemName": "LeatherBoot",
+  "new string": "Boot"
 }

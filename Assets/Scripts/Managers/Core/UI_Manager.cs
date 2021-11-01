@@ -10,6 +10,7 @@ public class UI_Manager
 {
     PopupController _popupController;
     Game_DownPanel _downPanel;
+    GameObject _popup_PlayerInfo;
     Vector3Int _clickedCellPos;
     TileOverlay[] _overlayArr;
     TileOverlay _floorOverlay;
@@ -41,6 +42,7 @@ public class UI_Manager
             return _downPanel;
         }
     }
+    public Popup_PlayerInfo _Popup_PlayerInfo { get { return _popup_PlayerInfo.GetComponent<Popup_PlayerInfo>(); } }
     public void Init()
     {      
         _clickCellColor = new Color32(83, 125, 170, 1);
@@ -55,6 +57,12 @@ public class UI_Manager
         _overlayArr[2] = _unitOverlay;
         _overlayArr[3] = _skillOverlay;
         _saving = new Color[_overlayArr.Length];
+
+    }
+    public void InitPlayerInventory()
+    {
+        _popup_PlayerInfo = Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerInfo);
+        _popup_PlayerInfo.SetActive(false);
     }
     public void ResetFloorOverlay()
     {
@@ -202,9 +210,10 @@ public class UI_Manager
     {
         return Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerDeath);
     }
-    public GameObject ShowPopup_PlayerInfo()
+    public void ShowPopup_PlayerInfo()
     {
-        return Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerInfo);
+        if (_popup_PlayerInfo == null) _popup_PlayerInfo = Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerInfo);
+        else _popup_PlayerInfo.SetActive(true);
     }
     public void Clear()
     {

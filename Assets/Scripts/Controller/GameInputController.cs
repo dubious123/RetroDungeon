@@ -25,7 +25,7 @@ public class GameInputController : MonoBehaviour
     Imouse _hoverTarget;
     UnityEvent _rightClickEvent;
     UnityEvent _interactionEvent;
-    UnityEvent _playerInfoEvent;
+    UnityEvent _playerInfoEvent = new UnityEvent();
     public Imouse HoverTarget { get { return _hoverTarget; } }
     public UnityEvent RightClickEvent { get { return _rightClickEvent; } }
     public UnityEvent InteractionEvent { get { return _interactionEvent; } }
@@ -36,7 +36,6 @@ public class GameInputController : MonoBehaviour
     {
         _rightClickEvent = new UnityEvent();
         _interactionEvent = new UnityEvent();
-        _playerInfoEvent = new UnityEvent();
         _gameInputSystem = Managers.InputMgr.GameInputSystem;
         _onMouseClick = _gameInputSystem.actions["OnMouseClick"];
         _onMouseMove = _gameInputSystem.actions["OnMouseMove"];

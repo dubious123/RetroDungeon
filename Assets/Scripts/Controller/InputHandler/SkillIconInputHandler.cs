@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SkillIconInputHandler : MonoBehaviour, Imouse
 {
     ClickCircleInputHandler _handler;
+    [SerializeField] ItemCount _ItemCount;
     Canvas _skillHolder;
     RectTransform _rect;
     Image _this;
@@ -14,7 +15,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     GUI _gui;
     ActiveSkillCache _activeSkill;
     bool _isLeft;
-    [SerializeField] string _SkillName;
+    string _skillName;
     float _duration;
     bool _disabled;
     public void Init()
@@ -44,7 +45,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
             Cancel();
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
         }
-        else if (_duration < 0.2 && _SkillName != null && _disabled == false) 
+        else if (_duration < 0.2  && _skillName != null && _disabled == false) 
         {
             if(_activeSkill.Skill != null)
             {
@@ -53,7 +54,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
             Managers.GameMgr.Player_Controller.ReachableEmptyTileDict.Clear();
             Managers.GameMgr.Player_Controller.ReachableOccupiedCoorSet.Clear();
             Managers.GameMgr.Player_Controller.ResetSkill();
-            Managers.GameMgr.Player_Controller.UpdateSkill(_SkillName);
+            Managers.GameMgr.Player_Controller.UpdateSkill(_skillName);
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
             Managers.InputMgr.GameController.RightClickEvent.AddListener(Cancel);
             _activeSkill.Skill = this;
@@ -83,12 +84,12 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     {
         SkillIconInputHandler other = obj.GetComponent<SkillIconInputHandler>();
         if(other == null) { return; }
-        string temp = _SkillName;
-        _SkillName = other._SkillName;
-        other._SkillName = temp;
-        Managers.UI_Mgr.DownPanel.UpdateSkill(_isLeft, transform.parent.GetSiblingIndex(), _SkillName);
-        Managers.UI_Mgr.DownPanel.UpdateSkill(other._isLeft, other.transform.parent.GetSiblingIndex(), other._SkillName);
-        Managers.UI_Mgr.DownPanel.UpdateSkillIcon();
+        string temp = _skillName;
+        _skillName = other._skillName;
+        other._skillName = temp;
+        Managers.UI_Mgr.DownPanel.UpdateSkill(_isLeft, transform.parent.GetSiblingIndex(), _skillName);
+        Managers.UI_Mgr.DownPanel.UpdateSkill(other._isLeft, other.transform.parent.GetSiblingIndex(), other._skillName);
+        Managers.UI_Mgr.DownPanel.UpdateSkillIcons();
     }
     private void UpdatePositionGUI()
     {
@@ -102,26 +103,32 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
     }
     public void UpdateSkill(string skillName)
     {
-        _SkillName = skillName;
-        if(_SkillName == null) 
+        _skillName = skillName;
+        if(_skillName == null) 
         {
             DisableSkill();
             _this.sprite = null;
+            _ItemCount.gameObject.SetActive(false);
             return;
         }
         if(Managers.GameMgr.Me.SkillDict.TryGetValue(skillName,out BaseSkill skill))
         {
             if (skill.Cost > Managers.GameMgr.Me.Stat.Ap) { DisableSkill(); }
+            else EnableSkill();
             _this.sprite = Managers.ResourceMgr.GetSkillSprite(skillName);
+            _ItemCount.gameObject.SetActive(false);
+            return;
         }
         else if(Managers.GameMgr.Me.ItemDict.TryGetValue(skillName, out BaseItem item))
         {
-            if (item.ItemUseContent.Cost > Managers.GameMgr.Me.Stat.Ap) { DisableSkill(); }
+            if (item.ItemUseContent.Cost > Managers.GameMgr.Me.Stat.Ap || item.CurrentStack <= 0) { DisableSkill(); }
+            else EnableSkill();
             _this.sprite = Managers.ResourceMgr.GetSkillSprite(item.ItemUseContent.Name);
+            _ItemCount.gameObject.SetActive(true);
+            _ItemCount.Count.text = item.CurrentStack.ToString();
+            return;
         }
         else { throw new System.Exception(); }
-        
-        EnableSkill();
     }
     public void DisableSkill()
     {

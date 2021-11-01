@@ -36,4 +36,35 @@ public class BaseUnitStat
     public int MagicDamage_Percentage { get; set; }
     public int MentalDamage_Percentage { get; set; }
     public int ShockDamage_Percentage { get; set; }
+
+    public static BaseUnitStat operator - (BaseUnitStat left, BaseUnitStat right)
+    {
+        var propertyInfoList = left.GetType().GetProperties();
+        for(int i = 0; i < propertyInfoList.Length; i++)
+        {
+            if(propertyInfoList[i].GetValue(left) is int)
+            {
+                propertyInfoList[i].SetValue(left, (int)propertyInfoList[i].GetValue(left) - (int)propertyInfoList[i].GetValue(right));
+                continue;
+            }
+            propertyInfoList[i].SetValue(left, (float)propertyInfoList[i].GetValue(left) - (float)propertyInfoList[i].GetValue(right));
+
+        }
+        return left;
+    }
+    public static BaseUnitStat operator +(BaseUnitStat left, BaseUnitStat right)
+    {
+        var propertyInfoList = left.GetType().GetProperties();
+        for (int i = 0; i < propertyInfoList.Length; i++)
+        {
+            if (propertyInfoList[i].GetValue(left) is int)
+            {
+                propertyInfoList[i].SetValue(left, (int)propertyInfoList[i].GetValue(left) + (int)propertyInfoList[i].GetValue(right));
+                continue;
+            }
+            propertyInfoList[i].SetValue(left, (float)propertyInfoList[i].GetValue(left) + (float)propertyInfoList[i].GetValue(right));
+
+        }
+        return left;
+    }
 }

@@ -40,6 +40,7 @@ public class GameManagerEx
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _playerData.CurrentCellCoor = Vector3Int.zero;
         Me = _playerData;
+        Managers.UI_Mgr.InitPlayerInventory();
         UnitLibrary.SetUnitData("Player", _playerData);
         SetUnit(_player, Vector3Int.zero);
     }
