@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static Define;
 
 public class BaseUnitData : MonoBehaviour
 {
@@ -22,8 +23,8 @@ public class BaseUnitData : MonoBehaviour
 
 
     protected Dictionary<string, BaseSkill> _skillDict;
-
-
+    protected Dictionary<string, BaseItem> _itemDict;
+    protected Dictionary<EquipmentType, BaseItem> _equipmentDict;
     public Vector3Int CurrentCellCoor
     { 
         get => _currentCellCoor;
@@ -41,7 +42,8 @@ public class BaseUnitData : MonoBehaviour
 
 
     public Dictionary<string, BaseSkill> SkillDict { get { return _skillDict; } }
-
+    public Dictionary<string, BaseItem> ItemDict { get { return _itemDict; } }
+    public Dictionary<EquipmentType, BaseItem> EquipmentDict { get { return _equipmentDict; } }
     void Awake()
     {
         Init();
@@ -49,6 +51,12 @@ public class BaseUnitData : MonoBehaviour
     public virtual void Init()
     {
         _skillDict = new Dictionary<string, BaseSkill>();
+        _itemDict = new Dictionary<string, BaseItem>();
+        _equipmentDict = new Dictionary<EquipmentType, BaseItem>();
+        _equipmentDict.Add(EquipmentType.Helmet, null);
+        _equipmentDict.Add(EquipmentType.Weapon, null);
+        _equipmentDict.Add(EquipmentType.Armor, null);
+        _equipmentDict.Add(EquipmentType.Boot, null);
         AllienceList = new List<string>();
         EnemyList = new List<string>();
         LookDir = (Define.CharDir)Random.Range(0, 4);
@@ -88,6 +96,49 @@ public class BaseUnitData : MonoBehaviour
     {
         if (_skillDict.ContainsKey(skill.Name)) { return; }
         _skillDict.Add(skill.Name, skill);
-        Managers.UI_Mgr.Canvas_Game_DownPanel.PutSkill(skill.Name);
+    }
+    public virtual void PutPocket(BaseItem item)
+    {
+        if (!_itemDict.ContainsKey(item.ItemName))
+        {
+            _itemDict.Add(item.ItemName, item);          
+            if(this is PlayerData) 
+            {
+                if(item.Usable) Managers.UI_Mgr.DownPanel.PutSkill(item.ItemName);
+                Managers.UI_Mgr._Popup_PlayerInfo.Inventory.AddItem(item);
+            }
+        }
+        _itemDict[item.ItemName].CurrentStack++;
+    }
+    public virtual void EquipItem(BaseItem item)
+    {
+        if (_itemDict.ContainsKey(item.ItemName) || item.Wearable)
+        {
+            ApplyEquipmentStat(item);
+            switch (item.Equipment_Type)
+            {
+                case EquipmentType.Helmet:
+                    _equipmentDict[EquipmentType.Helmet] = item;
+                    return;
+                case EquipmentType.Armor:
+                    _equipmentDict[EquipmentType.Armor] = item;
+                    return;
+                case EquipmentType.Weapon:
+                    _equipmentDict[EquipmentType.Weapon] = item;
+                    return;
+                case EquipmentType.Boot:
+                    _equipmentDict[EquipmentType.Boot] = item;
+                    return;
+            }
+        }
+    }
+    public virtual void ApplyEquipmentStat(BaseItem item)
+    {
+        var equipment = _equipmentDict[item.Equipment_Type];
+        if (equipment != null)
+        {
+            Stat -= equipment.EquipmentStat;
+        }
+        Stat += item.EquipmentStat;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public static class Extension
 {
@@ -45,4 +46,8 @@ public static class Extension
         simplePriorityQueue.Enqueue(item, item.GetPriority());
     }
     #endregion
+    public static Vector2Int Size(this GridLayoutGroup grid)
+    {
+        return GridLayoutHelper.Size(grid);
+    }
 }

@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "PlayerInfoKey",
+                    "type": "Button",
+                    "id": "44d333dd-3023-4505-8dd8-b6a55a700a32",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -205,6 +213,17 @@
                     "action": "EnterTestMode",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "188cf16e-19e3-4c65-9d2d-b4bb2d490761",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse+KeyBoard",
+                    "action": "PlayerInfoKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",

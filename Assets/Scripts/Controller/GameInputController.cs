@@ -15,6 +15,7 @@ public class GameInputController : MonoBehaviour
     InputAction _onMouseRightClick;
     InputAction _onMouseScroll;
     InputAction _interactionKey;
+    InputAction _playerInfoKey;
     PlayerController _player;
     GameCamController _camera;
     RaycastHit2D _hit;
@@ -24,9 +25,11 @@ public class GameInputController : MonoBehaviour
     Imouse _hoverTarget;
     UnityEvent _rightClickEvent;
     UnityEvent _interactionEvent;
+    UnityEvent _playerInfoEvent = new UnityEvent();
     public Imouse HoverTarget { get { return _hoverTarget; } }
     public UnityEvent RightClickEvent { get { return _rightClickEvent; } }
     public UnityEvent InteractionEvent { get { return _interactionEvent; } }
+    public UnityEvent PlayerInfoEvent { get { return _playerInfoEvent; } }
     #endregion
     Imouse _clickTarget;
     public void Init(GameObject player)
@@ -39,6 +42,8 @@ public class GameInputController : MonoBehaviour
         _onMouseRightClick = _gameInputSystem.actions["OnMouseRightClick"];
         _onMouseScroll = _gameInputSystem.actions["CameraScrollMovement"];
         _interactionKey = _gameInputSystem.actions["InteractionKey"];
+        _playerInfoKey = _gameInputSystem.actions["PlayerInfoKey"];
+        
         _onMouseClick.started += OnClickStarted;
         _onMouseClick.canceled += OnClickCanceled;
         _onMouseRightClick.started += OnRightClickStarted;
@@ -46,7 +51,8 @@ public class GameInputController : MonoBehaviour
         _onMouseMove.performed += OnMouseMove;
         _interactionKey.started += OnInteractionKeyStarted;
         _interactionKey.canceled += OnInteractionKeyCanceled;
-
+        _playerInfoKey.started += OnPlayerInfoKeyStarted;
+        _playerInfoKey.canceled += OnPlayerInfoKeyCanceled;
         _player = player.GetComponent<PlayerController>();
         _camera = Managers.CameraMgr.GameCamController;
 
@@ -135,6 +141,13 @@ public class GameInputController : MonoBehaviour
     private void OnInteractionKeyCanceled(InputAction.CallbackContext context)
     {
         _interactionEvent.RemoveAllListeners();
+    }
+    private void OnPlayerInfoKeyStarted(InputAction.CallbackContext context)
+    {
+        _playerInfoEvent.Invoke();
+    }
+    private void OnPlayerInfoKeyCanceled(InputAction.CallbackContext context)
+    {
     }
     private Imouse GetTarget()
     {

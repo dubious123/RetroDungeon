@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - UI_DownPanel
+  - UI_Status
+  - UI_Game_MainCanvas
+  - UI_ClickCircle
+  - UnitCam
+  - UI_Popup_UnitStatus
+  - UI_Popup_PlayerInfo
   layers:
   - Default
   - TransparentFX

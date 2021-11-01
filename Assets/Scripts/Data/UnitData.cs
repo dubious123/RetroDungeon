@@ -50,7 +50,7 @@ public class UnitData : BaseUnitData, Interface.ICustomPriorityQueueNode<int>
         base._PerformDeath().RunCoroutine();
         Managers.TurnMgr.RemoveUnit(this);
         CurrentState = Define.UnitState.Die;
-        _unitController._PerformAction().CancelWith(gameObject).RunCoroutine();
+        GetComponent<UnitController>()._PerformAction().CancelWith(gameObject).RunCoroutine();
         yield break;
     }
     public override void Response()

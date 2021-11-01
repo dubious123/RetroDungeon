@@ -1,0 +1,26 @@
+{
+  "ItemName": "Scroll_FireBall",
+  "Usable": true,
+  "Wearble": false,
+  "MaxStack": 99,
+  "SkillName": "FireBall",
+  "EquipmentStat": {
+    "MaxAp": 0,
+    "RecoverAp": 0,
+    "MaxHp": 0,
+    "MaxDef": 0,
+    "MaxMs": 0,
+    "MaxMp": 0,
+    "MaxShock": 0,
+    "MaxStress": 0,
+    "EyeSight": 0,
+    "AttackDamage": 0,
+    "AttackDamage_Percentage": 0,
+    "MagicDamage": 0,
+    "MagicDamage_Percentage": 0,
+    "MentalDamage": 0,
+    "MentalDamage_Percentage": 0,
+    "ShockDamage": 0,
+    "ShockDamage_Percentage": 0
+  }
+}

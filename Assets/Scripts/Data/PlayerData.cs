@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static Define;
 
 public class PlayerData : BaseUnitData
 {
@@ -31,4 +32,24 @@ public class PlayerData : BaseUnitData
     {
         base.Response();
     }
+    public override void LearnSkill(BaseSkill skill)
+    {
+        base.LearnSkill(skill);
+        Managers.UI_Mgr.DownPanel.PutSkill(skill.Name);
+    }
+    public override void PutPocket(BaseItem item)
+    {
+        base.PutPocket(item);   
+    }
+    public override void EquipItem(BaseItem item)
+    {
+        if (_itemDict.ContainsKey(item.ItemName) || item.Wearable)
+        {
+            ApplyEquipmentStat(item);
+            Managers.UI_Mgr._Popup_PlayerInfo.Inventory.EquipItem(item);
+
+        }
+        
+    }
+
 }

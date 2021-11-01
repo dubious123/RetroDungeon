@@ -73,6 +73,14 @@ public class @InputController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PlayerInfoKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""44d333dd-3023-4505-8dd8-b6a55a700a32"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -221,6 +229,17 @@ public class @InputController : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""188cf16e-19e3-4c65-9d2d-b4bb2d490761"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse+KeyBoard"",
+                    ""action"": ""PlayerInfoKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""56108822-0576-4ec5-9084-235241395b0d"",
                     ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
@@ -261,6 +280,7 @@ public class @InputController : IInputActionCollection, IDisposable
         m_GamePlay_OnMouseRightClick = m_GamePlay.FindAction("OnMouseRightClick", throwIfNotFound: true);
         m_GamePlay_EnterTestMode = m_GamePlay.FindAction("EnterTestMode", throwIfNotFound: true);
         m_GamePlay_InteractionKey = m_GamePlay.FindAction("InteractionKey", throwIfNotFound: true);
+        m_GamePlay_PlayerInfoKey = m_GamePlay.FindAction("PlayerInfoKey", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +337,7 @@ public class @InputController : IInputActionCollection, IDisposable
     private readonly InputAction m_GamePlay_OnMouseRightClick;
     private readonly InputAction m_GamePlay_EnterTestMode;
     private readonly InputAction m_GamePlay_InteractionKey;
+    private readonly InputAction m_GamePlay_PlayerInfoKey;
     public struct GamePlayActions
     {
         private @InputController m_Wrapper;
@@ -328,6 +349,7 @@ public class @InputController : IInputActionCollection, IDisposable
         public InputAction @OnMouseRightClick => m_Wrapper.m_GamePlay_OnMouseRightClick;
         public InputAction @EnterTestMode => m_Wrapper.m_GamePlay_EnterTestMode;
         public InputAction @InteractionKey => m_Wrapper.m_GamePlay_InteractionKey;
+        public InputAction @PlayerInfoKey => m_Wrapper.m_GamePlay_PlayerInfoKey;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -358,6 +380,9 @@ public class @InputController : IInputActionCollection, IDisposable
                 @InteractionKey.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteractionKey;
                 @InteractionKey.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteractionKey;
                 @InteractionKey.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnInteractionKey;
+                @PlayerInfoKey.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnPlayerInfoKey;
+                @PlayerInfoKey.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnPlayerInfoKey;
+                @PlayerInfoKey.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnPlayerInfoKey;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -383,6 +408,9 @@ public class @InputController : IInputActionCollection, IDisposable
                 @InteractionKey.started += instance.OnInteractionKey;
                 @InteractionKey.performed += instance.OnInteractionKey;
                 @InteractionKey.canceled += instance.OnInteractionKey;
+                @PlayerInfoKey.started += instance.OnPlayerInfoKey;
+                @PlayerInfoKey.performed += instance.OnPlayerInfoKey;
+                @PlayerInfoKey.canceled += instance.OnPlayerInfoKey;
             }
         }
     }
@@ -405,5 +433,6 @@ public class @InputController : IInputActionCollection, IDisposable
         void OnOnMouseRightClick(InputAction.CallbackContext context);
         void OnEnterTestMode(InputAction.CallbackContext context);
         void OnInteractionKey(InputAction.CallbackContext context);
+        void OnPlayerInfoKey(InputAction.CallbackContext context);
     }
 }

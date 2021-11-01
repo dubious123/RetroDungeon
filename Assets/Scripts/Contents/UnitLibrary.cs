@@ -18,5 +18,14 @@ public static class UnitLibrary
         {
             unitData.SkillDict.Add(skill, SkillLibrary.GetSkill(skill));
         }
+        foreach (JObject jo in JObject.Parse(_unitJsonDict[name])["ItemList"].ToObject<List<JObject>>())
+        {
+            int count = jo["Count"].Value<int>();
+            string item = jo["Item"].Value<string>();
+            for (int i = 0; i < count; i++)
+            {
+                unitData.PutPocket(ItemLibrary.GetItem(item));
+            }
+        }
     }
 }

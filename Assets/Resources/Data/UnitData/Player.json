@@ -17,7 +17,21 @@
     "Stress": 0,
     "EyeSight": 10,
     "Priority": 5,
-    "MoveSpeed": 6
+    "MoveSpeed": 6,
+    "PhysicalDamage": 0,
+    "PhysicalDamage_Percentage": 0,
+    "MagicDamage": 0,
+    "MagicDamage_Percentage": 0,
+    "ShockDamage": 0,
+    "ShockDamage_Percentage": 0,
+    "MentalDamage": 0,
+    "MentalDamage_Percentage": 0
   },
-  "SkillList": []
+  "SkillList": [],
+  "ItemList": [
+    {
+      "Item": "Scroll_FireBall",
+      "Count": 1
+    }
+  ]
 }

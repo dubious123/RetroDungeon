@@ -39,6 +39,8 @@ public class GameManagerEx
         _playerController = _player.GetComponent<PlayerController>();
         _playerData = _player.GetOrAddComponent<PlayerData>();
         _playerData.CurrentCellCoor = Vector3Int.zero;
+        Me = _playerData;
+        Managers.UI_Mgr.InitPlayerInventory();
         UnitLibrary.SetUnitData("Player", _playerData);
         SetUnit(_player, Vector3Int.zero);
     }
@@ -48,15 +50,16 @@ public class GameManagerEx
         _floor.GetComponent<Imouse>().Init();
         Managers.UI_Mgr.InitPlayerStatusBar(_playerData);
         Managers.UI_Mgr.ResetFloorOverlay();
+        Managers.UI_Mgr.Popup_Controller.Init_GamePopups();
         EnterTheDungeon(_currentWorld);
         Managers.TurnMgr.UpdateCurrentUnitList();
-        Me = _playerData;
+        
         Managers.TurnMgr.HandlePlayerTurn();
     }
     public void PerformPlayerLose()
     {
         Managers.ResourceMgr.Destroy(_player);
-        Managers.ResourceMgr.Instantiate("UI/Popup/EndingPopup_PlayerDeath");      
+        Managers.UI_Mgr.ShowPopup_PlayerDeath();   
     }
     /// <summary>
     /// First Thing GameManager Actually do

@@ -1,4 +1,5 @@
 using MEC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class BattleManager
 {
     Vector3Int _targetPos;
+    BaseUnitStat _unitStat;
     BaseUnitData _targetUnit;
     List<BaseUnitData> _unitsInRange;
     BaseSkill _currentSkill;
@@ -18,12 +20,18 @@ public class BattleManager
         _targetPos = targetPos;
         _currentSkill = skill;
         _targetUnit = Managers.GameMgr.GetUnitData(targetPos);
+        _unitStat = from.Stat;
+        if (_targetUnit == null) { Debug.Log("NoTarget"); }
         from.UpdateApCost(skill.Cost);
-        if (_targetUnit == null) { Debug.Log("NoTarget"); return; }
         _unitsInRange.Clear();
         GetUnitsInArea();
         DealDamage();
         
+    }
+    public void ItemFromTo(PlayerData from, Vector3Int targetPos, BaseItem item)
+    {
+        SkillFromTo(from, targetPos, item.ItemUseContent);
+        item.CurrentStack--;
     }
     private void GetUnitsInArea()
     {
@@ -50,7 +58,8 @@ public class BattleManager
     }
     private void DealPhysicalDamage(BaseUnitData target)
     {
-        target.Stat.Def -= _currentSkill.PhysicalDamage;
+        int pd = _currentSkill.AttackDamage * (100 + _unitStat.AttackDamage_Percentage) / 100 + _unitStat.AttackDamage;
+        target.Stat.Def -= pd;
         if(target.Stat.Def < 0) 
         { 
             target.Stat.Hp += target.Stat.Def;
@@ -59,7 +68,8 @@ public class BattleManager
     }
     private void DealMagicDamage(BaseUnitData target)
     {
-        target.Stat.Ms -= _currentSkill.MagicDamage;
+        int md = _currentSkill.MagicDamage * (100 + _unitStat.MagicDamage_Percentage) / 100 + _unitStat.MagicDamage;
+        target.Stat.Ms -= md;
         if(target.Stat.Ms < 0)
         {
             target.Stat.Mp += target.Stat.Ms;
@@ -72,12 +82,14 @@ public class BattleManager
     }
     private void DealMentalDamage(BaseUnitData target)
     {
-        target.Mental += _currentSkill.MentalDamage;
+        int md = _currentSkill.MentalDamage * (100 + _unitStat.MentalDamage_Percentage) / 100 + _unitStat.MentalDamage;
+        target.Mental += md;
         if(target.Mental < 0) { target.Mental = 0; }
     }
     private void DealShockDamage(BaseUnitData target)
     {
-        target.Stat.Shock += _currentSkill.ShockDamage;
+        int sd = _currentSkill.MentalDamage * (100 + _unitStat.MentalDamage_Percentage) / 100 + _unitStat.MentalDamage;
+        target.Stat.Shock += sd;
     }
     public void Clear()
     {
@@ -87,4 +99,6 @@ public class BattleManager
         _unitsInRange = null;
         _currentSkill = null;
     }
+
+
 }

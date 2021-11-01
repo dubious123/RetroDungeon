@@ -200,6 +200,13 @@ public class Define
         Menu,
         Game,
     }
-
+    public enum EquipmentType
+    {
+        Helmet,
+        Armor,
+        Weapon,
+        Ring,
+        Boot
+    }
 
 }

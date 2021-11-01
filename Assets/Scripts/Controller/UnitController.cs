@@ -81,7 +81,7 @@ public class UnitController : MonoBehaviour
 
     protected IEnumerator<float> _HandleDie()
     {
-        GameObject go = GameObject.Find(Managers.UI_Mgr.UnitStatusBarName);
+        GameObject go = GameObject.FindWithTag("UI_Popup_UnitStatus");
         if(go != null && go.GetComponentInChildren<UnitStatus>(true).Data == _unitData) { Managers.ResourceMgr.Destroy(go); }
         yield return Timing.WaitUntilDone(_animController._PlayAnimation("vanish", 1).RunCoroutine());
         Managers.ResourceMgr.Destroy(gameObject);

@@ -104,7 +104,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _Radius: 0
+    - _Radius: 0.494
     - _RemoveSegments: 0
     - _Rotation: 0
     - _SampleGI: 0
