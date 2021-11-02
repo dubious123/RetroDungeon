@@ -9,9 +9,12 @@ public class InventoryController : MonoBehaviour
     public Equipment _Equipment;
     public BackPack _BackPack;
     PlayerData _player;
-    void Start()
+    public void Init()
     {
         _player = Managers.GameMgr.Player_Data;
+        _Equipment.Init();
+        _BackPack.Init();
+
     }
 
     public void AddItem(BaseItem item)

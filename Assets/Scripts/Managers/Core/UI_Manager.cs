@@ -37,7 +37,7 @@ public class UI_Manager
         {
             if (_downPanel == null)
             {
-                _downPanel = GameObject.FindWithTag("UI_DownPanel").GetComponent<Game_DownPanel>();
+                _downPanel = GameObject.FindWithTag("UI_DownPanel")?.GetComponent<Game_DownPanel>();
             }
             return _downPanel;
         }
@@ -57,12 +57,7 @@ public class UI_Manager
         _overlayArr[2] = _unitOverlay;
         _overlayArr[3] = _skillOverlay;
         _saving = new Color[_overlayArr.Length];
-
-    }
-    public void InitPlayerInventory()
-    {
-        _popup_PlayerInfo = Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerInfo);
-        _popup_PlayerInfo.SetActive(false);
+        _popup_PlayerInfo = GameObject.FindWithTag("UI_Popups_Parent").transform.Find("Popup_PlayerInfo").gameObject;
     }
     public void ResetFloorOverlay()
     {
@@ -212,8 +207,7 @@ public class UI_Manager
     }
     public void ShowPopup_PlayerInfo()
     {
-        if (_popup_PlayerInfo == null) _popup_PlayerInfo = Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerInfo);
-        else _popup_PlayerInfo.SetActive(true);
+        _popup_PlayerInfo.SetActive(true);
     }
     public void Clear()
     {

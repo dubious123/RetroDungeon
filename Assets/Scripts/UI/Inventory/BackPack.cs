@@ -10,10 +10,10 @@ public class BackPack : MonoBehaviour
     [SerializeField] GridLayoutGroup _SlotGroup;
     public bool IsFull { get; set; }
     public List<Slot> slots;
-    public void Awake()
+    public void Init()
     {
-        slots = new List<Slot>();
-        for(int i = 0; i < 27; i++)
+        slots = new List<Slot>();    
+        for (int i = 0; i < 28; i++)
         {
             AddNewSlot();
         }
@@ -31,6 +31,10 @@ public class BackPack : MonoBehaviour
     }
     public Slot GetFirstEmptySlot()
     {
-        return slots[0];
+        foreach (Slot slot in slots)
+        {
+            if (slot.IsEmpty()) return slot;
+        }
+        return null;
     }
 }

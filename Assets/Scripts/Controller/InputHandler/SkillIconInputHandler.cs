@@ -123,7 +123,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
         {
             if (item.ItemUseContent.Cost > Managers.GameMgr.Me.Stat.Ap || item.CurrentStack <= 0) { DisableSkill(); }
             else EnableSkill();
-            _this.sprite = Managers.ResourceMgr.GetSkillSprite(item.ItemUseContent.Name);
+            _this.sprite = Managers.ResourceMgr.GetItemSprite(item.ItemName);
             _ItemCount.gameObject.SetActive(true);
             _ItemCount.Count.text = item.CurrentStack.ToString();
             return;

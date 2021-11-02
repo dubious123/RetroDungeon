@@ -77,6 +77,22 @@ public class ResourceManager
         }
         return sprite;
     }
+    public Sprite GetItemSprite(string name)
+    {
+        int pos = name.IndexOf("_");
+        string path = name.Substring(0, pos) + "/" + name.Substring(pos+1);
+        Sprite sprite = Load<Sprite>("Data/RenderingData/Items/" + path);
+        if (sprite == null)
+        {
+            Debug.Log("Failed to load sprite : " + path);
+            return null;
+        }
+        return sprite;
+    }
+    public Sprite GetItemSprite(BaseItem item)
+    {
+        return GetItemSprite(item.ItemName);
+    }
     public void Destroy(GameObject go)
     {
         if (go == null) { return; }
