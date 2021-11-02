@@ -33,6 +33,7 @@ MonoBehaviour:
   _OnMouseUpEvent:
     m_PersistentCalls:
       m_Calls: []
+  _Image: {fileID: 7860361692430765532}
 --- !u!1001 &122117426306516387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128,6 +129,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7828457329171236991, guid: da33efa68ac73d54bb00ac81bcca4af5, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7828457329171236991, guid: da33efa68ac73d54bb00ac81bcca4af5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7828457329171236991, guid: da33efa68ac73d54bb00ac81bcca4af5, type: 3}
+      propertyPath: m_Color.a
+      value: 0.003921569
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da33efa68ac73d54bb00ac81bcca4af5, type: 3}
 --- !u!1 &3839965480939122166 stripped
@@ -135,3 +148,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3817809367982532693, guid: da33efa68ac73d54bb00ac81bcca4af5, type: 3}
   m_PrefabInstance: {fileID: 122117426306516387}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7860361692430765532 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7828457329171236991, guid: da33efa68ac73d54bb00ac81bcca4af5, type: 3}
+  m_PrefabInstance: {fileID: 122117426306516387}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

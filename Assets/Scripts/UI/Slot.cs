@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, Imouse
 {
     [SerializeField] UnityEvent _GetDropEvent;
     [SerializeField] UnityEvent _OnMouseDownEvent;
     [SerializeField] UnityEvent _OnMouseUpEvent;
-    BaseItem item;
-    void Start()
-    {
-
-    }
+    [SerializeField] Image _Image;
+    BaseItem _item;
+    public BaseItem Item { get { return _item; } }
     public void Init()
     {
 
@@ -32,9 +31,20 @@ public class Slot : MonoBehaviour, Imouse
     }
     public void PutContent(BaseItem item)
     {
-
+        _Image.sprite = Managers.ResourceMgr.GetItemSprite(item);
+        _item = item;
+        _Image.ChangeAlpha(1f);
     }
-
+    public void DeleteContent()
+    {
+        _Image.sprite = null;
+        _item = null;
+        _Image.ChangeAlpha(0f);
+    }
+    public bool IsEmpty()
+    {
+        return _item == null;
+    }
 
 
 

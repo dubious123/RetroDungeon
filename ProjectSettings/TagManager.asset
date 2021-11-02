@@ -11,6 +11,7 @@ TagManager:
   - UnitCam
   - UI_Popup_UnitStatus
   - UI_Popup_PlayerInfo
+  - UI_Popups_Parent
   layers:
   - Default
   - TransparentFX

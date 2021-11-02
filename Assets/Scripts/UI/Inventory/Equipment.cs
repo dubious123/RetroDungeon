@@ -9,14 +9,10 @@ public class Equipment : MonoBehaviour
     public Slot Weapon;
     public Slot Boot;
     PlayerData _playerData;
-    void Start()
+    public void Init()
     {
         _playerData = Managers.GameMgr.Player_Data;
-    }
 
-    void Update()
-    {
-        
     }
     void Wear(BaseItem item, Slot slot)
     {
