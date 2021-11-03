@@ -18,6 +18,17 @@ public class BackPack : MonoBehaviour
             AddNewSlot();
         }
     }
+    public void OnEnable()
+    {
+        UpdateBackPack();
+    }
+    public void UpdateBackPack()
+    {
+        foreach (Slot slot in slots)
+        {
+            slot.UpdateSlot();
+        }
+    }
     public void AddNewRow()
     {
         for(int i = 0; i< _SlotGroup.Size().x; i++)

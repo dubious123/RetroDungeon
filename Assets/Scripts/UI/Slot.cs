@@ -11,11 +11,17 @@ public class Slot : MonoBehaviour, Imouse
     [SerializeField] UnityEvent _OnMouseDownEvent;
     [SerializeField] UnityEvent _OnMouseUpEvent;
     [SerializeField] Image _Image;
+    [SerializeField] ItemCount _Count;
     BaseItem _item;
     public BaseItem Item { get { return _item; } }
     public void Init()
     {
 
+    }
+    public void UpdateSlot()
+    {
+        if (_item == null || _item.CurrentStack <= 0) DeleteContent();
+        else PutContent(_item);
     }
     public void GetDrop(GameObject obj)
     {
@@ -34,12 +40,15 @@ public class Slot : MonoBehaviour, Imouse
         _Image.sprite = Managers.ResourceMgr.GetItemSprite(item);
         _item = item;
         _Image.ChangeAlpha(1f);
+        _Count.gameObject.SetActive(true);
+        _Count.UpdateCount(item.CurrentStack);
     }
     public void DeleteContent()
     {
         _Image.sprite = null;
         _item = null;
         _Image.ChangeAlpha(0f);
+        _Count.gameObject.SetActive(false);
     }
     public bool IsEmpty()
     {

@@ -125,7 +125,7 @@ public class SkillIconInputHandler : MonoBehaviour, Imouse
             else EnableSkill();
             _this.sprite = Managers.ResourceMgr.GetItemSprite(item.ItemName);
             _ItemCount.gameObject.SetActive(true);
-            _ItemCount.Count.text = item.CurrentStack.ToString();
+            _ItemCount.UpdateCount(item.CurrentStack);
             return;
         }
         else { throw new System.Exception(); }
