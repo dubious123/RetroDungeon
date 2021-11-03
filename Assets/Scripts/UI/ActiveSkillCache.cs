@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ActiveSkillCache : MonoBehaviour
 {
-    public SkillIconInputHandler Skill { get; set; }
+    public Slot_Skill_DownPanel Skill { get; set; }
 }

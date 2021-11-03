@@ -8,8 +8,8 @@ public class Game_DownPanel : MonoBehaviour
     bool _deactivateAll;
     int _leftIndex;
     int _rightIndex;
-    SkillIconInputHandler[] _leftInputHandlerArr;
-    SkillIconInputHandler[] _rightInputHandlerArr;
+    Slot_Skill_DownPanel[] _leftInputHandlerArr;
+    Slot_Skill_DownPanel[] _rightInputHandlerArr;
 
     string[,] _leftSkillSets;
     string[,] _rightSkillSets;
@@ -20,15 +20,15 @@ public class Game_DownPanel : MonoBehaviour
     private void Init()
     {
         Transform[] children = gameObject.GetChildren();
-        _leftInputHandlerArr = children[0].GetComponentsInChildren<SkillIconInputHandler>();
-        _rightInputHandlerArr = children[2].GetComponentsInChildren<SkillIconInputHandler>();
+        _leftInputHandlerArr = children[0].GetComponentsInChildren<Slot_Skill_DownPanel>();
+        _rightInputHandlerArr = children[2].GetComponentsInChildren<Slot_Skill_DownPanel>();
         _leftSkillSets = new string[5, 9];
         _rightSkillSets = new string[5, 9];
-        foreach (SkillIconInputHandler handler in _leftInputHandlerArr)
+        foreach (Slot_Skill_DownPanel handler in _leftInputHandlerArr)
         {
             handler.Init();
         }
-        foreach (SkillIconInputHandler handler in _rightInputHandlerArr)
+        foreach (Slot_Skill_DownPanel handler in _rightInputHandlerArr)
         {
             handler.Init();
         }

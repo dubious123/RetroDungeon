@@ -8,6 +8,7 @@ public class BackPack : MonoBehaviour
 {
     [SerializeField] GameObject _SlotPrefab;
     [SerializeField] GridLayoutGroup _SlotGroup;
+    [SerializeField] ScrollRect _ScrollRect;
     public bool IsFull { get; set; }
     public List<Slot> slots;
     public void Init()
@@ -38,7 +39,7 @@ public class BackPack : MonoBehaviour
     }
     public void AddNewSlot()
     {
-        slots.Add(Managers.ResourceMgr.Instantiate(_SlotPrefab, _SlotGroup.transform).GetComponent<Slot>());
+        slots.Add(Managers.ResourceMgr.Instantiate(_SlotPrefab, _SlotGroup.transform).GetComponentInChildren<Slot>(true));
     }
     public Slot GetFirstEmptySlot()
     {
@@ -47,5 +48,13 @@ public class BackPack : MonoBehaviour
             if (slot.IsEmpty()) return slot;
         }
         return null;
+    }
+    public void StopMoving()
+    {
+        _ScrollRect.vertical = false;
+    }
+    public void ResumeMoving()
+    {
+        _ScrollRect.vertical = true;
     }
 }
