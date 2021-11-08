@@ -33,7 +33,11 @@ public class Slot_Item : MonoBehaviour ,ISlot_Content
     public void UpdateContent(object item)
     {
         _item = item as BaseItem;
-        if (item == null) return;
+        if (item == null)
+        {
+            DeleteContent();
+            return;
+        }
         _Image.sprite = Managers.ResourceMgr.GetItemSprite(_item);
         _Image.ChangeAlpha(1f);
         _Count.gameObject.SetActive(true);
@@ -58,19 +62,22 @@ public class Slot_Item : MonoBehaviour ,ISlot_Content
 
     public void OnMouseDown(InputAction.CallbackContext context)
     {
+        _ItemHolder.overrideSorting = true;
         _ItemHolder.sortingOrder = 1;
+        _backpack.EnableAllRaycastForAllSlots();
         _Image.raycastTarget = false;
     }
 
     public void OnMouseUp(InputAction.CallbackContext context)
     {
+        _ItemHolder.overrideSorting = false;
         _ItemHolder.sortingOrder = 0;
         DropDown();
-        _Image.raycastTarget = true;
         _Gui.GUIEvent.RemoveListener(UpdatePositionGUI);
         _Gui.enabled = false;
         _Rect.anchoredPosition = Vector2.zero;
         _backpack.ResumeMoving();
+        _backpack.DisableRaycastForAllEmptySlots();
 
     }
 
@@ -97,10 +104,17 @@ public class Slot_Item : MonoBehaviour ,ISlot_Content
 
     public void DropDown()
     {
+        Managers.InputMgr.GameController.HoverTarget?.GetDrop(gameObject);
     }
 
     public void GetDrop(GameObject obj)
     {
+        Slot slot = obj.GetComponent<Slot>();
+        BaseItem other = new BaseItem();
+        other = slot.GetContent<BaseItem>(other);
+        if (other == null) { return; }
+        BaseItem temp = _item;
+        UpdateContent(other);
+        slot.UpdateSlot(temp);
     }
-   
 }

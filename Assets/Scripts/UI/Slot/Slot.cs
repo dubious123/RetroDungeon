@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour
 {
     [SerializeField] GameObject _Content_go;
+    [SerializeField] Image _SlotImage;
+    [SerializeField] Image _ContentImage;
     ISlot_Content _content;
     ISlot_Content Content
     {
@@ -50,7 +52,16 @@ public class Slot : MonoBehaviour
     {
         return Content.IsEmpty();
     }
-
+    public void DisableRaycast()
+    {
+        _SlotImage.raycastTarget = false;
+        _ContentImage.raycastTarget = false;
+    }
+    public void EnableRaycast()
+    {
+        _SlotImage.raycastTarget = true;
+        _ContentImage.raycastTarget = true;
+    }
 
 
 

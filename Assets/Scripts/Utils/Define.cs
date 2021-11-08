@@ -202,6 +202,7 @@ public class Define
     }
     public enum EquipmentType
     {
+        None,
         Helmet,
         Armor,
         Weapon,

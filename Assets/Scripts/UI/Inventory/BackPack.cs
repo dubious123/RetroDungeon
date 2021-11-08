@@ -49,6 +49,20 @@ public class BackPack : MonoBehaviour
         }
         return null;
     }
+    public void DisableRaycastForAllEmptySlots()
+    {
+        foreach (Slot slot in slots)
+        {
+            if (slot.IsEmpty()) slot.DisableRaycast();
+        }
+    }
+    public void EnableAllRaycastForAllSlots()
+    {
+        foreach (Slot slot in slots)
+        {
+            slot.EnableRaycast();
+        }
+    }
     public void StopMoving()
     {
         _ScrollRect.vertical = false;

@@ -41,9 +41,6 @@ public class Managers : MonoBehaviour
     {
         Init();
     }
-    void Update()
-    {
-    }
     static void Init()
     {
         if(_instance == null)
