@@ -297,7 +297,17 @@ public class PlayerController : MonoBehaviour
     {
         _skillTargetPos = pos;
     }
-    public void UpdateSkill(string skillName)
+    public void UpdateSkill(ISlot_Content content)
+    {
+        _skill = content as BaseSkill; 
+        _item = content as BaseItem; 
+        if(_skill == null && _item == null) Debug.LogError("Not learned skill or Not acquired item");
+        Managers.UI_Mgr.HideAllOverlay();
+        SetInRangeTilesDict();
+        Managers.UI_Mgr.UpdateTileSet(Define.TileOverlay.Skill, _inRangeTileDict.Keys);
+        Managers.UI_Mgr.ShowOverlay(Define.TileOverlay.Skill, Define.TileOverlay.Unit);
+    }
+    public void UpdateSkill(string skillName) 
     {
         if(!_playerData.SkillDict.TryGetValue(skillName, out _skill)&&!_playerData.ItemDict.TryGetValue(skillName, out _item))
         {

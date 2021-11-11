@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseSkill
+public class BaseSkill : ISlot_Content
 {
     public string Name { get; set; }   
     public string AnimName { get; set; } 

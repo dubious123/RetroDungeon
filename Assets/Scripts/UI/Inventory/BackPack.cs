@@ -10,10 +10,10 @@ public class BackPack : MonoBehaviour
     [SerializeField] GridLayoutGroup _SlotGroup;
     [SerializeField] ScrollRect _ScrollRect;
     public bool IsFull { get; set; }
-    public List<Slot> slots;
+    public List<Slot_Item> slots;
     public void Init()
     {
-        slots = new List<Slot>();    
+        slots = new List<Slot_Item>();    
         for (int i = 0; i < 28; i++)
         {
             AddNewSlot();
@@ -25,9 +25,9 @@ public class BackPack : MonoBehaviour
     }
     public void UpdateBackPack()
     {
-        foreach (Slot slot in slots)
+        foreach (Slot_Item slot in slots)
         {
-            slot.UpdateSlot();
+            slot.UpdateContent();
         }
     }
     public void AddNewRow()
@@ -39,11 +39,11 @@ public class BackPack : MonoBehaviour
     }
     public void AddNewSlot()
     {
-        slots.Add(Managers.ResourceMgr.Instantiate(_SlotPrefab, _SlotGroup.transform).GetComponentInChildren<Slot>(true));
+        slots.Add(Managers.ResourceMgr.Instantiate(_SlotPrefab, _SlotGroup.transform).GetComponentInChildren<Slot_Item>(true));
     }
-    public Slot GetFirstEmptySlot()
+    public Slot_Item GetFirstEmptySlot()
     {
-        foreach (Slot slot in slots)
+        foreach (Slot_Item slot in slots)
         {
             if (slot.IsEmpty()) return slot;
         }
@@ -51,14 +51,14 @@ public class BackPack : MonoBehaviour
     }
     public void DisableRaycastForAllEmptySlots()
     {
-        foreach (Slot slot in slots)
+        foreach (Slot_Item slot in slots)
         {
             if (slot.IsEmpty()) slot.DisableRaycast();
         }
     }
     public void EnableAllRaycastForAllSlots()
     {
-        foreach (Slot slot in slots)
+        foreach (Slot_Item slot in slots)
         {
             slot.EnableRaycast();
         }

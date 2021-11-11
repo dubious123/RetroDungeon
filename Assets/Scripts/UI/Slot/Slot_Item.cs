@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Slot_Item : MonoBehaviour ,ISlot_Content
+public class Slot_Item : Slot, Imouse
 {
     BaseItem _item;
     public BaseItem Item { get { return _item; } }
+    [SerializeField] Image _HolderImage;
     [SerializeField] Image _Image;
     [SerializeField] ItemCount _Count;
     [SerializeField] GUI _Gui;
@@ -20,30 +21,34 @@ public class Slot_Item : MonoBehaviour ,ISlot_Content
     {
         _backpack = Managers.UI_Mgr._Popup_PlayerInfo.Inventory._BackPack;
     }
-    public void GetContent(ref object obj)
+    public override ISlot_Content GetContent()
     {
-        if (!(obj is BaseItem)) obj = null;
-        else obj = _item;
+        return _item;
     }
     public void UpdateContent()
     {
-        if (_item == null || _item.CurrentStack <= 0) DeleteContent();
-        else UpdateContent(_item);
+        if (_item is null) {DeleteContent(); return;}
+        _Count.gameObject.SetActive(true);
+        _Count.UpdateCount(_item.CurrentStack);
     }
-    public void UpdateContent(object item)
+    public override void UpdateContent(ISlot_Content item)
     {
-        _item = item as BaseItem;
         if (item == null)
         {
             DeleteContent();
             return;
         }
+        if (!(item is BaseItem temp))
+        {
+            return;
+        }
+        _item = temp;
         _Image.sprite = Managers.ResourceMgr.GetItemSprite(_item);
         _Image.ChangeAlpha(1f);
         _Count.gameObject.SetActive(true);
         _Count.UpdateCount(_item.CurrentStack);
     }
-    public void DeleteContent()
+    public override void DeleteContent()
     {
         _Image.sprite = null;
         _item = null;
@@ -51,9 +56,9 @@ public class Slot_Item : MonoBehaviour ,ISlot_Content
         _Count.gameObject.SetActive(false);
     }
 
-    public bool IsEmpty()
+    public override bool IsEmpty()
     {
-        return _item == null;
+        return _item is null;
     }
 
     public void Init()
@@ -62,6 +67,7 @@ public class Slot_Item : MonoBehaviour ,ISlot_Content
 
     public void OnMouseDown(InputAction.CallbackContext context)
     {
+        _duration = 0;
         _ItemHolder.overrideSorting = true;
         _ItemHolder.sortingOrder = 1;
         _backpack.EnableAllRaycastForAllSlots();
@@ -73,6 +79,7 @@ public class Slot_Item : MonoBehaviour ,ISlot_Content
         _ItemHolder.overrideSorting = false;
         _ItemHolder.sortingOrder = 0;
         DropDown();
+        _Image.raycastTarget = true;
         _Gui.GUIEvent.RemoveListener(UpdatePositionGUI);
         _Gui.enabled = false;
         _Rect.anchoredPosition = Vector2.zero;
@@ -110,11 +117,24 @@ public class Slot_Item : MonoBehaviour ,ISlot_Content
     public void GetDrop(GameObject obj)
     {
         Slot slot = obj.GetComponent<Slot>();
-        BaseItem other = new BaseItem();
-        other = slot.GetContent<BaseItem>(other);
-        if (other == null) { return; }
-        BaseItem temp = _item;
-        UpdateContent(other);
-        slot.UpdateSlot(temp);
+        ISlot_Content other = slot.GetContent();
+        if (other == null) return;
+        if (other is BaseItem) 
+        {
+            BaseItem temp = _item;
+            UpdateContent(other);
+            slot.UpdateContent(temp);
+        }
+        
+    }
+    public void DisableRaycast()
+    {
+        _HolderImage.raycastTarget = false;
+        _Image.raycastTarget = false;
+    }
+    public void EnableRaycast()
+    {
+        _HolderImage.raycastTarget = true;
+        _Image.raycastTarget = true;
     }
 }

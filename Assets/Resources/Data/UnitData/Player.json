@@ -32,6 +32,10 @@
     {
       "Item": "Scroll_FireBall",
       "Count": 1
+    },
+    {
+      "Item": "Equipment_IronHelmet",
+      "Count": 1
     }
   ]
 }

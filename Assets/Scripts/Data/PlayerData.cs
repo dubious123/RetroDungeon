@@ -35,7 +35,7 @@ public class PlayerData : BaseUnitData
     public override void LearnSkill(BaseSkill skill)
     {
         base.LearnSkill(skill);
-        Managers.UI_Mgr.DownPanel.PutSkill(skill.Name);
+        Managers.UI_Mgr.DownPanel.PutSkill(skill);
     }
     public override void PutPocket(BaseItem item)
     {

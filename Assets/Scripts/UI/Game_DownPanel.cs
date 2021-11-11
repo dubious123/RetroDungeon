@@ -11,8 +11,8 @@ public class Game_DownPanel : MonoBehaviour
     Slot_Skill_DownPanel[] _leftInputHandlerArr;
     Slot_Skill_DownPanel[] _rightInputHandlerArr;
 
-    string[,] _leftSkillSets;
-    string[,] _rightSkillSets;
+    ISlot_Content[,] _leftSkillSets;
+    ISlot_Content[,] _rightSkillSets;
     private void Awake()
     {
         Init();
@@ -22,8 +22,8 @@ public class Game_DownPanel : MonoBehaviour
         Transform[] children = gameObject.GetChildren();
         _leftInputHandlerArr = children[0].GetComponentsInChildren<Slot_Skill_DownPanel>();
         _rightInputHandlerArr = children[2].GetComponentsInChildren<Slot_Skill_DownPanel>();
-        _leftSkillSets = new string[5, 9];
-        _rightSkillSets = new string[5, 9];
+        _leftSkillSets = new ISlot_Content[5, 9];
+        _rightSkillSets = new ISlot_Content[5, 9];
         foreach (Slot_Skill_DownPanel handler in _leftInputHandlerArr)
         {
             handler.Init();
@@ -33,22 +33,22 @@ public class Game_DownPanel : MonoBehaviour
             handler.Init();
         }
     }
-    public void UpdateSkill(bool isLeft, int index,string skillName)
+    public void UpdateDownPanelContentSet(bool isLeft, int index, ISlot_Content content)
     {
         if (isLeft) 
         {
-            _leftSkillSets[_leftIndex, index] = skillName;
+            _leftSkillSets[_leftIndex, index] = content;
             return;
         }
-        _rightSkillSets[_rightIndex, index] = skillName;
+        _rightSkillSets[_rightIndex, index] = content;
 
     }
-    public void UpdateSkillIcons()
+    public void UpdateDownPanelSlots()
     {
         for(int i = 0; i < 9; i++)
         {
-            _leftInputHandlerArr[i].UpdateSkill(_leftSkillSets[_leftIndex, i]);
-            _rightInputHandlerArr[i].UpdateSkill(_rightSkillSets[_rightIndex, i]);
+            _leftInputHandlerArr[i].UpdateContent(_leftSkillSets[_leftIndex, i]);
+            _rightInputHandlerArr[i].UpdateContent(_rightSkillSets[_rightIndex, i]);
         }
         if (_deactivateAll) DeactivateAll();
     }
@@ -57,16 +57,16 @@ public class Game_DownPanel : MonoBehaviour
         _leftIndex+=delta;
         if(_leftIndex > 4) { _leftIndex -= 5; }
         if(_leftIndex < 0) { _leftIndex += 5; }
-        UpdateSkillIcons();
+        UpdateDownPanelSlots();
     }
     public void SwitchRight(int delta)
     {
         _rightIndex+=delta;
         if (_rightIndex > 4) { _rightIndex -= 5; }
         if (_rightIndex < 0) { _rightIndex += 5; }
-        UpdateSkillIcons();
+        UpdateDownPanelSlots();
     }
-    public void PutSkill(string newSkill)
+    public void PutSkill(ISlot_Content newContent)
     {
         for(int n = 0; n < 5; n++)
         {
@@ -74,8 +74,8 @@ public class Game_DownPanel : MonoBehaviour
                 {
                 if (_leftSkillSets[n, m] == null) 
                 { 
-                    _leftSkillSets[n,m] = newSkill;
-                    UpdateSkillIcons();
+                    _leftSkillSets[n,m] = newContent;
+                    UpdateDownPanelSlots();
                     return;
                 }
             }
@@ -83,8 +83,8 @@ public class Game_DownPanel : MonoBehaviour
             {
                 if (_rightSkillSets[n, m] == null)
                 {
-                    _rightSkillSets[n, m] = newSkill;
-                    UpdateSkillIcons();
+                    _rightSkillSets[n, m] = newContent;
+                    UpdateDownPanelSlots();
                     return;
                 }
             }
@@ -102,6 +102,6 @@ public class Game_DownPanel : MonoBehaviour
     public void ActivateAll()
     {
         _deactivateAll = false;
-        UpdateSkillIcons();
+        UpdateDownPanelSlots();
     }
 }

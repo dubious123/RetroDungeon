@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseItem
+public class BaseItem : ISlot_Content
 {
     public string ItemName;
     public bool Usable;   

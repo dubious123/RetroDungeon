@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Slot_Skill_DownPanel : MonoBehaviour, ISlot_Content
+public class Slot_Skill_DownPanel : Slot, Imouse
 {
+    ISlot_Content _content;
     ClickCircleInputHandler _handler;
     [SerializeField] ItemCount _ItemCount;
     Canvas _skillHolder;
@@ -14,7 +15,6 @@ public class Slot_Skill_DownPanel : MonoBehaviour, ISlot_Content
     GUI _gui;
     ActiveSkillCache _activeSkill;
     bool _isLeft;
-    string _contentName;
     float _duration;
     bool _disabled;
     public void Init()
@@ -44,7 +44,7 @@ public class Slot_Skill_DownPanel : MonoBehaviour, ISlot_Content
             Cancel();
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
         }
-        else if (_duration < 0.2  && _contentName != null && _disabled == false) 
+        else if (_duration < 0.2  && _content != null && _disabled == false) 
         {
             if(_activeSkill.Skill != null)
             {
@@ -53,7 +53,7 @@ public class Slot_Skill_DownPanel : MonoBehaviour, ISlot_Content
             Managers.GameMgr.Player_Controller.ReachableEmptyTileDict.Clear();
             Managers.GameMgr.Player_Controller.ReachableOccupiedCoorSet.Clear();
             Managers.GameMgr.Player_Controller.ResetSkill();
-            Managers.GameMgr.Player_Controller.UpdateSkill(_contentName);
+            Managers.GameMgr.Player_Controller.UpdateSkill(_content);
             Managers.InputMgr.GameController.RightClickEvent.RemoveListener(Cancel);
             Managers.InputMgr.GameController.RightClickEvent.AddListener(Cancel);
             _activeSkill.Skill = this;
@@ -82,12 +82,10 @@ public class Slot_Skill_DownPanel : MonoBehaviour, ISlot_Content
     public void GetDrop(GameObject obj)
     {
         Slot slot = obj.GetComponent<Slot>();
-        string other = "";
-        other = slot.GetContent<string>(other);
-        if (other == null) { return; }
-        string temp = _contentName;
-        UpdateContent(other);
-        slot.UpdateSlot(temp);
+        ISlot_Content temp = _content;
+        UpdateContent(slot?.GetContent());
+        if (slot is Slot_Item) return;
+        slot?.UpdateContent(temp);
     }
     private void UpdatePositionGUI()
     {
@@ -99,35 +97,6 @@ public class Slot_Skill_DownPanel : MonoBehaviour, ISlot_Content
         Managers.GameMgr.Player_Controller.ResetSkill();
         Managers.GameMgr.Player_Controller.UpdatePlayerState(Define.UnitState.Idle);
     }
-    public void UpdateSkill(string skillName)
-    {
-        _contentName = skillName;
-        if(_contentName == null) 
-        {
-            DisableSkill();
-            _image.sprite = null;
-            _ItemCount.gameObject.SetActive(false);
-            return;
-        }
-        if(Managers.GameMgr.Me.SkillDict.TryGetValue(skillName,out BaseSkill skill))
-        {
-            if (skill.Cost > Managers.GameMgr.Me.Stat.Ap) { DisableSkill(); }
-            else EnableSkill();
-            _image.sprite = Managers.ResourceMgr.GetSkillSprite(skillName);
-            _ItemCount.gameObject.SetActive(false);
-            return;
-        }
-        else if(Managers.GameMgr.Me.ItemDict.TryGetValue(skillName, out BaseItem item))
-        {
-            if (item.ItemUseContent.Cost > Managers.GameMgr.Me.Stat.Ap || item.CurrentStack <= 0) { DisableSkill(); }
-            else EnableSkill();
-            _image.sprite = Managers.ResourceMgr.GetItemSprite(item.ItemName);
-            _ItemCount.gameObject.SetActive(true);
-            _ItemCount.UpdateCount(item.CurrentStack);
-            return;
-        }
-        else { throw new System.Exception(); }
-    }
     public void DisableSkill()
     {
         _disabled = true;
@@ -138,51 +107,48 @@ public class Slot_Skill_DownPanel : MonoBehaviour, ISlot_Content
         _disabled = false;
         _image.CrossFadeAlpha(1f, 0.2f, true);
     }
-    public void GetContent(ref object obj)
+    public override ISlot_Content GetContent()
     {
-        if (!(obj is string)) obj = null;
-        else obj = _contentName;
+        return _content;
     }
-    public void UpdateContent()
+    public override void UpdateContent(ISlot_Content content)
     {
-        if (_contentName == null) DeleteContent();
-        else UpdateContent(_contentName);
-    }
-    public void UpdateContent(object contentName)
-    {
-        _contentName = contentName as string;
-        if (_contentName == null)
+        if (content == null)
         {
             DisableSkill();
             _image.sprite = null;
             _ItemCount.gameObject.SetActive(false);
         }
-        else if (Managers.GameMgr.Me.SkillDict.TryGetValue(_contentName, out BaseSkill skill))
+        else if (content is BaseSkill skill)
         {
             if (skill.Cost > Managers.GameMgr.Me.Stat.Ap) { DisableSkill(); }
             else EnableSkill();
-            _image.sprite = Managers.ResourceMgr.GetSkillSprite(_contentName);
+            _image.sprite = Managers.ResourceMgr.GetSkillSprite(skill.Name);
             _ItemCount.gameObject.SetActive(false);
+            _content = skill;
         }
-        else if (Managers.GameMgr.Me.ItemDict.TryGetValue(_contentName, out BaseItem item))
+        else if (content is BaseItem item)
         {
+            if (!item.Usable) return;
             if (item.ItemUseContent.Cost > Managers.GameMgr.Me.Stat.Ap || item.CurrentStack <= 0) { DisableSkill(); }
             else EnableSkill();
             _image.sprite = Managers.ResourceMgr.GetItemSprite(item.ItemName);
             _ItemCount.gameObject.SetActive(true);
             _ItemCount.UpdateCount(item.CurrentStack);
+            _content = item;
         }
         else { throw new System.Exception(); }
-        Managers.UI_Mgr.DownPanel.UpdateSkill(_isLeft, transform.parent.GetSiblingIndex(), _contentName);
+        if (Managers.UI_Mgr._Popup_PlayerInfo.gameObject.activeInHierarchy) DisableSkill();
+        Managers.UI_Mgr.DownPanel.UpdateDownPanelContentSet(_isLeft, transform.parent.GetSiblingIndex(), _content);
     }
-    public void DeleteContent()
+    public override void DeleteContent()
     {
         _image.sprite = null;
         DisableSkill();
     }
-    public bool IsEmpty()
+    public override bool IsEmpty()
     {
-        return _contentName == null;
+        return _content is null;
     }
 
 }

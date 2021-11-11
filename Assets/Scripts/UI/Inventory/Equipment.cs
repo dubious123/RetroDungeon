@@ -16,7 +16,7 @@ public class Equipment : MonoBehaviour
     }
     void Wear(BaseItem item, Slot slot)
     {
-        slot.PutContent(item);
+        slot.UpdateContent(item);
     }
     public void WearHelmet(BaseItem item)
     {

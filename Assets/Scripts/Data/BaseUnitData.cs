@@ -104,7 +104,7 @@ public class BaseUnitData : MonoBehaviour
             _itemDict.Add(item.ItemName, item);          
             if(this is PlayerData) 
             {
-                if(item.Usable) Managers.UI_Mgr.DownPanel.PutSkill(item.ItemName);
+                if(item.Usable) Managers.UI_Mgr.DownPanel.PutSkill(item);
                 Managers.UI_Mgr._Popup_PlayerInfo.Inventory.AddItem(item);
             }
         }

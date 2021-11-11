@@ -23,7 +23,7 @@ public class InventoryController : MonoBehaviour
         {
             _BackPack.AddNewRow();
         }
-        _BackPack.GetFirstEmptySlot().PutContent(item);
+        _BackPack.GetFirstEmptySlot().UpdateContent(item);
     }
 
     internal void EquipItem(BaseItem item)
