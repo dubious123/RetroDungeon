@@ -1,7 +1,7 @@
 {
   "ItemName": "Portion_Mana_small",
   "Usable": true,
-  "Wearble": false,
+  "Wearable": false,
   "MaxStack": 99,
   "SkillName": "Mp_small",
   "EquipmentStat": {

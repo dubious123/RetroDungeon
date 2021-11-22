@@ -1,7 +1,7 @@
 {
   "ItemName": "Scroll_FireBall",
   "Usable": true,
-  "Wearble": false,
+  "Wearable": false,
   "MaxStack": 99,
   "SkillName": "FireBall",
   "EquipmentStat": {

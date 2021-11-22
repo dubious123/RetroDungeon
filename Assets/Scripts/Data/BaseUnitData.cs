@@ -34,7 +34,7 @@ public class BaseUnitData : MonoBehaviour
             _currentCellCoor = value;
         }
     }
-    public Define.CharDir LookDir { get; set; }
+    public CharDir LookDir { get; set; }
 
     public Color TileColor { get { UpdateColor(); return _tileColor; } }
 
@@ -56,7 +56,7 @@ public class BaseUnitData : MonoBehaviour
         _equipmentDict.Add(EquipmentType.Helmet, null);
         _equipmentDict.Add(EquipmentType.Weapon, null);
         _equipmentDict.Add(EquipmentType.Armor, null);
-        _equipmentDict.Add(EquipmentType.Boot, null);
+        _equipmentDict.Add(EquipmentType.Boots, null);
         AllienceList = new List<string>();
         EnemyList = new List<string>();
         LookDir = (Define.CharDir)Random.Range(0, 4);
@@ -126,8 +126,8 @@ public class BaseUnitData : MonoBehaviour
                 case EquipmentType.Weapon:
                     _equipmentDict[EquipmentType.Weapon] = item;
                     return;
-                case EquipmentType.Boot:
-                    _equipmentDict[EquipmentType.Boot] = item;
+                case EquipmentType.Boots:
+                    _equipmentDict[EquipmentType.Boots] = item;
                     return;
             }
         }

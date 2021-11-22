@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &695507933 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+  m_PrefabInstance: {fileID: 8058206327272914523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54078e3b85568b240901416dc375fef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &852310742 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7678143792155605223, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
@@ -1735,6 +1746,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1395752898526444927, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipments
+      value: 
+      objectReference: {fileID: 695507933}
     - target: {fileID: 1423991298240605428, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1783,6 +1798,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2793146282978923422, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipments
+      value: 
+      objectReference: {fileID: 695507933}
     - target: {fileID: 2851671948956914158, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1807,6 +1826,42 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -1075.4249
       objectReference: {fileID: 0}
+    - target: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipment_Full_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipment_Full_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipment_Full_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipment_Full_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipment_Empty_Color.a
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipment_Empty_Color.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipment_Empty_Color.g
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313717591577364499, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipment_Empty_Color.r
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 3440640257563546939, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipments
+      value: 
+      objectReference: {fileID: 695507933}
     - target: {fileID: 4023455713762715177, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1975,6 +2030,10 @@ PrefabInstance:
       propertyPath: m_MovementType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7699181744262614887, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+      propertyPath: _Equipments
+      value: 
+      objectReference: {fileID: 695507933}
     - target: {fileID: 7944097946727653866, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
       propertyPath: _ScrollRect
       value: 

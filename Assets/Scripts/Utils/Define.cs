@@ -207,7 +207,7 @@ public class Define
         Armor,
         Weapon,
         Ring,
-        Boot
+        Boots
     }
 
 }

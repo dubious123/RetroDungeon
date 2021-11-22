@@ -107,6 +107,7 @@ public class Slot_Item : Slot, Imouse
     }
     public void OnMouseHover(InputAction.CallbackContext context)
     {
+
     }
 
     public void DropDown()

@@ -42,8 +42,8 @@ public class InventoryController : MonoBehaviour
                 _player.EquipmentDict[EquipmentType.Weapon] = item;
                 _Equipment.WearWeapon(item);
                 break;
-            case EquipmentType.Boot:
-                _player.EquipmentDict[EquipmentType.Boot] = item;
+            case EquipmentType.Boots:
+                _player.EquipmentDict[EquipmentType.Boots] = item;
                 _Equipment.WearBoot(item);
                 break;
         }

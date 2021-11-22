@@ -1,6 +1,6 @@
 {
   "Usable": false,
-  "Wearble": true,
+  "Wearable": true,
   "MaxStack": 1,
   "SkillName": "",
   "EquipmentStat": {
@@ -23,5 +23,5 @@
     "ShockDamage_Percentage": 5
   },
   "ItemName": "LeatherBoot",
-  "new string": "Boot"
+  "Equipment_Type": "Boots"
 }

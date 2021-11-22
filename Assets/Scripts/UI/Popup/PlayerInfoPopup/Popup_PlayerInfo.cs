@@ -20,6 +20,7 @@ public class Popup_PlayerInfo : MonoBehaviour
     }
     private void OnDisable()
     {
+        if (!gameObject.scene.isLoaded) return;
         _keyPressedEvent.RemoveAllListeners();
         if(Managers.UI_Mgr == null || Managers.UI_Mgr.DownPanel == null) { return; }
         _keyPressedEvent.AddListener(() => Managers.UI_Mgr.ShowPopup_PlayerInfo());

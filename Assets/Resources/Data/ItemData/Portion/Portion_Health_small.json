@@ -1,7 +1,7 @@
 {
   "ItemName": "Portion_Health_small",
   "Usable": true,
-  "Wearble": false,
+  "Wearable": false,
   "MaxStack": 99,
   "SkillName": "Hp_small",
   "EquipmentStat": {

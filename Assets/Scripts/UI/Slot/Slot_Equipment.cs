@@ -8,13 +8,16 @@ public class Slot_Equipment : Slot, Imouse
 {
     BaseItem _equipment;
     [SerializeField] Image _EquipmentImage;
+    [SerializeField] Equipment _Equipments;
+    [SerializeField] Define.EquipmentType _Type;
     public override void UpdateContent(ISlot_Content content)
     {
-        if (content is null) return;
-        if (!(content is BaseItem temp)) return;
-        if (temp.Wearable) _equipment = temp;
+        _EquipmentImage.color = _Equipments._Equipment_Empty_Color;
+        if (content is null || !(content is BaseItem temp) || !temp.Wearable || temp.Equipment_Type != _Type) return;
+        _equipment = temp;
         Managers.GameMgr.Player_Data.ApplyEquipmentStat(_equipment);
         _EquipmentImage.sprite = Managers.ResourceMgr.GetItemSprite(_equipment);
+        _EquipmentImage.color = _Equipments._Equipment_Full_Color;
     }
     public override void DeleteContent()
     {
@@ -32,11 +35,11 @@ public class Slot_Equipment : Slot, Imouse
     public void GetDrop(GameObject obj)
     {
         Slot slot = obj.GetComponent<Slot>();
-        ISlot_Content other = slot.GetContent();
+        ISlot_Content other = slot?.GetContent();
         if (other == null) return;
         if (other is BaseItem temp && temp.Wearable)
         {         
-            slot.UpdateContent(temp);
+            UpdateContent(temp);
         }
     }
 

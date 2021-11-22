@@ -9,6 +9,8 @@ public class Equipment : MonoBehaviour
     public Slot Weapon;
     public Slot Boot;
     PlayerData _playerData;
+    public Color _Equipment_Empty_Color;
+    public Color _Equipment_Full_Color;
     public void Init()
     {
         _playerData = Managers.GameMgr.Player_Data;
