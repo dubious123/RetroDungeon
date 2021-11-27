@@ -10,6 +10,7 @@ public class PopupController : MonoBehaviour
     public GameObject _GetSkill;
     public GameObject _PlayerDeath;
     public GameObject _PlayerInfo;
+    public GameObject _SlotContentInfo;
     public void Init_GamePopups()
     {
         Managers.InputMgr.GameController.PlayerInfoEvent.AddListener(() => Managers.UI_Mgr.ShowPopup_PlayerInfo());

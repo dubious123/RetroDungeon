@@ -92,4 +92,9 @@ public class DungeonInputHandler : MonoBehaviour, Imouse
     }
     public void DropDown() { }
     public void GetDrop(GameObject ogj) { }
+
+    public void OnMouseRightClick(InputAction.CallbackContext context)
+    {
+        throw new System.NotImplementedException();
+    }
 }

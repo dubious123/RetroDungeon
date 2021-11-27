@@ -10,6 +10,7 @@ public class Slot_Equipment : Slot, Imouse
     [SerializeField] Image _EquipmentImage;
     [SerializeField] Equipment _Equipments;
     [SerializeField] Define.EquipmentType _Type;
+    GameObject _rightClickPopup;
     public override void UpdateContent(ISlot_Content content)
     {
         _EquipmentImage.color = _Equipments._Equipment_Empty_Color;
@@ -72,5 +73,11 @@ public class Slot_Equipment : Slot, Imouse
     {
     }
 
-
+    public void OnMouseRightClick(InputAction.CallbackContext context)
+    {
+        if (IsEmpty() || _rightClickPopup != null) return;
+        _rightClickPopup = Managers.UI_Mgr.ShowPopup_SlotInfo();
+        _rightClickPopup.GetComponent<Popup_SlotContentInfo>().Init(_equipment);
+        Managers.InputMgr.GameController.RightClickEvent.AddListener(()=>Managers.ResourceMgr.Destroy(_rightClickPopup));
+    }
 }

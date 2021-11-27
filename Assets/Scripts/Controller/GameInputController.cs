@@ -23,6 +23,7 @@ public class GameInputController : MonoBehaviour
     PointerEventData _pointerEventData;
     List<RaycastResult> _results;
     Imouse _hoverTarget;
+    Imouse _clickTarget;
     UnityEvent _rightClickEvent;
     UnityEvent _interactionEvent;
     UnityEvent _playerInfoEvent = new UnityEvent();
@@ -31,7 +32,7 @@ public class GameInputController : MonoBehaviour
     public UnityEvent InteractionEvent { get { return _interactionEvent; } }
     public UnityEvent PlayerInfoEvent { get { return _playerInfoEvent; } }
     #endregion
-    Imouse _clickTarget;
+    
     public void Init(GameObject player)
     {
         _rightClickEvent = new UnityEvent();
@@ -122,11 +123,12 @@ public class GameInputController : MonoBehaviour
     private void OnRightClickStarted(InputAction.CallbackContext context)
     {
         _rightClickEvent.Invoke();
-
+ 
     }
     private void OnRightClickCanceled(InputAction.CallbackContext context)
     {
         _rightClickEvent.RemoveAllListeners();
+        _hoverTarget?.OnMouseRightClick(context);
     }
     private void OnMouseMove(InputAction.CallbackContext context)
     {

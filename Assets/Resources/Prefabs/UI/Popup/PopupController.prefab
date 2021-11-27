@@ -48,4 +48,5 @@ MonoBehaviour:
   _TileInfo_SkillBox: {fileID: 5144634027646312823, guid: 42932d1dac0a32c4780fbbf1ffdccece, type: 3}
   _GetSkill: {fileID: 3506264739489473800, guid: 69b36d53e2aca9649ae52a452491718f, type: 3}
   _PlayerDeath: {fileID: 7956592540714955096, guid: bb4e3da449f3a2d42b5889fe22959d2f, type: 3}
-  _PlayerInfo: {fileID: 7969474607893378285, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+  _PlayerInfo: {fileID: 93798354020312576, guid: a5197efa45bd7c643b6a39749d034df2, type: 3}
+  _SlotContentInfo: {fileID: 2803955615397109443, guid: e525bc1a147b8a646ad65ede572f4966, type: 3}

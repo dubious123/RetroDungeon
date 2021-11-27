@@ -138,4 +138,10 @@ public class Slot_Item : Slot, Imouse
         _HolderImage.raycastTarget = true;
         _Image.raycastTarget = true;
     }
+
+    public void OnMouseRightClick(InputAction.CallbackContext context)
+    {
+        if (IsEmpty()) return;
+
+    }
 }

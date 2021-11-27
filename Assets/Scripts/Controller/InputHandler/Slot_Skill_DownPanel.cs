@@ -151,4 +151,8 @@ public class Slot_Skill_DownPanel : Slot, Imouse
         return _content is null;
     }
 
+    public void OnMouseRightClick(InputAction.CallbackContext context)
+    {
+        if (IsEmpty()) return;
+    }
 }

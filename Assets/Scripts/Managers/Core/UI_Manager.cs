@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 
 public class UI_Manager
 {
+    Transform _popupParent;
     PopupController _popupController;
     Game_DownPanel _downPanel;
     GameObject _popup_PlayerInfo;
@@ -57,7 +58,8 @@ public class UI_Manager
         _overlayArr[2] = _unitOverlay;
         _overlayArr[3] = _skillOverlay;
         _saving = new Color[_overlayArr.Length];
-        _popup_PlayerInfo = GameObject.FindWithTag("UI_Popups_Parent").transform.Find("Popup_PlayerInfo").gameObject;
+        _popupParent = GameObject.FindWithTag("UI_Popups_Parent").transform;
+        _popup_PlayerInfo = _popupParent.Find("Popup_PlayerInfo").gameObject;
     }
     public void ResetFloorOverlay()
     {
@@ -191,23 +193,27 @@ public class UI_Manager
 
     public void ShowPopup_TileInfo(Vector3Int pos,GameObject unit = null)
     {
-        Managers.ResourceMgr.Instantiate(Popup_Controller._TileInfo).GetComponentInChildren<TilePopup_Content>(true).Init(pos, unit);
+        Managers.ResourceMgr.Instantiate(Popup_Controller._TileInfo, _popupParent).GetComponentInChildren<TilePopup_Content>(true).Init(pos, unit);
     }
     public GameObject ShowGetSkillPopup()
     {
-        return Managers.ResourceMgr.Instantiate(Popup_Controller._GetSkill);
+        return Managers.ResourceMgr.Instantiate(Popup_Controller._GetSkill, _popupParent);
     }
     public GameObject ShowPopup_UnitStatus()
     {
-        return Managers.ResourceMgr.Instantiate(Popup_Controller._UnitStatusBar, GameObject.FindWithTag("UI_Game_MainCanvas").transform);
+        return Managers.ResourceMgr.Instantiate(Popup_Controller._UnitStatusBar, _popupParent);
     }
     public GameObject ShowPopup_PlayerDeath()
     {
-        return Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerDeath);
+        return Managers.ResourceMgr.Instantiate(Popup_Controller._PlayerDeath, _popupParent);
     }
     public void ShowPopup_PlayerInfo()
     {
         _popup_PlayerInfo.SetActive(true);
+    }
+    public GameObject ShowPopup_SlotInfo()
+    {
+        return Managers.ResourceMgr.Instantiate(Popup_Controller._SlotContentInfo,_popupParent);
     }
     public void Clear()
     {

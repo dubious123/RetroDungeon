@@ -5,18 +5,15 @@ using UnityEngine.UI;
 
 public class UI_Size : MonoBehaviour
 {
+    [SerializeField] Button _Btn;
     [SerializeField] float _Expand_V_From;
     [SerializeField] float _Expand_V_To;
     [SerializeField] float _Expand_V_Speed;
-    [SerializeField] Button _Btn;
+
     float _expand_v_delta;
     float _expand_v_ratio;
-    RectTransform _rect;
+    [SerializeField] RectTransform _rect;
     [SerializeField] GUI _GUI;
-    public void Start()
-    {
-        _rect = GetComponent<RectTransform>();
-    }
     public void ExpandVertical()
     {
         _expand_v_delta = 0;
@@ -25,12 +22,12 @@ public class UI_Size : MonoBehaviour
     }
     private void _ExpandVertical()
     {
-       
+
         _expand_v_delta += Time.deltaTime;
         _expand_v_ratio = _expand_v_delta * _Expand_V_Speed;
-        if(_expand_v_ratio < 1) { _rect.anchorMin = new Vector2(0, Mathf.Lerp(_Expand_V_From, _Expand_V_To, _expand_v_ratio)); }
-        else 
-        { 
+        if (_expand_v_ratio < 1) { _rect.anchorMin = new Vector2(0, Mathf.Lerp(_Expand_V_From, _Expand_V_To, _expand_v_ratio)); }
+        else
+        {
             _rect.anchorMin = new Vector2(0, _Expand_V_To);
             _GUI.GUIEvent.RemoveAllListeners();
             _GUI.enabled = false;
@@ -43,7 +40,7 @@ public class UI_Size : MonoBehaviour
         _expand_v_delta = 0;
         _GUI.enabled = true;
         _GUI.GUIEvent.AddListener(_ContractVertical);
-    }   
+    }
     private void _ContractVertical()
     {
         _expand_v_delta += Time.deltaTime;

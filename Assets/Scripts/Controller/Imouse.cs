@@ -10,4 +10,5 @@ public interface Imouse
     public void OnMouseHover(InputAction.CallbackContext context);
     public void DropDown();
     public void GetDrop(UnityEngine.GameObject obj);
+    public void OnMouseRightClick(InputAction.CallbackContext context);
 }
